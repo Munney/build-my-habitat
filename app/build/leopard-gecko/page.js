@@ -1,0 +1,455 @@
+"use client";
+
+import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+import {
+  ChevronLeft,
+  CheckCircle2,
+  AlertTriangle,
+  XCircle,
+  ShoppingCart,
+  ArrowRight,
+  Target,
+  Thermometer,
+  Box,
+  Layers,
+  Home as HomeIcon,
+  Zap,
+  ShieldCheck,
+  Unlock
+} from "lucide-react";
+import config from "../../../data/leopard-gecko.json";
+
+// Data Imports
+const ENCLOSURES = config.enclosures || [];
+const HEATING = config.heating || [];
+const SUBSTRATES = config.substrates || [];
+const HIDES = config.hides || [];
+const SUPPLEMENTS = config.supplements || [];
+
+function toggle(list, id) {
+  return list.includes(id) ? list.filter((x) => x !== id) : [...list, id];
+}
+
+export default function LeopardGeckoBuilder() {
+  const router = useRouter();
+
+  // --- STATE ---
+  const [experience, setExperience] = useState(null); 
+  const [enclosureId, setEnclosureId] = useState(null);
+  const [substrateId, setSubstrateId] = useState(null);
+
+  const [heatingIds, setHeatingIds] = useState([]);
+  const [hideIds, setHideIds] = useState([]);
+  const [supplementIds, setSupplementIds] = useState([]);
+
+  // --- FILTERING LOGIC ---
+  const filteredSubstrates = useMemo(() => {
+    if (experience === "beginner") {
+        return SUBSTRATES.filter(s => {
+            if (s.type === "loose") return false;
+            const name = s.label.toLowerCase();
+            const isLooseName = name.includes("soil") || name.includes("sand") || name.includes("dirt") || name.includes("excavator") || name.includes("bioactive");
+            return !isLooseName;
+        });
+    }
+    return SUBSTRATES;
+  }, [experience]);
+
+  // --- SELECTION LOGIC ---
+  const selectedEnclosure = ENCLOSURES.find((e) => e.id === enclosureId);
+  const selectedSubstrate = SUBSTRATES.find((s) => s.id === substrateId);
+
+  const pickMany = (items, ids) => items.filter((i) => ids.includes(i.id));
+  const selectedHeating = pickMany(HEATING, heatingIds);
+  const selectedHides = pickMany(HIDES, hideIds);
+  const selectedSupplements = pickMany(SUPPLEMENTS, supplementIds);
+
+  const allSelectedItems = useMemo(() => {
+    return [
+      selectedEnclosure,
+      selectedSubstrate,
+      ...selectedHeating,
+      ...selectedHides,
+      ...selectedSupplements,
+    ].filter(Boolean);
+  }, [selectedEnclosure, selectedSubstrate, selectedHeating, selectedHides, selectedSupplements]);
+
+  // Total Price Calculation
+  const totalPrice = allSelectedItems.reduce((sum, item) => sum + (item.price || 0), 0);
+
+  // --- PROGRESS CALCULATION ---
+  const progress = useMemo(() => {
+    let score = 0;
+    const totalSteps = 5; 
+    
+    if (enclosureId) score++;
+    if (heatingIds.length > 0) score++;
+    if (substrateId) score++;
+    if (hideIds.length > 0) score++;
+    if (supplementIds.length > 0) score++;
+
+    return Math.round((score / totalSteps) * 100);
+  }, [enclosureId, heatingIds, substrateId, hideIds, supplementIds]);
+
+  // --- COMPATIBILITY CHECKS ---
+  const checks = useMemo(() => {
+    const messages = [];
+
+    if (selectedEnclosure) {
+      if (selectedEnclosure.id === "10g") {
+        messages.push({ level: "error", text: "10-gallon is too small for an adult." });
+      } else if (selectedEnclosure.id === "20g") {
+        messages.push({ level: "ok", text: "20-gallon long is a solid minimum." });
+      } else if (selectedEnclosure.id === "pvc4x2") {
+        messages.push({ level: "ok", text: "4x2x2 is the gold standard size." });
+      }
+    } else {
+        messages.push({ level: "warning", text: "Select an enclosure size." });
+    }
+
+    if (heatingIds.length === 0) {
+       messages.push({ level: "warning", text: "Select a heating source." });
+    } else {
+       if (!heatingIds.includes("heatmat") && !heatingIds.includes("dhp") && !heatingIds.includes("halogen")) {
+        messages.push({ level: "error", text: "You need a primary heat source." });
+       }
+       if (!heatingIds.includes("thermostat")) {
+        messages.push({ level: "error", text: "Thermostat required to prevent burns." });
+       }
+    }
+
+    if (hideIds.length === 0) {
+       messages.push({ level: "warning", text: "Select hides for security." });
+    } else if (hideIds.length < 3) {
+       messages.push({ level: "warning", text: "3 hides (Hot, Cool, Moist) are recommended." });
+    }
+
+    return messages;
+  }, [selectedEnclosure, heatingIds, hideIds]);
+
+  function goToSummary() {
+    if (allSelectedItems.length === 0) return;
+
+    const params = new URLSearchParams({
+      exp: experience || "beginner",
+      enclosure: enclosureId || "",
+      substrate: substrateId || "",
+      heating: heatingIds.join(","),
+      hides: hideIds.join(","),
+      supplements: supplementIds.join(","),
+    });
+    router.push(`/summary/leopard-gecko?${params.toString()}`);
+  }
+
+  return (
+    <main className="relative min-h-screen pt-28 pb-20 px-6">
+      <div className="relative z-10 max-w-7xl mx-auto">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+            <div>
+                <button
+                    onClick={() => router.push("/")}
+                    className="flex items-center gap-2 text-slate-400 hover:text-emerald-400 transition-colors mb-4 text-sm font-bold uppercase tracking-wider"
+                >
+                    <ChevronLeft size={16} /> Back to Hub
+                </button>
+                <h1 className="text-4xl md:text-5xl font-black tracking-tight text-white drop-shadow-lg">
+                    Leopard Gecko <span className="text-emerald-500">Configurator</span>
+                </h1>
+                <p className="text-slate-300 mt-2 max-w-2xl text-lg font-medium">
+                    Design a precision habitat. We'll track compatibility as you build.
+                </p>
+            </div>
+
+            <div className="flex items-center gap-4 bg-slate-900/60 backdrop-blur-md p-4 rounded-2xl border border-white/10 shadow-xl">
+                <div className="text-right">
+                    <p className="text-[10px] uppercase font-bold text-slate-400 tracking-widest">Build Status</p>
+                    <p className="text-xl font-black text-white">{progress}% Ready</p>
+                </div>
+                <div className="relative w-12 h-12 flex items-center justify-center rounded-full border-4 border-slate-700">
+                    <div 
+                        className="absolute inset-0 rounded-full border-4 border-emerald-500 transition-all duration-700 ease-out"
+                        style={{ clipPath: `inset(${100 - progress}% 0 0 0)` }}
+                    />
+                    <Target size={20} className={`transition-colors duration-500 ${progress === 100 ? "text-emerald-400" : "text-slate-500"}`} />
+                </div>
+            </div>
+        </div>
+
+        <div className="grid gap-8 lg:grid-cols-[1fr,360px] xl:grid-cols-[1fr,400px]">
+          <div className="space-y-10">
+            <Section title="1. Keeper Level" icon={<Target className={experience ? "text-emerald-400" : "text-slate-400"} />}>
+              <div className="grid grid-cols-2 gap-4">
+                <button
+                    onClick={() => setExperience("beginner")}
+                    className={`relative overflow-hidden p-5 rounded-2xl border transition-all duration-300 group text-left ${
+                      experience === "beginner"
+                        ? "border-emerald-500 bg-emerald-500/10 shadow-[0_0_20px_-5px_rgba(16,185,129,0.3)]"
+                        : "border-slate-700/50 bg-slate-900/40 hover:border-emerald-500/50 hover:bg-slate-800/60"
+                    }`}
+                  >
+                    <p className="font-bold text-lg text-white capitalize flex justify-between items-center gap-2">
+                        Beginner
+                        {experience === "beginner" ? <CheckCircle2 size={20} className="text-emerald-400" /> : <ShieldCheck size={20} className="text-slate-500"/>}
+                    </p>
+                    <p className="text-xs font-medium text-slate-400 mt-2 uppercase tracking-wider leading-relaxed">
+                      Restricts unsafe items. Hides loose substrate to prevent impaction risk.
+                    </p>
+                </button>
+                <button
+                    onClick={() => setExperience("experienced")}
+                    className={`relative overflow-hidden p-5 rounded-2xl border transition-all duration-300 group text-left ${
+                      experience === "experienced"
+                        ? "border-emerald-500 bg-emerald-500/10 shadow-[0_0_20px_-5px_rgba(16,185,129,0.3)]"
+                        : "border-slate-700/50 bg-slate-900/40 hover:border-emerald-500/50 hover:bg-slate-800/60"
+                    }`}
+                  >
+                    <p className="font-bold text-lg text-white capitalize flex justify-between items-center gap-2">
+                        Experienced
+                        {experience === "experienced" ? <CheckCircle2 size={20} className="text-emerald-400" /> : <Unlock size={20} className="text-slate-500"/>}
+                    </p>
+                    <p className="text-xs font-medium text-slate-400 mt-2 uppercase tracking-wider leading-relaxed">
+                      Unlocks full database. Includes advanced loose substrates.
+                    </p>
+                </button>
+              </div>
+            </Section>
+
+            <Section title="2. Enclosure Size" icon={<Box className={enclosureId ? "text-emerald-400" : "text-slate-400"} />}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {ENCLOSURES.map((e) => (
+                  <SelectionCard
+                    key={e.id}
+                    active={enclosureId === e.id}
+                    label={e.label}
+                    price={e.price}
+                    sublabel={typeof e.size === "number" ? `${e.size} Gallon Equivalent` : "Custom Size"}
+                    onClick={() => setEnclosureId(e.id)}
+                    type="radio"
+                  />
+                ))}
+              </div>
+            </Section>
+
+            <Section title="3. Heating & Control" icon={<Thermometer className={heatingIds.length ? "text-emerald-400" : "text-slate-400"} />}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {HEATING.map((h) => (
+                  <SelectionCard
+                    key={h.id}
+                    active={heatingIds.includes(h.id)}
+                    label={h.label}
+                    price={h.price}
+                    onClick={() => setHeatingIds((ids) => toggle(ids, h.id))}
+                    type="checkbox"
+                  />
+                ))}
+              </div>
+            </Section>
+
+            <Section title="4. Floor & Substrate" icon={<Layers className={substrateId ? "text-emerald-400" : "text-slate-400"} />}>
+              {!experience && (
+                  <div className="mb-4 p-3 bg-amber-500/10 border border-amber-500/20 text-amber-200 text-xs rounded-xl flex items-center gap-2">
+                      <AlertTriangle size={16} /> Please select an Experience Level above to see safe recommendations.
+                  </div>
+              )}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {filteredSubstrates.map((s) => (
+                  <SelectionCard
+                    key={s.id}
+                    active={substrateId === s.id}
+                    label={s.label}
+                    price={s.price}
+                    sublabel={s.type === "solid" ? "Easy to Clean" : "Naturalistic Look"}
+                    onClick={() => setSubstrateId(s.id)}
+                    type="radio"
+                  />
+                ))}
+              </div>
+            </Section>
+
+            <Section title="5. Hides & Decor" icon={<HomeIcon className={hideIds.length ? "text-emerald-400" : "text-slate-400"} />}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {HIDES.map((h) => (
+                  <SelectionCard
+                    key={h.id}
+                    active={hideIds.includes(h.id)}
+                    label={h.label}
+                    price={h.price}
+                    onClick={() => setHideIds((ids) => toggle(ids, h.id))}
+                    type="checkbox"
+                  />
+                ))}
+              </div>
+            </Section>
+
+            <Section title="6. Vitamin Support" icon={<Zap className={supplementIds.length ? "text-emerald-400" : "text-slate-400"} />}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {SUPPLEMENTS.map((s) => (
+                  <SelectionCard
+                    key={s.id}
+                    active={supplementIds.includes(s.id)}
+                    label={s.label}
+                    price={s.price}
+                    onClick={() => setSupplementIds((ids) => toggle(ids, s.id))}
+                    type="checkbox"
+                  />
+                ))}
+              </div>
+            </Section>
+          </div>
+
+          <aside className="lg:sticky lg:top-28 h-fit space-y-6">
+            <div className="bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
+              <div className="p-5 border-b border-white/10 bg-white/5 flex justify-between items-center">
+                <h3 className="font-bold flex items-center gap-2 text-white">
+                  <ShoppingCart size={18} className="text-emerald-400" /> Inventory
+                </h3>
+                <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded border border-emerald-500/20">
+                    {allSelectedItems.length} ITEMS
+                </span>
+              </div>
+
+              <div className="p-5">
+                <div className="space-y-3 mb-6 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+                  {allSelectedItems.length === 0 ? (
+                    <div className="text-center py-8 opacity-50">
+                        <div className="mx-auto w-10 h-10 border-2 border-dashed border-slate-500 rounded-lg mb-2 flex items-center justify-center">
+                            <ShoppingCart size={16} className="text-slate-500" />
+                        </div>
+                        <p className="text-sm text-slate-400">Select items to build</p>
+                    </div>
+                  ) : (
+                    allSelectedItems.map((item) => (
+                        <div key={item.id} className="flex justify-between text-sm group">
+                            <span className="text-slate-300 group-hover:text-white transition-colors">
+                                {item.label}
+                            </span>
+                            <span className="font-mono text-emerald-400 opacity-80 group-hover:opacity-100">
+                                {/* 👇 FIXED: Individual Item Price */}
+                                ${(item.price || 0).toFixed(2)}
+                            </span>
+                        </div>
+                    ))
+                  )}
+                </div>
+
+                <div className="border-t border-white/10 pt-4 mb-6">
+                  <div className="flex justify-between items-end">
+                    <span className="text-slate-400 text-sm font-bold uppercase tracking-wider">Estimate</span>
+                    {/* 👇 FIXED: Total Price Calculation */}
+                    <span className="text-3xl font-black text-white tracking-tight">${totalPrice.toFixed(2)}</span>
+                  </div>
+                </div>
+
+                <button
+                  onClick={goToSummary}
+                  disabled={allSelectedItems.length === 0}
+                  className={`w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all ${
+                    allSelectedItems.length === 0 
+                        ? "bg-slate-800 text-slate-500 cursor-not-allowed" 
+                        : "bg-emerald-600 hover:bg-emerald-500 text-white hover:scale-[1.02] hover:shadow-lg hover:shadow-emerald-900/40 active:scale-95"
+                  }`}
+                >
+                  Generate List <ArrowRight size={18} />
+                </button>
+              </div>
+            </div>
+
+            <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-3xl p-6">
+              <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4 flex items-center gap-2">
+                 <AlertTriangle size={14} /> System Checks
+              </h3>
+
+              <div className="space-y-3">
+                {allSelectedItems.length === 0 ? (
+                      <p className="text-slate-500 text-xs italic">Waiting for input...</p>
+                ) : checks.length === 0 ? (
+                    <div className="p-3 rounded-xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-200 text-xs flex gap-2">
+                        <CheckCircle2 size={16} /> All systems nominal.
+                    </div>
+                ) : (
+                    checks.map((c, i) => (
+                    <div
+                        key={i}
+                        className={`flex gap-3 p-3 rounded-xl border text-xs font-medium leading-relaxed ${
+                        c.level === "error"
+                            ? "bg-red-500/10 border-red-500/20 text-red-200"
+                            : c.level === "warning"
+                            ? "bg-amber-500/10 border-amber-500/20 text-amber-200"
+                            : "bg-emerald-500/10 border-emerald-500/20 text-emerald-200"
+                        }`}
+                    >
+                        <div className="shrink-0 mt-0.5">
+                            {c.level === "error" && <XCircle size={14} />}
+                            {c.level === "warning" && <AlertTriangle size={14} />}
+                            {c.level === "ok" && <CheckCircle2 size={14} />}
+                        </div>
+                        {c.text}
+                    </div>
+                    ))
+                )}
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </main>
+  );
+}
+
+/* ---------- UI COMPONENTS ---------- */
+
+function Section({ title, icon, children }) {
+    return (
+        <section className="bg-slate-900/60 backdrop-blur-md p-6 rounded-3xl border border-white/5 shadow-lg">
+            <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
+                <div className="p-2 bg-emerald-500/10 rounded-lg border border-emerald-500/20">
+                    {icon}
+                </div>
+                {title}
+            </h2>
+            {children}
+        </section>
+    );
+}
+
+function SelectionCard({ active, label, sublabel, price, onClick, type }) {
+  return (
+    <div
+      onClick={onClick}
+      className={`group relative p-5 rounded-2xl border cursor-pointer transition-all duration-300 ${
+        active
+          ? "border-emerald-500 bg-emerald-500/10 shadow-[0_0_30px_-10px_rgba(16,185,129,0.3)] scale-[1.02]"
+          : "border-slate-700/50 bg-slate-900/40 hover:border-slate-600 hover:bg-slate-800/60"
+      }`}
+    >
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex items-start gap-3">
+          <div
+            className={`mt-1 w-5 h-5 rounded-full flex items-center justify-center border transition-all ${
+              active 
+                ? "bg-emerald-500 border-emerald-500 shadow-sm shadow-emerald-500/50" 
+                : "bg-slate-800/50 border-slate-600 group-hover:border-slate-500"
+            }`}
+          >
+            {active && <CheckCircle2 size={14} className="text-slate-950" />}
+          </div>
+
+          <div>
+            <div className={`font-bold text-base transition-colors ${active ? "text-white" : "text-slate-300 group-hover:text-white"}`}>
+              {label}
+            </div>
+            {sublabel && (
+              <div className="text-xs text-slate-500 mt-1 font-medium uppercase tracking-wide">{sublabel}</div>
+            )}
+          </div>
+        </div>
+
+        <span className={`font-mono text-sm font-bold ${active ? "text-emerald-400" : "text-slate-500"}`}>
+          {/* 👇 FIXED: Card Price display */}
+          ${(price || 0).toFixed(2)}
+        </span>
+      </div>
+    </div>
+  );
+}

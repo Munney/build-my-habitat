@@ -1,0 +1,36 @@
+{
+  "enclosures": [
+    { "id": "bowl", "label": "Glass Bowl (1 Gallon)", "price": 14.99, "size": 1, "type": "unsafe" },
+    { "id": "5g", "label": "5 Gallon Portrait", "price": 59.99, "size": 5, "type": "safe" },
+    { "id": "10g", "label": "10 Gallon Standard", "price": 29.99, "size": 10, "type": "safe" },
+    { "id": "20g", "label": "20 Gallon Long", "price": 49.99, "size": 20, "type": "safe" }
+  ],
+  "filtration": [
+    { "id": "sponge", "label": "Sponge Filter + Air Pump", "price": 19.99, "flow": "low" },
+    { "id": "hob", "label": "Hang-On-Back (HOB) Filter", "price": 24.99, "flow": "medium" },
+    { "id": "internal", "label": "Internal Power Filter", "price": 15.99, "flow": "high" }
+  ],
+  "heating": [
+    { "id": "50w", "label": "50W Adjustable Heater", "price": 19.99 },
+    { "id": "100w", "label": "100W Adjustable Heater", "price": 24.99 },
+    { "id": "thermometer", "label": "Glass Thermometer", "price": 4.99 }
+  ],
+  "substrates": [
+    { "id": "bare", "label": "Bare Bottom (None)", "price": 0, "type": "inert" },
+    { "id": "gravel", "label": "Natural Gravel", "price": 5.99, "type": "inert" },
+    { "id": "sand", "label": "Aquarium Sand", "price": 9.99, "type": "inert" },
+    { "id": "aquasoil", "label": "Active Plant Soil", "price": 24.99, "type": "active" }
+  ],
+  "decor": [
+    { "id": "plastic", "label": "Plastic Plants", "price": 4.99, "type": "risk" },
+    { "id": "silk", "label": "Silk Plants", "price": 8.99, "type": "safe" },
+    { "id": "live_easy", "label": "Live Plants (Anubias/Java Fern)", "price": 12.99, "type": "live" },
+    { "id": "betta_log", "label": "Floating Betta Log", "price": 14.99, "type": "enrichment" },
+    { "id": "driftwood", "label": "Natural Driftwood", "price": 11.99, "type": "enrichment" }
+  ],
+  "watercare": [
+    { "id": "conditioner", "label": "Water Conditioner (Dechlorinator)", "price": 8.99 },
+    { "id": "bacteria", "label": "Beneficial Bacteria Starter", "price": 11.99 },
+    { "id": "testkit", "label": "Master Test Kit", "price": 34.99 }
+  ]
+}
