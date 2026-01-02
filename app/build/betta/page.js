@@ -57,8 +57,9 @@ function groupVariants(products) {
       if (pattern3.test(label)) {
         // Driftwood pattern: "Natural Driftwood 3 pcs (6-10) Large"
         baseName = match[1].trim();
-        color = `${match[2]} pcs (${match[3]})`;
-        size = match[4].trim();
+        // For driftwood, the full variant description is the size
+        size = `${match[2]} pcs (${match[3]}) ${match[4]}`;
+        color = null; // No color for driftwood
       } else if (pattern1.test(label) || pattern2.test(label)) {
         // Gravel/Sand pattern
         baseName = match[1].trim();
@@ -76,7 +77,7 @@ function groupVariants(products) {
       
       variantGroups.get(baseName).variants.push({
         ...product,
-        color,
+        color: color || null,
         size
       });
     } else {
@@ -717,13 +718,24 @@ function DecorSection({ decor, selectedIds, selectedVariants, onToggle, onVarian
       {/* Variant groups */}
       {groups.map((group) => {
         const variantSelection = selectedVariants[group.baseName];
-        const selectedVariant = variantSelection 
-          ? group.variants.find(v => v.color === variantSelection.color && v.size === variantSelection.size)
-          : null;
+        // Check if this is a driftwood-style variant (no color, just size)
+        const isSizeOnly = group.variants.some(v => v.color === null);
+        
+        let selectedVariant = null;
+        if (variantSelection) {
+          if (isSizeOnly) {
+            // For size-only variants (like driftwood), match by size only
+            selectedVariant = group.variants.find(v => v.size === variantSelection.size);
+          } else {
+            // For color+size variants, match by both
+            selectedVariant = group.variants.find(v => v.color === variantSelection.color && v.size === variantSelection.size);
+          }
+        }
+        
         const isActive = selectedVariant && selectedIds.includes(selectedVariant.id);
         
-        // Get unique colors and sizes
-        const colors = [...new Set(group.variants.map(v => v.color))].sort();
+        // Get unique colors and sizes (filter out null colors)
+        const colors = [...new Set(group.variants.map(v => v.color).filter(c => c !== null))].sort();
         const sizes = [...new Set(group.variants.map(v => v.size))].sort();
         
         // Get price range
@@ -744,7 +756,9 @@ function DecorSection({ decor, selectedIds, selectedVariants, onToggle, onVarian
             selectedColor={variantSelection?.color}
             selectedSize={variantSelection?.size}
             isCheckbox={true}
+            isSizeOnly={isSizeOnly}
             onColorChange={(color) => {
+              if (isSizeOnly) return; // No color changes for size-only variants
               const size = variantSelection?.size || sizes[0];
               const variant = group.variants.find(v => v.color === color && v.size === size) ||
                             group.variants.find(v => v.color === color);
@@ -753,11 +767,20 @@ function DecorSection({ decor, selectedIds, selectedVariants, onToggle, onVarian
               }
             }}
             onSizeChange={(size) => {
-              const color = variantSelection?.color || colors[0];
-              const variant = group.variants.find(v => v.color === color && v.size === size) ||
-                            group.variants.find(v => v.size === size);
-              if (variant) {
-                onVariantToggle(group.baseName, variant.color, variant.size, variant.id);
+              if (isSizeOnly) {
+                // For size-only variants, just find by size
+                const variant = group.variants.find(v => v.size === size);
+                if (variant) {
+                  onVariantToggle(group.baseName, null, variant.size, variant.id);
+                }
+              } else {
+                // For color+size variants, prefer current color
+                const color = variantSelection?.color || colors[0];
+                const variant = group.variants.find(v => v.color === color && v.size === size) ||
+                              group.variants.find(v => v.size === size);
+                if (variant) {
+                  onVariantToggle(group.baseName, variant.color, variant.size, variant.id);
+                }
               }
             }}
             onSelect={() => {
@@ -773,8 +796,13 @@ function DecorSection({ decor, selectedIds, selectedVariants, onToggle, onVarian
   );
 }
 
-function VariantCard({ baseLabel, priceRange, colors, sizes, variants, isActive, selectedColor, selectedSize, onColorChange, onSizeChange, onSelect, isCheckbox = false }) {
-  const selectedVariant = variants.find(v => v.color === selectedColor && v.size === selectedSize);
+function VariantCard({ baseLabel, priceRange, colors, sizes, variants, isActive, selectedColor, selectedSize, onColorChange, onSizeChange, onSelect, isCheckbox = false, isSizeOnly = false }) {
+  let selectedVariant = null;
+  if (isSizeOnly) {
+    selectedVariant = variants.find(v => v.size === selectedSize);
+  } else {
+    selectedVariant = variants.find(v => v.color === selectedColor && v.size === selectedSize);
+  }
   const displayPrice = selectedVariant ? `$${selectedVariant.price.toFixed(2)}` : priceRange;
   
   return (
@@ -803,7 +831,7 @@ function VariantCard({ baseLabel, priceRange, colors, sizes, variants, isActive,
             </div>
             {selectedVariant && (
               <div className="text-xs text-slate-400 mt-1">
-                {selectedColor} • {selectedSize}
+                {isSizeOnly ? selectedSize : `${selectedColor} • ${selectedSize}`}
               </div>
             )}
           </div>
@@ -816,7 +844,7 @@ function VariantCard({ baseLabel, priceRange, colors, sizes, variants, isActive,
       
       {/* Variant Selectors */}
       <div className="space-y-2 mt-3">
-        {colors.length > 1 && (
+        {!isSizeOnly && colors.length > 1 && (
           <div>
             <label className="text-xs text-slate-400 mb-1 block">Color</label>
             <select
@@ -835,14 +863,14 @@ function VariantCard({ baseLabel, priceRange, colors, sizes, variants, isActive,
         
         {sizes.length > 1 && (
           <div>
-            <label className="text-xs text-slate-400 mb-1 block">Size</label>
+            <label className="text-xs text-slate-400 mb-1 block">{isSizeOnly ? "Variant" : "Size"}</label>
             <select
               value={selectedSize || ""}
               onChange={(e) => onSizeChange(e.target.value)}
               onClick={(e) => e.stopPropagation()}
               className="w-full bg-slate-800/50 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:border-blue-500 focus:outline-none"
             >
-              <option value="">Select size</option>
+              <option value="">Select {isSizeOnly ? "variant" : "size"}</option>
               {sizes.map(size => (
                 <option key={size} value={size}>{size}</option>
               ))}
