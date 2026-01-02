@@ -95,14 +95,17 @@ export default function LeopardGeckoBuilder() {
   // --- COMPATIBILITY CHECKS ---
   const checks = useMemo(() => {
     const messages = [];
+    const criticalErrors = [];
 
     if (selectedEnclosure) {
       if (selectedEnclosure.id === "10g") {
-        messages.push({ level: "error", text: "10-gallon is too small for an adult." });
+        const errorMsg = "10-gallon is too small for an adult leopard gecko. Research shows inadequate space causes stress and health issues. Minimum 20 gallons required.";
+        messages.push({ level: "error", text: errorMsg });
+        criticalErrors.push(errorMsg);
       } else if (selectedEnclosure.id === "20g") {
-        messages.push({ level: "ok", text: "20-gallon long is a solid minimum." });
+        messages.push({ level: "ok", text: "20-gallon long meets minimum size requirements." });
       } else if (selectedEnclosure.id === "pvc4x2") {
-        messages.push({ level: "ok", text: "4x2x2 is the gold standard size." });
+        messages.push({ level: "ok", text: "4x2x2 provides excellent space for natural behaviors." });
       }
     } else {
         messages.push({ level: "warning", text: "Select an enclosure size." });
@@ -112,24 +115,38 @@ export default function LeopardGeckoBuilder() {
        messages.push({ level: "warning", text: "Select a heating source." });
     } else {
        if (!heatingIds.includes("heatmat") && !heatingIds.includes("dhp") && !heatingIds.includes("halogen")) {
-        messages.push({ level: "error", text: "You need a primary heat source." });
+        const errorMsg = "Primary heat source REQUIRED. Leopard geckos need a basking area of 88-92°F for proper digestion and thermoregulation.";
+        messages.push({ level: "error", text: errorMsg });
+        criticalErrors.push(errorMsg);
        }
        if (!heatingIds.includes("thermostat")) {
-        messages.push({ level: "error", text: "Thermostat required to prevent burns." });
+        const errorMsg = "Thermostat REQUIRED. Unregulated heat sources can cause severe burns and death. Never use heat without a thermostat.";
+        messages.push({ level: "error", text: errorMsg });
+        criticalErrors.push(errorMsg);
        }
     }
 
     if (hideIds.length === 0) {
        messages.push({ level: "warning", text: "Select hides for security." });
     } else if (hideIds.length < 3) {
-       messages.push({ level: "warning", text: "3 hides (Hot, Cool, Moist) are recommended." });
+       messages.push({ level: "warning", text: "3 hides (Hot, Cool, Moist) are recommended for proper thermoregulation." });
     }
 
-    return messages;
+    return { messages, criticalErrors };
   }, [selectedEnclosure, heatingIds, hideIds]);
 
   function goToSummary() {
     if (allSelectedItems.length === 0) return;
+    
+    // Block if there are critical errors
+    if (checks.criticalErrors.length > 0) {
+      // Scroll to the first error message
+      const firstError = document.querySelector('.bg-red-500\\/10');
+      if (firstError) {
+        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      return;
+    }
 
     const params = new URLSearchParams({
       exp: experience || "beginner",
@@ -363,12 +380,12 @@ export default function LeopardGeckoBuilder() {
               <div className="space-y-3">
                 {allSelectedItems.length === 0 ? (
                       <p className="text-slate-500 text-xs italic">Waiting for input...</p>
-                ) : checks.length === 0 ? (
+                ) : checks.messages.length === 0 ? (
                     <div className="p-3 rounded-xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-200 text-xs flex gap-2">
                         <CheckCircle2 size={16} /> All systems nominal.
                     </div>
                 ) : (
-                    checks.map((c, i) => (
+                    checks.messages.map((c, i) => (
                     <div
                         key={i}
                         className={`flex gap-3 p-3 rounded-xl border text-xs font-medium leading-relaxed ${

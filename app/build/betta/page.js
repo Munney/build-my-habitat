@@ -120,6 +120,11 @@ export default function BettaBuilder() {
     return ENCLOSURES;
   }, [experience]);
 
+  // Filter out unsafe decor (plastic plants) - research shows they tear fins
+  const filteredDecor = useMemo(() => {
+    return DECOR.filter(d => d.id !== "plastic");
+  }, []);
+
   // --- SELECTION LOGIC ---
   const selectedEnclosure = ENCLOSURES.find((e) => e.id === enclosureId);
   const selectedFiltration = FILTRATION.find((f) => f.id === filtrationId);
@@ -194,57 +199,77 @@ export default function BettaBuilder() {
   // --- COMPATIBILITY CHECKS ---
   const checks = useMemo(() => {
     const messages = [];
+    const criticalErrors = [];
 
-    // 1. Tank Size Logic
+    // 1. Tank Size Logic - Based on research: minimum 5 gallons (19L) required
     if (selectedEnclosure) {
       if (selectedEnclosure.size < 5) {
-        messages.push({ level: "error", text: "Bowls/Tanks under 5g are unstable and cruel." });
+        const errorMsg = "Research shows tanks under 5 gallons cause stress and abnormal behavior. Minimum 5 gallons required.";
+        messages.push({ level: "error", text: errorMsg });
+        criticalErrors.push(errorMsg);
       } else if (selectedEnclosure.size === 5) {
-        messages.push({ level: "ok", text: "5 Gallons is the minimum safe size." });
+        messages.push({ level: "ok", text: "5 Gallons meets minimum research requirements (19L)." });
       } else if (selectedEnclosure.size >= 10) {
-        messages.push({ level: "ok", text: "10+ Gallons is excellent for stability." });
+        messages.push({ level: "ok", text: "10+ Gallons allows full expression of natural behaviors (research-backed)." });
       }
     } else {
         messages.push({ level: "warning", text: "Select a tank size." });
     }
 
-    // 2. Filtration Logic
+    // 2. Filtration Logic - REQUIRED for nitrogen cycle
     if (!selectedFiltration) {
-        messages.push({ level: "error", text: "A filter is required for the nitrogen cycle." });
+        const errorMsg = "Filter is REQUIRED. Without it, toxic ammonia will kill your fish. Nitrogen cycle cannot occur without filtration.";
+        messages.push({ level: "error", text: errorMsg });
+        criticalErrors.push(errorMsg);
     } else if (selectedFiltration.flow === "high") {
-        messages.push({ level: "warning", text: "Bettas hate strong flow. Baffle this filter." });
+        messages.push({ level: "warning", text: "Bettas hate strong flow. Baffle this filter or choose a sponge filter." });
     } else if (selectedFiltration.flow === "low") {
         messages.push({ level: "ok", text: "Sponge filters are perfect for Bettas." });
     }
 
-    // 3. Heating Logic
+    // 3. Heating Logic - REQUIRED (tropical fish)
     const hasHeater = heatingIds.some(id => id === "50w" || id === "100w");
     if (!hasHeater) {
-       messages.push({ level: "error", text: "Bettas are tropical! A heater is mandatory." });
+       const errorMsg = "Heater is REQUIRED. Bettas are tropical fish and need 78-80°F. Without heat, they become stressed and susceptible to disease.";
+       messages.push({ level: "error", text: errorMsg });
+       criticalErrors.push(errorMsg);
     }
     if (!heatingIds.includes("thermometer")) {
-       messages.push({ level: "warning", text: "Don't forget a thermometer to check temp." });
+       messages.push({ level: "warning", text: "Thermometer recommended to monitor temperature." });
     }
 
-    // 4. Decor Logic
+    // 4. Decor Logic - Plastic plants are dangerous
     const hasPlastic = decorIds.includes("plastic");
     const hasLive = decorIds.includes("live_easy");
 
     if (hasPlastic) {
-        messages.push({ level: "error", text: "Plastic plants tear Betta fins. Use Silk or Live." });
+        const errorMsg = "Plastic plants tear Betta fins and can cause infections. Remove plastic plants and use silk or live plants only.";
+        messages.push({ level: "error", text: errorMsg });
+        criticalErrors.push(errorMsg);
     }
     if (hasLive) {
-        messages.push({ level: "ok", text: "Live plants help clean the water!" });
+        messages.push({ level: "ok", text: "Live plants help clean the water and provide enrichment!" });
     }
     if (selectedSubstrate?.id === "aquasoil" && !hasLive) {
         messages.push({ level: "warning", text: "Active Soil is meant for live plants." });
     }
 
-    return messages;
+    return { messages, criticalErrors };
   }, [selectedEnclosure, selectedFiltration, heatingIds, decorIds, selectedSubstrate]);
 
   function goToSummary() {
     if (allSelectedItems.length === 0) return;
+    
+    // Block if there are critical errors
+    if (checks.criticalErrors.length > 0) {
+      // Scroll to the first error message
+      const firstError = document.querySelector('.bg-red-500\\/10');
+      if (firstError) {
+        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      return;
+    }
+    
     const params = new URLSearchParams({
       exp: experience || "beginner",
       enclosure: enclosureId || "",
@@ -424,7 +449,7 @@ export default function BettaBuilder() {
             {/* 6. Decor & Plants */}
             <Section title="6. Plants & Decor" icon={<Sprout className={decorIds.length ? "text-blue-400" : "text-slate-400"} />}>
               <DecorSection
-                decor={DECOR}
+                decor={filteredDecor}
                 selectedIds={decorIds}
                 selectedVariants={decorVariants}
                 onToggle={(id) => setDecorIds((ids) => toggle(ids, id))}
@@ -526,12 +551,12 @@ export default function BettaBuilder() {
               <div className="space-y-3">
                 {allSelectedItems.length === 0 ? (
                       <p className="text-slate-500 text-xs italic">Waiting for input...</p>
-                ) : checks.length === 0 ? (
+                ) : checks.messages.length === 0 ? (
                     <div className="p-3 rounded-xl border border-blue-500/20 bg-blue-500/10 text-blue-200 text-xs flex gap-2">
                         <CheckCircle2 size={16} /> All systems nominal.
                     </div>
                 ) : (
-                    checks.map((c, i) => (
+                    checks.messages.map((c, i) => (
                     <div
                         key={i}
                         className={`flex gap-3 p-3 rounded-xl border text-xs font-medium leading-relaxed ${
