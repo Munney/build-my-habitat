@@ -68,7 +68,7 @@ export default function Home() {
                     href="/guides/leopard-gecko-setup"
                     title="Leopard Gecko Setup"
                     description="A complete breakdown of heating (Halogen vs DHP), substrate safety, and enclosure sizes."
-                    imageSrc="/gecko.jpg"
+                    imageSrc="/gecko-guide.jpg"
                     accentColor="text-emerald-400"
                     hoverBorder="hover:border-emerald-500/30"
                 />
@@ -79,7 +79,7 @@ export default function Home() {
                     href="/guides/betta-setup"
                     title="Betta Fish Care 101"
                     description="Why bowls are dangerous, understanding the nitrogen cycle, and the best live plants."
-                    imageSrc="/betta.jpg"
+                    imageSrc="/betta-guide.jpg"
                     accentColor="text-blue-400"
                     hoverBorder="hover:border-blue-500/30"
                 />
