@@ -30,7 +30,7 @@ export default function Footer() {
           <ul className="space-y-2">
             <li><Link href="/research" className="hover:text-white transition-colors">Research Articles</Link></li>
             <li><Link href="/about" className="hover:text-white transition-colors">The Standard</Link></li>
-            <li><Link href="#" className="hover:text-white transition-colors">Privacy Policy</Link></li>
+            <li><span className="text-slate-500">Privacy Policy</span></li>
           </ul>
         </div>
 
@@ -38,8 +38,8 @@ export default function Footer() {
         <div className="space-y-4">
           <h4 className="font-bold text-white">Connect</h4>
           <div className="flex gap-4">
-            <Link href="#" className="p-2 bg-white/5 rounded-full hover:bg-white/10 transition-colors"><Twitter size={18} /></Link>
-            <Link href="#" className="p-2 bg-white/5 rounded-full hover:bg-white/10 transition-colors"><Github size={18} /></Link>
+            <span className="p-2 bg-white/5 rounded-full text-slate-500"><Twitter size={18} /></span>
+            <span className="p-2 bg-white/5 rounded-full text-slate-500"><Github size={18} /></span>
           </div>
           <p className="flex items-center gap-1 text-xs mt-4">
             Made with <Heart size={12} className="text-red-500 fill-red-500" /> for pets.
