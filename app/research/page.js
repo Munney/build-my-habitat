@@ -3,58 +3,49 @@ import { ExternalLink, BookOpen } from "lucide-react";
 export default function ResearchPage() {
   const articles = [
     {
-      category: "Leopard Gecko",
-      title: "Reptile Heating: Deep Heat Projectors vs. Heat Mats",
-      snippet: "Research on infrared heating and its effects on reptile thermoregulation and muscle function.",
-      date: "2024",
-      url: "https://scholar.google.com/scholar?q=reptile+heating+deep+heat+projector+infrared+thermoregulation",
-      tagColor: "text-emerald-300 border-emerald-500/30 bg-emerald-500/10",
-      buttonColor: "bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-900/20",
-    },
-    {
-      category: "Leopard Gecko",
-      title: "Substrate Safety in Reptile Enclosures",
-      snippet: "Peer-reviewed studies on substrate ingestion risks and safe substrate options for leopard geckos.",
-      date: "2024",
-      url: "https://scholar.google.com/scholar?q=leopard+gecko+substrate+safety+impaction+husbandry",
-      tagColor: "text-emerald-300 border-emerald-500/30 bg-emerald-500/10",
-      buttonColor: "bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-900/20",
-    },
-    {
       category: "Betta Fish",
-      title: "Minimum Tank Size and Welfare in Betta splendens",
-      snippet: "Scientific research on the effects of tank size on betta fish behavior, stress, and overall welfare.",
-      date: "2024",
-      url: "https://scholar.google.com/scholar?q=betta+fish+tank+size+welfare+behavior+stress",
+      title: "Life Beyond a Jar: Effects of Tank Size and Furnishings on the Behaviour and Welfare of Siamese Fighting Fish",
+      snippet: "This peer-reviewed study from Animal Welfare journal demonstrates that bettas housed in larger, furnished tanks were more active and exhibited fewer abnormal behaviors compared to those in smaller, barren jars.",
+      date: "2021",
+      url: "https://www.cambridge.org/core/journals/animal-welfare/article/life-beyond-a-jar-effects-of-tank-size-and-furnishings-on-the-behaviour-and-welfare-of-siamese-fighting-fish-betta-splendens/001D7050503D7D31F937B5C72CCC668B",
       tagColor: "text-blue-300 border-blue-500/30 bg-blue-500/10",
       buttonColor: "bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-900/20",
     },
     {
       category: "Betta Fish",
-      title: "The Nitrogen Cycle and Beneficial Bacteria",
-      snippet: "Research on nitrification processes, beneficial bacteria, and aquarium water quality management.",
-      date: "2024",
-      url: "https://scholar.google.com/scholar?q=aquarium+nitrogen+cycle+nitrification+beneficial+bacteria",
+      title: "Life in a Fishbowl: Space and Environmental Enrichment Affect Behaviour of Betta splendens",
+      snippet: "Published research showing that male bettas confined in small bowls exhibited reduced swimming behavior compared to those in larger aquaria, with a minimum of 10 liters recommended for full expression of natural behaviors.",
+      date: "2020",
+      url: "https://www.cambridge.org/core/journals/animal-welfare/article/life-in-a-fishbowl-space-and-environmental-enrichment-affect-behaviour-of-betta-splendens/2A9DD22C6BC2D833EAC4F03508A8E3B4",
       tagColor: "text-blue-300 border-blue-500/30 bg-blue-500/10",
       buttonColor: "bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-900/20",
     },
     {
-      category: "General",
-      title: "Aquatic Animal Welfare Standards",
-      snippet: "Peer-reviewed research on fish welfare, environmental enrichment, and evidence-based care standards.",
-      date: "2024",
-      url: "https://scholar.google.com/scholar?q=aquatic+animal+welfare+fish+care+enrichment",
-      tagColor: "text-purple-300 border-purple-500/30 bg-purple-500/10",
-      buttonColor: "bg-purple-600 hover:bg-purple-500 text-white shadow-lg shadow-purple-900/20",
+      category: "Betta Fish",
+      title: "Timing of Isolation from an Enriched Environment Determines Aggressive Behavior in Betta splendens",
+      snippet: "BMC Zoology study investigating how the timing of isolation from enriched environments affects aggression and sexual maturity in betta fish, suggesting that group housing in enriched environments can reduce aggression.",
+      date: "2021",
+      url: "https://bmczool.biomedcentral.com/articles/10.1186/s40850-021-00081-x",
+      tagColor: "text-blue-300 border-blue-500/30 bg-blue-500/10",
+      buttonColor: "bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-900/20",
     },
     {
-      category: "General",
-      title: "Reptile Enclosure Design and Thermal Gradients",
-      snippet: "Studies on enclosure materials, thermal gradients, and their impact on reptile health and behavior.",
+      category: "Leopard Gecko",
+      title: "The Effect of Enrichment on Leopard Geckos Housed in Different Maintenance Systems",
+      snippet: "Peer-reviewed study from Animals journal examining how environmental enrichment affects leopard geckos in rack systems versus terrariums, highlighting the importance of enrichment for their welfare.",
+      date: "2023",
+      url: "https://www.mdpi.com/2076-2615/13/6/1111",
+      tagColor: "text-emerald-300 border-emerald-500/30 bg-emerald-500/10",
+      buttonColor: "bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-900/20",
+    },
+    {
+      category: "Leopard Gecko",
+      title: "Memory in Leopard Geckos (Eublepharis macularius) in a Morris Water Maze Task",
+      snippet: "Research from Animals journal assessing the learning and memory capabilities of leopard geckos, providing insights into their cognitive abilities and demonstrating their capacity for spatial learning.",
       date: "2024",
-      url: "https://scholar.google.com/scholar?q=reptile+enclosure+thermal+gradient+heating+husbandry",
-      tagColor: "text-purple-300 border-purple-500/30 bg-purple-500/10",
-      buttonColor: "bg-purple-600 hover:bg-purple-500 text-white shadow-lg shadow-purple-900/20",
+      url: "https://www.mdpi.com/2076-2615/15/14/2014",
+      tagColor: "text-emerald-300 border-emerald-500/30 bg-emerald-500/10",
+      buttonColor: "bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-900/20",
     },
     {
       category: "Resources",
@@ -126,7 +117,7 @@ export default function ResearchPage() {
                   rel="noopener noreferrer"
                   className={`w-full md:w-auto shrink-0 flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all ${article.buttonColor}`}
                 >
-                  View Research <ExternalLink size={16} />
+                  Read Study <ExternalLink size={16} />
                 </a>
               </div>
             </div>
