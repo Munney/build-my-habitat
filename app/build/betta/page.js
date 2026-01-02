@@ -16,7 +16,8 @@ import {
   Waves,
   Sprout,
   ShieldCheck,
-  Unlock
+  Unlock,
+  ChevronDown
 } from "lucide-react";
 // 👇 Verify this path matches your folder structure
 import config from "../../../data/betta.json";
@@ -33,6 +34,68 @@ function toggle(list, id) {
   return list.includes(id) ? list.filter((x) => x !== id) : [...list, id];
 }
 
+// Group products by base name to identify variants
+function groupVariants(products) {
+  const variantGroups = new Map();
+  const standalone = [];
+  
+  products.forEach(product => {
+    const label = product.label;
+    
+    // Pattern 1: "Natural Gravel - Light (2lbs)" or "Natural Gravel - Dark (5lbs)"
+    const pattern1 = /^(.+?)\s+-\s+(Light|Dark|Beige|Black|White)\s+\((.+?)\)$/i;
+    // Pattern 2: "Aquarium Sand Beige (2lbs)" or "Aquarium Sand Black (2lbs)"
+    const pattern2 = /^(.+?)\s+(Beige|Black|White|Light|Dark)\s+\((.+?)\)$/i;
+    // Pattern 3: "Natural Driftwood 3 pcs (6-10) Large" or "Natural Driftwood 4 pcs (4-6) Small"
+    const pattern3 = /^(.+?)\s+(\d+)\s+pcs\s+\((.+?)\)\s+(Large|Small)$/i;
+    
+    let match = label.match(pattern1) || label.match(pattern2) || label.match(pattern3);
+    
+    if (match) {
+      let baseName, color, size;
+      
+      if (pattern3.test(label)) {
+        // Driftwood pattern: "Natural Driftwood 3 pcs (6-10) Large"
+        baseName = match[1].trim();
+        color = `${match[2]} pcs (${match[3]})`;
+        size = match[4].trim();
+      } else if (pattern1.test(label) || pattern2.test(label)) {
+        // Gravel/Sand pattern
+        baseName = match[1].trim();
+        color = match[2].trim();
+        size = match[3].trim();
+      }
+      
+      if (!variantGroups.has(baseName)) {
+        variantGroups.set(baseName, {
+          baseName,
+          baseLabel: baseName,
+          variants: []
+        });
+      }
+      
+      variantGroups.get(baseName).variants.push({
+        ...product,
+        color,
+        size
+      });
+    } else {
+      // Check if this is a standalone product or if other products are variants of it
+      const firstWord = product.label.split(' ')[0];
+      const hasVariants = products.some(p => 
+        p.id !== product.id && 
+        p.label.toLowerCase().startsWith(firstWord.toLowerCase() + ' ')
+      );
+      
+      if (!hasVariants) {
+        standalone.push(product);
+      }
+    }
+  });
+  
+  return { groups: Array.from(variantGroups.values()), standalone };
+}
+
 export default function BettaBuilder() {
   const router = useRouter();
 
@@ -41,9 +104,11 @@ export default function BettaBuilder() {
   const [enclosureId, setEnclosureId] = useState(null);
   const [filtrationId, setFiltrationId] = useState(null);
   const [substrateId, setSubstrateId] = useState(null);
+  const [substrateVariants, setSubstrateVariants] = useState({}); // { baseName: { color, size } }
 
   const [heatingIds, setHeatingIds] = useState([]);
   const [decorIds, setDecorIds] = useState([]);
+  const [decorVariants, setDecorVariants] = useState({}); // For driftwood variants
   const [careIds, setCareIds] = useState([]);
 
   // --- FILTERING LOGIC ---
@@ -57,11 +122,44 @@ export default function BettaBuilder() {
   // --- SELECTION LOGIC ---
   const selectedEnclosure = ENCLOSURES.find((e) => e.id === enclosureId);
   const selectedFiltration = FILTRATION.find((f) => f.id === filtrationId);
-  const selectedSubstrate = SUBSTRATES.find((s) => s.id === substrateId);
+  
+  // Handle substrate selection (including variants)
+  const selectedSubstrate = useMemo(() => {
+    if (!substrateId) return null;
+    
+    // First try to find by direct ID match
+    const directMatch = SUBSTRATES.find((s) => s.id === substrateId);
+    if (directMatch) return directMatch;
+    
+    // If not found, check variant groups
+    const { groups } = groupVariants(SUBSTRATES);
+    for (const group of groups) {
+      const variant = group.variants.find(v => v.id === substrateId);
+      if (variant) return variant;
+    }
+    
+    return null;
+  }, [substrateId]);
 
   const pickMany = (items, ids) => items.filter((i) => ids.includes(i.id));
   const selectedHeating = pickMany(HEATING, heatingIds);
-  const selectedDecor = pickMany(DECOR, decorIds);
+  
+  // Handle decor selection (including variants)
+  const selectedDecor = useMemo(() => {
+    return decorIds.map(id => {
+      const directMatch = DECOR.find(d => d.id === id);
+      if (directMatch) return directMatch;
+      
+      // Check variant groups
+      const { groups } = groupVariants(DECOR);
+      for (const group of groups) {
+        const variant = group.variants.find(v => v.id === id);
+        if (variant) return variant;
+      }
+      return null;
+    }).filter(Boolean);
+  }, [decorIds]);
+  
   const selectedCare = pickMany(WATERCARE, careIds);
 
   const allSelectedItems = useMemo(() => {
@@ -307,37 +405,36 @@ export default function BettaBuilder() {
 
             {/* 5. Substrate */}
             <Section title="5. Substrate" icon={<Droplets className={substrateId ? "text-blue-400" : "text-slate-400"} />}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {SUBSTRATES.map((s) => (
-                  <SelectionCard
-                    key={s.id}
-                    active={substrateId === s.id}
-                    label={s.label}
-                    price={s.price}
-                    sublabel={s.type}
-                    onClick={() => setSubstrateId(s.id)}
-                    type="radio"
-                    colorClass="blue"
-                  />
-                ))}
-              </div>
+              <SubstrateSection
+                substrates={SUBSTRATES}
+                selectedId={substrateId}
+                selectedVariants={substrateVariants}
+                onSelect={(id) => setSubstrateId(id)}
+                onVariantSelect={(baseName, color, size, variantId) => {
+                  setSubstrateVariants(prev => ({
+                    ...prev,
+                    [baseName]: { color, size }
+                  }));
+                  setSubstrateId(variantId);
+                }}
+              />
             </Section>
 
             {/* 6. Decor & Plants */}
             <Section title="6. Plants & Decor" icon={<Sprout className={decorIds.length ? "text-blue-400" : "text-slate-400"} />}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {DECOR.map((d) => (
-                  <SelectionCard
-                    key={d.id}
-                    active={decorIds.includes(d.id)}
-                    label={d.label}
-                    price={d.price}
-                    onClick={() => setDecorIds((ids) => toggle(ids, d.id))}
-                    type="checkbox"
-                    colorClass="blue"
-                  />
-                ))}
-              </div>
+              <DecorSection
+                decor={DECOR}
+                selectedIds={decorIds}
+                selectedVariants={decorVariants}
+                onToggle={(id) => setDecorIds((ids) => toggle(ids, id))}
+                onVariantToggle={(baseName, color, size, variantId) => {
+                  setDecorVariants(prev => ({
+                    ...prev,
+                    [baseName]: { color, size }
+                  }));
+                  setDecorIds((ids) => toggle(ids, variantId));
+                }}
+              />
             </Section>
 
              {/* 7. Water Care */}
@@ -514,6 +611,244 @@ function SelectionCard({ active, label, sublabel, price, onClick, type }) {
         <span className={`font-mono text-sm font-bold ${active ? "text-blue-400" : "text-slate-500"}`}>
           ${(price || 0).toFixed(2)}
         </span>
+      </div>
+    </div>
+  );
+}
+
+function SubstrateSection({ substrates, selectedId, selectedVariants, onSelect, onVariantSelect }) {
+  const { groups, standalone } = groupVariants(substrates);
+  
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {/* Standalone products (no variants) */}
+      {standalone.map((s) => (
+        <SelectionCard
+          key={s.id}
+          active={selectedId === s.id}
+          label={s.label}
+          price={s.price}
+          sublabel={s.type}
+          onClick={() => onSelect(s.id)}
+          type="radio"
+          colorClass="blue"
+        />
+      ))}
+      
+      {/* Variant groups */}
+      {groups.map((group) => {
+        const variantSelection = selectedVariants[group.baseName];
+        const selectedVariant = variantSelection 
+          ? group.variants.find(v => v.color === variantSelection.color && v.size === variantSelection.size)
+          : null;
+        const isActive = selectedVariant && selectedId === selectedVariant.id;
+        
+        // Get unique colors and sizes
+        const colors = [...new Set(group.variants.map(v => v.color))].sort();
+        const sizes = [...new Set(group.variants.map(v => v.size))].sort();
+        
+        // Get price range
+        const prices = group.variants.map(v => v.price);
+        const minPrice = Math.min(...prices);
+        const maxPrice = Math.max(...prices);
+        const priceRange = minPrice === maxPrice ? `$${minPrice.toFixed(2)}` : `$${minPrice.toFixed(2)} - $${maxPrice.toFixed(2)}`;
+        
+        return (
+          <VariantCard
+            key={group.baseName}
+            baseLabel={group.baseLabel}
+            priceRange={priceRange}
+            colors={colors}
+            sizes={sizes}
+            variants={group.variants}
+            isActive={isActive}
+            selectedColor={variantSelection?.color}
+            selectedSize={variantSelection?.size}
+            onColorChange={(color) => {
+              // Find a variant with this color (prefer current size, or first available)
+              const size = variantSelection?.size || sizes[0];
+              const variant = group.variants.find(v => v.color === color && v.size === size) ||
+                            group.variants.find(v => v.color === color);
+              if (variant) {
+                onVariantSelect(group.baseName, variant.color, variant.size, variant.id);
+              }
+            }}
+            onSizeChange={(size) => {
+              // Find a variant with this size (prefer current color, or first available)
+              const color = variantSelection?.color || colors[0];
+              const variant = group.variants.find(v => v.color === color && v.size === size) ||
+                            group.variants.find(v => v.size === size);
+              if (variant) {
+                onVariantSelect(group.baseName, variant.color, variant.size, variant.id);
+              }
+            }}
+            onSelect={() => {
+              // Select first variant if none selected
+              if (!variantSelection && group.variants.length > 0) {
+                const first = group.variants[0];
+                onVariantSelect(group.baseName, first.color, first.size, first.id);
+              }
+            }}
+          />
+        );
+      })}
+    </div>
+  );
+}
+
+function DecorSection({ decor, selectedIds, selectedVariants, onToggle, onVariantToggle }) {
+  const { groups, standalone } = groupVariants(decor);
+  
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {/* Standalone products (no variants) */}
+      {standalone.map((d) => (
+        <SelectionCard
+          key={d.id}
+          active={selectedIds.includes(d.id)}
+          label={d.label}
+          price={d.price}
+          onClick={() => onToggle(d.id)}
+          type="checkbox"
+          colorClass="blue"
+        />
+      ))}
+      
+      {/* Variant groups */}
+      {groups.map((group) => {
+        const variantSelection = selectedVariants[group.baseName];
+        const selectedVariant = variantSelection 
+          ? group.variants.find(v => v.color === variantSelection.color && v.size === variantSelection.size)
+          : null;
+        const isActive = selectedVariant && selectedIds.includes(selectedVariant.id);
+        
+        // Get unique colors and sizes
+        const colors = [...new Set(group.variants.map(v => v.color))].sort();
+        const sizes = [...new Set(group.variants.map(v => v.size))].sort();
+        
+        // Get price range
+        const prices = group.variants.map(v => v.price);
+        const minPrice = Math.min(...prices);
+        const maxPrice = Math.max(...prices);
+        const priceRange = minPrice === maxPrice ? `$${minPrice.toFixed(2)}` : `$${minPrice.toFixed(2)} - $${maxPrice.toFixed(2)}`;
+        
+        return (
+          <VariantCard
+            key={group.baseName}
+            baseLabel={group.baseLabel}
+            priceRange={priceRange}
+            colors={colors}
+            sizes={sizes}
+            variants={group.variants}
+            isActive={isActive}
+            selectedColor={variantSelection?.color}
+            selectedSize={variantSelection?.size}
+            isCheckbox={true}
+            onColorChange={(color) => {
+              const size = variantSelection?.size || sizes[0];
+              const variant = group.variants.find(v => v.color === color && v.size === size) ||
+                            group.variants.find(v => v.color === color);
+              if (variant) {
+                onVariantToggle(group.baseName, variant.color, variant.size, variant.id);
+              }
+            }}
+            onSizeChange={(size) => {
+              const color = variantSelection?.color || colors[0];
+              const variant = group.variants.find(v => v.color === color && v.size === size) ||
+                            group.variants.find(v => v.size === size);
+              if (variant) {
+                onVariantToggle(group.baseName, variant.color, variant.size, variant.id);
+              }
+            }}
+            onSelect={() => {
+              if (!variantSelection && group.variants.length > 0) {
+                const first = group.variants[0];
+                onVariantToggle(group.baseName, first.color, first.size, first.id);
+              }
+            }}
+          />
+        );
+      })}
+    </div>
+  );
+}
+
+function VariantCard({ baseLabel, priceRange, colors, sizes, variants, isActive, selectedColor, selectedSize, onColorChange, onSizeChange, onSelect, isCheckbox = false }) {
+  const selectedVariant = variants.find(v => v.color === selectedColor && v.size === selectedSize);
+  const displayPrice = selectedVariant ? `$${selectedVariant.price.toFixed(2)}` : priceRange;
+  
+  return (
+    <div
+      className={`group relative p-5 rounded-2xl border transition-all duration-300 ${
+        isActive
+          ? "border-blue-500 bg-blue-500/10 shadow-[0_0_30px_-10px_rgba(59,130,246,0.3)] scale-[1.02]"
+          : "border-slate-700/50 bg-slate-900/40 hover:border-slate-600 hover:bg-slate-800/60"
+      }`}
+    >
+      <div className="flex items-start justify-between gap-3 mb-3">
+        <div className="flex items-start gap-3 flex-1">
+          <div
+            className={`mt-1 w-5 h-5 rounded-full flex items-center justify-center border transition-all ${
+              isActive 
+                ? "bg-blue-500 border-blue-500 shadow-sm shadow-blue-500/50" 
+                : "bg-slate-800/50 border-slate-600 group-hover:border-slate-500"
+            }`}
+          >
+            {isActive && <CheckCircle2 size={14} className="text-slate-950" />}
+          </div>
+
+          <div className="flex-1">
+            <div className={`font-bold text-base transition-colors ${isActive ? "text-white" : "text-slate-300 group-hover:text-white"}`}>
+              {baseLabel}
+            </div>
+            {selectedVariant && (
+              <div className="text-xs text-slate-400 mt-1">
+                {selectedColor} • {selectedSize}
+              </div>
+            )}
+          </div>
+        </div>
+
+        <span className={`font-mono text-sm font-bold ${isActive ? "text-blue-400" : "text-slate-500"}`}>
+          {displayPrice}
+        </span>
+      </div>
+      
+      {/* Variant Selectors */}
+      <div className="space-y-2 mt-3">
+        {colors.length > 1 && (
+          <div>
+            <label className="text-xs text-slate-400 mb-1 block">Color</label>
+            <select
+              value={selectedColor || ""}
+              onChange={(e) => onColorChange(e.target.value)}
+              onClick={(e) => e.stopPropagation()}
+              className="w-full bg-slate-800/50 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:border-blue-500 focus:outline-none"
+            >
+              <option value="">Select color</option>
+              {colors.map(color => (
+                <option key={color} value={color}>{color}</option>
+              ))}
+            </select>
+          </div>
+        )}
+        
+        {sizes.length > 1 && (
+          <div>
+            <label className="text-xs text-slate-400 mb-1 block">Size</label>
+            <select
+              value={selectedSize || ""}
+              onChange={(e) => onSizeChange(e.target.value)}
+              onClick={(e) => e.stopPropagation()}
+              className="w-full bg-slate-800/50 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:border-blue-500 focus:outline-none"
+            >
+              <option value="">Select size</option>
+              {sizes.map(size => (
+                <option key={size} value={size}>{size}</option>
+              ))}
+            </select>
+          </div>
+        )}
       </div>
     </div>
   );
