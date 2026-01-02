@@ -69,6 +69,7 @@ export default function Home() {
                     title="Leopard Gecko Setup"
                     description="A complete breakdown of heating (Halogen vs DHP), substrate safety, and enclosure sizes."
                     imageSrc="/gecko-guide.jpg"
+                    fallbackSrc="/gecko.jpg"
                     accentColor="text-emerald-400"
                     hoverBorder="hover:border-emerald-500/30"
                 />
@@ -80,6 +81,7 @@ export default function Home() {
                     title="Betta Fish Care 101"
                     description="Why bowls are dangerous, understanding the nitrogen cycle, and the best live plants."
                     imageSrc="/betta-guide.jpg"
+                    fallbackSrc="/betta.jpg"
                     accentColor="text-blue-400"
                     hoverBorder="hover:border-blue-500/30"
                 />
@@ -140,7 +142,10 @@ function SpeciesCard({
 }
 
 // --- COMPONENT: GUIDE CARD (Compact) ---
-function GuideCard({ href, title, description, imageSrc, accentColor, hoverBorder }) {
+function GuideCard({ href, title, description, imageSrc, accentColor, hoverBorder, fallbackSrc }) {
+    // Use fallback if main image doesn't exist
+    const imgSrc = imageSrc || fallbackSrc;
+    
     return (
         <Link 
             href={href}
@@ -149,7 +154,7 @@ function GuideCard({ href, title, description, imageSrc, accentColor, hoverBorde
             {/* Thumbnail Container */}
             <div className="relative h-24 w-24 min-w-[6rem] shrink-0 overflow-hidden rounded-xl border border-white/10 bg-slate-800 shadow-lg">
                 <Image 
-                    src={imageSrc} 
+                    src={imgSrc} 
                     alt={title}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-110 opacity-90 group-hover:opacity-100"
