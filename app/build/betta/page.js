@@ -46,7 +46,7 @@ function groupVariants(products) {
     const pattern1 = /^(.+?)\s+-\s+(Light|Dark|Beige|Black|White)\s+\((.+?)\)$/i;
     // Pattern 2: "Aquarium Sand Beige (2lbs)" or "Aquarium Sand Black (2lbs)"
     const pattern2 = /^(.+?)\s+(Beige|Black|White|Light|Dark)\s+\((.+?)\)$/i;
-    // Pattern 3: "Natural Driftwood 3 pcs (6-10) Large" or "Natural Driftwood 4 pcs (4-6) Small"
+    // Pattern 3: "Natural Driftwood 3 pcs (6-10 inches) Large" or "Natural Driftwood 4 pcs (4-6 inches) Small"
     const pattern3 = /^(.+?)\s+(\d+)\s+pcs\s+\((.+?)\)\s+(Large|Small)$/i;
     
     let match = label.match(pattern1) || label.match(pattern2) || label.match(pattern3);
