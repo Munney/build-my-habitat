@@ -26,7 +26,7 @@ export default function Navbar() {
 
   return (
     <nav className="fixed inset-x-0 top-0 z-50 h-28 w-full border-b border-white/10 bg-[#020617]/80 backdrop-blur-md">
-      <div className="mx-auto flex h-full w-[90%] max-w-[1400px] items-center justify-between">
+      <div className="mx-auto flex h-full w-full items-center justify-between px-8 md:px-12 lg:px-16">
         
         {/* LOGO (Restored your large styling) */}
         <Link
