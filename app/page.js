@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image"; 
+import { useState } from "react";
 import { ArrowRight, BookOpen, ArrowUpRight } from "lucide-react";
 
 export default function Home() {
@@ -143,6 +144,9 @@ function SpeciesCard({
 
 // --- COMPONENT: GUIDE CARD (Compact) ---
 function GuideCard({ href, title, description, imageSrc, accentColor, hoverBorder, fallbackSrc }) {
+    const [imgError, setImgError] = useState(false);
+    const currentSrc = imgError && fallbackSrc ? fallbackSrc : imageSrc;
+    
     return (
         <Link 
             href={href}
@@ -151,16 +155,11 @@ function GuideCard({ href, title, description, imageSrc, accentColor, hoverBorde
             {/* Thumbnail Container */}
             <div className="relative h-24 w-24 min-w-[6rem] shrink-0 overflow-hidden rounded-xl border border-white/10 bg-slate-800 shadow-lg">
                 <Image 
-                    src={imageSrc} 
+                    src={currentSrc} 
                     alt={title}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-110 opacity-90 group-hover:opacity-100"
-                    onError={(e) => {
-                        // Fallback to default image if guide image fails to load
-                        if (fallbackSrc && e.target.src !== fallbackSrc) {
-                            e.target.src = fallbackSrc;
-                        }
-                    }}
+                    onError={() => setImgError(true)}
                 />
             </div>
 
