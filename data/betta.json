@@ -6,8 +6,8 @@
       "price": 14.99,
       "size": 1,
       "type": "unsafe",
-      "amazonSearchUrl": "https://www.amazon.com/s?k=1%20gallon%20glass%20bowl%20aquarium&tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/s?k=1%20gallon%20glass%20bowl%20aquarium&tag=habitatbuilde-20"
+      "amazonSearchUrl": "https://www.amazon.com/s?k=Glass%20Bowl%20(1%20Gallon)%20aquarium&tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/s?k=Glass%20Bowl%20(1%20Gallon)%20aquarium&tag=habitatbuilde-20"
     },
     {
       "id": "5g",
@@ -23,7 +23,7 @@
     {
       "id": "10g",
       "label": "10 Gallon Standard",
-      "price": 29.99,
+      "price": 79.99,
       "size": 10,
       "type": "safe",
       "amazonSearchUrl": "https://www.amazon.com/s?k=10%20gallon%20aquarium%20tank%20standard&tag=habitatbuilde-20",
@@ -34,7 +34,7 @@
     {
       "id": "20g",
       "label": "20 Gallon Long",
-      "price": 49.99,
+      "price": 279.99,
       "size": 20,
       "type": "safe",
       "amazonSearchUrl": "https://www.amazon.com/s?k=20%20gallon%20long%20aquarium%20tank&tag=habitatbuilde-20",
@@ -47,7 +47,7 @@
     {
       "id": "sponge",
       "label": "Sponge Filter + Air Pump",
-      "price": 19.99,
+      "price": 17.99,
       "flow": "low",
       "amazonSearchUrl": "https://www.amazon.com/s?k=sponge%20filter%20air%20pump%20aquarium%20betta&tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/dp/B07VTT5CJM?tag=habitatbuilde-20",
@@ -57,7 +57,7 @@
     {
       "id": "hob",
       "label": "Hang-On-Back (HOB) Filter",
-      "price": 24.99,
+      "price": 39.99,
       "flow": "medium",
       "amazonSearchUrl": "https://www.amazon.com/s?k=hang%20on%20back%20filter%20aquarium%20HOB&tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/dp/B0FMXX9TZS?tag=habitatbuilde-20",
@@ -67,7 +67,7 @@
     {
       "id": "internal",
       "label": "Internal Power Filter",
-      "price": 15.99,
+      "price": 15.97,
       "flow": "high",
       "amazonSearchUrl": "https://www.amazon.com/s?k=internal%20power%20filter%20aquarium&tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/dp/B0002DHYF4?tag=habitatbuilde-20",
@@ -88,7 +88,7 @@
     {
       "id": "100w",
       "label": "100W Adjustable Heater",
-      "price": 24.99,
+      "price": 23.99,
       "amazonSearchUrl": "https://www.amazon.com/s?k=100w%20aquarium%20heater%20adjustable&tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/dp/B0FC2DDDXC?tag=habitatbuilde-20",
       "asin": "B0FC2DDDXC",
@@ -97,7 +97,7 @@
     {
       "id": "thermometer",
       "label": "Glass Thermometer",
-      "price": 4.99,
+      "price": 9.99,
       "amazonSearchUrl": "https://www.amazon.com/s?k=aquarium%20thermometer%20glass&tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/dp/B0BFVST4XX?tag=habitatbuilde-20",
       "asin": "B0BFVST4XX",
@@ -113,92 +113,177 @@
     },
     {
       "id": "gravel",
-      "label": "Natural Gravel",
-      "price": 5.99,
+      "label": "Natural Gravel - Dark (5lbs)",
+      "price": 14.99,
       "type": "inert",
       "amazonSearchUrl": "https://www.amazon.com/s?k=aquarium%20gravel%20natural%20substrate&tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/s?k=aquarium%20gravel%20natural%20substrate&tag=habitatbuilde-20"
+      "defaultProductUrl": "https://www.amazon.com/dp/B0C6D9YJXC?tag=habitatbuilde-20",
+      "asin": "B0C6D9YJXC",
+      "amazonUrl": "https://www.amazon.com/dp/B0C6D9YJXC?tag=habitatbuilde-20"
     },
     {
       "id": "sand",
-      "label": "Aquarium Sand",
-      "price": 9.99,
+      "label": "Aquarium Sand White (5lbs)",
+      "price": 16.99,
       "type": "inert",
       "amazonSearchUrl": "https://www.amazon.com/s?k=aquarium%20sand%20substrate&tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/s?k=aquarium%20sand%20substrate&tag=habitatbuilde-20"
+      "defaultProductUrl": "https://www.amazon.com/dp/B0DXF931PX?tag=habitatbuilde-20",
+      "asin": "B0DXF931PX",
+      "amazonUrl": "https://www.amazon.com/dp/B0DXF931PX?tag=habitatbuilde-20"
     },
     {
       "id": "aquasoil",
-      "label": "Active Plant Soil",
-      "price": 24.99,
+      "label": "Active Plant Soil Dark (4.4lbs)",
+      "price": 17.99,
       "type": "active",
       "amazonSearchUrl": "https://www.amazon.com/s?k=aquarium%20plant%20soil%20active%20substrate&tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/s?k=aquarium%20plant%20soil%20active%20substrate&tag=habitatbuilde-20"
+      "defaultProductUrl": "https://www.amazon.com/dp/B00JGQIY48?tag=habitatbuilde-20",
+      "asin": "B00JGQIY48",
+      "amazonUrl": "https://www.amazon.com/dp/B00JGQIY48?tag=habitatbuilde-20"
+    },
+    {
+      "id": "gravel_natural_gravel_light_2lbs",
+      "label": "Natural Gravel - Light (2lbs)",
+      "price": 9.99,
+      "type": "inert",
+      "asin": "B0BFW114MY",
+      "amazonUrl": "https://www.amazon.com/dp/B0BFW114MY?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0BFW114MY?tag=habitatbuilde-20"
+    },
+    {
+      "id": "sand_aquarium_sand_beige_2lbs",
+      "label": "Aquarium Sand Beige (2lbs)",
+      "price": 9.99,
+      "type": "inert",
+      "asin": "B0DXF8XCHW",
+      "amazonUrl": "https://www.amazon.com/dp/B0DXF8XCHW?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0DXF8XCHW?tag=habitatbuilde-20"
+    },
+    {
+      "id": "sand_aquarium_sand_black_2lbs",
+      "label": "Aquarium Sand Black (2lbs)",
+      "price": 9.99,
+      "type": "inert",
+      "asin": "B0DXF812T8",
+      "amazonUrl": "https://www.amazon.com/dp/B0DXF812T8?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0DXF812T8?tag=habitatbuilde-20"
+    },
+    {
+      "id": "sand_aquarium_sand_white_2lbs",
+      "label": "Aquarium Sand White (2lbs)",
+      "price": 9.99,
+      "type": "inert",
+      "asin": "B0DXF76XRW",
+      "amazonUrl": "https://www.amazon.com/dp/B0DXF76XRW?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0DXF76XRW?tag=habitatbuilde-20"
+    },
+    {
+      "id": "sand_aquarium_sand_beige_5lbs",
+      "label": "Aquarium Sand Beige (5lbs)",
+      "price": 16.99,
+      "type": "inert",
+      "asin": "B0DXF9TF74",
+      "amazonUrl": "https://www.amazon.com/dp/B0DXF9TF74?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0DXF9TF74?tag=habitatbuilde-20"
+    },
+    {
+      "id": "sand_aquarium_sand_black_5lbs",
+      "label": "Aquarium Sand Black (5lbs)",
+      "price": 16.99,
+      "type": "inert",
+      "asin": "B0DXF9GVY5",
+      "amazonUrl": "https://www.amazon.com/dp/B0DXF9GVY5?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0DXF9GVY5?tag=habitatbuilde-20"
     }
   ],
   "decor": [
     {
       "id": "plastic",
       "label": "Plastic Plants",
-      "price": 4.99,
+      "price": 8.99,
       "type": "risk",
       "amazonSearchUrl": "https://www.amazon.com/s?k=plastic%20aquarium%20plants&tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/s?k=plastic%20aquarium%20plants&tag=habitatbuilde-20"
+      "defaultProductUrl": "https://www.amazon.com/dp/B0CYGF1CTG?tag=habitatbuilde-20",
+      "asin": "B0CYGF1CTG",
+      "amazonUrl": "https://www.amazon.com/dp/B0CYGF1CTG?tag=habitatbuilde-20"
     },
     {
       "id": "silk",
       "label": "Silk Plants",
-      "price": 8.99,
+      "price": 13.99,
       "type": "safe",
       "amazonSearchUrl": "https://www.amazon.com/s?k=silk%20aquarium%20plants%20betta%20safe&tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/s?k=silk%20aquarium%20plants%20betta%20safe&tag=habitatbuilde-20"
+      "defaultProductUrl": "https://www.amazon.com/dp/B0D3HG18HJ?tag=habitatbuilde-20",
+      "asin": "B0D3HG18HJ",
+      "amazonUrl": "https://www.amazon.com/dp/B0D3HG18HJ?tag=habitatbuilde-20"
     },
     {
       "id": "live_easy",
       "label": "Live Plants (Anubias/Java Fern)",
-      "price": 12.99,
+      "price": 17.99,
       "type": "live",
       "amazonSearchUrl": "https://www.amazon.com/s?k=anubias%20java%20fern%20live%20aquarium%20plants&tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/s?k=anubias%20java%20fern%20live%20aquarium%20plants&tag=habitatbuilde-20"
+      "defaultProductUrl": "https://www.amazon.com/dp/B0DNNN5VD2?tag=habitatbuilde-20",
+      "asin": "B0DNNN5VD2",
+      "amazonUrl": "https://www.amazon.com/dp/B0DNNN5VD2?tag=habitatbuilde-20"
     },
     {
       "id": "betta_log",
       "label": "Floating Betta Log",
-      "price": 14.99,
+      "price": 7.99,
       "type": "enrichment",
       "amazonSearchUrl": "https://www.amazon.com/s?k=floating%20betta%20log%20hide&tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/s?k=floating%20betta%20log%20hide&tag=habitatbuilde-20"
+      "defaultProductUrl": "https://www.amazon.com/dp/B0027ITKBS?tag=habitatbuilde-20",
+      "asin": "B0027ITKBS",
+      "amazonUrl": "https://www.amazon.com/dp/B0027ITKBS?tag=habitatbuilde-20"
     },
     {
       "id": "driftwood",
-      "label": "Natural Driftwood",
-      "price": 11.99,
+      "label": "Natural Driftwood 4 pcs (4-6) Small",
+      "price": 13.44,
       "type": "enrichment",
       "amazonSearchUrl": "https://www.amazon.com/s?k=aquarium%20driftwood%20natural&tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/s?k=aquarium%20driftwood%20natural&tag=habitatbuilde-20"
+      "defaultProductUrl": "https://www.amazon.com/dp/B0CW37TK7C?tag=habitatbuilde-20",
+      "asin": "B0CW37TK7C",
+      "amazonUrl": "https://www.amazon.com/dp/B0CW37TK7C?tag=habitatbuilde-20"
+    },
+    {
+      "id": "driftwood_natural_driftwood_3_pcs_6_10_l",
+      "label": "Natural Driftwood 3 pcs (6-10) Large",
+      "price": 22.99,
+      "type": "safe",
+      "asin": "B08XYSWBBB",
+      "amazonUrl": "https://www.amazon.com/dp/B08XYSWBBB?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B08XYSWBBB?tag=habitatbuilde-20"
     }
   ],
   "watercare": [
     {
       "id": "conditioner",
       "label": "Water Conditioner (Dechlorinator)",
-      "price": 8.99,
+      "price": 17.99,
       "amazonSearchUrl": "https://www.amazon.com/s?k=water%20conditioner%20dechlorinator%20aquarium&tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/s?k=water%20conditioner%20dechlorinator%20aquarium&tag=habitatbuilde-20"
+      "defaultProductUrl": "https://www.amazon.com/dp/B077MFZRVN?tag=habitatbuilde-20",
+      "asin": "B077MFZRVN",
+      "amazonUrl": "https://www.amazon.com/dp/B077MFZRVN?tag=habitatbuilde-20"
     },
     {
       "id": "bacteria",
       "label": "Beneficial Bacteria Starter",
-      "price": 11.99,
+      "price": 15.98,
       "amazonSearchUrl": "https://www.amazon.com/s?k=beneficial%20bacteria%20starter%20aquarium&tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/s?k=beneficial%20bacteria%20starter%20aquarium&tag=habitatbuilde-20"
+      "defaultProductUrl": "https://www.amazon.com/dp/B00176ENNG?tag=habitatbuilde-20",
+      "asin": "B00176ENNG",
+      "amazonUrl": "https://www.amazon.com/dp/B00176ENNG?tag=habitatbuilde-20"
     },
     {
       "id": "testkit",
       "label": "Master Test Kit",
-      "price": 34.99,
+      "price": 32.99,
       "amazonSearchUrl": "https://www.amazon.com/s?k=aquarium%20master%20test%20kit%20API%20freshwater&tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/s?k=aquarium%20master%20test%20kit%20API%20freshwater&tag=habitatbuilde-20"
+      "defaultProductUrl": "https://www.amazon.com/dp/B000255NCI?tag=habitatbuilde-20",
+      "asin": "B000255NCI",
+      "amazonUrl": "https://www.amazon.com/dp/B000255NCI?tag=habitatbuilde-20"
     }
   ]
 }
