@@ -4,30 +4,75 @@ export default function ResearchPage() {
   const articles = [
     {
       category: "Leopard Gecko",
-      title: "Why Heat Mats Are No Longer Enough",
-      snippet: "New studies show that Deep Heat Projectors (DHP) provide better muscle penetration than under-tank heating.",
-      date: "Oct 2024",
-      // Match Home Page Green Button
+      title: "Reptile Heating: Deep Heat Projectors vs. Heat Mats",
+      snippet: "Research on infrared heating and its effects on reptile thermoregulation and muscle function.",
+      date: "2024",
+      url: "https://scholar.google.com/scholar?q=reptile+heating+deep+heat+projector+infrared+thermoregulation",
+      tagColor: "text-emerald-300 border-emerald-500/30 bg-emerald-500/10",
+      buttonColor: "bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-900/20",
+    },
+    {
+      category: "Leopard Gecko",
+      title: "Substrate Safety in Reptile Enclosures",
+      snippet: "Peer-reviewed studies on substrate ingestion risks and safe substrate options for leopard geckos.",
+      date: "2024",
+      url: "https://scholar.google.com/scholar?q=leopard+gecko+substrate+safety+impaction+husbandry",
       tagColor: "text-emerald-300 border-emerald-500/30 bg-emerald-500/10",
       buttonColor: "bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-900/20",
     },
     {
       category: "Betta Fish",
-      title: "The Nitrogen Cycle: Explained Simply",
-      snippet: "Why you cannot put a fish in a tank the same day you buy it. A guide to beneficial bacteria.",
-      date: "Sept 2024",
-      // Match Home Page Blue Button
+      title: "Minimum Tank Size and Welfare in Betta splendens",
+      snippet: "Scientific research on the effects of tank size on betta fish behavior, stress, and overall welfare.",
+      date: "2024",
+      url: "https://scholar.google.com/scholar?q=betta+fish+tank+size+welfare+behavior+stress",
+      tagColor: "text-blue-300 border-blue-500/30 bg-blue-500/10",
+      buttonColor: "bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-900/20",
+    },
+    {
+      category: "Betta Fish",
+      title: "The Nitrogen Cycle and Beneficial Bacteria",
+      snippet: "Research on nitrification processes, beneficial bacteria, and aquarium water quality management.",
+      date: "2024",
+      url: "https://scholar.google.com/scholar?q=aquarium+nitrogen+cycle+nitrification+beneficial+bacteria",
       tagColor: "text-blue-300 border-blue-500/30 bg-blue-500/10",
       buttonColor: "bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-900/20",
     },
     {
       category: "General",
-      title: "Glass vs. PVC: Which holds humidity better?",
-      snippet: "A breakdown of thermal retention and humidity stability in different enclosure materials.",
-      date: "Aug 2024",
-      // Distinct Purple for General
+      title: "Aquatic Animal Welfare Standards",
+      snippet: "Peer-reviewed research on fish welfare, environmental enrichment, and evidence-based care standards.",
+      date: "2024",
+      url: "https://scholar.google.com/scholar?q=aquatic+animal+welfare+fish+care+enrichment",
       tagColor: "text-purple-300 border-purple-500/30 bg-purple-500/10",
       buttonColor: "bg-purple-600 hover:bg-purple-500 text-white shadow-lg shadow-purple-900/20",
+    },
+    {
+      category: "General",
+      title: "Reptile Enclosure Design and Thermal Gradients",
+      snippet: "Studies on enclosure materials, thermal gradients, and their impact on reptile health and behavior.",
+      date: "2024",
+      url: "https://scholar.google.com/scholar?q=reptile+enclosure+thermal+gradient+heating+husbandry",
+      tagColor: "text-purple-300 border-purple-500/30 bg-purple-500/10",
+      buttonColor: "bg-purple-600 hover:bg-purple-500 text-white shadow-lg shadow-purple-900/20",
+    },
+    {
+      category: "Resources",
+      title: "Google Scholar - Pet Care Research",
+      snippet: "Access peer-reviewed research papers on reptile and fish husbandry, welfare, and care standards.",
+      date: "Ongoing",
+      url: "https://scholar.google.com/scholar?q=reptile+fish+husbandry+welfare+care",
+      tagColor: "text-amber-300 border-amber-500/30 bg-amber-500/10",
+      buttonColor: "bg-amber-600 hover:bg-amber-500 text-white shadow-lg shadow-amber-900/20",
+    },
+    {
+      category: "Resources",
+      title: "PubMed - Veterinary Research",
+      snippet: "National Library of Medicine database with peer-reviewed veterinary and animal welfare research.",
+      date: "Ongoing",
+      url: "https://pubmed.ncbi.nlm.nih.gov/?term=reptile+husbandry+OR+fish+welfare+OR+pet+care",
+      tagColor: "text-amber-300 border-amber-500/30 bg-amber-500/10",
+      buttonColor: "bg-amber-600 hover:bg-amber-500 text-white shadow-lg shadow-amber-900/20",
     }
   ];
 
@@ -75,9 +120,14 @@ export default function ResearchPage() {
                 </div>
                 
                 {/* Button (Now uses dynamic colors) */}
-                <button className={`w-full md:w-auto shrink-0 flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all ${article.buttonColor}`}>
-                  Read Article <ExternalLink size={16} />
-                </button>
+                <a 
+                  href={article.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className={`w-full md:w-auto shrink-0 flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all ${article.buttonColor}`}
+                >
+                  View Research <ExternalLink size={16} />
+                </a>
               </div>
             </div>
           ))}
