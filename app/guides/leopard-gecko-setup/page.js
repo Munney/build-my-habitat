@@ -19,7 +19,7 @@ import Footer from "../../components/Footer";
 export default function LeopardGeckoGuidePage() {
   return (
     <>
-      <main className="min-h-screen pt-28 pb-20 px-6 relative z-10 bg-[#020617]">
+      <main className="min-h-screen pt-28 pb-20 px-6 relative z-10">
         
         {/* --- BACK TO HUB BUTTON --- */}
         <div className="max-w-4xl mx-auto mb-8">
