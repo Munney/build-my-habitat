@@ -143,9 +143,6 @@ function SpeciesCard({
 
 // --- COMPONENT: GUIDE CARD (Compact) ---
 function GuideCard({ href, title, description, imageSrc, accentColor, hoverBorder, fallbackSrc }) {
-    // Use fallback if main image doesn't exist
-    const imgSrc = imageSrc || fallbackSrc;
-    
     return (
         <Link 
             href={href}
@@ -154,10 +151,16 @@ function GuideCard({ href, title, description, imageSrc, accentColor, hoverBorde
             {/* Thumbnail Container */}
             <div className="relative h-24 w-24 min-w-[6rem] shrink-0 overflow-hidden rounded-xl border border-white/10 bg-slate-800 shadow-lg">
                 <Image 
-                    src={imgSrc} 
+                    src={imageSrc} 
                     alt={title}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-110 opacity-90 group-hover:opacity-100"
+                    onError={(e) => {
+                        // Fallback to default image if guide image fails to load
+                        if (fallbackSrc && e.target.src !== fallbackSrc) {
+                            e.target.src = fallbackSrc;
+                        }
+                    }}
                 />
             </div>
 
