@@ -153,18 +153,18 @@ export default function BettaBuilder() {
   // Handle decor selection (including variants)
   const selectedDecor = useMemo(() => {
     return decorIds.map(id => {
-      const directMatch = DECOR.find(d => d.id === id);
+      const directMatch = filteredDecor.find(d => d.id === id);
       if (directMatch) return directMatch;
       
       // Check variant groups
-      const { groups } = groupVariants(DECOR);
+      const { groups } = groupVariants(filteredDecor);
       for (const group of groups) {
         const variant = group.variants.find(v => v.id === id);
         if (variant) return variant;
       }
       return null;
     }).filter(Boolean);
-  }, [decorIds]);
+  }, [decorIds, filteredDecor]);
   
   const selectedCare = pickMany(WATERCARE, careIds);
 
