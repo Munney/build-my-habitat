@@ -90,26 +90,9 @@ function processCSV(csvFilePath) {
     
     if (parts.length < 7) continue;
     
-    const [species, productId, productName, category, price, currentAsin, urlOrAsin] = parts;
+    const [species, productId, productName, category, priceStr, currentAsin, urlOrAsin] = parts;
     const url = urlOrAsin.trim();
-    
-    // Skip if no URL provided
-    if (!url) {
-      emptyCount++;
-      continue;
-    }
-    
-    // Skip if already has ASIN and user didn't provide new one
-    if (currentAsin && !url) {
-      continue;
-    }
-    
-    const asin = extractAsinFromUrl(url);
-    if (!asin) {
-      console.log(`⚠️  ${productName}: Could not extract ASIN from "${url.substring(0, 50)}"`);
-      skippedCount++;
-      continue;
-    }
+    const newPrice = parseFloat(priceStr.trim());
     
     // Determine species
     const isBetta = species.trim().toLowerCase().includes('betta');
@@ -129,16 +112,63 @@ function processCSV(csvFilePath) {
       continue;
     }
     
-    // Update the product
-    data[category.trim()][itemIndex] = {
-      ...categoryItems[itemIndex],
-      asin: asin,
-      amazonUrl: `https://www.amazon.com/dp/${asin}?tag=${AFFILIATE_TAG}`,
-      defaultProductUrl: `https://www.amazon.com/dp/${asin}?tag=${AFFILIATE_TAG}`
-    };
+    // Prepare update object
+    const updates = { ...categoryItems[itemIndex] };
+    let updated = false;
     
-    successCount++;
-    console.log(`✅ ${productName}: Added ASIN ${asin}`);
+    // Update price if provided and different
+    const oldPrice = updates.price;
+    if (!isNaN(newPrice) && newPrice > 0) {
+      if (oldPrice !== newPrice) {
+        updates.price = newPrice;
+        updated = true;
+      }
+    }
+    
+    // Update ASIN if URL provided
+    if (url) {
+      const asin = extractAsinFromUrl(url);
+      if (asin) {
+        updates.asin = asin;
+        updates.amazonUrl = `https://www.amazon.com/dp/${asin}?tag=${AFFILIATE_TAG}`;
+        updates.defaultProductUrl = `https://www.amazon.com/dp/${asin}?tag=${AFFILIATE_TAG}`;
+        updated = true;
+        successCount++;
+      } else {
+        console.log(`⚠️  ${productName}: Could not extract ASIN from "${url.substring(0, 50)}"`);
+        skippedCount++;
+        // Still update price even if ASIN extraction failed
+        if (updated) {
+          data[category.trim()][itemIndex] = updates;
+          const changes = [];
+          if (!isNaN(newPrice) && newPrice > 0 && oldPrice !== newPrice) {
+            changes.push(`price $${oldPrice.toFixed(2)} → $${newPrice.toFixed(2)}`);
+          }
+          if (changes.length > 0) {
+            console.log(`✅ ${productName}: ${changes.join(', ')}`);
+          }
+        }
+        continue;
+      }
+    } else {
+      // No URL provided, but still update price if needed
+      emptyCount++;
+    }
+    
+    // Only update if something changed
+    if (updated) {
+      data[category.trim()][itemIndex] = updates;
+      const changes = [];
+      if (url && extractAsinFromUrl(url)) {
+        changes.push(`ASIN ${extractAsinFromUrl(url)}`);
+      }
+      if (!isNaN(newPrice) && newPrice > 0 && oldPrice !== newPrice) {
+        changes.push(`price $${oldPrice.toFixed(2)} → $${newPrice.toFixed(2)}`);
+      }
+      if (changes.length > 0) {
+        console.log(`✅ ${productName}: ${changes.join(', ')}`);
+      }
+    }
   }
   
   // Save files
