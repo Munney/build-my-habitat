@@ -1,36 +1,189 @@
 {
   "enclosures": [
-    { "id": "10g", "label": "10 Gallon Tank", "price": 19.99, "size": 10 },
-    { "id": "20g", "label": "20 Gallon Long", "price": 49.99, "size": 20 },
-    { "id": "40g", "label": "40 Gallon Breeder", "price": 119.99, "size": 40 },
-    { "id": "pvc4x2", "label": "4x2x2 PVC Enclosure", "price": 299.99, "size": 120 }
+    {
+      "id": "10g",
+      "label": "10 Gallon Tank",
+      "price": 19.99,
+      "size": 10,
+      "amazonSearchUrl": "https://www.amazon.com/s?k=10%20gallon%20reptile%20tank%20leopard%20gecko&tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/s?k=10%20gallon%20reptile%20tank%20leopard%20gecko&tag=habitatbuilde-20"
+    },
+    {
+      "id": "20g",
+      "label": "20 Gallon Long",
+      "price": 49.99,
+      "size": 20,
+      "amazonSearchUrl": "https://www.amazon.com/s?k=20%20gallon%20long%20reptile%20tank&tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/s?k=20%20gallon%20long%20reptile%20tank&tag=habitatbuilde-20"
+    },
+    {
+      "id": "40g",
+      "label": "40 Gallon Breeder",
+      "price": 119.99,
+      "size": 40,
+      "amazonSearchUrl": "https://www.amazon.com/s?k=40%20gallon%20breeder%20tank%20reptile&tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/s?k=40%20gallon%20breeder%20tank%20reptile&tag=habitatbuilde-20"
+    },
+    {
+      "id": "pvc4x2",
+      "label": "4x2x2 PVC Enclosure",
+      "price": 299.99,
+      "size": 120,
+      "amazonSearchUrl": "https://www.amazon.com/s?k=4x2x2%20pvc%20reptile%20enclosure&tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/s?k=4x2x2%20pvc%20reptile%20enclosure&tag=habitatbuilde-20"
+    }
   ],
   "heating": [
-    { "id": "heatmat", "label": "Under Tank Heater (Mat)", "price": 15.99 },
-    { "id": "halogen", "label": "Halogen Flood Lamp", "price": 9.99 },
-    { "id": "dhp", "label": "Deep Heat Projector (DHP)", "price": 24.99 },
-    { "id": "thermostat", "label": "Digital Thermostat", "price": 29.99 },
-    { "id": "uvb", "label": "ShadeDweller UVB Kit", "price": 44.99 }
+    {
+      "id": "heatmat",
+      "label": "Under Tank Heater (Mat)",
+      "price": 15.99,
+      "amazonSearchUrl": "https://www.amazon.com/s?k=under%20tank%20heater%20reptile%20UTH&tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/s?k=under%20tank%20heater%20reptile%20UTH&tag=habitatbuilde-20"
+    },
+    {
+      "id": "halogen",
+      "label": "Halogen Flood Lamp",
+      "price": 9.99,
+      "amazonSearchUrl": "https://www.amazon.com/s?k=halogen%20flood%20lamp%20reptile%20heating&tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/s?k=halogen%20flood%20lamp%20reptile%20heating&tag=habitatbuilde-20"
+    },
+    {
+      "id": "dhp",
+      "label": "Deep Heat Projector (DHP)",
+      "price": 24.99,
+      "amazonSearchUrl": "https://www.amazon.com/s?k=deep%20heat%20projector%20DHP%20reptile&tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/s?k=deep%20heat%20projector%20DHP%20reptile&tag=habitatbuilde-20"
+    },
+    {
+      "id": "thermostat",
+      "label": "Digital Thermostat",
+      "price": 29.99,
+      "amazonSearchUrl": "https://www.amazon.com/s?k=reptile%20thermostat%20digital&tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/s?k=reptile%20thermostat%20digital&tag=habitatbuilde-20"
+    },
+    {
+      "id": "uvb",
+      "label": "ShadeDweller UVB Kit",
+      "price": 44.99,
+      "amazonSearchUrl": "https://www.amazon.com/s?k=shadedweller%20uvb%20kit%20reptile&tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/s?k=shadedweller%20uvb%20kit%20reptile&tag=habitatbuilde-20"
+    }
   ],
   "substrates": [
-    { "id": "papertowel", "label": "Paper Towels", "price": 0, "type": "solid" },
-    { "id": "slate", "label": "Slate Tile / Stone", "price": 15.00, "type": "solid" },
-    { "id": "liner", "label": "Non-Adhesive Shelf Liner", "price": 5.99, "type": "solid" },
-    { "id": "topsoil", "label": "Organic Topsoil Mix", "price": 4.99, "type": "loose" },
-    { "id": "excavator", "label": "Excavator Clay", "price": 19.99, "type": "loose" },
-    { "id": "bioactive", "label": "BioActive Terra Sahara", "price": 29.99, "type": "loose" },
-    { "id": "sand", "label": "Reptile Sand (Calcium)", "price": 12.99, "type": "loose" }
+    {
+      "id": "papertowel",
+      "label": "Paper Towels",
+      "price": 0,
+      "type": "solid"
+    },
+    {
+      "id": "slate",
+      "label": "Slate Tile / Stone",
+      "price": 15,
+      "type": "solid",
+      "amazonSearchUrl": "https://www.amazon.com/s?k=slate%20tile%20reptile%20substrate&tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/s?k=slate%20tile%20reptile%20substrate&tag=habitatbuilde-20"
+    },
+    {
+      "id": "liner",
+      "label": "Non-Adhesive Shelf Liner",
+      "price": 5.99,
+      "type": "solid",
+      "amazonSearchUrl": "https://www.amazon.com/s?k=non%20adhesive%20shelf%20liner%20reptile&tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/s?k=non%20adhesive%20shelf%20liner%20reptile&tag=habitatbuilde-20"
+    },
+    {
+      "id": "topsoil",
+      "label": "Organic Topsoil Mix",
+      "price": 4.99,
+      "type": "loose",
+      "amazonSearchUrl": "https://www.amazon.com/s?k=organic%20topsoil%20reptile%20substrate&tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/s?k=organic%20topsoil%20reptile%20substrate&tag=habitatbuilde-20"
+    },
+    {
+      "id": "excavator",
+      "label": "Excavator Clay",
+      "price": 19.99,
+      "type": "loose",
+      "amazonSearchUrl": "https://www.amazon.com/s?k=excavator%20clay%20reptile%20substrate&tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/s?k=excavator%20clay%20reptile%20substrate&tag=habitatbuilde-20"
+    },
+    {
+      "id": "bioactive",
+      "label": "BioActive Terra Sahara",
+      "price": 29.99,
+      "type": "loose",
+      "amazonSearchUrl": "https://www.amazon.com/s?k=bioactive%20terra%20sahara%20substrate&tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/s?k=bioactive%20terra%20sahara%20substrate&tag=habitatbuilde-20"
+    },
+    {
+      "id": "sand",
+      "label": "Reptile Sand (Calcium)",
+      "price": 12.99,
+      "type": "loose",
+      "amazonSearchUrl": "https://www.amazon.com/s?k=reptile%20sand%20calcium%20leopard%20gecko&tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/s?k=reptile%20sand%20calcium%20leopard%20gecko&tag=habitatbuilde-20"
+    }
   ],
   "hides": [
-    { "id": "warmhide", "label": "Warm Hide (Cave)", "price": 12.99 },
-    { "id": "coolhide", "label": "Cool Hide (Rock)", "price": 14.99 },
-    { "id": "humidhide", "label": "Humid Hide (Box)", "price": 9.99 },
-    { "id": "corkbark", "label": "Cork Bark Flat", "price": 8.99 },
-    { "id": "branches", "label": "Climbing Branches", "price": 18.99 }
+    {
+      "id": "warmhide",
+      "label": "Warm Hide (Cave)",
+      "price": 12.99,
+      "amazonSearchUrl": "https://www.amazon.com/s?k=reptile%20hide%20cave%20warm&tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/s?k=reptile%20hide%20cave%20warm&tag=habitatbuilde-20"
+    },
+    {
+      "id": "coolhide",
+      "label": "Cool Hide (Rock)",
+      "price": 14.99,
+      "amazonSearchUrl": "https://www.amazon.com/s?k=reptile%20hide%20rock%20cool&tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/s?k=reptile%20hide%20rock%20cool&tag=habitatbuilde-20"
+    },
+    {
+      "id": "humidhide",
+      "label": "Humid Hide (Box)",
+      "price": 9.99,
+      "amazonSearchUrl": "https://www.amazon.com/s?k=humid%20hide%20box%20reptile&tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/s?k=humid%20hide%20box%20reptile&tag=habitatbuilde-20"
+    },
+    {
+      "id": "corkbark",
+      "label": "Cork Bark Flat",
+      "price": 8.99,
+      "amazonSearchUrl": "https://www.amazon.com/s?k=cork%20bark%20reptile%20decor&tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/s?k=cork%20bark%20reptile%20decor&tag=habitatbuilde-20"
+    },
+    {
+      "id": "branches",
+      "label": "Climbing Branches",
+      "price": 18.99,
+      "amazonSearchUrl": "https://www.amazon.com/s?k=reptile%20climbing%20branches&tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/s?k=reptile%20climbing%20branches&tag=habitatbuilde-20"
+    }
   ],
   "supplements": [
-    { "id": "calcium_no_d3", "label": "Pure Calcium (No D3)", "price": 5.99 },
-    { "id": "calcium_d3", "label": "Calcium + D3", "price": 6.99 },
-    { "id": "multivitamin", "label": "Reptile Multivitamin", "price": 8.99 }
+    {
+      "id": "calcium_no_d3",
+      "label": "Pure Calcium (No D3)",
+      "price": 5.99,
+      "amazonSearchUrl": "https://www.amazon.com/s?k=reptile%20calcium%20no%20d3&tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/s?k=reptile%20calcium%20no%20d3&tag=habitatbuilde-20"
+    },
+    {
+      "id": "calcium_d3",
+      "label": "Calcium + D3",
+      "price": 6.99,
+      "amazonSearchUrl": "https://www.amazon.com/s?k=reptile%20calcium%20with%20d3&tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/s?k=reptile%20calcium%20with%20d3&tag=habitatbuilde-20"
+    },
+    {
+      "id": "multivitamin",
+      "label": "Reptile Multivitamin",
+      "price": 8.99,
+      "amazonSearchUrl": "https://www.amazon.com/s?k=reptile%20multivitamin%20supplement&tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/s?k=reptile%20multivitamin%20supplement&tag=habitatbuilde-20"
+    }
   ]
 }

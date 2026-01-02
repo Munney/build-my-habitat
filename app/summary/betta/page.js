@@ -16,7 +16,7 @@ import config from "../../../data/betta.json";
 import { trackEvent } from "../../utils/analytics";
 
 // 👇 REPLACE THIS WITH YOUR ACTUAL AMAZON ASSOCIATE TAG
-const AFFILIATE_TAG = "habitatbuilder-20";
+const AFFILIATE_TAG = "habitatbuilde-20";
 
 function getAsinFromUrl(url) {
   if (!url) return null;

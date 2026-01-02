@@ -8,7 +8,7 @@ import bettaData from "../../data/betta.json";
 import geckoData from "../../data/leopard-gecko.json";
 
 // 👇 REPLACE WITH YOUR AMAZON TAG
-const AFFILIATE_TAG = "habitatbuilder-20";
+const AFFILIATE_TAG = "habitatbuilde-20";
 
 export default function BrowsePage() {
   const [searchTerm, setSearchTerm] = useState("");
