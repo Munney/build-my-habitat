@@ -32,16 +32,16 @@ export default function ResearchPage() {
   ];
 
   return (
-    <main className="relative min-h-screen py-20 px-6">
-      <div className="relative z-10 max-w-4xl mx-auto space-y-12">
+    <main className="relative min-h-screen py-20 px-4 sm:px-6">
+      <div className="relative z-10 max-w-4xl mx-auto space-y-8 sm:space-y-12">
         
         {/* Header */}
         <div className="space-y-4 text-center md:text-left">
-          <h1 className="text-4xl md:text-5xl font-black tracking-tight flex items-center gap-3 justify-center md:justify-start drop-shadow-xl text-white">
-            <BookOpen className="text-sky-500" size={40} />
-            Research & <span className="text-slate-300">Evidence</span>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight flex flex-wrap items-center gap-2 sm:gap-3 justify-center md:justify-start drop-shadow-xl text-white">
+            <BookOpen className="text-sky-500" size={32} />
+            <span>Research & <span className="text-slate-300">Evidence</span></span>
           </h1>
-          <p className="text-slate-200 text-lg max-w-2xl leading-relaxed drop-shadow-md font-medium">
+          <p className="text-slate-200 text-base sm:text-lg max-w-2xl leading-relaxed drop-shadow-md font-medium px-2 sm:px-0">
             We don't just guess. Every product recommended on HabitatBuilder is backed by modern husbandry standards and vet-approved research.
           </p>
         </div>
@@ -51,12 +51,12 @@ export default function ResearchPage() {
           {articles.map((article, i) => (
             <div 
               key={i} 
-              className="group p-6 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 shadow-lg"
+              className="group p-4 sm:p-6 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 shadow-lg"
             >
               <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
-                <div className="space-y-3">
+                <div className="space-y-3 flex-1 min-w-0">
                   {/* Category Badge */}
-                  <div className="flex items-center gap-3">
+                  <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                     <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-widest border ${article.tagColor}`}>
                       {article.category}
                     </span>
@@ -65,17 +65,17 @@ export default function ResearchPage() {
                   
                   {/* Content */}
                   <div>
-                    <h2 className="text-2xl font-bold text-white mb-2 group-hover:text-sky-200 transition-colors">
+                    <h2 className="text-xl sm:text-2xl font-bold text-white mb-2 group-hover:text-sky-200 transition-colors">
                       {article.title}
                     </h2>
-                    <p className="text-slate-200 leading-relaxed max-w-2xl font-medium">
+                    <p className="text-slate-200 text-sm sm:text-base leading-relaxed font-medium">
                       {article.snippet}
                     </p>
                   </div>
                 </div>
                 
                 {/* Button (Now uses dynamic colors) */}
-                <button className={`shrink-0 flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all ${article.buttonColor}`}>
+                <button className={`w-full md:w-auto shrink-0 flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all ${article.buttonColor}`}>
                   Read Article <ExternalLink size={16} />
                 </button>
               </div>
