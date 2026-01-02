@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image"; 
-import { ArrowRight, BookOpen, ArrowUpRight } from "lucide-react";
+import { ArrowRight, BookOpen, ArrowUpRight, Lizard, Fish } from "lucide-react";
 
 export default function Home() {
   return (
@@ -68,9 +68,10 @@ export default function Home() {
                     href="/guides/leopard-gecko-setup"
                     title="Leopard Gecko Setup"
                     description="A complete breakdown of heating (Halogen vs DHP), substrate safety, and enclosure sizes."
-                    imageSrc="/gecko-guide.jpg"
+                    imageSrc={null}
                     accentColor="text-emerald-400"
                     hoverBorder="hover:border-emerald-500/30"
+                    icon={<Lizard size={48} className="text-emerald-400/70" />}
                 />
 
                 {/* Betta Guide */}
@@ -79,9 +80,10 @@ export default function Home() {
                     href="/guides/betta-setup"
                     title="Betta Fish Care 101"
                     description="Why bowls are dangerous, understanding the nitrogen cycle, and the best live plants."
-                    imageSrc="/betta-guide.jpg"
+                    imageSrc={null}
                     accentColor="text-blue-400"
                     hoverBorder="hover:border-blue-500/30"
+                    icon={<Fish size={48} className="text-blue-400/70" />}
                 />
             </div>
         </div>
@@ -140,20 +142,30 @@ function SpeciesCard({
 }
 
 // --- COMPONENT: GUIDE CARD (Compact) ---
-function GuideCard({ href, title, description, imageSrc, accentColor, hoverBorder }) {
+function GuideCard({ href, title, description, imageSrc, accentColor, hoverBorder, icon }) {
     return (
         <Link 
             href={href}
             className={`group flex items-center gap-6 p-5 rounded-2xl border border-white/5 bg-slate-900/60 backdrop-blur-md transition-all duration-300 hover:bg-white/10 ${hoverBorder}`}
         >
-            {/* Thumbnail Container */}
-            <div className="relative h-24 w-24 min-w-[6rem] shrink-0 overflow-hidden rounded-xl border border-white/10 bg-slate-800 shadow-lg">
-                <Image 
-                    src={imageSrc} 
-                    alt={title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-110 opacity-90 group-hover:opacity-100"
-                />
+            {/* Thumbnail Container with SVG Placeholder */}
+            <div className="relative h-24 w-24 min-w-[6rem] shrink-0 overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-slate-800 to-slate-900 shadow-lg flex items-center justify-center">
+                {imageSrc ? (
+                    <Image 
+                        src={imageSrc} 
+                        alt={title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-110 opacity-90 group-hover:opacity-100"
+                    />
+                ) : (
+                    <div className={`w-full h-full flex items-center justify-center ${accentColor.replace('text-', 'text-')}`}>
+                        {icon || (
+                            <svg className="w-12 h-12 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                            </svg>
+                        )}
+                    </div>
+                )}
             </div>
 
             {/* Content Side */}
