@@ -24,10 +24,10 @@ export default function RootLayout({ children }) {
             src="/background.jpg"
             alt="Jungle Background"
             fill
-            className="object-cover opacity-40"
+            className="object-cover opacity-60"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#020617]/90 via-[#020617]/70 to-[#020617]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#020617]/60 via-[#020617]/40 to-[#020617]/70 backdrop-blur-[0.5px]" />
         </div>
 
         {/* --- NAVBAR COMPONENT --- */}
