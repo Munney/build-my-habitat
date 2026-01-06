@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, Suspense } from "react";
+import React, { useMemo, Suspense, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { 
   CheckCircle2, 
@@ -64,6 +64,11 @@ function SummaryContent() {
 
   // 👇 FIX: Total price with toFixed(2)
   const total = allItems.reduce((acc, item) => acc + (item.price || 0), 0).toFixed(2);
+
+  // Track summary view
+  useEffect(() => {
+    analytics.trackSummaryView("leopard-gecko", parseFloat(total), allItems.length);
+  }, [total, allItems.length]);
 
   const amazonCartUrl = useMemo(() => {
     const baseUrl = "https://www.amazon.com/gp/aws/cart/add.html";

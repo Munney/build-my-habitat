@@ -1,6 +1,19 @@
+"use client";
+
+import { useEffect } from "react";
 import { ExternalLink, BookOpen } from "lucide-react";
+import { analytics } from "../utils/analytics";
 
 export default function ResearchPage() {
+  // Track page view
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: "research_page_view",
+      });
+    }
+  }, []);
   const articles = [
     {
       category: "Betta Fish",
@@ -115,6 +128,7 @@ export default function ResearchPage() {
                   href={article.url} 
                   target="_blank" 
                   rel="noopener noreferrer"
+                  onClick={() => analytics.trackResearchView(article.title)}
                   className={`w-full md:w-auto shrink-0 flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all ${article.buttonColor}`}
                 >
                   Read Study <ExternalLink size={16} />
