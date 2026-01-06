@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
-import Image from "next/image"; 
+import Image from "next/image";
+import Script from "next/script";
 import Navbar from "./components/Navbar"; // 👈 Import the new file
 import Analytics from "./components/Analytics";
 
@@ -19,7 +20,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         {/* Google Tag Manager */}
-        <script
+        <Script
+          id="google-tag-manager"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
