@@ -18,7 +18,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head>
+      <body className={`${inter.className} bg-[#020617] text-slate-200 min-h-screen flex flex-col`}>
         {/* Google Tag Manager */}
         <Script
           id="google-tag-manager"
@@ -32,8 +32,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           }}
         />
         {/* End Google Tag Manager */}
-      </head>
-      <body className={`${inter.className} bg-[#020617] text-slate-200 min-h-screen flex flex-col`}>
+        
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe
