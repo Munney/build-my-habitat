@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image"; 
 import { useState } from "react";
-import { ArrowRight, BookOpen, ArrowUpRight } from "lucide-react";
+import { ArrowRight, BookOpen, ArrowUpRight, ShieldCheck, CheckCircle2, Sparkles } from "lucide-react";
 import { analytics } from "./utils/analytics";
 
 export default function Home() {
@@ -18,15 +18,58 @@ export default function Home() {
       <div className="relative z-10 w-full max-w-6xl px-6 py-12 md:py-20 flex flex-col items-center">
         
         {/* Header */}
-        <div className="text-center max-w-2xl mb-16 space-y-4 relative">
+        <div className="text-center max-w-3xl mb-12 space-y-6 relative">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-white/10 blur-[60px] rounded-full pointer-events-none" />
+          
+          {/* Trust Badge */}
+          <div className="relative flex items-center justify-center gap-2 mb-4">
+            <ShieldCheck className="text-emerald-400" size={20} />
+            <span className="text-sm font-bold text-emerald-400 uppercase tracking-wider">
+              Research-Backed
+            </span>
+          </div>
           
           <h1 className="relative text-5xl md:text-7xl font-black tracking-tight text-white drop-shadow-[0_0_25px_rgba(255,255,255,0.6)]">
             Build My Habitat
           </h1>
           <p className="relative text-lg md:text-xl text-slate-300 font-medium leading-relaxed drop-shadow-lg">
-            Pick a species and we&apos;ll help you design a safe, complete setup with compatibility checks and curated recommendations.
+            Stop guessing at the pet store. Build safe, complete, and species-appropriate habitats with compatibility checks and curated recommendations.
           </p>
+        </div>
+
+        {/* How It Works */}
+        <div className="w-full max-w-4xl mb-20">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="text-center p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10">
+              <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center">
+                <span className="text-2xl font-black text-emerald-400">1</span>
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">Select Species</h3>
+              <p className="text-sm text-slate-400 leading-relaxed">
+                Choose your pet and experience level
+              </p>
+            </div>
+            
+            <div className="text-center p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10">
+              <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center">
+                <span className="text-2xl font-black text-blue-400">2</span>
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">Build Setup</h3>
+              <p className="text-sm text-slate-400 leading-relaxed">
+                Configure your habitat with guided selections
+              </p>
+            </div>
+            
+            <div className="text-center p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10">
+              <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center">
+                <span className="text-2xl font-black text-purple-400">3</span>
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">Get Recommendations</h3>
+              <p className="text-sm text-slate-400 leading-relaxed">
+                Receive a complete, verified shopping list
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* --- BUILDER CARDS GRID --- */}
