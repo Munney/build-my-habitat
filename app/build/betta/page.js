@@ -2,6 +2,7 @@
 
 import { useMemo, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { analytics } from "../../utils/analytics";
 import {
   ChevronLeft,
   CheckCircle2,
