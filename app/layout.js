@@ -1,10 +1,8 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import Image from "next/image";
-import Script from "next/script";
 import Navbar from "./components/Navbar"; // 👈 Import the new file
 import Analytics from "./components/Analytics";
-import GTM from "./components/GTM";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,11 +20,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-[#020617] text-slate-200 min-h-screen flex flex-col`}>
-        {/* Google Tag Manager - beforeInteractive injects to head automatically */}
-        <Script
-          id="google-tag-manager-head"
-          strategy="beforeInteractive"
+      <head>
+        {/* Google Tag Manager - Must be as high in head as possible */}
+        <script
           dangerouslySetInnerHTML={{
             __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -35,8 +31,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-P92HFFRX');`,
           }}
         />
-        {/* Google Tag Manager noscript */}
-        <GTM />
+        {/* End Google Tag Manager */}
+      </head>
+      <body className={`${inter.className} bg-[#020617] text-slate-200 min-h-screen flex flex-col`}>
+        {/* Google Tag Manager (noscript) - Must be immediately after opening body tag */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-P92HFFRX"
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+          />
+        </noscript>
+        {/* End Google Tag Manager (noscript) */}
         
         {/* --- GLOBAL BACKGROUND --- */}
         <div className="fixed inset-0 -z-50">
