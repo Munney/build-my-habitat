@@ -2,17 +2,12 @@
 
 import { useEffect } from "react";
 import { ExternalLink, BookOpen } from "lucide-react";
-import { analytics } from "../utils/analytics";
+import { analytics, trackEvent } from "../utils/analytics";
 
 export default function ResearchPage() {
   // Track page view
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({
-        event: "research_page_view",
-      });
-    }
+    trackEvent("research_page_view", {});
   }, []);
   const articles = [
     {
