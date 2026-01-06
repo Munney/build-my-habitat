@@ -13,7 +13,7 @@ import {
   Sun
 } from "lucide-react";
 import config from "../../../data/leopard-gecko.json";
-import { trackEvent } from "../../utils/analytics";
+import { analytics } from "../../utils/analytics";
 
 const AFFILIATE_TAG = "habitatbuilde-20";
 
@@ -155,7 +155,7 @@ function SummaryContent() {
                     </div>
                     <a 
                         href={amazonCartUrl} target="_blank" rel="noopener noreferrer"
-                        onClick={() => trackEvent("click_amazon_buy", { species: "leopard-gecko", total_price: total, item_count: allItems.length })}
+                        onClick={() => analytics.trackAmazonCartClick("leopard-gecko", total, allItems.length)}
                         className="w-full py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-lg transition-all shadow-lg shadow-emerald-900/20 flex items-center justify-center gap-2"
                     >
                         Buy All on Amazon <ArrowRight size={20} />

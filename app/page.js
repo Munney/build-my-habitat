@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image"; 
 import { useState } from "react";
 import { ArrowRight, BookOpen, ArrowUpRight } from "lucide-react";
+import { analytics } from "./utils/analytics";
 
 export default function Home() {
   return (
@@ -111,9 +112,12 @@ function SpeciesCard({
   glowColor,
   titleColor
 }) {
+  const species = title.toLowerCase().includes("betta") ? "betta" : "leopard-gecko";
+  
   return (
     <Link 
       href={href}
+      onClick={() => analytics.trackBuilderStart(species)}
       className={`group relative flex flex-col overflow-hidden rounded-3xl border border-slate-700/50 bg-slate-900/40 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 ${borderColor} ${glowColor}`}
     >
       {/* Image Half */}
@@ -148,10 +152,12 @@ function SpeciesCard({
 function GuideCard({ href, title, description, imageSrc, accentColor, hoverBorder, fallbackSrc }) {
     const [imgError, setImgError] = useState(false);
     const currentSrc = imgError && fallbackSrc ? fallbackSrc : imageSrc;
+    const guideType = title.toLowerCase().includes("betta") ? "betta-setup" : "leopard-gecko-setup";
     
     return (
         <Link 
             href={href}
+            onClick={() => analytics.trackGuideView(guideType)}
             className={`group flex items-center gap-6 p-5 rounded-2xl border border-white/5 bg-slate-900/60 backdrop-blur-md transition-all duration-300 hover:bg-white/10 ${hoverBorder}`}
         >
             {/* Thumbnail Container */}

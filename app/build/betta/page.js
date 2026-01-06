@@ -100,6 +100,11 @@ function groupVariants(products) {
 export default function BettaBuilder() {
   const router = useRouter();
 
+  // Track builder start
+  useEffect(() => {
+    analytics.trackBuilderStart("betta");
+  }, []);
+
   // --- STATE ---
   const [experience, setExperience] = useState(null); 
   const [enclosureId, setEnclosureId] = useState(null);
@@ -262,6 +267,10 @@ export default function BettaBuilder() {
     
     // Block if there are critical errors
     if (checks.criticalErrors.length > 0) {
+      // Track validation errors
+      checks.criticalErrors.forEach(error => {
+        analytics.trackValidationError("betta", "critical", error);
+      });
       // Scroll to the first error message
       const firstError = document.querySelector('.bg-red-500\\/10');
       if (firstError) {
@@ -269,6 +278,10 @@ export default function BettaBuilder() {
       }
       return;
     }
+    
+    // Track builder completion
+    const totalPrice = allSelectedItems.reduce((sum, item) => sum + (item.price || 0), 0);
+    analytics.trackBuilderComplete("betta", totalPrice, allSelectedItems.length);
     
     const params = new URLSearchParams({
       exp: experience || "beginner",

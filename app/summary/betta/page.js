@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, Suspense } from "react";
+import React, { useMemo, Suspense, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { 
   CheckCircle2, 
@@ -13,7 +13,7 @@ import {
   Waves
 } from "lucide-react";
 import config from "../../../data/betta.json";
-import { trackEvent } from "../../utils/analytics";
+import { analytics } from "../../utils/analytics";
 
 // 👇 REPLACE THIS WITH YOUR ACTUAL AMAZON ASSOCIATE TAG
 const AFFILIATE_TAG = "habitatbuilde-20";
@@ -69,6 +69,11 @@ function SummaryContent() {
 
   // 👇 FIX: Total Price Calculation with toFixed(2)
   const total = allItems.reduce((acc, item) => acc + (item.price || 0), 0).toFixed(2);
+
+  // Track summary view
+  useEffect(() => {
+    analytics.trackSummaryView("betta", parseFloat(total), allItems.length);
+  }, [total, allItems.length]);
 
   // --- 2. BUILD AMAZON CART URL ---
   const amazonCartUrl = useMemo(() => {
@@ -215,11 +220,7 @@ function SummaryContent() {
                         href={amazonCartUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        onClick={() => trackEvent("click_amazon_buy", { 
-                            species: "betta-fish", 
-                            total_price: total, 
-                            item_count: allItems.length 
-                        })}
+                        onClick={() => analytics.trackAmazonCartClick("betta", total, allItems.length)}
                         className="w-full py-4 rounded-xl bg-blue-500 hover:bg-blue-400 text-slate-950 font-black text-lg transition-all hover:scale-[1.02] shadow-lg shadow-blue-900/20 active:scale-95 relative z-10 flex items-center justify-center gap-2"
                     >
                         Buy All on Amazon <ArrowRight size={20} />
