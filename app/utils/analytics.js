@@ -1,30 +1,14 @@
 "use client";
 
-// Google Analytics 4 Measurement ID
-// Set this in your environment variables as NEXT_PUBLIC_GA_ID
-const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID || "";
+// Google Tag Manager Container ID
+const GTM_CONTAINER_ID = "GTM-P92HFFRX";
 
-// Initialize Google Analytics
+// Initialize dataLayer if it doesn't exist (GTM should create it, but this is a fallback)
 export const initGA = () => {
-  if (typeof window === "undefined" || !GA_MEASUREMENT_ID) return;
-
-  // Load gtag script if not already loaded
-  if (!window.gtag) {
-    const script1 = document.createElement("script");
-    script1.async = true;
-    script1.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
-    document.head.appendChild(script1);
-
-    window.dataLayer = window.dataLayer || [];
-    function gtag(...args) {
-      window.dataLayer.push(args);
-    }
-    window.gtag = gtag;
-    gtag("js", new Date());
-    gtag("config", GA_MEASUREMENT_ID, {
-      page_path: window.location.pathname,
-    });
-  }
+  if (typeof window === "undefined") return;
+  
+  // Ensure dataLayer exists (GTM creates it, but we ensure it's there)
+  window.dataLayer = window.dataLayer || [];
 };
 
 // Track page views
@@ -38,10 +22,12 @@ export const trackPageView = (url) => {
     console.log(`📊 PAGE VIEW: ${pagePath}`);
   }
 
-  // Google Analytics
-  if (window.gtag && GA_MEASUREMENT_ID) {
-    window.gtag("config", GA_MEASUREMENT_ID, {
+  // Google Tag Manager - push to dataLayer
+  if (window.dataLayer) {
+    window.dataLayer.push({
+      event: "page_view",
       page_path: pagePath,
+      page_title: document.title,
     });
   }
 };
@@ -55,9 +41,12 @@ export const trackEvent = (eventName, eventParams = {}) => {
     console.log(`📊 EVENT: [${eventName}]`, eventParams);
   }
 
-  // Google Analytics
-  if (window.gtag && GA_MEASUREMENT_ID) {
-    window.gtag("event", eventName, eventParams);
+  // Google Tag Manager - push to dataLayer
+  if (window.dataLayer) {
+    window.dataLayer.push({
+      event: eventName,
+      ...eventParams,
+    });
   }
 };
 
