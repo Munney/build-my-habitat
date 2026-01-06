@@ -32,6 +32,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           }}
         />
         {/* End Google Tag Manager */}
+        
+        {/* Google tag (gtag.js) */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-F4HEEKPH2K"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-F4HEEKPH2K');
+            `,
+          }}
+        />
       </head>
       <body className={`${inter.className} bg-[#020617] text-slate-200 min-h-screen flex flex-col`}>
         {/* Google Tag Manager (noscript) - Must be immediately after opening body tag */}
