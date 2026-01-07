@@ -637,20 +637,33 @@ export default function LeopardGeckoBuilder() {
                 selectedVariants={hideVariants}
                 onToggle={(id) => setHideIds((ids) => toggle(ids, id))}
                 onVariantToggle={(baseName, variant, variantId) => {
-                  setHideVariants(prev => ({
-                    ...prev,
-                    [baseName]: { variant }
-                  }));
-                  setHideIds((ids) => {
+                  setHideVariants(prev => {
+                    const current = prev[baseName];
+                    // Toggle: if same variant is selected, deselect it
+                    if (current && current.variant === variant) {
+                      const newVariants = { ...prev };
+                      delete newVariants[baseName];
+                      // Also remove the variant ID from hideIds
+                      setHideIds(ids => ids.filter(id => id !== variantId));
+                      return newVariants;
+                    }
+                    // Otherwise, select the new variant
                     // Remove old variant IDs from this group
                     const { groups } = groupVariants(HIDES);
                     const group = groups.find(g => g.baseName === baseName);
                     if (group) {
                       const oldIds = group.variants.map(v => v.id);
-                      const filtered = ids.filter(id => !oldIds.includes(id));
-                      return [...filtered, variantId];
+                      setHideIds(ids => {
+                        const filtered = ids.filter(id => !oldIds.includes(id));
+                        return [...filtered, variantId];
+                      });
+                    } else {
+                      setHideIds(ids => [...ids, variantId]);
                     }
-                    return [...ids, variantId];
+                    return {
+                      ...prev,
+                      [baseName]: { variant, id: variantId }
+                    };
                   });
                 }}
               />
@@ -931,6 +944,9 @@ function HeatingSection({ heating, selectedIds, selectedVariants, onToggle, onVa
               if (!variantSelection && group.variants.length > 0) {
                 const first = group.variants[0];
                 onVariantToggle(group.baseName, first.variant, first.id);
+              } else if (variantSelection) {
+                // Toggle off if already selected
+                onVariantToggle(group.baseName, variantSelection.variant, selectedVariant?.id);
               }
             }}
             productId={selectedVariant?.id}
@@ -1126,6 +1142,9 @@ function HidesSection({ hides, selectedIds, selectedVariants, onToggle, onVarian
               if (!variantSelection && group.variants.length > 0) {
                 const first = group.variants[0];
                 onVariantToggle(group.baseName, first.variant, first.id);
+              } else if (variantSelection) {
+                // Toggle off if already selected
+                onVariantToggle(group.baseName, variantSelection.variant, selectedVariant?.id);
               }
             }}
             productId={selectedVariant?.id}
