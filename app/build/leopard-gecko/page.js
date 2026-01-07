@@ -300,6 +300,23 @@ export default function LeopardGeckoBuilder() {
   
   const pickMany = (items, ids) => items.filter((i) => ids.includes(i.id));
   
+  // Handle substrate selection (including variants)
+  const selectedSubstrates = useMemo(() => {
+    const direct = pickMany(SUBSTRATES, substrateIds);
+    // Add variants from substrateVariants
+    const variantItems = Object.entries(substrateVariants).map(([baseName, selection]) => {
+      const { groups } = groupVariants(SUBSTRATES);
+      for (const group of groups) {
+        if (group.baseName === baseName) {
+          const variant = group.variants.find(v => v.variant === selection.variant);
+          if (variant) return variant;
+        }
+      }
+      return null;
+    }).filter(Boolean);
+    return [...direct, ...variantItems];
+  }, [substrateIds, substrateVariants]);
+  
   // Handle heating with variants
   const selectedHeating = useMemo(() => {
     const direct = pickMany(HEATING, heatingIds);
