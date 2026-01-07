@@ -678,7 +678,7 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
           </div>
 
           <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               <div className={`font-bold text-base transition-colors flex-1 ${active ? "text-white" : "text-slate-300 group-hover:text-white"}`}>
                 {label}
               </div>

@@ -15,10 +15,15 @@ export default function ProductTooltip({ explanation, category }) {
           e.stopPropagation();
           setIsOpen(!isOpen);
         }}
-        className="text-slate-400 hover:text-blue-400 transition-colors p-1 rounded-full hover:bg-white/5"
+        className={`relative flex items-center justify-center w-6 h-6 rounded-full transition-all ${
+          isOpen 
+            ? "bg-blue-500 text-white shadow-lg shadow-blue-500/50" 
+            : "bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 hover:scale-110 border border-blue-500/30"
+        }`}
         aria-label="Product information"
+        title="Learn why this product matters"
       >
-        <Info size={16} />
+        <Info size={18} className="shrink-0" />
       </button>
 
       {isOpen && (
