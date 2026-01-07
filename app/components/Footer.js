@@ -31,6 +31,7 @@ export default function Footer() {
             <li><Link href="/research" className="hover:text-white transition-colors">Research Articles</Link></li>
             <li><Link href="/care-sheets" className="hover:text-white transition-colors">Care Sheets</Link></li>
             <li><Link href="/common-mistakes" className="hover:text-white transition-colors">Common Mistakes</Link></li>
+            <li><Link href="/faq" className="hover:text-white transition-colors">FAQ</Link></li>
             <li><Link href="/about" className="hover:text-white transition-colors">The Standard</Link></li>
             <li><span className="text-slate-500">Privacy Policy</span></li>
           </ul>

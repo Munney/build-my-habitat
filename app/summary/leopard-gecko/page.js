@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, Suspense, useEffect } from "react";
+import React, { useMemo, Suspense, useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { 
   CheckCircle2, 
@@ -10,7 +10,9 @@ import {
   ShieldCheck,
   ExternalLink,
   ArrowRight,
-  Sun
+  Sun,
+  Copy,
+  Check
 } from "lucide-react";
 import config from "../../../data/leopard-gecko.json";
 import { analytics } from "../../utils/analytics";
@@ -35,6 +37,7 @@ export default function GeckoSummary() {
 function SummaryContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const [linkCopied, setLinkCopied] = useState(false);
 
   const selections = useMemo(() => {
     const get = (key, list) => {
@@ -108,8 +111,44 @@ function SummaryContent() {
           </div>
 
           <div className="flex gap-3">
-             <button className="p-3 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors"><Share2 size={20} /></button>
-             <button onClick={() => window.print()} className="p-3 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors"><Printer size={20} /></button>
+             <div className="relative">
+               <button 
+                 onClick={() => {
+                   if (navigator.share) {
+                     navigator.share({
+                       title: `My Leopard Gecko Habitat Build - $${total}`,
+                       text: `Check out my safe leopard gecko setup! Built with HabitatBuilder.`,
+                       url: window.location.href
+                     }).catch(() => {});
+                   } else {
+                     // Fallback: copy to clipboard
+                     navigator.clipboard.writeText(window.location.href);
+                     setLinkCopied(true);
+                     setTimeout(() => setLinkCopied(false), 2000);
+                     analytics.trackEvent("share_click", { method: "copy", species: "leopard-gecko" });
+                   }
+                 }}
+                 className="p-3 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors relative"
+                 title="Share this build"
+               >
+                 {linkCopied ? <Check size={20} className="text-emerald-400" /> : <Share2 size={20} />}
+               </button>
+               {linkCopied && (
+                 <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-emerald-500 text-white text-xs rounded-lg whitespace-nowrap">
+                   Link copied!
+                 </div>
+               )}
+             </div>
+             <button 
+                onClick={() => {
+                  window.print();
+                  analytics.trackEvent("print_click", { species: "leopard-gecko" });
+                }}
+                className="p-3 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors"
+                title="Print this build"
+             >
+                <Printer size={20} />
+             </button>
           </div>
         </div>
 

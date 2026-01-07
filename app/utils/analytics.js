@@ -140,4 +140,27 @@ export const analytics = {
       experience_level: experienceLevel,
     });
   },
+
+  // FAQ events
+  trackFAQToggle: (category, question) => {
+    trackEvent("faq_toggle", {
+      category,
+      question,
+    });
+  },
+
+  // Share events
+  trackShareClick: (method, species) => {
+    trackEvent("share_click", {
+      method,
+      species,
+    });
+  },
+
+  // Print events
+  trackPrintClick: (species) => {
+    trackEvent("print_click", {
+      species,
+    });
+  },
 };

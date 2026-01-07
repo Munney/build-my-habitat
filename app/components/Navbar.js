@@ -21,7 +21,7 @@ export default function Navbar() {
     { name: "Builder", href: "/", icon: <Hammer size={18} /> },
     { name: "Research", href: "/research", icon: <BookOpen size={18} /> },
     { name: "Browse Parts", href: "/browse", icon: <Package size={18} /> },
-    { name: "The Standard", href: "/about", icon: <Info size={18} /> },
+    { name: "FAQ", href: "/faq", icon: <Info size={18} /> },
   ];
 
   return (
