@@ -489,12 +489,8 @@ export default function BettaBuilder() {
                   const isThermometer = h.id === "thermometer";
                   const isActive = isHeater ? heaterId === h.id : (isThermometer ? hasThermometer : false);
                   
-                  // Required logic:
-                  // - Heaters: required if no heater selected, but not required if another heater is selected
-                  // - Thermometer: always required (unless selected)
-                  const isRequired = isHeater 
-                    ? !heaterId // Only required if no heater is selected
-                    : isThermometer && !hasThermometer; // Thermometer always required unless selected
+                  // Only thermometer is required (not heaters)
+                  const isRequired = isThermometer && !hasThermometer;
                   
                   return (
                     <SelectionCard
