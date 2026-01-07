@@ -234,6 +234,15 @@ function sortVariantsByTankSize(variants) {
 export default function LeopardGeckoBuilder() {
   const router = useRouter();
 
+  // Sort enclosures by size (10, 15, 20, 35, 40, 120)
+  const sortedEnclosures = useMemo(() => {
+    return [...ENCLOSURES].sort((a, b) => {
+      const sizeA = a.size || 0;
+      const sizeB = b.size || 0;
+      return sizeA - sizeB;
+    });
+  }, []);
+
   // --- STATE ---
   const [experience, setExperience] = useState(null); 
   const [enclosureId, setEnclosureId] = useState(null);
