@@ -19,6 +19,7 @@ import {
   Unlock
 } from "lucide-react";
 import config from "../../../data/leopard-gecko.json";
+import ProductTooltip from "../../components/ProductTooltip";
 
 // Data Imports
 const ENCLOSURES = config.enclosures || [];
@@ -243,6 +244,7 @@ export default function LeopardGeckoBuilder() {
                     sublabel={typeof e.size === "number" ? `${e.size} Gallon Equivalent` : "Custom Size"}
                     onClick={() => setEnclosureId(e.id)}
                     type="radio"
+                    productId={e.id}
                   />
                 ))}
               </div>
@@ -258,6 +260,7 @@ export default function LeopardGeckoBuilder() {
                     price={h.price}
                     onClick={() => setHeatingIds((ids) => toggle(ids, h.id))}
                     type="checkbox"
+                    productId={h.id}
                   />
                 ))}
               </div>
@@ -279,6 +282,7 @@ export default function LeopardGeckoBuilder() {
                     sublabel={s.type === "solid" ? "Easy to Clean" : "Naturalistic Look"}
                     onClick={() => setSubstrateId(s.id)}
                     type="radio"
+                    productId={s.id}
                   />
                 ))}
               </div>
@@ -294,6 +298,7 @@ export default function LeopardGeckoBuilder() {
                     price={h.price}
                     onClick={() => setHideIds((ids) => toggle(ids, h.id))}
                     type="checkbox"
+                    productId={h.id}
                   />
                 ))}
               </div>
@@ -309,6 +314,7 @@ export default function LeopardGeckoBuilder() {
                     price={s.price}
                     onClick={() => setSupplementIds((ids) => toggle(ids, s.id))}
                     type="checkbox"
+                    productId={s.id}
                   />
                 ))}
               </div>
