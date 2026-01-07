@@ -928,6 +928,71 @@ function SubstrateSection({ substrates, selectedId, selectedVariants, onSelect, 
   );
 }
 
+function HidesSection({ hides, selectedIds, selectedVariants, onToggle, onVariantToggle }) {
+  const { groups, standalone } = groupVariants(hides);
+  
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {/* Standalone products (no variants) - excludes standalone Cork Bark and Climbing Branches */}
+      {standalone.map((h) => (
+        <SelectionCard
+          key={h.id}
+          active={selectedIds.includes(h.id)}
+          label={h.label}
+          price={h.price}
+          onClick={() => onToggle(h.id)}
+          type="checkbox"
+          productId={h.id}
+        />
+      ))}
+      
+      {/* Variant groups */}
+      {groups.map((group) => {
+        const variantSelection = selectedVariants[group.baseName];
+        const selectedVariant = variantSelection 
+          ? group.variants.find(v => v.variant === variantSelection.variant)
+          : null;
+        const isActive = selectedVariant && selectedIds.includes(selectedVariant.id);
+        
+        // Get unique variants
+        const variants = [...new Set(group.variants.map(v => v.variant))].sort();
+        
+        // Get price range
+        const prices = group.variants.map(v => v.price);
+        const minPrice = Math.min(...prices);
+        const maxPrice = Math.max(...prices);
+        const priceRange = minPrice === maxPrice ? `$${minPrice.toFixed(2)}` : `$${minPrice.toFixed(2)} - $${maxPrice.toFixed(2)}`;
+        
+        return (
+          <VariantCard
+            key={group.baseName}
+            baseLabel={group.baseLabel}
+            priceRange={priceRange}
+            variants={group.variants}
+            isActive={isActive}
+            selectedVariant={variantSelection?.variant}
+            isCheckbox={true}
+            isSizeOnly={true}
+            onVariantChange={(variant) => {
+              const variantItem = group.variants.find(v => v.variant === variant);
+              if (variantItem) {
+                onVariantToggle(group.baseName, variant, variantItem.id);
+              }
+            }}
+            onSelect={() => {
+              if (!variantSelection && group.variants.length > 0) {
+                const first = group.variants[0];
+                onVariantToggle(group.baseName, first.variant, first.id);
+              }
+            }}
+            productId={selectedVariant?.id}
+          />
+        );
+      })}
+    </div>
+  );
+}
+
 function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVariant, onVariantChange, onSelect, isCheckbox = false, isSizeOnly = false, productId }) {
   const selectedVariantItem = selectedVariant 
     ? variants.find(v => v.variant === selectedVariant)
