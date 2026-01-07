@@ -9,7 +9,7 @@ import {
   HelpCircle,
   CheckCircle2
 } from "lucide-react";
-import { analytics } from "../utils/analytics";
+import { analytics, trackEvent } from "../utils/analytics";
 
 export default function FAQPage() {
   const [openIndex, setOpenIndex] = useState(null);
