@@ -115,11 +115,18 @@ export default function LeopardGeckoBuilder() {
     if (heatingIds.length === 0) {
        messages.push({ level: "warning", text: "Select a heating source." });
     } else {
-       if (!heatingIds.includes("heatmat") && !heatingIds.includes("dhp") && !heatingIds.includes("halogen")) {
+       // Check for primary heat source (heatmat, halogen, or dhp variants)
+       const hasPrimaryHeat = heatingIds.some(id => 
+         id.startsWith("heatmat_") || 
+         id.startsWith("halogen_") || 
+         id.startsWith("dhp_")
+       );
+       if (!hasPrimaryHeat) {
         const errorMsg = "Primary heat source REQUIRED. Leopard geckos need a basking area of 88-92°F for proper digestion and thermoregulation.";
         messages.push({ level: "error", text: errorMsg });
         criticalErrors.push(errorMsg);
        }
+       // Check for thermostat
        if (!heatingIds.includes("thermostat")) {
         const errorMsg = "Thermostat REQUIRED. Unregulated heat sources can cause severe burns and death. Never use heat without a thermostat.";
         messages.push({ level: "error", text: errorMsg });
@@ -443,13 +450,22 @@ const productExplanations = {
   "20g": "20 gallons (30\" x 12\" x 12\") is the absolute minimum for adult leopard geckos. Allows space for 3 hides and proper temperature gradient.",
   "40g": "40-gallon breeder (36\" x 18\" x 18\") is recommended for optimal welfare. Provides excellent space for enrichment and natural behaviors.",
   "pvc4x2": "4x2x2 PVC enclosure (120 gallons equivalent) is ideal for adult geckos. Excellent for bioactive setups and provides maximum space for enrichment.",
+  "15g": "15 gallons is still too small for an adult leopard gecko. Minimum 20 gallons required for proper thermoregulation and enrichment.",
+  "35g": "35 gallons is better than 20 but 40-gallon breeder is recommended for optimal welfare. Still provides adequate space for enrichment.",
   
   // Heating
-  "heatmat": "Under tank heaters provide belly heat but don't create a proper basking spot. Must be used with a thermostat to prevent burns. Not recommended as primary heat source.",
-  "halogen": "Halogen flood lamps provide excellent basking heat and visible light. Mimics natural sunlight. Must be used with a thermostat. Best primary heat source option.",
-  "dhp": "Deep Heat Projectors emit infrared A & B wavelengths, penetrating deeper into tissue. No visible light. Excellent for 24/7 heating. Must be used with a thermostat.",
+  "heatmat_10_20": "Under tank heaters (10-20 gallon) provide belly heat but don't create a proper basking spot. Must be used with a thermostat to prevent burns. Not recommended as primary heat source.",
+  "heatmat_30_40": "Under tank heaters (30-40 gallon) provide belly heat but don't create a proper basking spot. Must be used with a thermostat to prevent burns. Not recommended as primary heat source.",
+  "halogen_50w": "Halogen flood lamp (50W) provides excellent basking heat and visible light for 20-gallon tanks. Mimics natural sunlight. Must be used with a thermostat. Best primary heat source option.",
+  "halogen_75w": "Halogen flood lamp (75W) provides excellent basking heat and visible light for 40-gallon tanks. Mimics natural sunlight. Must be used with a thermostat. Best primary heat source option.",
+  "halogen_100w": "Halogen flood lamp (100W) provides excellent basking heat and visible light for large enclosures (4x2x2). Mimics natural sunlight. Must be used with a thermostat. Best primary heat source option.",
+  "dhp_50w": "Deep Heat Projector (50W) emits infrared A & B wavelengths for 20-gallon tanks, penetrating deeper into tissue. No visible light. Excellent for 24/7 heating. Must be used with a thermostat.",
+  "dhp_75w": "Deep Heat Projector (75W) emits infrared A & B wavelengths for 40-gallon tanks, penetrating deeper into tissue. No visible light. Excellent for 24/7 heating. Must be used with a thermostat.",
+  "dhp_100w": "Deep Heat Projector (100W) emits infrared A & B wavelengths for large enclosures (4x2x2), penetrating deeper into tissue. No visible light. Excellent for 24/7 heating. Must be used with a thermostat.",
   "thermostat": "⚠️ REQUIRED: Every heat source MUST be connected to a thermostat. Unregulated heating causes severe burns and can kill your gecko. This is non-negotiable.",
-  "uvb": "UVB lighting helps geckos synthesize vitamin D3 naturally. Optional but beneficial, especially if not using calcium with D3. ShadeDweller is perfect for leopard geckos.",
+  "uvb_12": "UVB lighting (12 inch) helps geckos synthesize vitamin D3 naturally. Perfect for 20-gallon tanks. Optional but beneficial, especially if not using calcium with D3.",
+  "uvb_24": "UVB lighting (24 inch) helps geckos synthesize vitamin D3 naturally. Perfect for 40-gallon tanks. Optional but beneficial, especially if not using calcium with D3.",
+  "uvb_34": "UVB lighting (34 inch) helps geckos synthesize vitamin D3 naturally. Perfect for large enclosures (4x2x2). Optional but beneficial, especially if not using calcium with D3.",
   
   // Substrates
   "papertowel": "Paper towels are the safest, easiest substrate for beginners. Easy to clean, prevents impaction risk, and allows you to monitor health easily.",

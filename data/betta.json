@@ -194,6 +194,60 @@
       "asin": "B0DXF9GVY5",
       "amazonUrl": "https://www.amazon.com/dp/B0DXF9GVY5?tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/dp/B0DXF9GVY5?tag=habitatbuilde-20"
+    },
+    {
+      "id": "natural_gravel_light_2lbs",
+      "label": "Natural Gravel - Light (2lbs)",
+      "price": 9.99,
+      "type": "inert",
+      "asin": "B0BFW114MY",
+      "amazonUrl": "https://www.amazon.com/dp/B0BFW114MY?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0BFW114MY?tag=habitatbuilde-20"
+    },
+    {
+      "id": "aquarium_sand_beige_2lbs",
+      "label": "Aquarium Sand Beige (2lbs)",
+      "price": 9.99,
+      "type": "inert",
+      "asin": "B0DXF8XCHW",
+      "amazonUrl": "https://www.amazon.com/dp/B0DXF8XCHW?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0DXF8XCHW?tag=habitatbuilde-20"
+    },
+    {
+      "id": "aquarium_sand_black_2lbs",
+      "label": "Aquarium Sand Black (2lbs)",
+      "price": 9.99,
+      "type": "inert",
+      "asin": "B0DXF812T8",
+      "amazonUrl": "https://www.amazon.com/dp/B0DXF812T8?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0DXF812T8?tag=habitatbuilde-20"
+    },
+    {
+      "id": "aquarium_sand_white_2lbs",
+      "label": "Aquarium Sand White (2lbs)",
+      "price": 9.99,
+      "type": "inert",
+      "asin": "B0DXF76XRW",
+      "amazonUrl": "https://www.amazon.com/dp/B0DXF76XRW?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0DXF76XRW?tag=habitatbuilde-20"
+    },
+    {
+      "id": "aquarium_sand_beige_5lbs",
+      "label": "Aquarium Sand Beige (5lbs)",
+      "price": 16.99,
+      "type": "inert",
+      "asin": "B0DXF9TF74",
+      "amazonUrl": "https://www.amazon.com/dp/B0DXF9TF74?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0DXF9TF74?tag=habitatbuilde-20"
+    },
+    {
+      "id": "aquarium_sand_black_5lbs",
+      "label": "Aquarium Sand Black (5lbs)",
+      "price": 16.99,
+      "type": "inert",
+      "asin": "B0DXF9GVY5",
+      "amazonUrl": "https://www.amazon.com/dp/B0DXF9GVY5?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0DXF9GVY5?tag=habitatbuilde-20"
     }
   ],
   "decor": [
@@ -255,6 +309,24 @@
       "asin": "B08XYSWBBB",
       "amazonUrl": "https://www.amazon.com/dp/B08XYSWBBB?tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/dp/B08XYSWBBB?tag=habitatbuilde-20"
+    },
+    {
+      "id": "natural_driftwood_3_pcs_6_10_l",
+      "label": "Natural Driftwood 3 pcs (6-10) Large",
+      "price": 22.99,
+      "type": "safe",
+      "asin": "B08XYSWBBB",
+      "amazonUrl": "https://www.amazon.com/dp/B08XYSWBBB?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B08XYSWBBB?tag=habitatbuilde-20"
+    },
+    {
+      "id": "driftwood_natural_driftwood_4_pcs_4_6_sm",
+      "label": "Natural Driftwood 4 pcs (4-6) Small",
+      "price": 13.44,
+      "type": "safe",
+      "asin": "B0CW37TK7C",
+      "amazonUrl": "https://www.amazon.com/dp/B0CW37TK7C?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0CW37TK7C?tag=habitatbuilde-20"
     }
   ],
   "watercare": [
