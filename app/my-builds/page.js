@@ -13,7 +13,7 @@ import {
   X
 } from "lucide-react";
 import { buildStorage } from "../utils/buildStorage";
-import { analytics } from "../utils/analytics";
+import { analytics, trackEvent } from "../utils/analytics";
 
 export default function MyBuildsPage() {
   const [builds, setBuilds] = useState({});
