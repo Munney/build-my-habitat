@@ -193,6 +193,44 @@ function groupVariants(products) {
   return { groups: Array.from(variantGroups.values()), standalone };
 }
 
+// Helper function to sort variants by tank size (20 → 40 → 120)
+function sortVariantsByTankSize(variants) {
+  const getTankSizeOrder = (tankSize) => {
+    if (!tankSize) return 999; // No tank size = last
+    const sizeStr = tankSize.toLowerCase();
+    if (sizeStr.includes('x')) return 3; // 4x2x2 = 120 gallon
+    if (sizeStr.includes('-')) {
+      // Range like "10-20 gallon" - extract first number
+      const match = sizeStr.match(/(\d+)-/);
+      if (match) {
+        const num = parseInt(match[1]);
+        if (num <= 20) return 1; // 10-20 gallon = 20 gallon category
+        if (num <= 40) return 2; // 30-40 gallon = 40 gallon category
+      }
+      return 3;
+    }
+    // Single number like "20 gallon"
+    const match = sizeStr.match(/(\d+)/);
+    if (match) {
+      const num = parseInt(match[1]);
+      if (num === 20) return 1;
+      if (num === 40) return 2;
+      if (num >= 120) return 3;
+    }
+    return 999;
+  };
+  
+  return variants.sort((a, b) => {
+    const orderA = getTankSizeOrder(a.tankSize);
+    const orderB = getTankSizeOrder(b.tankSize);
+    if (orderA !== orderB) {
+      return orderA - orderB;
+    }
+    // If same order, sort by variant name
+    return a.variant.localeCompare(b.variant);
+  });
+}
+
 export default function LeopardGeckoBuilder() {
   const router = useRouter();
 
@@ -457,7 +495,7 @@ export default function LeopardGeckoBuilder() {
 
             <Section title="2. Enclosure Size" icon={<Box className={enclosureId ? "text-emerald-400" : "text-slate-400"} />}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {ENCLOSURES.map((e) => (
+                {sortedEnclosures.map((e) => (
                   <SelectionCard
                     key={e.id}
                     active={enclosureId === e.id}
@@ -787,8 +825,15 @@ function HeatingSection({ heating, selectedIds, selectedVariants, onToggle, onVa
           : null;
         const isActive = selectedVariant && selectedIds.includes(selectedVariant.id);
         
-        // Get unique variants
-        const variants = [...new Set(group.variants.map(v => v.variant))].sort();
+        // Get unique variants sorted by tank size (20 → 40 → 120)
+        const variantMap = new Map();
+        group.variants.forEach(v => {
+          if (!variantMap.has(v.variant)) {
+            variantMap.set(v.variant, v);
+          }
+        });
+        const sortedVariantObjects = sortVariantsByTankSize(Array.from(variantMap.values()));
+        const variants = sortedVariantObjects.map(v => v.variant);
         
         // Get price range
         const prices = group.variants.map(v => v.price);
@@ -889,8 +934,15 @@ function SubstrateSection({ substrates, selectedId, selectedVariants, onSelect, 
           : null;
         const isActive = selectedVariant && selectedId === selectedVariant.id;
         
-        // Get unique variants
-        const variants = [...new Set(group.variants.map(v => v.variant))].sort();
+        // Get unique variants sorted by tank size (20 → 40 → 120)
+        const variantMap = new Map();
+        group.variants.forEach(v => {
+          if (!variantMap.has(v.variant)) {
+            variantMap.set(v.variant, v);
+          }
+        });
+        const sortedVariantObjects = sortVariantsByTankSize(Array.from(variantMap.values()));
+        const variants = sortedVariantObjects.map(v => v.variant);
         
         // Get price range
         const prices = group.variants.map(v => v.price);
@@ -954,8 +1006,15 @@ function HidesSection({ hides, selectedIds, selectedVariants, onToggle, onVarian
           : null;
         const isActive = selectedVariant && selectedIds.includes(selectedVariant.id);
         
-        // Get unique variants
-        const variants = [...new Set(group.variants.map(v => v.variant))].sort();
+        // Get unique variants sorted by tank size (20 → 40 → 120)
+        const variantMap = new Map();
+        group.variants.forEach(v => {
+          if (!variantMap.has(v.variant)) {
+            variantMap.set(v.variant, v);
+          }
+        });
+        const sortedVariantObjects = sortVariantsByTankSize(Array.from(variantMap.values()));
+        const variants = sortedVariantObjects.map(v => v.variant);
         
         // Get price range
         const prices = group.variants.map(v => v.price);
