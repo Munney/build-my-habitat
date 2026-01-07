@@ -808,14 +808,21 @@ function SubstrateSection({ substrates, selectedId, selectedVariants, onSelect, 
         return variantTankSize === '4x2x2' && enclosureSize >= 120;
       } else if (variantTankSize.includes('-')) {
         // Range format like "10-20 gallon"
-        const [min, max] = variantTankSize.match(/(\d+)-(\d+)/).slice(1).map(Number);
-        return enclosureSize >= min && enclosureSize <= max;
+        const match = variantTankSize.match(/(\d+)-(\d+)/);
+        if (match) {
+          const [min, max] = match.slice(1).map(Number);
+          return enclosureSize >= min && enclosureSize <= max;
+        }
+        return false;
       } else {
         // Single size like "20 gallon"
-        const size = parseInt(variantTankSize);
-        if (size === 20) return enclosureSize >= 15 && enclosureSize < 40;
-        if (size === 40) return enclosureSize >= 35 && enclosureSize < 120;
-        if (size === 120 || size >= 120) return enclosureSize >= 120;
+        const match = variantTankSize.match(/(\d+)/);
+        if (match) {
+          const size = parseInt(match[1]);
+          if (size === 20) return enclosureSize >= 15 && enclosureSize < 40;
+          if (size === 40) return enclosureSize >= 35 && enclosureSize < 120;
+          if (size === 120 || size >= 120) return enclosureSize >= 120;
+        }
         return false;
       }
     })
