@@ -115,7 +115,8 @@ export default function BettaBuilder() {
   const [substrateId, setSubstrateId] = useState(null);
   const [substrateVariants, setSubstrateVariants] = useState({}); // { baseName: { color, size } }
 
-  const [heatingIds, setHeatingIds] = useState([]);
+  const [heaterId, setHeaterId] = useState(null); // Single heater selection (50w or 100w)
+  const [hasThermometer, setHasThermometer] = useState(false); // Thermometer is separate
   const [decorIds, setDecorIds] = useState([]);
   const [decorVariants, setDecorVariants] = useState({}); // For driftwood variants
   const [careIds, setCareIds] = useState([]);
@@ -156,7 +157,19 @@ export default function BettaBuilder() {
   }, [substrateId]);
 
   const pickMany = (items, ids) => items.filter((i) => ids.includes(i.id));
-  const selectedHeating = pickMany(HEATING, heatingIds);
+  // Combine heater and thermometer for selected items
+  const selectedHeating = useMemo(() => {
+    const items = [];
+    if (heaterId) {
+      const heater = HEATING.find(h => h.id === heaterId);
+      if (heater) items.push(heater);
+    }
+    if (hasThermometer) {
+      const thermometer = HEATING.find(h => h.id === "thermometer");
+      if (thermometer) items.push(thermometer);
+    }
+    return items;
+  }, [heaterId, hasThermometer]);
   
   // Handle decor selection (including variants)
   const selectedDecor = useMemo(() => {
@@ -196,13 +209,13 @@ export default function BettaBuilder() {
     
     if (enclosureId) score++;
     if (filtrationId) score++;
-    if (heatingIds.length > 0) score++;
+    if (heaterId || hasThermometer) score++;
     if (substrateId) score++;
     if (decorIds.length > 0) score++;
     if (careIds.length > 0) score++;
 
     return Math.round((score / totalSteps) * 100);
-  }, [enclosureId, filtrationId, heatingIds, substrateId, decorIds, careIds]);
+  }, [enclosureId, filtrationId, heaterId, hasThermometer, substrateId, decorIds, careIds]);
 
   // --- COMPATIBILITY CHECKS ---
   const checks = useMemo(() => {
@@ -236,13 +249,12 @@ export default function BettaBuilder() {
     }
 
     // 3. Heating Logic - REQUIRED (tropical fish)
-    const hasHeater = heatingIds.some(id => id === "50w" || id === "100w");
-    if (!hasHeater) {
+    if (!heaterId) {
        const errorMsg = "Heater is REQUIRED. Bettas are tropical fish and need 78-80°F. Without heat, they become stressed and susceptible to disease.";
        messages.push({ level: "error", text: errorMsg });
        criticalErrors.push(errorMsg);
     }
-    if (!heatingIds.includes("thermometer")) {
+    if (!hasThermometer) {
        const errorMsg = "Thermometer REQUIRED. Critical for monitoring temperature. Bettas need 78-80°F - too cold weakens their immune system.";
        messages.push({ level: "error", text: errorMsg });
        criticalErrors.push(errorMsg);
@@ -272,7 +284,7 @@ export default function BettaBuilder() {
     }
 
     return { messages, criticalErrors };
-  }, [selectedEnclosure, selectedFiltration, heatingIds, decorIds, selectedSubstrate]);
+  }, [selectedEnclosure, selectedFiltration, heaterId, hasThermometer, decorIds, selectedSubstrate]);
 
   function goToSummary() {
     if (allSelectedItems.length === 0) return;
@@ -300,7 +312,7 @@ export default function BettaBuilder() {
       enclosure: enclosureId || "",
       filtration: filtrationId || "",
       substrate: substrateId || "",
-      heating: heatingIds.join(","),
+      heating: heaterId ? (hasThermometer ? `${heaterId},thermometer` : heaterId) : (hasThermometer ? "thermometer" : ""),
       decor: decorIds.join(","),
       care: careIds.join(","),
     });
@@ -442,30 +454,34 @@ export default function BettaBuilder() {
                 </div>
               )}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {FILTRATION.map((f) => (
-                  <SelectionCard
-                    key={f.id}
-                    active={filtrationId === f.id}
-                    label={f.label}
-                    price={f.price}
-                    sublabel={`Flow: ${f.flow}`}
-                    onClick={() => setFiltrationId(f.id)}
-                    type="radio"
-                    colorClass="blue"
-                    productId={f.id}
-                    isRequired={true}
-                  />
-                ))}
+                {FILTRATION.map((f) => {
+                  // Required only if no filter is selected
+                  const isRequired = !filtrationId;
+                  return (
+                    <SelectionCard
+                      key={f.id}
+                      active={filtrationId === f.id}
+                      label={f.label}
+                      price={f.price}
+                      sublabel={`Flow: ${f.flow}`}
+                      onClick={() => setFiltrationId(f.id)}
+                      type="radio"
+                      colorClass="blue"
+                      productId={f.id}
+                      isRequired={isRequired}
+                    />
+                  );
+                })}
               </div>
             </Section>
 
             {/* 4. Heating */}
             <Section 
               title="4. Temperature" 
-              icon={<Thermometer className={heatingIds.length ? "text-blue-400" : "text-slate-400"} />}
+              icon={<Thermometer className={heaterId || hasThermometer ? "text-blue-400" : "text-slate-400"} />}
               description="Bettas are tropical fish and need 78-80°F. A heater is required. A thermometer helps monitor temperature."
             >
-              {!heatingIds.some(id => id === "50w" || id === "100w") && (
+              {!heaterId && (
                 <div className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
                   <AlertCircle size={20} className="text-amber-400 shrink-0" />
                   <p className="text-amber-100 font-medium">A heater (50W or 100W) is required.</p>
@@ -473,16 +489,33 @@ export default function BettaBuilder() {
               )}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {HEATING.map((h) => {
-                  // Heater (50w or 100w) and thermometer are required
-                  const isRequired = h.id === "50w" || h.id === "100w" || h.id === "thermometer";
+                  const isHeater = h.id === "50w" || h.id === "100w";
+                  const isThermometer = h.id === "thermometer";
+                  const isActive = isHeater ? heaterId === h.id : (isThermometer ? hasThermometer : false);
+                  
+                  // Required logic:
+                  // - Heaters: required if no heater selected, but not required if another heater is selected
+                  // - Thermometer: always required (unless selected)
+                  const isRequired = isHeater 
+                    ? !heaterId // Only required if no heater is selected
+                    : isThermometer && !hasThermometer; // Thermometer always required unless selected
+                  
                   return (
                     <SelectionCard
                       key={h.id}
-                      active={heatingIds.includes(h.id)}
+                      active={isActive}
                       label={h.label}
                       price={h.price}
-                      onClick={() => setHeatingIds((ids) => toggle(ids, h.id))}
-                      type="checkbox"
+                      onClick={() => {
+                        if (isHeater) {
+                          // Single selection for heaters - toggle if same, otherwise select new one
+                          setHeaterId(heaterId === h.id ? null : h.id);
+                        } else if (isThermometer) {
+                          // Toggle thermometer
+                          setHasThermometer(!hasThermometer);
+                        }
+                      }}
+                      type={isHeater ? "radio" : "checkbox"}
                       colorClass="blue"
                       productId={h.id}
                       isRequired={isRequired}
