@@ -102,10 +102,12 @@ function groupVariants(products) {
 
 export default function BettaBuilder() {
   const router = useRouter();
+  const [isClient, setIsClient] = useState(false);
 
   // Track builder start
   useEffect(() => {
     analytics.trackBuilderStart("betta");
+    setIsClient(true); // Ensure we're on client side
   }, []);
 
   // --- STATE ---
@@ -417,7 +419,7 @@ export default function BettaBuilder() {
                       <AlertTriangle size={16} /> Select an Experience Level above to verify safe tank sizes.
                   </div>
               )}
-              {!enclosureId && (
+              {isClient && !enclosureId && (
                 <div key="enclosure-requirement" className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
                   <AlertCircle size={20} className="text-amber-400 shrink-0" />
                   <p className="text-amber-100 font-medium">One tank selection is required.</p>
@@ -447,7 +449,7 @@ export default function BettaBuilder() {
               icon={<Waves className={filtrationId ? "text-blue-400" : "text-slate-400"} />}
               description="Filters are essential for the nitrogen cycle. They remove toxic ammonia and provide biological filtration. Sponge filters are ideal for bettas."
             >
-              {!filtrationId && (
+              {isClient && !filtrationId && (
                 <div key="filtration-requirement" className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
                   <AlertCircle size={20} className="text-amber-400 shrink-0" />
                   <p className="text-amber-100 font-medium">One filter selection is required.</p>
@@ -477,7 +479,7 @@ export default function BettaBuilder() {
               icon={<Thermometer className={heaterId || hasThermometer ? "text-blue-400" : "text-slate-400"} />}
               description="Bettas are tropical fish and need 78-80°F. A heater is required. A thermometer helps monitor temperature."
             >
-              {!heaterId && (
+              {isClient && !heaterId && (
                 <div key="heater-requirement" className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
                   <AlertCircle size={20} className="text-amber-400 shrink-0" />
                   <p className="text-amber-100 font-medium">A heater (50W or 100W) is required.</p>
@@ -523,7 +525,7 @@ export default function BettaBuilder() {
               icon={<Droplets className={substrateId ? "text-blue-400" : "text-slate-400"} />}
               description="Choose a safe substrate. Gravel and sand are popular choices. Active plant soil is best for live plants. Bare bottom is easiest to clean."
             >
-              {!substrateId && (
+              {isClient && !substrateId && (
                 <div key="substrate-requirement" className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
                   <AlertCircle size={20} className="text-amber-400 shrink-0" />
                   <p className="text-amber-100 font-medium">At least one substrate selection is required.</p>
