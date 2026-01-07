@@ -153,38 +153,56 @@ function groupVariants(products) {
       // Check if this is a standalone product that should be excluded because it has variants
       const labelLower = product.label.toLowerCase();
       
-      // Exclude standalone "Cork Bark Flat" if "Cork Bark Flat 4 pcs" variant exists
-      if (labelLower === "cork bark flat") {
-        const hasVariant = products.some(p => 
-          p.id !== product.id && 
-          p.label.toLowerCase().includes("cork bark flat") && 
-          p.label.toLowerCase().includes("4 pcs")
-        );
-        if (!hasVariant) {
-          standalone.push(product);
+      // Check if this product has a variant that was already grouped
+      const hasGroupedVariant = Array.from(variantGroups.values()).some(group => {
+        // Check if any variant in this group matches the base name of the current product
+        const groupBaseLower = group.baseName.toLowerCase();
+        if (labelLower === groupBaseLower) {
+          // This standalone product has a variant group, exclude it
+          return true;
         }
-      }
-      // Exclude standalone "Climbing Branches" if "Climbing Branches 4 pcs" variant exists
-      else if (labelLower === "climbing branches") {
-        const hasVariant = products.some(p => 
-          p.id !== product.id && 
-          p.label.toLowerCase().includes("climbing branches") && 
-          p.label.toLowerCase().includes("4 pcs")
-        );
-        if (!hasVariant) {
-          standalone.push(product);
+        // Also check if the product label starts with the group base name (for partial matches)
+        if (labelLower.startsWith(groupBaseLower + ' ') || groupBaseLower.startsWith(labelLower + ' ')) {
+          return true;
         }
-      }
-      // For all other products, check if they have variants
-      else {
-        const firstWord = product.label.split(' ')[0];
-        const hasVariants = products.some(p => 
-          p.id !== product.id && 
-          p.label.toLowerCase().startsWith(firstWord.toLowerCase() + ' ')
-        );
-        
-        if (!hasVariants) {
-          standalone.push(product);
+        return false;
+      });
+      
+      if (!hasGroupedVariant) {
+        // Also check for specific exclusions
+        // Exclude standalone "Cork Bark Flat" if "Cork Bark Flat 4 pcs" variant exists
+        if (labelLower === "cork bark flat") {
+          const hasVariant = products.some(p => 
+            p.id !== product.id && 
+            p.label.toLowerCase().includes("cork bark flat") && 
+            p.label.toLowerCase().includes("4 pcs")
+          );
+          if (!hasVariant) {
+            standalone.push(product);
+          }
+        }
+        // Exclude standalone "Climbing Branches" if "Climbing Branches 4 pcs" variant exists
+        else if (labelLower === "climbing branches") {
+          const hasVariant = products.some(p => 
+            p.id !== product.id && 
+            p.label.toLowerCase().includes("climbing branches") && 
+            p.label.toLowerCase().includes("4 pcs")
+          );
+          if (!hasVariant) {
+            standalone.push(product);
+          }
+        }
+        // For all other products, check if they have variants
+        else {
+          const firstWord = product.label.split(' ')[0];
+          const hasVariants = products.some(p => 
+            p.id !== product.id && 
+            p.label.toLowerCase().startsWith(firstWord.toLowerCase() + ' ')
+          );
+          
+          if (!hasVariants) {
+            standalone.push(product);
+          }
         }
       }
     }
