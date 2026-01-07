@@ -243,7 +243,9 @@ export default function BettaBuilder() {
        criticalErrors.push(errorMsg);
     }
     if (!heatingIds.includes("thermometer")) {
-       messages.push({ level: "warning", text: "Thermometer recommended to monitor temperature." });
+       const errorMsg = "Thermometer REQUIRED. Critical for monitoring temperature. Bettas need 78-80°F - too cold weakens their immune system.";
+       messages.push({ level: "error", text: errorMsg });
+       criticalErrors.push(errorMsg);
     }
 
     // 4. Decor Logic - Plastic plants are dangerous
@@ -433,6 +435,12 @@ export default function BettaBuilder() {
               icon={<Waves className={filtrationId ? "text-blue-400" : "text-slate-400"} />}
               description="Filters are essential for the nitrogen cycle. They remove toxic ammonia and provide biological filtration. Sponge filters are ideal for bettas."
             >
+              {!filtrationId && (
+                <div className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
+                  <AlertCircle size={20} className="text-amber-400 shrink-0" />
+                  <p className="text-amber-100 font-medium">One filter selection is required.</p>
+                </div>
+              )}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {FILTRATION.map((f) => (
                   <SelectionCard
@@ -457,10 +465,16 @@ export default function BettaBuilder() {
               icon={<Thermometer className={heatingIds.length ? "text-blue-400" : "text-slate-400"} />}
               description="Bettas are tropical fish and need 78-80°F. A heater is required. A thermometer helps monitor temperature."
             >
+              {!heatingIds.some(id => id === "50w" || id === "100w") && (
+                <div className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
+                  <AlertCircle size={20} className="text-amber-400 shrink-0" />
+                  <p className="text-amber-100 font-medium">A heater (50W or 100W) is required.</p>
+                </div>
+              )}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {HEATING.map((h) => {
-                  // Heater (50w or 100w) is required, thermometer is optional
-                  const isRequired = h.id === "50w" || h.id === "100w";
+                  // Heater (50w or 100w) and thermometer are required
+                  const isRequired = h.id === "50w" || h.id === "100w" || h.id === "thermometer";
                   return (
                     <SelectionCard
                       key={h.id}
@@ -506,7 +520,11 @@ export default function BettaBuilder() {
             </Section>
 
             {/* 6. Decor & Plants */}
-            <Section title="6. Plants & Decor" icon={<Sprout className={decorIds.length ? "text-blue-400" : "text-slate-400"} />}>
+            <Section 
+              title="6. Plants & Decor" 
+              icon={<Sprout className={decorIds.length ? "text-blue-400" : "text-slate-400"} />}
+              description="Plants provide hiding spots and enrichment. Live plants help clean the water. Avoid plastic plants - they tear betta fins. Silk plants are safe alternatives."
+            >
               <DecorSection
                 decor={filteredDecor}
                 selectedIds={decorIds}
@@ -523,7 +541,11 @@ export default function BettaBuilder() {
             </Section>
 
              {/* 7. Water Care */}
-             <Section title="7. Water Prep" icon={<Droplets className={careIds.length ? "text-blue-400" : "text-slate-400"} />}>
+             <Section 
+               title="7. Water Prep" 
+               icon={<Droplets className={careIds.length ? "text-blue-400" : "text-slate-400"} />}
+               description="Water conditioner removes toxic chlorine. Test kits monitor water quality. Beneficial bacteria helps establish the nitrogen cycle faster."
+             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {WATERCARE.map((w) => (
                   <SelectionCard
