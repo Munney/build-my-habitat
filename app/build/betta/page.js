@@ -404,6 +404,7 @@ export default function BettaBuilder() {
                     onClick={() => setEnclosureId(e.id)}
                     type="radio"
                     colorClass="blue"
+                    productId={e.id}
                   />
                 ))}
               </div>
