@@ -537,8 +537,8 @@ export default function LeopardGeckoBuilder() {
                     label={e.label}
                     price={e.price}
                     sublabel={typeof e.size === "number" ? `${e.size} Gallon Equivalent` : "Custom Size"}
-                    onClick={() => setEnclosureId(e.id)}
-                    type="radio"
+                    onClick={() => setEnclosureId(enclosureId === e.id ? null : e.id)}
+                    type="checkbox"
                     productId={e.id}
                   />
                 ))}
@@ -553,20 +553,33 @@ export default function LeopardGeckoBuilder() {
                 selectedEnclosureSize={selectedEnclosure?.size}
                 onToggle={(id) => setHeatingIds((ids) => toggle(ids, id))}
                 onVariantToggle={(baseName, variant, variantId) => {
-                  setHeatingVariants(prev => ({
-                    ...prev,
-                    [baseName]: { variant }
-                  }));
-                  setHeatingIds((ids) => {
+                  setHeatingVariants(prev => {
+                    const current = prev[baseName];
+                    // Toggle: if same variant is selected, deselect it
+                    if (current && current.variant === variant) {
+                      const newVariants = { ...prev };
+                      delete newVariants[baseName];
+                      // Also remove the variant ID from heatingIds
+                      setHeatingIds(ids => ids.filter(id => id !== variantId));
+                      return newVariants;
+                    }
+                    // Otherwise, select the new variant
                     // Remove old variant IDs from this group
                     const { groups } = groupVariants(HEATING);
                     const group = groups.find(g => g.baseName === baseName);
                     if (group) {
                       const oldIds = group.variants.map(v => v.id);
-                      const filtered = ids.filter(id => !oldIds.includes(id));
-                      return [...filtered, variantId];
+                      setHeatingIds(ids => {
+                        const filtered = ids.filter(id => !oldIds.includes(id));
+                        return [...filtered, variantId];
+                      });
+                    } else {
+                      setHeatingIds(ids => [...ids, variantId]);
                     }
-                    return [...ids, variantId];
+                    return {
+                      ...prev,
+                      [baseName]: { variant, id: variantId }
+                    };
                   });
                 }}
               />
