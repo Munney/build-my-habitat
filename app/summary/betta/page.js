@@ -99,7 +99,7 @@ function SummaryContent() {
   }, [allItems]);
 
   return (
-    <main className="relative min-h-screen pt-28 pb-20 px-6 bg-[#020617]">
+    <main className="relative min-h-screen pt-28 pb-20 px-6">
       <div className="relative z-10 max-w-5xl mx-auto">
         
         {/* HEADER */}
