@@ -87,9 +87,9 @@ function groupVariants(products) {
           if (sizeMatch[1].includes('x')) {
             tankSize = sizeMatch[1]; // e.g., "4x2x2"
           } else if (sizeMatch[1].includes('-')) {
-            tankSize = `${sizeMatch[1]}g`; // e.g., "10-20g"
+            tankSize = `${sizeMatch[1]} gallon`; // e.g., "10-20 gallon"
           } else {
-            tankSize = `${sizeMatch[1]}g`; // e.g., "20g"
+            tankSize = `${sizeMatch[1]} gallon`; // e.g., "20 gallon"
           }
           break;
         }
