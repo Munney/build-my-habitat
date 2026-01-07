@@ -335,7 +335,23 @@ export default function LeopardGeckoBuilder() {
   
   // Handle heating with variants
   const selectedHeating = useMemo(() => {
-    const direct = pickMany(HEATING, heatingIds);
+    // Get variant product IDs to exclude from direct items
+    const variantProductIds = new Set();
+    Object.entries(heatingVariants).forEach(([baseName, selection]) => {
+      const { groups } = groupVariants(HEATING);
+      for (const group of groups) {
+        if (group.baseName === baseName) {
+          const variant = group.variants.find(v => v.variant === selection.variant);
+          if (variant) {
+            variantProductIds.add(variant.id);
+          }
+        }
+      }
+    });
+    
+    // Get direct items, excluding variant products (they'll be added from heatingVariants)
+    const direct = pickMany(HEATING, heatingIds).filter(item => !variantProductIds.has(item.id));
+    
     // Add variants from heatingVariants
     const variantItems = Object.entries(heatingVariants).map(([baseName, selection]) => {
       const { groups } = groupVariants(HEATING);
@@ -352,7 +368,24 @@ export default function LeopardGeckoBuilder() {
   
   // Handle hides with variants
   const selectedHides = useMemo(() => {
-    const direct = pickMany(HIDES, hideIds);
+    // Get variant product IDs to exclude from direct items
+    const variantProductIds = new Set();
+    Object.entries(hideVariants).forEach(([baseName, selection]) => {
+      const { groups } = groupVariants(HIDES);
+      for (const group of groups) {
+        if (group.baseName === baseName) {
+          const variant = group.variants.find(v => v.variant === selection.variant);
+          if (variant) {
+            variantProductIds.add(variant.id);
+          }
+        }
+      }
+    });
+    
+    // Get direct items, excluding variant products (they'll be added from hideVariants)
+    const direct = pickMany(HIDES, hideIds).filter(item => !variantProductIds.has(item.id));
+    
+    // Add variants from hideVariants
     const variantItems = Object.entries(hideVariants).map(([baseName, selection]) => {
       const { groups } = groupVariants(HIDES);
       for (const group of groups) {
