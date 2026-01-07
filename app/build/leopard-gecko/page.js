@@ -273,8 +273,8 @@ export default function LeopardGeckoBuilder() {
   // --- STATE ---
   const [experience, setExperience] = useState(null); 
   const [enclosureId, setEnclosureId] = useState(null);
-  const [substrateId, setSubstrateId] = useState(null);
-  const [substrateVariants, setSubstrateVariants] = useState({}); // { baseName: { variant } }
+  const [substrateIds, setSubstrateIds] = useState([]);
+  const [substrateVariants, setSubstrateVariants] = useState({}); // { baseName: { variant, id } }
 
   const [heatingIds, setHeatingIds] = useState([]);
   const [heatingVariants, setHeatingVariants] = useState({}); // { baseName: { variant } }
@@ -356,12 +356,12 @@ export default function LeopardGeckoBuilder() {
   const allSelectedItems = useMemo(() => {
     return [
       selectedEnclosure,
-      selectedSubstrate,
+      ...selectedSubstrates,
       ...selectedHeating,
       ...selectedHides,
       ...selectedSupplements,
     ].filter(Boolean);
-  }, [selectedEnclosure, selectedSubstrate, selectedHeating, selectedHides, selectedSupplements]);
+  }, [selectedEnclosure, selectedSubstrates, selectedHeating, selectedHides, selectedSupplements]);
 
   // Total Price Calculation
   const totalPrice = allSelectedItems.reduce((sum, item) => sum + (item.price || 0), 0);
@@ -448,7 +448,7 @@ export default function LeopardGeckoBuilder() {
     const params = new URLSearchParams({
       exp: experience || "beginner",
       enclosure: enclosureId || "",
-      substrate: substrateId || "",
+      substrate: substrateIds.join(","),
       heating: heatingIds.join(","),
       hides: hideIds.join(","),
       supplements: supplementIds.join(","),
@@ -573,7 +573,7 @@ export default function LeopardGeckoBuilder() {
               />
             </Section>
 
-            <Section title="4. Floor & Substrate" icon={<Layers className={substrateId ? "text-emerald-400" : "text-slate-400"} />}>
+            <Section title="4. Floor & Substrate" icon={<Layers className={substrateIds.length ? "text-emerald-400" : "text-slate-400"} />}>
               {!experience && (
                   <div className="mb-4 p-3 bg-amber-500/10 border border-amber-500/20 text-amber-200 text-xs rounded-xl flex items-center gap-2">
                       <AlertTriangle size={16} /> Please select an Experience Level above to see safe recommendations.
@@ -581,16 +581,39 @@ export default function LeopardGeckoBuilder() {
               )}
               <SubstrateSection
                 substrates={filteredSubstrates}
-                selectedId={substrateId}
+                selectedIds={substrateIds}
                 selectedVariants={substrateVariants}
                 selectedEnclosureSize={selectedEnclosure?.size}
-                onSelect={(id) => setSubstrateId(id)}
-                onVariantSelect={(baseName, variant, variantId) => {
-                  setSubstrateVariants(prev => ({
-                    ...prev,
-                    [baseName]: { variant }
-                  }));
-                  setSubstrateId(variantId);
+                onToggle={(id) => setSubstrateIds((ids) => toggle(ids, id))}
+                onVariantToggle={(baseName, variant, variantId) => {
+                  setSubstrateVariants(prev => {
+                    const current = prev[baseName];
+                    // Toggle: if same variant is selected, deselect it
+                    if (current && current.variant === variant) {
+                      const newVariants = { ...prev };
+                      delete newVariants[baseName];
+                      // Also remove the variant ID from substrateIds
+                      setSubstrateIds(ids => ids.filter(id => id !== variantId));
+                      return newVariants;
+                    }
+                    // Otherwise, select the new variant
+                    // Remove old variant IDs from this group
+                    const { groups } = groupVariants(SUBSTRATES);
+                    const group = groups.find(g => g.baseName === baseName);
+                    if (group) {
+                      const oldIds = group.variants.map(v => v.id);
+                      setSubstrateIds(ids => {
+                        const filtered = ids.filter(id => !oldIds.includes(id));
+                        return [...filtered, variantId];
+                      });
+                    } else {
+                      setSubstrateIds(ids => [...ids, variantId]);
+                    }
+                    return {
+                      ...prev,
+                      [baseName]: { variant, id: variantId }
+                    };
+                  });
                 }}
               />
             </Section>
@@ -906,7 +929,7 @@ function HeatingSection({ heating, selectedIds, selectedVariants, onToggle, onVa
   );
 }
 
-function SubstrateSection({ substrates, selectedId, selectedVariants, onSelect, onVariantSelect, selectedEnclosureSize }) {
+function SubstrateSection({ substrates, selectedIds, selectedVariants, onToggle, onVariantToggle, selectedEnclosureSize }) {
   const { groups, standalone } = groupVariants(substrates);
   
   // Filter variants based on selected enclosure size
@@ -951,12 +974,12 @@ function SubstrateSection({ substrates, selectedId, selectedVariants, onSelect, 
       {standalone.map((s) => (
         <SelectionCard
           key={s.id}
-          active={selectedId === s.id}
+          active={selectedIds.includes(s.id)}
           label={s.label}
           price={s.price}
           sublabel={s.type === "solid" ? "Easy to Clean" : "Naturalistic Look"}
-          onClick={() => onSelect(s.id)}
-          type="radio"
+          onClick={() => onToggle(s.id)}
+          type="checkbox"
           productId={s.id}
         />
       ))}
@@ -967,7 +990,7 @@ function SubstrateSection({ substrates, selectedId, selectedVariants, onSelect, 
         const selectedVariant = variantSelection 
           ? group.variants.find(v => v.variant === variantSelection.variant)
           : null;
-        const isActive = selectedVariant && selectedId === selectedVariant.id;
+        const isActive = selectedVariant && selectedIds.includes(selectedVariant.id);
         
         // Get unique variants sorted by tank size (20 → 40 → 120)
         const variantMap = new Map();
@@ -993,18 +1016,21 @@ function SubstrateSection({ substrates, selectedId, selectedVariants, onSelect, 
             variants={group.variants}
             isActive={isActive}
             selectedVariant={variantSelection?.variant}
-            isCheckbox={false}
+            isCheckbox={true}
             isSizeOnly={true}
             onVariantChange={(variant) => {
               const variantItem = group.variants.find(v => v.variant === variant);
               if (variantItem) {
-                onVariantSelect(group.baseName, variant, variantItem.id);
+                onVariantToggle(group.baseName, variant, variantItem.id);
               }
             }}
             onSelect={() => {
               if (!variantSelection && group.variants.length > 0) {
                 const first = group.variants[0];
-                onVariantSelect(group.baseName, first.variant, first.id);
+                onVariantToggle(group.baseName, first.variant, first.id);
+              } else if (variantSelection) {
+                // Toggle off if already selected
+                onVariantToggle(group.baseName, variantSelection.variant, selectedVariant?.id);
               }
             }}
             productId={selectedVariant?.id}
@@ -1159,12 +1185,18 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
             value={selectedVariant || ""}
             onChange={(e) => {
               e.stopPropagation();
-              onVariantChange(e.target.value);
+              const newVariant = e.target.value;
+              // If selecting the same variant that's already selected, deselect it
+              if (isCheckbox && newVariant === selectedVariant) {
+                onVariantChange(""); // Deselect
+              } else {
+                onVariantChange(newVariant);
+              }
             }}
             onClick={(e) => e.stopPropagation()}
             className="w-full bg-slate-800/50 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:border-emerald-500 focus:outline-none"
           >
-            <option value="">Select variant</option>
+            <option value="">{isCheckbox && selectedVariant ? "Deselect" : "Select variant"}</option>
             {uniqueVariants.map(v => (
               <option key={v.variant} value={v.variant}>
                 {v.variant}{v.tankSize ? ` (${v.tankSize})` : ''}
