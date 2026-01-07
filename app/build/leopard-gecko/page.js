@@ -1058,51 +1058,14 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
     : null;
   const displayPrice = selectedVariantItem ? `$${selectedVariantItem.price.toFixed(2)}` : priceRange;
   
-  // Get unique variants with their tank sizes
+  // Get unique variants with their tank sizes, sorted by tank size (20 → 40 → 120)
   const variantMap = new Map();
   variants.forEach(v => {
     if (!variantMap.has(v.variant)) {
       variantMap.set(v.variant, v);
     }
   });
-  // Sort variants by tank size: 20 gallon → 40 gallon → 120/4x2x2
-  const uniqueVariants = Array.from(variantMap.values()).sort((a, b) => {
-    // Helper function to get sort order for tank size
-    const getTankSizeOrder = (tankSize) => {
-      if (!tankSize) return 999; // No tank size = last
-      const sizeStr = tankSize.toLowerCase();
-      if (sizeStr.includes('x')) return 3; // 4x2x2 = 120 gallon
-      if (sizeStr.includes('-')) {
-        // Range like "10-20 gallon" - extract first number
-        const match = sizeStr.match(/(\d+)-/);
-        if (match) {
-          const num = parseInt(match[1]);
-          if (num <= 20) return 1; // 10-20 gallon = 20 gallon category
-          if (num <= 40) return 2; // 30-40 gallon = 40 gallon category
-        }
-        return 3;
-      }
-      // Single number like "20 gallon"
-      const match = sizeStr.match(/(\d+)/);
-      if (match) {
-        const num = parseInt(match[1]);
-        if (num === 20) return 1;
-        if (num === 40) return 2;
-        if (num >= 120) return 3;
-      }
-      return 999;
-    };
-    
-    const orderA = getTankSizeOrder(a.tankSize);
-    const orderB = getTankSizeOrder(b.tankSize);
-    
-    if (orderA !== orderB) {
-      return orderA - orderB;
-    }
-    
-    // If same order, sort by variant name
-    return a.variant.localeCompare(b.variant);
-  });
+  const uniqueVariants = sortVariantsByTankSize(Array.from(variantMap.values()));
   
   // Get explanation
   const explanation = productId ? productExplanations[productId] : null;
