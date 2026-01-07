@@ -372,12 +372,12 @@ export default function LeopardGeckoBuilder() {
     
     if (enclosureId) score++;
     if (heatingIds.length > 0) score++;
-    if (substrateId) score++;
+    if (substrateIds.length > 0) score++;
     if (hideIds.length > 0) score++;
     if (supplementIds.length > 0) score++;
 
     return Math.round((score / totalSteps) * 100);
-  }, [enclosureId, heatingIds, substrateId, hideIds, supplementIds]);
+  }, [enclosureId, heatingIds, substrateIds, hideIds, supplementIds]);
 
   // --- COMPATIBILITY CHECKS ---
   const checks = useMemo(() => {
