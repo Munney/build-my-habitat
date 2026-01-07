@@ -454,24 +454,20 @@ export default function BettaBuilder() {
                 </div>
               )}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {FILTRATION.map((f) => {
-                  // Required only if no filter is selected
-                  const isRequired = !filtrationId;
-                  return (
-                    <SelectionCard
-                      key={f.id}
-                      active={filtrationId === f.id}
-                      label={f.label}
-                      price={f.price}
-                      sublabel={`Flow: ${f.flow}`}
-                      onClick={() => setFiltrationId(f.id)}
-                      type="radio"
-                      colorClass="blue"
-                      productId={f.id}
-                      isRequired={isRequired}
-                    />
-                  );
-                })}
+                {FILTRATION.map((f) => (
+                  <SelectionCard
+                    key={f.id}
+                    active={filtrationId === f.id}
+                    label={f.label}
+                    price={f.price}
+                    sublabel={`Flow: ${f.flow}`}
+                    onClick={() => setFiltrationId(f.id)}
+                    type="radio"
+                    colorClass="blue"
+                    productId={f.id}
+                    isRequired={false}
+                  />
+                ))}
               </div>
             </Section>
 
