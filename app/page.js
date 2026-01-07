@@ -123,6 +123,39 @@ export default function Home() {
           </Link>
         </div>
 
+        {/* --- QUICK LINKS TO EDUCATIONAL CONTENT --- */}
+        <div className="w-full mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Link
+              href="/care-sheets"
+              onClick={() => analytics.trackNavClick("care-sheets")}
+              className="group p-6 rounded-2xl bg-gradient-to-r from-emerald-500/10 to-blue-500/10 border border-emerald-500/20 hover:border-emerald-500/40 transition-all duration-300 hover:-translate-y-1"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-1">Care Sheets</h3>
+                  <p className="text-sm text-slate-300">Quick reference guides for temperature, humidity, and daily care</p>
+                </div>
+                <ArrowUpRight className="text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity" size={24} />
+              </div>
+            </Link>
+            
+            <Link
+              href="/common-mistakes"
+              onClick={() => analytics.trackNavClick("common-mistakes")}
+              className="group p-6 rounded-2xl bg-gradient-to-r from-red-500/10 to-orange-500/10 border border-red-500/20 hover:border-red-500/40 transition-all duration-300 hover:-translate-y-1"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-1">Common Mistakes</h3>
+                  <p className="text-sm text-slate-300">Learn what NOT to do - avoid dangerous practices</p>
+                </div>
+                <ArrowUpRight className="text-red-400 opacity-0 group-hover:opacity-100 transition-opacity" size={24} />
+              </div>
+            </Link>
+          </div>
+        </div>
+
         {/* --- HUSBANDRY GUIDES --- */}
         <div className="w-full">
             <div className="flex items-center gap-3 mb-8 px-2 border-b border-white/10 pb-4">
