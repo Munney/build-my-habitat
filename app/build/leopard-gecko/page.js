@@ -107,14 +107,14 @@ function groupVariants(products) {
       } else if (heatmatPattern.test(label)) {
         baseName = "Under Tank Heater (Mat)";
         variant = match[1]; // e.g., "10-20"
-        tankSize = `${match[1]}g`; // Already extracted from pattern
+        tankSize = `${match[1]} gallon`; // Already extracted from pattern
       } else if (slatePattern.test(label)) {
         baseName = "Slate Tile / Stone";
         variant = `${match[1]}" x ${match[2]}"`; // e.g., "6" x 6""
       } else if (linerPattern.test(label)) {
         baseName = "Reptile Carpet";
-        variant = `${match[1]}g`; // e.g., "20g"
-        tankSize = `${match[1]}g`; // Already extracted from pattern
+        variant = `${match[1]} gallon`; // e.g., "20 gallon"
+        tankSize = `${match[1]} gallon`; // Already extracted from pattern
       } else if (bioactivePattern.test(label)) {
         baseName = "BioActive Terra Sahara";
         variant = `${match[1]} qts`; // e.g., "18 qts"
