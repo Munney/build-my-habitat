@@ -298,24 +298,6 @@ export default function LeopardGeckoBuilder() {
   // --- SELECTION LOGIC ---
   const selectedEnclosure = ENCLOSURES.find((e) => e.id === enclosureId);
   
-  // Handle substrate selection (including variants)
-  const selectedSubstrate = useMemo(() => {
-    if (!substrateId) return null;
-    
-    // First try to find by direct ID match
-    const directMatch = SUBSTRATES.find((s) => s.id === substrateId);
-    if (directMatch) return directMatch;
-    
-    // If not found, check variant groups
-    const { groups } = groupVariants(SUBSTRATES);
-    for (const group of groups) {
-      const variant = group.variants.find(v => v.id === substrateId);
-      if (variant) return variant;
-    }
-    
-    return null;
-  }, [substrateId]);
-
   const pickMany = (items, ids) => items.filter((i) => ids.includes(i.id));
   
   // Handle heating with variants
