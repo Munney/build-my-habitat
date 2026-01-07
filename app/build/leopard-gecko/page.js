@@ -451,35 +451,62 @@ export default function LeopardGeckoBuilder() {
     if (heatingIds.length === 0) {
        messages.push({ level: "warning", text: "Select a heating source." });
     } else {
-       // Check for primary heat source (heatmat, halogen, or dhp variants)
+       // Check for primary heat source (halogen or dhp variants, NOT under tank heater)
        const hasPrimaryHeat = heatingIds.some(id => 
-         id.startsWith("heatmat_") || 
          id.startsWith("halogen_") || 
          id.startsWith("dhp_")
        ) || Object.keys(heatingVariants).some(baseName => 
-         baseName.includes("Halogen") || baseName.includes("DHP") || baseName.includes("Heat")
+         (baseName.includes("Halogen") || baseName.includes("Flood Lamp") || 
+          baseName.includes("Deep Heat") || baseName.includes("DHP")) &&
+         !baseName.includes("Under Tank Heater")
        );
        if (!hasPrimaryHeat) {
-        const errorMsg = "Primary heat source REQUIRED. Leopard geckos need a basking area of 88-92°F for proper digestion and thermoregulation.";
+        const errorMsg = "Primary heat source REQUIRED. You must select either a Halogen Flood Lamp OR a Deep Heat Projector (DHP). Leopard geckos need a basking area of 88-92°F for proper digestion and thermoregulation.";
         messages.push({ level: "error", text: errorMsg });
         criticalErrors.push(errorMsg);
        }
        // Check for thermostat
        if (!heatingIds.includes("thermostat")) {
-        const errorMsg = "Thermostat REQUIRED. Unregulated heat sources can cause severe burns and death. Never use heat without a thermostat.";
+        const errorMsg = "Digital Thermostat REQUIRED. Unregulated heat sources can cause severe burns and death. Never use heat without a thermostat.";
         messages.push({ level: "error", text: errorMsg });
         criticalErrors.push(errorMsg);
        }
     }
-
+    
+    // Check for required hides
     if (hideIds.length === 0) {
-       messages.push({ level: "warning", text: "Select hides for security." });
-    } else if (hideIds.length < 3) {
-       messages.push({ level: "warning", text: "3 hides (Hot, Cool, Moist) are recommended for proper thermoregulation." });
+      messages.push({ level: "warning", text: "Select at least one hide." });
+    } else {
+      const hasWarmHide = hideIds.includes("warmhide");
+      const hasCoolHide = hideIds.includes("coolhide");
+      const hasHumidHide = hideIds.includes("humidhide");
+      
+      if (!hasWarmHide) {
+        const errorMsg = "Warm Hide REQUIRED. Geckos need a warm hide on the hot side for thermoregulation and digestion.";
+        messages.push({ level: "error", text: errorMsg });
+        criticalErrors.push(errorMsg);
+      }
+      if (!hasCoolHide) {
+        const errorMsg = "Cool Hide REQUIRED. Geckos need a cool hide on the cool side to escape heat and regulate body temperature.";
+        messages.push({ level: "error", text: errorMsg });
+        criticalErrors.push(errorMsg);
+      }
+      if (!hasHumidHide) {
+        const errorMsg = "Humid Hide REQUIRED. Geckos need a humid hide for proper shedding. Without it, they can develop stuck shed which can lead to infection and loss of digits.";
+        messages.push({ level: "error", text: errorMsg });
+        criticalErrors.push(errorMsg);
+      }
+    }
+    
+    // Check for at least one substrate
+    if (substrateIds.length === 0 && Object.keys(substrateVariants).length === 0) {
+      const errorMsg = "At least one substrate REQUIRED. Choose a safe substrate for your gecko's enclosure floor.";
+      messages.push({ level: "error", text: errorMsg });
+      criticalErrors.push(errorMsg);
     }
 
     return { messages, criticalErrors };
-  }, [selectedEnclosure, heatingIds, hideIds]);
+  }, [selectedEnclosure, heatingIds, heatingVariants, hideIds, substrateIds, substrateVariants]);
 
   function goToSummary() {
     if (allSelectedItems.length === 0) return;
@@ -944,8 +971,16 @@ const productExplanations = {
 function HeatingSection({ heating, selectedIds, selectedVariants, onToggle, onVariantToggle, selectedEnclosureSize }) {
   const { groups, standalone } = groupVariants(heating);
   
+  // Check if halogen or DHP is selected
+  const hasHalogen = Object.keys(selectedVariants).some(baseName => 
+    baseName.includes("Halogen") || baseName.includes("Flood Lamp")
+  );
+  const hasDHP = Object.keys(selectedVariants).some(baseName => 
+    baseName.includes("Deep Heat") || baseName.includes("DHP")
+  );
+  
   // Filter variants based on selected enclosure size
-  const filteredGroups = groups.map(group => ({
+  let filteredGroups = groups.map(group => ({
     ...group,
     variants: group.variants.filter(v => {
       if (!selectedEnclosureSize || !v.tankSize) return true; // Show all if no enclosure selected
@@ -980,11 +1015,22 @@ function HeatingSection({ heating, selectedIds, selectedVariants, onToggle, onVa
     })
   })).filter(group => group.variants.length > 0); // Only show groups with matching variants
   
+  // Make halogen and DHP mutually exclusive - hide the other if one is selected
+  if (hasHalogen) {
+    filteredGroups = filteredGroups.filter(group => 
+      !group.baseName.includes("Deep Heat") && !group.baseName.includes("DHP")
+    );
+  } else if (hasDHP) {
+    filteredGroups = filteredGroups.filter(group => 
+      !group.baseName.includes("Halogen") && !group.baseName.includes("Flood Lamp")
+    );
+  }
+  
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
       {/* Standalone products (no variants) */}
       {standalone.map((h) => {
-        // Thermostat is required
+        // Thermostat is always required
         const isRequired = h.id === "thermostat";
         return (
           <SelectionCard
@@ -1024,8 +1070,10 @@ function HeatingSection({ heating, selectedIds, selectedVariants, onToggle, onVa
         const maxPrice = Math.max(...prices);
         const priceRange = minPrice === maxPrice ? `$${minPrice.toFixed(2)}` : `$${minPrice.toFixed(2)} - $${maxPrice.toFixed(2)}`;
         
-        // Check if this variant group is required (primary heat sources)
-        const isRequired = group.baseName.includes("Halogen") || group.baseName.includes("Deep Heat") || group.baseName.includes("DHP") || group.baseName.includes("Under Tank Heater");
+        // Check if this variant group is required (only Halogen or DHP, NOT under tank heater)
+        const isRequired = (group.baseName.includes("Halogen") || group.baseName.includes("Flood Lamp") || 
+                           group.baseName.includes("Deep Heat") || group.baseName.includes("DHP")) &&
+                           !group.baseName.includes("Under Tank Heater");
         
         return (
           <VariantCard
@@ -1152,8 +1200,10 @@ function SubstrateSection({ substrates, selectedIds, selectedVariants, onToggle,
         const maxPrice = Math.max(...prices);
         const priceRange = minPrice === maxPrice ? `$${minPrice.toFixed(2)}` : `$${minPrice.toFixed(2)} - $${maxPrice.toFixed(2)}`;
         
-        // Check if this variant group is required (primary heat sources)
-        const isRequired = group.baseName.includes("Halogen") || group.baseName.includes("Deep Heat") || group.baseName.includes("DHP") || group.baseName.includes("Under Tank Heater");
+        // Check if this variant group is required (only Halogen or DHP, NOT under tank heater)
+        const isRequired = (group.baseName.includes("Halogen") || group.baseName.includes("Flood Lamp") || 
+                           group.baseName.includes("Deep Heat") || group.baseName.includes("DHP")) &&
+                           !group.baseName.includes("Under Tank Heater");
         
         return (
           <VariantCard
@@ -1195,17 +1245,22 @@ function HidesSection({ hides, selectedIds, selectedVariants, onToggle, onVarian
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
       {/* Standalone products (no variants) - excludes standalone Cork Bark and Climbing Branches */}
-      {standalone.map((h) => (
-        <SelectionCard
-          key={h.id}
-          active={selectedIds.includes(h.id)}
-          label={h.label}
-          price={h.price}
-          onClick={() => onToggle(h.id)}
-          type="checkbox"
-          productId={h.id}
-        />
-      ))}
+      {standalone.map((h) => {
+        // Warm hide, cool hide, and humid hide are all required
+        const isRequired = h.id === "warmhide" || h.id === "coolhide" || h.id === "humidhide";
+        return (
+          <SelectionCard
+            key={h.id}
+            active={selectedIds.includes(h.id)}
+            label={h.label}
+            price={h.price}
+            onClick={() => onToggle(h.id)}
+            type="checkbox"
+            productId={h.id}
+            isRequired={isRequired}
+          />
+        );
+      })}
       
       {/* Variant groups */}
       {groups.map((group) => {
@@ -1231,8 +1286,10 @@ function HidesSection({ hides, selectedIds, selectedVariants, onToggle, onVarian
         const maxPrice = Math.max(...prices);
         const priceRange = minPrice === maxPrice ? `$${minPrice.toFixed(2)}` : `$${minPrice.toFixed(2)} - $${maxPrice.toFixed(2)}`;
         
-        // Check if this variant group is required (primary heat sources)
-        const isRequired = group.baseName.includes("Halogen") || group.baseName.includes("Deep Heat") || group.baseName.includes("DHP") || group.baseName.includes("Under Tank Heater");
+        // Check if this variant group is required (only Halogen or DHP, NOT under tank heater)
+        const isRequired = (group.baseName.includes("Halogen") || group.baseName.includes("Flood Lamp") || 
+                           group.baseName.includes("Deep Heat") || group.baseName.includes("DHP")) &&
+                           !group.baseName.includes("Under Tank Heater");
         
         return (
           <VariantCard
@@ -1320,12 +1377,15 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
     }
   }
   
+  // Only show required indicator if not selected
+  const showRequired = isRequired && !isActive;
+  
   return (
     <div
       className={`group relative p-5 rounded-2xl border transition-all duration-300 cursor-pointer ${
         isActive
           ? "border-emerald-500 bg-emerald-500/10 shadow-[0_0_30px_-10px_rgba(16,185,129,0.3)] scale-[1.02]"
-          : isRequired
+          : showRequired
           ? "border-amber-500/50 bg-amber-500/5 hover:border-amber-500/70 hover:bg-amber-500/10"
           : "border-slate-700/50 bg-slate-900/40 hover:border-slate-600 hover:bg-slate-800/60"
       }`}
@@ -1337,20 +1397,20 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
             className={`mt-1 w-5 h-5 rounded-full flex items-center justify-center border transition-all shrink-0 ${
               isActive 
                 ? "bg-emerald-500 border-emerald-500 shadow-sm shadow-emerald-500/50" 
-                : isRequired
+                : showRequired
                 ? "bg-amber-500/20 border-amber-500/50 group-hover:border-amber-500/70"
                 : "bg-slate-800/50 border-slate-600 group-hover:border-slate-500"
             }`}
           >
             {isActive && <CheckCircle2 size={14} className="text-slate-950" />}
-            {!isActive && isRequired && <AlertCircle size={12} className="text-amber-400" />}
+            {showRequired && <AlertCircle size={12} className="text-amber-400" />}
           </div>
 
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-3">
-              <div className={`font-bold text-base transition-colors flex-1 ${isActive ? "text-white" : isRequired ? "text-amber-100 group-hover:text-white" : "text-slate-300 group-hover:text-white"}`}>
+              <div className={`font-bold text-base transition-colors flex-1 ${isActive ? "text-white" : showRequired ? "text-amber-100 group-hover:text-white" : "text-slate-300 group-hover:text-white"}`}>
                 {baseLabel}
-                {isRequired && !isActive && (
+                {showRequired && (
                   <span className="ml-2 text-xs font-normal text-amber-400">Required</span>
                 )}
               </div>
@@ -1406,8 +1466,10 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
   );
 }
 
-function SelectionCard({ active, label, sublabel, price, onClick, type, productId }) {
+function SelectionCard({ active, label, sublabel, price, onClick, type, productId, isRequired = false }) {
   const explanation = productId ? productExplanations[productId] : null;
+  // Only show required indicator if not selected
+  const showRequired = isRequired && !active;
   
   return (
     <div
@@ -1415,6 +1477,8 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
       className={`group relative p-5 rounded-2xl border cursor-pointer transition-all duration-300 ${
         active
           ? "border-emerald-500 bg-emerald-500/10 shadow-[0_0_30px_-10px_rgba(16,185,129,0.3)] scale-[1.02]"
+          : showRequired
+          ? "border-amber-500/50 bg-amber-500/5 hover:border-amber-500/70 hover:bg-amber-500/10"
           : "border-slate-700/50 bg-slate-900/40 hover:border-slate-600 hover:bg-slate-800/60"
       }`}
     >
@@ -1424,16 +1488,22 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
             className={`mt-1 w-5 h-5 rounded-full flex items-center justify-center border transition-all shrink-0 ${
               active 
                 ? "bg-emerald-500 border-emerald-500 shadow-sm shadow-emerald-500/50" 
+                : showRequired
+                ? "bg-amber-500/20 border-amber-500/50 group-hover:border-amber-500/70"
                 : "bg-slate-800/50 border-slate-600 group-hover:border-slate-500"
             }`}
           >
             {active && <CheckCircle2 size={14} className="text-slate-950" />}
+            {showRequired && <AlertCircle size={12} className="text-amber-400" />}
           </div>
 
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-3">
-              <div className={`font-bold text-base transition-colors flex-1 ${active ? "text-white" : "text-slate-300 group-hover:text-white"}`}>
+              <div className={`font-bold text-base transition-colors flex-1 ${active ? "text-white" : showRequired ? "text-amber-100 group-hover:text-white" : "text-slate-300 group-hover:text-white"}`}>
                 {label}
+                {showRequired && (
+                  <span className="ml-2 text-xs font-normal text-amber-400">Required</span>
+                )}
               </div>
               {explanation && (
                 <ProductTooltip explanation={explanation} />
