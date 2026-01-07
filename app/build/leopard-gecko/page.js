@@ -302,7 +302,23 @@ export default function LeopardGeckoBuilder() {
   
   // Handle substrate selection (including variants)
   const selectedSubstrates = useMemo(() => {
-    const direct = pickMany(SUBSTRATES, substrateIds);
+    // Get variant product IDs to exclude from direct items
+    const variantProductIds = new Set();
+    Object.entries(substrateVariants).forEach(([baseName, selection]) => {
+      const { groups } = groupVariants(SUBSTRATES);
+      for (const group of groups) {
+        if (group.baseName === baseName) {
+          const variant = group.variants.find(v => v.variant === selection.variant);
+          if (variant) {
+            variantProductIds.add(variant.id);
+          }
+        }
+      }
+    });
+    
+    // Get direct items, excluding variant products (they'll be added from substrateVariants)
+    const direct = pickMany(SUBSTRATES, substrateIds).filter(item => !variantProductIds.has(item.id));
+    
     // Add variants from substrateVariants
     const variantItems = Object.entries(substrateVariants).map(([baseName, selection]) => {
       const { groups } = groupVariants(SUBSTRATES);
