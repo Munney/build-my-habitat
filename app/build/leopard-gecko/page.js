@@ -102,7 +102,7 @@ function groupVariants(products) {
         baseName = "Deep Heat Projector (DHP)";
         variant = match[1]; // e.g., "50W"
       } else if (uvbPattern.test(label)) {
-        baseName = "ShadeDweller UVB Kit";
+        baseName = "UVB Kit";
         variant = match[2] ? `${match[2]}"` : match[1]; // e.g., "12" or "8W"
       } else if (heatmatPattern.test(label)) {
         baseName = "Under Tank Heater (Mat)";
@@ -124,10 +124,12 @@ function groupVariants(products) {
       } else if (topsoilPattern.test(label)) {
         baseName = "Organic Topsoil Mix";
         variant = match[1]; // e.g., "Cocunut Chips"
-      } else if (corkPattern.test(label)) {
+      } else if (corkPattern.test(label) && label.includes("4 pcs")) {
+        // Only group "Cork Bark Flat 4 pcs", not standalone "Cork Bark Flat"
         baseName = "Cork Bark Flat";
         variant = `${match[1]} pcs`; // e.g., "4 pcs"
       } else if (branchesPattern.test(label)) {
+        // Only group "Climbing Branches 4 pcs (14-16 inches)", not standalone "Climbing Branches"
         baseName = "Climbing Branches";
         variant = `${match[1]} pcs (${match[2]})`; // e.g., "4 pcs (14-16 inches)"
       }
@@ -444,19 +446,30 @@ export default function LeopardGeckoBuilder() {
             </Section>
 
             <Section title="3. Heating & Control" icon={<Thermometer className={heatingIds.length ? "text-emerald-400" : "text-slate-400"} />}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {HEATING.map((h) => (
-                  <SelectionCard
-                    key={h.id}
-                    active={heatingIds.includes(h.id)}
-                    label={h.label}
-                    price={h.price}
-                    onClick={() => setHeatingIds((ids) => toggle(ids, h.id))}
-                    type="checkbox"
-                    productId={h.id}
-                  />
-                ))}
-              </div>
+              <HeatingSection 
+                heating={HEATING}
+                selectedIds={heatingIds}
+                selectedVariants={heatingVariants}
+                selectedEnclosureSize={selectedEnclosure?.size}
+                onToggle={(id) => setHeatingIds((ids) => toggle(ids, id))}
+                onVariantToggle={(baseName, variant, variantId) => {
+                  setHeatingVariants(prev => ({
+                    ...prev,
+                    [baseName]: { variant }
+                  }));
+                  setHeatingIds((ids) => {
+                    // Remove old variant IDs from this group
+                    const { groups } = groupVariants(HEATING);
+                    const group = groups.find(g => g.baseName === baseName);
+                    if (group) {
+                      const oldIds = group.variants.map(v => v.id);
+                      const filtered = ids.filter(id => !oldIds.includes(id));
+                      return [...filtered, variantId];
+                    }
+                    return [...ids, variantId];
+                  });
+                }}
+              />
             </Section>
 
             <Section title="4. Floor & Substrate" icon={<Layers className={substrateId ? "text-emerald-400" : "text-slate-400"} />}>
@@ -469,6 +482,7 @@ export default function LeopardGeckoBuilder() {
                 substrates={filteredSubstrates}
                 selectedId={substrateId}
                 selectedVariants={substrateVariants}
+                selectedEnclosureSize={selectedEnclosure?.size}
                 onSelect={(id) => setSubstrateId(id)}
                 onVariantSelect={(baseName, variant, variantId) => {
                   setSubstrateVariants(prev => ({
@@ -674,8 +688,44 @@ const productExplanations = {
   "multivitamin": "Multivitamin provides essential vitamins and minerals. Use 1-2 times per week in addition to calcium. Prevents nutritional deficiencies.",
 };
 
-function HeatingSection({ heating, selectedIds, selectedVariants, onToggle, onVariantToggle }) {
+function HeatingSection({ heating, selectedIds, selectedVariants, onToggle, onVariantToggle, selectedEnclosureSize }) {
   const { groups, standalone } = groupVariants(heating);
+  
+  // Filter variants based on selected enclosure size
+  const filteredGroups = groups.map(group => ({
+    ...group,
+    variants: group.variants.filter(v => {
+      if (!selectedEnclosureSize || !v.tankSize) return true; // Show all if no enclosure selected
+      
+      // Match tank size to enclosure
+      const enclosureSize = selectedEnclosureSize;
+      const variantTankSize = v.tankSize.toLowerCase();
+      
+      // Handle different size formats
+      if (variantTankSize.includes('x')) {
+        // 4x2x2 format
+        return variantTankSize === '4x2x2' && enclosureSize >= 120;
+      } else if (variantTankSize.includes('-')) {
+        // Range format like "10-20 gallon"
+        const match = variantTankSize.match(/(\d+)-(\d+)/);
+        if (match) {
+          const [min, max] = match.slice(1).map(Number);
+          return enclosureSize >= min && enclosureSize <= max;
+        }
+        return false;
+      } else {
+        // Single size like "20 gallon"
+        const match = variantTankSize.match(/(\d+)/);
+        if (match) {
+          const size = parseInt(match[1]);
+          if (size === 20) return enclosureSize >= 15 && enclosureSize < 40;
+          if (size === 40) return enclosureSize >= 35 && enclosureSize < 120;
+          if (size === 120 || size >= 120) return enclosureSize >= 120;
+        }
+        return false;
+      }
+    })
+  })).filter(group => group.variants.length > 0); // Only show groups with matching variants
   
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -693,7 +743,7 @@ function HeatingSection({ heating, selectedIds, selectedVariants, onToggle, onVa
       ))}
       
       {/* Variant groups */}
-      {groups.map((group) => {
+      {filteredGroups.map((group) => {
         const variantSelection = selectedVariants[group.baseName];
         const selectedVariant = variantSelection 
           ? group.variants.find(v => v.variant === variantSelection.variant)
@@ -739,8 +789,37 @@ function HeatingSection({ heating, selectedIds, selectedVariants, onToggle, onVa
   );
 }
 
-function SubstrateSection({ substrates, selectedId, selectedVariants, onSelect, onVariantSelect }) {
+function SubstrateSection({ substrates, selectedId, selectedVariants, onSelect, onVariantSelect, selectedEnclosureSize }) {
   const { groups, standalone } = groupVariants(substrates);
+  
+  // Filter variants based on selected enclosure size
+  const filteredGroups = groups.map(group => ({
+    ...group,
+    variants: group.variants.filter(v => {
+      if (!selectedEnclosureSize || !v.tankSize) return true; // Show all if no enclosure selected
+      
+      // Match tank size to enclosure
+      const enclosureSize = selectedEnclosureSize;
+      const variantTankSize = v.tankSize.toLowerCase();
+      
+      // Handle different size formats
+      if (variantTankSize.includes('x')) {
+        // 4x2x2 format
+        return variantTankSize === '4x2x2' && enclosureSize >= 120;
+      } else if (variantTankSize.includes('-')) {
+        // Range format like "10-20 gallon"
+        const [min, max] = variantTankSize.match(/(\d+)-(\d+)/).slice(1).map(Number);
+        return enclosureSize >= min && enclosureSize <= max;
+      } else {
+        // Single size like "20 gallon"
+        const size = parseInt(variantTankSize);
+        if (size === 20) return enclosureSize >= 15 && enclosureSize < 40;
+        if (size === 40) return enclosureSize >= 35 && enclosureSize < 120;
+        if (size === 120 || size >= 120) return enclosureSize >= 120;
+        return false;
+      }
+    })
+  })).filter(group => group.variants.length > 0); // Only show groups with matching variants
   
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -759,7 +838,7 @@ function SubstrateSection({ substrates, selectedId, selectedVariants, onSelect, 
       ))}
       
       {/* Variant groups */}
-      {groups.map((group) => {
+      {filteredGroups.map((group) => {
         const variantSelection = selectedVariants[group.baseName];
         const selectedVariant = variantSelection 
           ? group.variants.find(v => v.variant === variantSelection.variant)
