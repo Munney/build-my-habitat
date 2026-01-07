@@ -150,15 +150,42 @@ function groupVariants(products) {
         });
       }
     } else {
-      // Check if this is a standalone product
-      const firstWord = product.label.split(' ')[0];
-      const hasVariants = products.some(p => 
-        p.id !== product.id && 
-        p.label.toLowerCase().startsWith(firstWord.toLowerCase() + ' ')
-      );
+      // Check if this is a standalone product that should be excluded because it has variants
+      const labelLower = product.label.toLowerCase();
       
-      if (!hasVariants) {
-        standalone.push(product);
+      // Exclude standalone "Cork Bark Flat" if "Cork Bark Flat 4 pcs" variant exists
+      if (labelLower === "cork bark flat") {
+        const hasVariant = products.some(p => 
+          p.id !== product.id && 
+          p.label.toLowerCase().includes("cork bark flat") && 
+          p.label.toLowerCase().includes("4 pcs")
+        );
+        if (!hasVariant) {
+          standalone.push(product);
+        }
+      }
+      // Exclude standalone "Climbing Branches" if "Climbing Branches 4 pcs" variant exists
+      else if (labelLower === "climbing branches") {
+        const hasVariant = products.some(p => 
+          p.id !== product.id && 
+          p.label.toLowerCase().includes("climbing branches") && 
+          p.label.toLowerCase().includes("4 pcs")
+        );
+        if (!hasVariant) {
+          standalone.push(product);
+        }
+      }
+      // For all other products, check if they have variants
+      else {
+        const firstWord = product.label.split(' ')[0];
+        const hasVariants = products.some(p => 
+          p.id !== product.id && 
+          p.label.toLowerCase().startsWith(firstWord.toLowerCase() + ' ')
+        );
+        
+        if (!hasVariants) {
+          standalone.push(product);
+        }
       }
     }
   });
@@ -495,19 +522,29 @@ export default function LeopardGeckoBuilder() {
             </Section>
 
             <Section title="5. Hides & Decor" icon={<HomeIcon className={hideIds.length ? "text-emerald-400" : "text-slate-400"} />}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {HIDES.map((h) => (
-                  <SelectionCard
-                    key={h.id}
-                    active={hideIds.includes(h.id)}
-                    label={h.label}
-                    price={h.price}
-                    onClick={() => setHideIds((ids) => toggle(ids, h.id))}
-                    type="checkbox"
-                    productId={h.id}
-                  />
-                ))}
-              </div>
+              <HidesSection
+                hides={HIDES}
+                selectedIds={hideIds}
+                selectedVariants={hideVariants}
+                onToggle={(id) => setHideIds((ids) => toggle(ids, id))}
+                onVariantToggle={(baseName, variant, variantId) => {
+                  setHideVariants(prev => ({
+                    ...prev,
+                    [baseName]: { variant }
+                  }));
+                  setHideIds((ids) => {
+                    // Remove old variant IDs from this group
+                    const { groups } = groupVariants(HIDES);
+                    const group = groups.find(g => g.baseName === baseName);
+                    if (group) {
+                      const oldIds = group.variants.map(v => v.id);
+                      const filtered = ids.filter(id => !oldIds.includes(id));
+                      return [...filtered, variantId];
+                    }
+                    return [...ids, variantId];
+                  });
+                }}
+              />
             </Section>
 
             <Section title="6. Vitamin Support" icon={<Zap className={supplementIds.length ? "text-emerald-400" : "text-slate-400"} />}>
