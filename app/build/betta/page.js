@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 // 👇 Verify this path matches your folder structure
 import config from "../../../data/betta.json";
+import ProductTooltip from "../../components/ProductTooltip";
 
 // Data Imports
 const ENCLOSURES = config.enclosures || [];
@@ -421,6 +422,7 @@ export default function BettaBuilder() {
                     onClick={() => setFiltrationId(f.id)}
                     type="radio"
                     colorClass="blue"
+                    productId={f.id}
                   />
                 ))}
               </div>
@@ -438,6 +440,7 @@ export default function BettaBuilder() {
                     onClick={() => setHeatingIds((ids) => toggle(ids, h.id))}
                     type="checkbox"
                     colorClass="blue"
+                    productId={h.id}
                   />
                 ))}
               </div>
@@ -489,6 +492,7 @@ export default function BettaBuilder() {
                     onClick={() => setCareIds((ids) => toggle(ids, w.id))}
                     type="checkbox"
                     colorClass="blue"
+                    productId={w.id}
                   />
                 ))}
               </div>
@@ -615,7 +619,42 @@ function Section({ title, icon, children }) {
     );
 }
 
-function SelectionCard({ active, label, sublabel, price, onClick, type }) {
+// Product explanations mapping
+const productExplanations = {
+  // Enclosures
+  "5g": "5 gallons is the absolute minimum for bettas. Research shows tanks under 5 gallons cause stress and abnormal behavior. Larger is always better.",
+  "10g": "10+ gallons allows bettas to fully express natural behaviors. More stable water parameters and room for enrichment.",
+  "20g": "20 gallons provides excellent water stability and plenty of space for a planted aquarium. Ideal for betta welfare.",
+  
+  // Filtration
+  "sponge": "Sponge filters are perfect for bettas - gentle flow that won't stress them, and they provide excellent biological filtration for the nitrogen cycle.",
+  "hang_on": "Hang-on-back filters work well but may need baffling to reduce flow. Bettas prefer gentle water movement.",
+  
+  // Heating
+  "50w": "50W heaters work for 5-10 gallon tanks. Essential for tropical fish - bettas need 78-80°F to thrive.",
+  "100w": "100W heaters are for larger tanks (10+ gallons). Always use a thermometer to verify temperature.",
+  "thermometer": "Critical for monitoring temperature. Bettas need 78-80°F - too cold weakens their immune system.",
+  
+  // Substrate
+  "gravel": "Gravel is safe and easy to clean. Rinse thoroughly before use. Provides surface for beneficial bacteria.",
+  "sand": "Sand is natural-looking and safe. Some bettas enjoy sifting through it. Rinse well before adding to tank.",
+  "aquasoil": "Active soil is specifically for live plants. It releases nutrients and lowers pH slightly.",
+  "bare": "Bare bottom is easiest to clean and prevents waste buildup. Some keepers prefer this for simplicity.",
+  
+  // Decor
+  "live_easy": "Live plants help clean the water, provide hiding spots, and create a natural environment. Easy plants like anubias and java fern are beginner-friendly.",
+  "silk": "Silk plants are soft and safe for delicate betta fins. Avoid plastic plants which can tear fins.",
+  "driftwood": "Driftwood provides natural hiding spots and can help lower pH slightly. Boil before use to remove tannins.",
+  
+  // Water Care
+  "conditioner": "Water conditioner removes chlorine and chloramine from tap water, which are toxic to fish. Essential for every water change.",
+  "test_kit": "Test kit is critical for monitoring water quality. Ammonia and nitrite must be 0, nitrate should be under 20 ppm.",
+  "bacteria": "Beneficial bacteria starter helps establish the nitrogen cycle faster. Not required but helpful for new tanks.",
+};
+
+function SelectionCard({ active, label, sublabel, price, onClick, type, productId }) {
+  const explanation = productId ? productExplanations[productId] : null;
+  
   return (
     <div
       onClick={onClick}
@@ -626,9 +665,9 @@ function SelectionCard({ active, label, sublabel, price, onClick, type }) {
       }`}
     >
       <div className="flex items-start justify-between gap-3">
-        <div className="flex items-start gap-3">
+        <div className="flex items-start gap-3 flex-1">
           <div
-            className={`mt-1 w-5 h-5 rounded-full flex items-center justify-center border transition-all ${
+            className={`mt-1 w-5 h-5 rounded-full flex items-center justify-center border transition-all shrink-0 ${
               active 
                 ? "bg-blue-500 border-blue-500 shadow-sm shadow-blue-500/50" 
                 : "bg-slate-800/50 border-slate-600 group-hover:border-slate-500"
@@ -637,9 +676,14 @@ function SelectionCard({ active, label, sublabel, price, onClick, type }) {
             {active && <CheckCircle2 size={14} className="text-slate-950" />}
           </div>
 
-          <div>
-            <div className={`font-bold text-base transition-colors ${active ? "text-white" : "text-slate-300 group-hover:text-white"}`}>
-              {label}
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2">
+              <div className={`font-bold text-base transition-colors flex-1 ${active ? "text-white" : "text-slate-300 group-hover:text-white"}`}>
+                {label}
+              </div>
+              {explanation && (
+                <ProductTooltip explanation={explanation} />
+              )}
             </div>
             {sublabel && (
               <div className="text-xs text-slate-500 mt-1 font-medium uppercase tracking-wide">{sublabel}</div>
@@ -648,7 +692,7 @@ function SelectionCard({ active, label, sublabel, price, onClick, type }) {
         </div>
 
         {/* 👇 FIX: Card price */}
-        <span className={`font-mono text-sm font-bold ${active ? "text-blue-400" : "text-slate-500"}`}>
+        <span className={`font-mono text-sm font-bold shrink-0 ${active ? "text-blue-400" : "text-slate-500"}`}>
           ${(price || 0).toFixed(2)}
         </span>
       </div>
@@ -672,6 +716,7 @@ function SubstrateSection({ substrates, selectedId, selectedVariants, onSelect, 
           onClick={() => onSelect(s.id)}
           type="radio"
           colorClass="blue"
+          productId={s.id}
         />
       ))}
       
@@ -751,6 +796,7 @@ function DecorSection({ decor, selectedIds, selectedVariants, onToggle, onVarian
           onClick={() => onToggle(d.id)}
           type="checkbox"
           colorClass="blue"
+          productId={d.id}
         />
       ))}
       
