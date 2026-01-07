@@ -202,6 +202,17 @@ function groupVariants(products) {
             standalone.push(product);
           }
         }
+        // Exclude standalone "Slate Tile / Stone" if variants exist
+        else if (labelLower === "slate tile / stone" || labelLower === "slate tile/stone") {
+          const hasVariant = products.some(p => 
+            p.id !== product.id && 
+            p.label.toLowerCase().startsWith("slate tile") && 
+            (p.label.toLowerCase().includes("in x") || p.label.toLowerCase().includes("gallon tank"))
+          );
+          if (!hasVariant) {
+            standalone.push(product);
+          }
+        }
         // For all other products, check if they have variants
         else {
           const firstWord = product.label.split(' ')[0];
@@ -610,6 +621,12 @@ export default function LeopardGeckoBuilder() {
               icon={<Box className={enclosureId ? "text-emerald-400" : "text-slate-400"} />}
               description="Choose the right size tank. Minimum 20 gallons required for adult geckos. Larger enclosures allow for better enrichment and natural behaviors."
             >
+              {!enclosureId && (
+                <div className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
+                  <AlertCircle size={20} className="text-amber-400 shrink-0" />
+                  <p className="text-amber-100 font-medium">One enclosure selection is required.</p>
+                </div>
+              )}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {sortedEnclosures.map((e) => (
                   <SelectionCard
@@ -621,7 +638,7 @@ export default function LeopardGeckoBuilder() {
                     onClick={() => setEnclosureId(enclosureId === e.id ? null : e.id)}
                     type="checkbox"
                     productId={e.id}
-                    isRequired={e.id !== "10g"}
+                    isRequired={false}
                   />
                 ))}
               </div>
@@ -680,6 +697,12 @@ export default function LeopardGeckoBuilder() {
                   <div className="mb-4 p-3 bg-amber-500/10 border border-amber-500/20 text-amber-200 text-xs rounded-xl flex items-center gap-2">
                       <AlertTriangle size={16} /> Please select an Experience Level above to see safe recommendations.
                   </div>
+              )}
+              {substrateIds.length === 0 && Object.keys(substrateVariants).length === 0 && (
+                <div className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
+                  <AlertCircle size={20} className="text-amber-400 shrink-0" />
+                  <p className="text-amber-100 font-medium">At least one substrate selection is required.</p>
+                </div>
               )}
               <SubstrateSection
                 substrates={filteredSubstrates}
