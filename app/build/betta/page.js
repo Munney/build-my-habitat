@@ -418,7 +418,7 @@ export default function BettaBuilder() {
                   </div>
               )}
               {!enclosureId && (
-                <div className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
+                <div key="enclosure-requirement" className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
                   <AlertCircle size={20} className="text-amber-400 shrink-0" />
                   <p className="text-amber-100 font-medium">One tank selection is required.</p>
                 </div>
@@ -448,7 +448,7 @@ export default function BettaBuilder() {
               description="Filters are essential for the nitrogen cycle. They remove toxic ammonia and provide biological filtration. Sponge filters are ideal for bettas."
             >
               {!filtrationId && (
-                <div className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
+                <div key="filtration-requirement" className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
                   <AlertCircle size={20} className="text-amber-400 shrink-0" />
                   <p className="text-amber-100 font-medium">One filter selection is required.</p>
                 </div>
@@ -478,7 +478,7 @@ export default function BettaBuilder() {
               description="Bettas are tropical fish and need 78-80°F. A heater is required. A thermometer helps monitor temperature."
             >
               {!heaterId && (
-                <div className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
+                <div key="heater-requirement" className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
                   <AlertCircle size={20} className="text-amber-400 shrink-0" />
                   <p className="text-amber-100 font-medium">A heater (50W or 100W) is required.</p>
                 </div>
@@ -524,7 +524,7 @@ export default function BettaBuilder() {
               description="Choose a safe substrate. Gravel and sand are popular choices. Active plant soil is best for live plants. Bare bottom is easiest to clean."
             >
               {!substrateId && (
-                <div className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
+                <div key="substrate-requirement" className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
                   <AlertCircle size={20} className="text-amber-400 shrink-0" />
                   <p className="text-amber-100 font-medium">At least one substrate selection is required.</p>
                 </div>
