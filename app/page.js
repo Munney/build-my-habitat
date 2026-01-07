@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image"; 
 import { useState } from "react";
-import { ArrowRight, BookOpen, ArrowUpRight, ShieldCheck, CheckCircle2, Sparkles } from "lucide-react";
+import { ArrowRight, BookOpen, ArrowUpRight, ShieldCheck, CheckCircle2, Sparkles, FileText } from "lucide-react";
 import { analytics } from "./utils/analytics";
 
 export default function Home() {
@@ -99,6 +99,28 @@ export default function Home() {
             titleColor="text-blue-400"
           />
 
+        </div>
+
+        {/* --- RESEARCH SECTION --- */}
+        <div className="w-full mb-16">
+          <Link 
+            href="/research"
+            onClick={() => analytics.trackNavClick("research")}
+            className="group block p-6 rounded-2xl bg-gradient-to-r from-emerald-500/10 to-blue-500/10 border border-emerald-500/20 hover:border-emerald-500/40 transition-all duration-300 hover:-translate-y-1"
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="p-3 rounded-xl bg-emerald-500/20 border border-emerald-500/30">
+                  <FileText className="text-emerald-400" size={24} />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-1">See the Research</h3>
+                  <p className="text-sm text-slate-300">Explore peer-reviewed studies backing our recommendations</p>
+                </div>
+              </div>
+              <ArrowUpRight className="text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity" size={24} />
+            </div>
+          </Link>
         </div>
 
         {/* --- HUSBANDRY GUIDES --- */}
