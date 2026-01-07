@@ -418,9 +418,9 @@ export default function BettaBuilder() {
                   </div>
               )}
               {!enclosureId && (
-                <div key="enclosure-requirement" className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3" style={{ display: 'block' }}>
+                <div className="mb-4 p-4 bg-amber-500/20 border-2 border-amber-500/70 rounded-xl flex items-center gap-3 shadow-lg shadow-amber-500/20">
                   <AlertCircle size={20} className="text-amber-400 shrink-0" />
-                  <p className="text-amber-100 font-medium">One tank selection is required.</p>
+                  <p className="text-amber-100 font-medium text-base">One tank selection is required.</p>
                 </div>
               )}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -448,9 +448,9 @@ export default function BettaBuilder() {
               description="Filters are essential for the nitrogen cycle. They remove toxic ammonia and provide biological filtration. Sponge filters are ideal for bettas."
             >
               {!filtrationId && (
-                <div key="filtration-requirement" className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3" style={{ display: 'block' }}>
+                <div className="mb-4 p-4 bg-amber-500/20 border-2 border-amber-500/70 rounded-xl flex items-center gap-3 shadow-lg shadow-amber-500/20">
                   <AlertCircle size={20} className="text-amber-400 shrink-0" />
-                  <p className="text-amber-100 font-medium">One filter selection is required.</p>
+                  <p className="text-amber-100 font-medium text-base">One filter selection is required.</p>
                 </div>
               )}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -478,9 +478,9 @@ export default function BettaBuilder() {
               description="Bettas are tropical fish and need 78-80°F. A heater is required. A thermometer helps monitor temperature."
             >
               {!heaterId && (
-                <div key="heater-requirement" className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3" style={{ display: 'block' }}>
+                <div className="mb-4 p-4 bg-amber-500/20 border-2 border-amber-500/70 rounded-xl flex items-center gap-3 shadow-lg shadow-amber-500/20">
                   <AlertCircle size={20} className="text-amber-400 shrink-0" />
-                  <p className="text-amber-100 font-medium">A heater (50W or 100W) is required.</p>
+                  <p className="text-amber-100 font-medium text-base">A heater (50W or 100W) is required.</p>
                 </div>
               )}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -524,9 +524,9 @@ export default function BettaBuilder() {
               description="Choose a safe substrate. Gravel and sand are popular choices. Active plant soil is best for live plants. Bare bottom is easiest to clean."
             >
               {!substrateId && (
-                <div key="substrate-requirement" className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3" style={{ display: 'block' }}>
+                <div className="mb-4 p-4 bg-amber-500/20 border-2 border-amber-500/70 rounded-xl flex items-center gap-3 shadow-lg shadow-amber-500/20">
                   <AlertCircle size={20} className="text-amber-400 shrink-0" />
-                  <p className="text-amber-100 font-medium">At least one substrate selection is required.</p>
+                  <p className="text-amber-100 font-medium text-base">At least one substrate selection is required.</p>
                 </div>
               )}
               <SubstrateSection
