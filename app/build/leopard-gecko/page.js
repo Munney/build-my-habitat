@@ -1239,8 +1239,42 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
   });
   const uniqueVariants = sortVariantsByTankSize(Array.from(variantMap.values()));
   
-  // Get explanation
-  const explanation = productId ? productExplanations[productId] : null;
+  // Get explanation - use selected variant's explanation, or first variant's explanation if none selected
+  let explanation = productId ? productExplanations[productId] : null;
+  if (!explanation && variants.length > 0) {
+    // Try to get explanation from first variant as fallback
+    const firstVariant = variants[0];
+    if (firstVariant && firstVariant.id) {
+      explanation = productExplanations[firstVariant.id];
+    }
+  }
+  
+  // If still no explanation, try to find one based on base label
+  if (!explanation) {
+    // Try common base names
+    const baseNameLower = baseLabel.toLowerCase();
+    if (baseNameLower.includes("halogen")) {
+      explanation = productExplanations["halogen_50w"] || "Halogen flood lamp provides excellent basking heat and visible light. Must be used with a thermostat. Best primary heat source option.";
+    } else if (baseNameLower.includes("deep heat") || baseNameLower.includes("dhp")) {
+      explanation = productExplanations["dhp_50w"] || "Deep Heat Projector emits infrared A & B wavelengths, penetrating deeper into tissue. No visible light. Excellent for 24/7 heating. Must be used with a thermostat.";
+    } else if (baseNameLower.includes("uvb")) {
+      explanation = productExplanations["uvb_12"] || "UVB lighting helps geckos synthesize vitamin D3 naturally. Optional but beneficial, especially if not using calcium with D3.";
+    } else if (baseNameLower.includes("reptile carpet")) {
+      explanation = productExplanations["liner_reptile_carpet_20_gallon_tank"] || "Reptile carpet is easy to clean and safe. Provides a solid surface that prevents impaction. Good beginner option.";
+    } else if (baseNameLower.includes("slate")) {
+      explanation = productExplanations["slate_slate_tile_stone_6_in_x_6_in_s"] || "Slate tile provides a natural look while being easy to clean. Retains heat well and provides a solid surface. Safe and beginner-friendly.";
+    } else if (baseNameLower.includes("bioactive")) {
+      explanation = productExplanations["bioactive_bioactive_terra_sahara_18_qts_"] || "BioActive Terra Sahara creates a self-cleaning ecosystem with beneficial microorganisms. Advanced setup requiring proper preparation. Only for experienced keepers.";
+    } else if (baseNameLower.includes("topsoil")) {
+      explanation = productExplanations["topsoil_organic_topsoil_mix_cocunut_ch"] || "Organic topsoil mix creates a naturalistic environment. Requires proper preparation and monitoring. Only for experienced keepers who understand impaction risks.";
+    } else if (baseNameLower.includes("sand")) {
+      explanation = productExplanations["sand_reptile_sand_calcium_white"] || "⚠️ DANGEROUS: Calcium sand causes impaction when ingested. It clumps when wet and cannot pass through the digestive system. Use safe substrates instead.";
+    } else if (baseNameLower.includes("cork bark")) {
+      explanation = productExplanations["corkbark_cork_bark_flat_4_pcs"] || "Cork bark provides natural hiding spots and climbing opportunities. Can be used as additional cover or as a hide. Safe and natural-looking.";
+    } else if (baseNameLower.includes("climbing branches") || baseNameLower.includes("branches")) {
+      explanation = productExplanations["branches_climbing_branches_4_pcs_14_16_"] || "Climbing branches provide enrichment and exercise. Leopard geckos are not fully arboreal but enjoy climbing opportunities. Adds vertical space usage.";
+    }
+  }
   
   return (
     <div
