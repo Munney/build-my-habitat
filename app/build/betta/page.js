@@ -18,7 +18,8 @@ import {
   Sprout,
   ShieldCheck,
   Unlock,
-  ChevronDown
+  ChevronDown,
+  AlertCircle
 } from "lucide-react";
 // 👇 Verify this path matches your folder structure
 import config from "../../../data/betta.json";
@@ -260,6 +261,13 @@ export default function BettaBuilder() {
     if (selectedSubstrate?.id === "aquasoil" && !hasLive) {
         messages.push({ level: "warning", text: "Active Soil is meant for live plants." });
     }
+    
+    // Check for at least one substrate
+    if (!selectedSubstrate) {
+      const errorMsg = "At least one substrate REQUIRED. Choose a safe substrate for your betta's tank floor.";
+      messages.push({ level: "error", text: errorMsg });
+      criticalErrors.push(errorMsg);
+    }
 
     return { messages, criticalErrors };
   }, [selectedEnclosure, selectedFiltration, heatingIds, decorIds, selectedSubstrate]);
@@ -385,14 +393,22 @@ export default function BettaBuilder() {
             </Section>
 
             {/* 2. Enclosure */}
-            <Section title="2. Tank Size" icon={<Box className={enclosureId ? "text-blue-400" : "text-slate-400"} />}>
-              
+            <Section 
+              title="2. Tank Size" 
+              icon={<Box className={enclosureId ? "text-blue-400" : "text-slate-400"} />}
+              description="Choose the right size tank. Minimum 5 gallons required for bettas. Larger tanks provide better water stability and enrichment."
+            >
               {!experience && (
                   <div className="mb-4 p-3 bg-blue-500/10 border border-blue-500/20 text-blue-200 text-xs rounded-xl flex items-center gap-2">
                       <AlertTriangle size={16} /> Select an Experience Level above to verify safe tank sizes.
                   </div>
               )}
-
+              {!enclosureId && (
+                <div className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
+                  <AlertCircle size={20} className="text-amber-400 shrink-0" />
+                  <p className="text-amber-100 font-medium">One tank selection is required.</p>
+                </div>
+              )}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {filteredEnclosures.map((e) => (
                   <SelectionCard
@@ -405,13 +421,18 @@ export default function BettaBuilder() {
                     type="radio"
                     colorClass="blue"
                     productId={e.id}
+                    isRequired={false}
                   />
                 ))}
               </div>
             </Section>
 
             {/* 3. Filtration */}
-            <Section title="3. Filtration" icon={<Waves className={filtrationId ? "text-blue-400" : "text-slate-400"} />}>
+            <Section 
+              title="3. Filtration" 
+              icon={<Waves className={filtrationId ? "text-blue-400" : "text-slate-400"} />}
+              description="Filters are essential for the nitrogen cycle. They remove toxic ammonia and provide biological filtration. Sponge filters are ideal for bettas."
+            >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {FILTRATION.map((f) => (
                   <SelectionCard
@@ -424,31 +445,51 @@ export default function BettaBuilder() {
                     type="radio"
                     colorClass="blue"
                     productId={f.id}
+                    isRequired={true}
                   />
                 ))}
               </div>
             </Section>
 
             {/* 4. Heating */}
-            <Section title="4. Temperature" icon={<Thermometer className={heatingIds.length ? "text-blue-400" : "text-slate-400"} />}>
+            <Section 
+              title="4. Temperature" 
+              icon={<Thermometer className={heatingIds.length ? "text-blue-400" : "text-slate-400"} />}
+              description="Bettas are tropical fish and need 78-80°F. A heater is required. A thermometer helps monitor temperature."
+            >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {HEATING.map((h) => (
-                  <SelectionCard
-                    key={h.id}
-                    active={heatingIds.includes(h.id)}
-                    label={h.label}
-                    price={h.price}
-                    onClick={() => setHeatingIds((ids) => toggle(ids, h.id))}
-                    type="checkbox"
-                    colorClass="blue"
-                    productId={h.id}
-                  />
-                ))}
+                {HEATING.map((h) => {
+                  // Heater (50w or 100w) is required, thermometer is optional
+                  const isRequired = h.id === "50w" || h.id === "100w";
+                  return (
+                    <SelectionCard
+                      key={h.id}
+                      active={heatingIds.includes(h.id)}
+                      label={h.label}
+                      price={h.price}
+                      onClick={() => setHeatingIds((ids) => toggle(ids, h.id))}
+                      type="checkbox"
+                      colorClass="blue"
+                      productId={h.id}
+                      isRequired={isRequired}
+                    />
+                  );
+                })}
               </div>
             </Section>
 
             {/* 5. Substrate */}
-            <Section title="5. Substrate" icon={<Droplets className={substrateId ? "text-blue-400" : "text-slate-400"} />}>
+            <Section 
+              title="5. Substrate" 
+              icon={<Droplets className={substrateId ? "text-blue-400" : "text-slate-400"} />}
+              description="Choose a safe substrate. Gravel and sand are popular choices. Active plant soil is best for live plants. Bare bottom is easiest to clean."
+            >
+              {!substrateId && (
+                <div className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
+                  <AlertCircle size={20} className="text-amber-400 shrink-0" />
+                  <p className="text-amber-100 font-medium">At least one substrate selection is required.</p>
+                </div>
+              )}
               <SubstrateSection
                 substrates={SUBSTRATES}
                 selectedId={substrateId}
@@ -606,15 +647,20 @@ export default function BettaBuilder() {
 
 /* ---------- UI COMPONENTS (Adapted for Blue Theme) ---------- */
 
-function Section({ title, icon, children }) {
+function Section({ title, icon, description, children }) {
     return (
         <section className="bg-slate-900/60 backdrop-blur-md p-6 rounded-3xl border border-white/5 shadow-lg">
-            <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
-                <div className="p-2 bg-blue-500/10 rounded-lg border border-blue-500/20">
-                    {icon}
-                </div>
-                {title}
-            </h2>
+            <div className="mb-6">
+                <h2 className="text-xl font-bold text-white mb-2 flex items-center gap-3">
+                    <div className="p-2 bg-blue-500/10 rounded-lg border border-blue-500/20">
+                        {icon}
+                    </div>
+                    {title}
+                </h2>
+                {description && (
+                    <p className="text-sm text-slate-400 ml-[52px] leading-relaxed">{description}</p>
+                )}
+            </div>
             {children}
         </section>
     );
@@ -667,8 +713,10 @@ const productExplanations = {
   "bacteria": "Beneficial bacteria starter helps establish the nitrogen cycle faster. Not required but helpful for new tanks.",
 };
 
-function SelectionCard({ active, label, sublabel, price, onClick, type, productId }) {
+function SelectionCard({ active, label, sublabel, price, onClick, type, productId, isRequired = false }) {
   const explanation = productId ? productExplanations[productId] : null;
+  // Only show required indicator if not selected
+  const showRequired = isRequired && !active;
   
   return (
     <div
@@ -676,6 +724,8 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
       className={`group relative p-5 rounded-2xl border cursor-pointer transition-all duration-300 ${
         active
           ? "border-blue-500 bg-blue-500/10 shadow-[0_0_30px_-10px_rgba(59,130,246,0.3)] scale-[1.02]"
+          : showRequired
+          ? "border-amber-500/50 bg-amber-500/5 hover:border-amber-500/70 hover:bg-amber-500/10"
           : "border-slate-700/50 bg-slate-900/40 hover:border-slate-600 hover:bg-slate-800/60"
       }`}
     >
@@ -685,16 +735,22 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
             className={`mt-1 w-5 h-5 rounded-full flex items-center justify-center border transition-all shrink-0 ${
               active 
                 ? "bg-blue-500 border-blue-500 shadow-sm shadow-blue-500/50" 
+                : showRequired
+                ? "bg-amber-500/20 border-amber-500/50 group-hover:border-amber-500/70"
                 : "bg-slate-800/50 border-slate-600 group-hover:border-slate-500"
             }`}
           >
             {active && <CheckCircle2 size={14} className="text-slate-950" />}
+            {showRequired && <AlertCircle size={12} className="text-amber-400" />}
           </div>
 
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-3">
-              <div className={`font-bold text-base transition-colors flex-1 ${active ? "text-white" : "text-slate-300 group-hover:text-white"}`}>
+              <div className={`font-bold text-base transition-colors flex-1 ${active ? "text-white" : showRequired ? "text-amber-100 group-hover:text-white" : "text-slate-300 group-hover:text-white"}`}>
                 {label}
+                {showRequired && (
+                  <span className="ml-2 text-xs font-normal text-amber-400">Required</span>
+                )}
               </div>
               {explanation && (
                 <ProductTooltip explanation={explanation} />
@@ -732,6 +788,7 @@ function SubstrateSection({ substrates, selectedId, selectedVariants, onSelect, 
           type="radio"
           colorClass="blue"
           productId={s.id}
+          isRequired={false}
         />
       ))}
       
