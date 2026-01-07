@@ -931,6 +931,17 @@ function HeatingSection({ heating, selectedIds, selectedVariants, onToggle, onVa
 function SubstrateSection({ substrates, selectedIds, selectedVariants, onToggle, onVariantToggle, selectedEnclosureSize }) {
   const { groups, standalone } = groupVariants(substrates);
   
+  // Get all variant product IDs to exclude from standalone
+  const variantProductIds = new Set();
+  groups.forEach(group => {
+    group.variants.forEach(v => {
+      variantProductIds.add(v.id);
+    });
+  });
+  
+  // Filter out any standalone products that are actually variants
+  const filteredStandalone = standalone.filter(s => !variantProductIds.has(s.id));
+  
   // Filter variants based on selected enclosure size
   const filteredGroups = groups.map(group => ({
     ...group,
@@ -970,7 +981,7 @@ function SubstrateSection({ substrates, selectedIds, selectedVariants, onToggle,
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
       {/* Standalone products (no variants) */}
-      {standalone.map((s) => (
+      {filteredStandalone.map((s) => (
         <SelectionCard
           key={s.id}
           active={selectedIds.includes(s.id)}
