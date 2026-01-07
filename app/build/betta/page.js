@@ -1011,27 +1011,34 @@ function VariantCard({ baseLabel, priceRange, colors, sizes, variants, isActive,
   
   return (
     <div
-      className={`group relative p-5 rounded-2xl border transition-all duration-300 ${
+      className={`group relative p-6 rounded-3xl border-2 transition-all duration-300 overflow-hidden ${
         isActive
-          ? "border-blue-500 bg-blue-500/10 shadow-[0_0_30px_-10px_rgba(59,130,246,0.3)] scale-[1.02]"
-          : "border-slate-700/50 bg-slate-900/40 hover:border-slate-600 hover:bg-slate-800/60"
+          ? "border-blue-500/80 bg-gradient-to-br from-blue-500/15 via-blue-500/10 to-slate-900/60 shadow-[0_0_40px_-5px_rgba(59,130,246,0.4)] shadow-blue-500/20 scale-[1.02]"
+          : "border-slate-700/60 bg-gradient-to-br from-slate-900/70 via-slate-900/50 to-slate-900/70 hover:border-blue-500/40 hover:bg-gradient-to-br hover:from-slate-800/70 hover:via-slate-800/50 hover:to-slate-800/70 hover:shadow-lg hover:shadow-blue-500/10"
       }`}
     >
-      <div className="flex items-start justify-between gap-3 mb-3">
-        <div className="flex items-start gap-3 flex-1">
+      {/* Premium accent line */}
+      <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r transition-all duration-300 ${
+        isActive 
+          ? "from-blue-400 via-cyan-400 to-blue-500 opacity-100" 
+          : "from-transparent via-slate-700 to-transparent opacity-0 group-hover:opacity-100 group-hover:from-blue-500/50 group-hover:via-blue-400/50 group-hover:to-blue-500/50"
+      }`} />
+      
+      <div className="flex items-start justify-between gap-3 mb-4">
+        <div className="flex items-start gap-4 flex-1">
           <div
-            className={`mt-1 w-5 h-5 rounded-full flex items-center justify-center border transition-all ${
+            className={`mt-1 w-6 h-6 rounded-full flex items-center justify-center border-2 transition-all shadow-lg ${
               isActive 
-                ? "bg-blue-500 border-blue-500 shadow-sm shadow-blue-500/50" 
-                : "bg-slate-800/50 border-slate-600 group-hover:border-slate-500"
+                ? "bg-gradient-to-br from-blue-400 to-blue-600 border-blue-400 shadow-blue-500/50" 
+                : "bg-gradient-to-br from-slate-700 to-slate-800 border-slate-600 group-hover:border-blue-500/50 group-hover:shadow-blue-500/20"
             }`}
           >
-            {isActive && <CheckCircle2 size={14} className="text-slate-950" />}
+            {isActive && <CheckCircle2 size={16} className="text-white drop-shadow-sm" />}
           </div>
 
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-3">
-              <div className={`font-bold text-base transition-colors flex-1 ${isActive ? "text-white" : "text-slate-300 group-hover:text-white"}`}>
+              <div className={`font-bold text-lg transition-colors flex-1 ${isActive ? "text-white drop-shadow-sm" : "text-slate-200 group-hover:text-white"}`}>
                 {baseLabel}
               </div>
               {(() => {
@@ -1049,28 +1056,37 @@ function VariantCard({ baseLabel, priceRange, colors, sizes, variants, isActive,
               })()}
             </div>
             {selectedVariant && (
-              <div className="text-xs text-slate-400 mt-1">
-                {isSizeOnly ? selectedSize : `${selectedColor} • ${selectedSize}`}
+              <div className="text-xs font-medium mt-1.5 px-2 py-1 rounded-md bg-slate-800/50 border border-slate-700/50 inline-block">
+                <span className={`${isActive ? "text-blue-300" : "text-slate-400"}`}>
+                  {isSizeOnly ? selectedSize : `${selectedColor} • ${selectedSize}`}
+                </span>
               </div>
             )}
           </div>
         </div>
 
-        <span className={`font-mono text-sm font-bold ${isActive ? "text-blue-400" : "text-slate-500"}`}>
-          {displayPrice}
-        </span>
+        <div className={`flex flex-col items-end shrink-0 ${isActive ? "text-blue-400" : "text-slate-400"}`}>
+          <span className="font-mono text-lg font-bold">{displayPrice}</span>
+          {selectedVariant && displayPrice !== priceRange && (
+            <span className="text-xs text-slate-500 line-through mt-0.5">{priceRange}</span>
+          )}
+        </div>
       </div>
       
-      {/* Variant Selectors */}
-      <div className="space-y-2 mt-3">
+      {/* Premium Variant Selectors */}
+      <div className="space-y-3 mt-4 pt-4 border-t border-slate-700/30">
         {!isSizeOnly && colors.length > 1 && (
           <div>
-            <label className="text-xs text-slate-400 mb-1 block">Color</label>
+            <label className="text-xs font-semibold text-slate-300 mb-2 block uppercase tracking-wider">Color</label>
             <select
               value={selectedColor || ""}
               onChange={(e) => onColorChange(e.target.value)}
               onClick={(e) => e.stopPropagation()}
-              className="w-full bg-slate-800/50 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:border-blue-500 focus:outline-none"
+              className={`w-full bg-gradient-to-b from-slate-800/80 to-slate-900/80 border-2 rounded-xl px-4 py-2.5 text-sm font-medium text-white transition-all duration-200 ${
+                isActive
+                  ? "border-blue-500/50 focus:border-blue-400 focus:ring-2 focus:ring-blue-500/30"
+                  : "border-slate-600/50 hover:border-slate-500 focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20"
+              } focus:outline-none cursor-pointer backdrop-blur-sm`}
             >
               <option value="">Select color</option>
               {colors.map(color => (
@@ -1082,12 +1098,16 @@ function VariantCard({ baseLabel, priceRange, colors, sizes, variants, isActive,
         
         {sizes.length > 1 && (
           <div>
-            <label className="text-xs text-slate-400 mb-1 block">{isSizeOnly ? "Variant" : "Size"}</label>
+            <label className="text-xs font-semibold text-slate-300 mb-2 block uppercase tracking-wider">{isSizeOnly ? "Variant" : "Size"}</label>
             <select
               value={selectedSize || ""}
               onChange={(e) => onSizeChange(e.target.value)}
               onClick={(e) => e.stopPropagation()}
-              className="w-full bg-slate-800/50 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:border-blue-500 focus:outline-none"
+              className={`w-full bg-gradient-to-b from-slate-800/80 to-slate-900/80 border-2 rounded-xl px-4 py-2.5 text-sm font-medium text-white transition-all duration-200 ${
+                isActive
+                  ? "border-blue-500/50 focus:border-blue-400 focus:ring-2 focus:ring-blue-500/30"
+                  : "border-slate-600/50 hover:border-slate-500 focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20"
+              } focus:outline-none cursor-pointer backdrop-blur-sm`}
             >
               <option value="">Select {isSizeOnly ? "variant" : "size"}</option>
               {sizes.map(size => (

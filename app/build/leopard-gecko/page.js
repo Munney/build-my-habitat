@@ -1405,36 +1405,45 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
   
   return (
     <div
-      className={`group relative p-5 rounded-2xl border transition-all duration-300 cursor-pointer ${
+      className={`group relative p-6 rounded-3xl border-2 transition-all duration-300 cursor-pointer overflow-hidden ${
         isActive
-          ? "border-emerald-500 bg-emerald-500/10 shadow-[0_0_30px_-10px_rgba(16,185,129,0.3)] scale-[1.02]"
+          ? "border-emerald-500/80 bg-gradient-to-br from-emerald-500/15 via-emerald-500/10 to-slate-900/60 shadow-[0_0_40px_-5px_rgba(16,185,129,0.4)] shadow-emerald-500/20 scale-[1.02]"
           : showRequired
-          ? "border-amber-500/50 bg-amber-500/5 hover:border-amber-500/70 hover:bg-amber-500/10"
-          : "border-slate-700/50 bg-slate-900/40 hover:border-slate-600 hover:bg-slate-800/60"
+          ? "border-amber-500/60 bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-slate-900/60 hover:border-amber-500/80 hover:shadow-lg hover:shadow-amber-500/10"
+          : "border-slate-700/60 bg-gradient-to-br from-slate-900/70 via-slate-900/50 to-slate-900/70 hover:border-emerald-500/40 hover:bg-gradient-to-br hover:from-slate-800/70 hover:via-slate-800/50 hover:to-slate-800/70 hover:shadow-lg hover:shadow-emerald-500/10"
       }`}
       onClick={onSelect}
     >
-      <div className="flex items-start justify-between gap-3 mb-3">
-        <div className="flex items-start gap-3 flex-1">
+      {/* Premium accent line */}
+      <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r transition-all duration-300 ${
+        isActive 
+          ? "from-emerald-400 via-cyan-400 to-emerald-500 opacity-100" 
+          : showRequired
+          ? "from-amber-400 via-amber-300 to-amber-400 opacity-100"
+          : "from-transparent via-slate-700 to-transparent opacity-0 group-hover:opacity-100 group-hover:from-emerald-500/50 group-hover:via-emerald-400/50 group-hover:to-emerald-500/50"
+      }`} />
+      
+      <div className="flex items-start justify-between gap-3 mb-4">
+        <div className="flex items-start gap-4 flex-1">
           <div
-            className={`mt-1 w-5 h-5 rounded-full flex items-center justify-center border transition-all shrink-0 ${
+            className={`mt-1 w-6 h-6 rounded-full flex items-center justify-center border-2 transition-all shadow-lg shrink-0 ${
               isActive 
-                ? "bg-emerald-500 border-emerald-500 shadow-sm shadow-emerald-500/50" 
+                ? "bg-gradient-to-br from-emerald-400 to-emerald-600 border-emerald-400 shadow-emerald-500/50" 
                 : showRequired
-                ? "bg-amber-500/20 border-amber-500/50 group-hover:border-amber-500/70"
-                : "bg-slate-800/50 border-slate-600 group-hover:border-slate-500"
+                ? "bg-gradient-to-br from-amber-500/30 to-amber-600/30 border-amber-500/60 shadow-amber-500/30"
+                : "bg-gradient-to-br from-slate-700 to-slate-800 border-slate-600 group-hover:border-emerald-500/50 group-hover:shadow-emerald-500/20"
             }`}
           >
-            {isActive && <CheckCircle2 size={14} className="text-slate-950" />}
-            {showRequired && <AlertCircle size={12} className="text-amber-400" />}
+            {isActive && <CheckCircle2 size={16} className="text-white drop-shadow-sm" />}
+            {showRequired && <AlertCircle size={14} className="text-amber-400 drop-shadow-sm" />}
           </div>
 
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-3">
-              <div className={`font-bold text-base transition-colors flex-1 ${isActive ? "text-white" : showRequired ? "text-amber-100 group-hover:text-white" : "text-slate-300 group-hover:text-white"}`}>
+              <div className={`font-bold text-lg transition-colors flex-1 ${isActive ? "text-white drop-shadow-sm" : showRequired ? "text-amber-100 group-hover:text-white" : "text-slate-200 group-hover:text-white"}`}>
                 {baseLabel}
                 {showRequired && (
-                  <span className="ml-2 text-xs font-normal text-amber-400">Required</span>
+                  <span className="ml-2 text-xs font-semibold text-amber-400 uppercase tracking-wide">Required</span>
                 )}
               </div>
               {explanation && (
@@ -1442,25 +1451,30 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
               )}
             </div>
             {selectedVariantItem && (
-              <div className="text-xs text-slate-400 mt-1">
-                {selectedVariantItem.variant}
-                {selectedVariantItem.tankSize && (
-                  <span className="text-emerald-400 ml-2">• {selectedVariantItem.tankSize}</span>
-                )}
+              <div className="text-xs font-medium mt-1.5 px-2 py-1 rounded-md bg-slate-800/50 border border-slate-700/50 inline-block">
+                <span className={`${isActive ? "text-emerald-300" : "text-slate-400"}`}>
+                  {selectedVariantItem.variant}
+                  {selectedVariantItem.tankSize && (
+                    <span className={`ml-2 font-semibold ${isActive ? "text-emerald-400" : "text-slate-500"}`}>• {selectedVariantItem.tankSize}</span>
+                  )}
+                </span>
               </div>
             )}
           </div>
         </div>
 
-        <span className={`font-mono text-sm font-bold shrink-0 ${isActive ? "text-emerald-400" : "text-slate-500"}`}>
-          {displayPrice}
-        </span>
+        <div className={`flex flex-col items-end shrink-0 ${isActive ? "text-emerald-400" : showRequired ? "text-amber-400" : "text-slate-400"}`}>
+          <span className="font-mono text-lg font-bold">{displayPrice}</span>
+          {selectedVariantItem && displayPrice !== priceRange && (
+            <span className="text-xs text-slate-500 line-through mt-0.5">{priceRange}</span>
+          )}
+        </div>
       </div>
       
-      {/* Variant Selector */}
+      {/* Premium Variant Selector */}
       {uniqueVariants.length > 1 && (
-        <div className="mt-3">
-          <label className="text-xs text-slate-400 mb-1 block">Variant</label>
+        <div className="mt-4 pt-4 border-t border-slate-700/30">
+          <label className="text-xs font-semibold text-slate-300 mb-2 block uppercase tracking-wider">Variant</label>
           <select
             value={selectedVariant || ""}
             onChange={(e) => {
@@ -1474,7 +1488,13 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
               }
             }}
             onClick={(e) => e.stopPropagation()}
-            className="w-full bg-slate-800/50 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:border-emerald-500 focus:outline-none"
+            className={`w-full bg-gradient-to-b from-slate-800/80 to-slate-900/80 border-2 rounded-xl px-4 py-2.5 text-sm font-medium text-white transition-all duration-200 ${
+              isActive
+                ? "border-emerald-500/50 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-500/30"
+                : showRequired
+                ? "border-amber-500/50 focus:border-amber-400 focus:ring-2 focus:ring-amber-500/30"
+                : "border-slate-600/50 hover:border-slate-500 focus:border-emerald-500/50 focus:ring-2 focus:ring-emerald-500/20"
+            } focus:outline-none cursor-pointer backdrop-blur-sm`}
           >
             <option value="">{isCheckbox && selectedVariant ? "Deselect" : "Select variant"}</option>
             {uniqueVariants.map(v => (
