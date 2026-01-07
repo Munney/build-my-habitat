@@ -32,6 +32,112 @@ function toggle(list, id) {
   return list.includes(id) ? list.filter((x) => x !== id) : [...list, id];
 }
 
+// Group products by base name to identify variants
+function groupVariants(products) {
+  const variantGroups = new Map();
+  const standalone = [];
+  
+  products.forEach(product => {
+    const label = product.label;
+    const id = product.id;
+    
+    // Pattern for halogen: "Halogen Flood Lamp (2 pack - 50W) 20 gallon tank"
+    const halogenPattern = /^Halogen Flood Lamp.*?(\d+W).*?$/i;
+    // Pattern for DHP: "Deep Heat Projector (DHP) (2 pack) 50W 20 Gallon Tank"
+    const dhpPattern = /^Deep Heat Projector.*?(\d+W).*?$/i;
+    // Pattern for UVB: "ShadeDweller UVB Kit (8W, 12 inch) 20 Gallon Tank"
+    const uvbPattern = /^ShadeDweller UVB Kit.*?(\d+W,?\s*(\d+)\s*inch).*?$/i;
+    // Pattern for heat mat: "Under Tank Heater (Mat) (10-20 gallon)"
+    const heatmatPattern = /^Under Tank Heater.*?\((\d+-\d+)\s*gallon\)/i;
+    // Pattern for slate: "Slate Tile / Stone 6 in x 6 in (Square) 20 Gallon Tank"
+    const slatePattern = /^Slate Tile.*?(\d+\.?\d*)\s*in.*?(\d+\.?\d*)\s*in.*?$/i;
+    // Pattern for liner: "Reptile Carpet (20 Gallon Tank)"
+    const linerPattern = /^Reptile Carpet.*?\((\d+)\s*Gallon.*?\)/i;
+    // Pattern for bioactive: "BioActive Terra Sahara 18 qts (20-40 Gallon Tanks)"
+    const bioactivePattern = /^BioActive Terra Sahara\s+(\d+)\s*qts/i;
+    // Pattern for sand: "Reptile Sand (Calcium) (White)"
+    const sandPattern = /^Reptile Sand.*?\(Calcium\).*?\((\w+)\)/i;
+    // Pattern for topsoil: "Organic Topsoil Mix (Cocunut Chips)"
+    const topsoilPattern = /^Organic Topsoil Mix\s+\((.+?)\)/i;
+    // Pattern for cork bark: "Cork Bark Flat 4 pcs"
+    const corkPattern = /^Cork Bark Flat\s+(\d+)\s+pcs/i;
+    // Pattern for branches: "Climbing Branches 4 pcs (14-16 inches)"
+    const branchesPattern = /^Climbing Branches\s+(\d+)\s+pcs\s+\((.+?)\)/i;
+    
+    let match = label.match(halogenPattern) || label.match(dhpPattern) || label.match(uvbPattern) || 
+                label.match(heatmatPattern) || label.match(slatePattern) || label.match(linerPattern) ||
+                label.match(bioactivePattern) || label.match(sandPattern) || label.match(topsoilPattern) ||
+                label.match(corkPattern) || label.match(branchesPattern);
+    
+    if (match) {
+      let baseName, variant;
+      
+      if (halogenPattern.test(label)) {
+        baseName = "Halogen Flood Lamp";
+        variant = match[1]; // e.g., "50W"
+      } else if (dhpPattern.test(label)) {
+        baseName = "Deep Heat Projector (DHP)";
+        variant = match[1]; // e.g., "50W"
+      } else if (uvbPattern.test(label)) {
+        baseName = "ShadeDweller UVB Kit";
+        variant = match[2] ? `${match[2]}"` : match[1]; // e.g., "12" or "8W"
+      } else if (heatmatPattern.test(label)) {
+        baseName = "Under Tank Heater (Mat)";
+        variant = match[1]; // e.g., "10-20"
+      } else if (slatePattern.test(label)) {
+        baseName = "Slate Tile / Stone";
+        variant = `${match[1]}" x ${match[2]}"`; // e.g., "6" x 6""
+      } else if (linerPattern.test(label)) {
+        baseName = "Reptile Carpet";
+        variant = `${match[1]}g`; // e.g., "20g"
+      } else if (bioactivePattern.test(label)) {
+        baseName = "BioActive Terra Sahara";
+        variant = `${match[1]} qts`; // e.g., "18 qts"
+      } else if (sandPattern.test(label)) {
+        baseName = "Reptile Sand (Calcium)";
+        variant = match[1]; // e.g., "White"
+      } else if (topsoilPattern.test(label)) {
+        baseName = "Organic Topsoil Mix";
+        variant = match[1]; // e.g., "Cocunut Chips"
+      } else if (corkPattern.test(label)) {
+        baseName = "Cork Bark Flat";
+        variant = `${match[1]} pcs`; // e.g., "4 pcs"
+      } else if (branchesPattern.test(label)) {
+        baseName = "Climbing Branches";
+        variant = `${match[1]} pcs (${match[2]})`; // e.g., "4 pcs (14-16 inches)"
+      }
+      
+      if (baseName) {
+        if (!variantGroups.has(baseName)) {
+          variantGroups.set(baseName, {
+            baseName,
+            baseLabel: baseName,
+            variants: []
+          });
+        }
+        
+        variantGroups.get(baseName).variants.push({
+          ...product,
+          variant
+        });
+      }
+    } else {
+      // Check if this is a standalone product
+      const firstWord = product.label.split(' ')[0];
+      const hasVariants = products.some(p => 
+        p.id !== product.id && 
+        p.label.toLowerCase().startsWith(firstWord.toLowerCase() + ' ')
+      );
+      
+      if (!hasVariants) {
+        standalone.push(product);
+      }
+    }
+  });
+  
+  return { groups: Array.from(variantGroups.values()), standalone };
+}
+
 export default function LeopardGeckoBuilder() {
   const router = useRouter();
 
@@ -39,9 +145,12 @@ export default function LeopardGeckoBuilder() {
   const [experience, setExperience] = useState(null); 
   const [enclosureId, setEnclosureId] = useState(null);
   const [substrateId, setSubstrateId] = useState(null);
+  const [substrateVariants, setSubstrateVariants] = useState({}); // { baseName: { variant } }
 
   const [heatingIds, setHeatingIds] = useState([]);
+  const [heatingVariants, setHeatingVariants] = useState({}); // { baseName: { variant } }
   const [hideIds, setHideIds] = useState([]);
+  const [hideVariants, setHideVariants] = useState({}); // { baseName: { variant } }
   const [supplementIds, setSupplementIds] = useState([]);
 
   // --- FILTERING LOGIC ---
@@ -59,11 +168,60 @@ export default function LeopardGeckoBuilder() {
 
   // --- SELECTION LOGIC ---
   const selectedEnclosure = ENCLOSURES.find((e) => e.id === enclosureId);
-  const selectedSubstrate = SUBSTRATES.find((s) => s.id === substrateId);
+  
+  // Handle substrate selection (including variants)
+  const selectedSubstrate = useMemo(() => {
+    if (!substrateId) return null;
+    
+    // First try to find by direct ID match
+    const directMatch = SUBSTRATES.find((s) => s.id === substrateId);
+    if (directMatch) return directMatch;
+    
+    // If not found, check variant groups
+    const { groups } = groupVariants(SUBSTRATES);
+    for (const group of groups) {
+      const variant = group.variants.find(v => v.id === substrateId);
+      if (variant) return variant;
+    }
+    
+    return null;
+  }, [substrateId]);
 
   const pickMany = (items, ids) => items.filter((i) => ids.includes(i.id));
-  const selectedHeating = pickMany(HEATING, heatingIds);
-  const selectedHides = pickMany(HIDES, hideIds);
+  
+  // Handle heating with variants
+  const selectedHeating = useMemo(() => {
+    const direct = pickMany(HEATING, heatingIds);
+    // Add variants from heatingVariants
+    const variantItems = Object.entries(heatingVariants).map(([baseName, selection]) => {
+      const { groups } = groupVariants(HEATING);
+      for (const group of groups) {
+        if (group.baseName === baseName) {
+          const variant = group.variants.find(v => v.variant === selection.variant);
+          if (variant) return variant;
+        }
+      }
+      return null;
+    }).filter(Boolean);
+    return [...direct, ...variantItems];
+  }, [heatingIds, heatingVariants]);
+  
+  // Handle hides with variants
+  const selectedHides = useMemo(() => {
+    const direct = pickMany(HIDES, hideIds);
+    const variantItems = Object.entries(hideVariants).map(([baseName, selection]) => {
+      const { groups } = groupVariants(HIDES);
+      for (const group of groups) {
+        if (group.baseName === baseName) {
+          const variant = group.variants.find(v => v.variant === selection.variant);
+          if (variant) return variant;
+        }
+      }
+      return null;
+    }).filter(Boolean);
+    return [...direct, ...variantItems];
+  }, [hideIds, hideVariants]);
+  
   const selectedSupplements = pickMany(SUPPLEMENTS, supplementIds);
 
   const allSelectedItems = useMemo(() => {
@@ -120,6 +278,8 @@ export default function LeopardGeckoBuilder() {
          id.startsWith("heatmat_") || 
          id.startsWith("halogen_") || 
          id.startsWith("dhp_")
+       ) || Object.keys(heatingVariants).some(baseName => 
+         baseName.includes("Halogen") || baseName.includes("DHP") || baseName.includes("Heat")
        );
        if (!hasPrimaryHeat) {
         const errorMsg = "Primary heat source REQUIRED. Leopard geckos need a basking area of 88-92°F for proper digestion and thermoregulation.";
@@ -279,20 +439,19 @@ export default function LeopardGeckoBuilder() {
                       <AlertTriangle size={16} /> Please select an Experience Level above to see safe recommendations.
                   </div>
               )}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {filteredSubstrates.map((s) => (
-                  <SelectionCard
-                    key={s.id}
-                    active={substrateId === s.id}
-                    label={s.label}
-                    price={s.price}
-                    sublabel={s.type === "solid" ? "Easy to Clean" : "Naturalistic Look"}
-                    onClick={() => setSubstrateId(s.id)}
-                    type="radio"
-                    productId={s.id}
-                  />
-                ))}
-              </div>
+              <SubstrateSection
+                substrates={filteredSubstrates}
+                selectedId={substrateId}
+                selectedVariants={substrateVariants}
+                onSelect={(id) => setSubstrateId(id)}
+                onVariantSelect={(baseName, variant, variantId) => {
+                  setSubstrateVariants(prev => ({
+                    ...prev,
+                    [baseName]: { variant }
+                  }));
+                  setSubstrateId(variantId);
+                }}
+              />
             </Section>
 
             <Section title="5. Hides & Decor" icon={<HomeIcon className={hideIds.length ? "text-emerald-400" : "text-slate-400"} />}>
@@ -488,6 +647,216 @@ const productExplanations = {
   "calcium_d3": "Calcium with D3 is essential if you don't have UVB lighting. D3 helps geckos absorb calcium. Dust insects 3-4 times per week. Critical for bone health.",
   "multivitamin": "Multivitamin provides essential vitamins and minerals. Use 1-2 times per week in addition to calcium. Prevents nutritional deficiencies.",
 };
+
+function HeatingSection({ heating, selectedIds, selectedVariants, onToggle, onVariantToggle }) {
+  const { groups, standalone } = groupVariants(heating);
+  
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {/* Standalone products (no variants) */}
+      {standalone.map((h) => (
+        <SelectionCard
+          key={h.id}
+          active={selectedIds.includes(h.id)}
+          label={h.label}
+          price={h.price}
+          onClick={() => onToggle(h.id)}
+          type="checkbox"
+          productId={h.id}
+        />
+      ))}
+      
+      {/* Variant groups */}
+      {groups.map((group) => {
+        const variantSelection = selectedVariants[group.baseName];
+        const selectedVariant = variantSelection 
+          ? group.variants.find(v => v.variant === variantSelection.variant)
+          : null;
+        const isActive = selectedVariant && selectedIds.includes(selectedVariant.id);
+        
+        // Get unique variants
+        const variants = [...new Set(group.variants.map(v => v.variant))].sort();
+        
+        // Get price range
+        const prices = group.variants.map(v => v.price);
+        const minPrice = Math.min(...prices);
+        const maxPrice = Math.max(...prices);
+        const priceRange = minPrice === maxPrice ? `$${minPrice.toFixed(2)}` : `$${minPrice.toFixed(2)} - $${maxPrice.toFixed(2)}`;
+        
+        return (
+          <VariantCard
+            key={group.baseName}
+            baseLabel={group.baseLabel}
+            priceRange={priceRange}
+            variants={group.variants}
+            isActive={isActive}
+            selectedVariant={variantSelection?.variant}
+            isCheckbox={true}
+            isSizeOnly={true}
+            onVariantChange={(variant) => {
+              const variantItem = group.variants.find(v => v.variant === variant);
+              if (variantItem) {
+                onVariantToggle(group.baseName, variant, variantItem.id);
+              }
+            }}
+            onSelect={() => {
+              if (!variantSelection && group.variants.length > 0) {
+                const first = group.variants[0];
+                onVariantToggle(group.baseName, first.variant, first.id);
+              }
+            }}
+            productId={selectedVariant?.id}
+          />
+        );
+      })}
+    </div>
+  );
+}
+
+function SubstrateSection({ substrates, selectedId, selectedVariants, onSelect, onVariantSelect }) {
+  const { groups, standalone } = groupVariants(substrates);
+  
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {/* Standalone products (no variants) */}
+      {standalone.map((s) => (
+        <SelectionCard
+          key={s.id}
+          active={selectedId === s.id}
+          label={s.label}
+          price={s.price}
+          sublabel={s.type === "solid" ? "Easy to Clean" : "Naturalistic Look"}
+          onClick={() => onSelect(s.id)}
+          type="radio"
+          productId={s.id}
+        />
+      ))}
+      
+      {/* Variant groups */}
+      {groups.map((group) => {
+        const variantSelection = selectedVariants[group.baseName];
+        const selectedVariant = variantSelection 
+          ? group.variants.find(v => v.variant === variantSelection.variant)
+          : null;
+        const isActive = selectedVariant && selectedId === selectedVariant.id;
+        
+        // Get unique variants
+        const variants = [...new Set(group.variants.map(v => v.variant))].sort();
+        
+        // Get price range
+        const prices = group.variants.map(v => v.price);
+        const minPrice = Math.min(...prices);
+        const maxPrice = Math.max(...prices);
+        const priceRange = minPrice === maxPrice ? `$${minPrice.toFixed(2)}` : `$${minPrice.toFixed(2)} - $${maxPrice.toFixed(2)}`;
+        
+        return (
+          <VariantCard
+            key={group.baseName}
+            baseLabel={group.baseLabel}
+            priceRange={priceRange}
+            variants={group.variants}
+            isActive={isActive}
+            selectedVariant={variantSelection?.variant}
+            isCheckbox={false}
+            isSizeOnly={true}
+            onVariantChange={(variant) => {
+              const variantItem = group.variants.find(v => v.variant === variant);
+              if (variantItem) {
+                onVariantSelect(group.baseName, variant, variantItem.id);
+              }
+            }}
+            onSelect={() => {
+              if (!variantSelection && group.variants.length > 0) {
+                const first = group.variants[0];
+                onVariantSelect(group.baseName, first.variant, first.id);
+              }
+            }}
+            productId={selectedVariant?.id}
+          />
+        );
+      })}
+    </div>
+  );
+}
+
+function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVariant, onVariantChange, onSelect, isCheckbox = false, isSizeOnly = false, productId }) {
+  const selectedVariantItem = selectedVariant 
+    ? variants.find(v => v.variant === selectedVariant)
+    : null;
+  const displayPrice = selectedVariantItem ? `$${selectedVariantItem.price.toFixed(2)}` : priceRange;
+  
+  // Get unique variants
+  const uniqueVariants = [...new Set(variants.map(v => v.variant))].sort();
+  
+  // Get explanation
+  const explanation = productId ? productExplanations[productId] : null;
+  
+  return (
+    <div
+      className={`group relative p-5 rounded-2xl border transition-all duration-300 cursor-pointer ${
+        isActive
+          ? "border-emerald-500 bg-emerald-500/10 shadow-[0_0_30px_-10px_rgba(16,185,129,0.3)] scale-[1.02]"
+          : "border-slate-700/50 bg-slate-900/40 hover:border-slate-600 hover:bg-slate-800/60"
+      }`}
+      onClick={onSelect}
+    >
+      <div className="flex items-start justify-between gap-3 mb-3">
+        <div className="flex items-start gap-3 flex-1">
+          <div
+            className={`mt-1 w-5 h-5 rounded-full flex items-center justify-center border transition-all shrink-0 ${
+              isActive 
+                ? "bg-emerald-500 border-emerald-500 shadow-sm shadow-emerald-500/50" 
+                : "bg-slate-800/50 border-slate-600 group-hover:border-slate-500"
+            }`}
+          >
+            {isActive && <CheckCircle2 size={14} className="text-slate-950" />}
+          </div>
+
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-3">
+              <div className={`font-bold text-base transition-colors flex-1 ${isActive ? "text-white" : "text-slate-300 group-hover:text-white"}`}>
+                {baseLabel}
+              </div>
+              {explanation && (
+                <ProductTooltip explanation={explanation} />
+              )}
+            </div>
+            {selectedVariantItem && (
+              <div className="text-xs text-slate-400 mt-1">
+                {selectedVariantItem.variant}
+              </div>
+            )}
+          </div>
+        </div>
+
+        <span className={`font-mono text-sm font-bold shrink-0 ${isActive ? "text-emerald-400" : "text-slate-500"}`}>
+          {displayPrice}
+        </span>
+      </div>
+      
+      {/* Variant Selector */}
+      {uniqueVariants.length > 1 && (
+        <div className="mt-3">
+          <label className="text-xs text-slate-400 mb-1 block">Variant</label>
+          <select
+            value={selectedVariant || ""}
+            onChange={(e) => {
+              e.stopPropagation();
+              onVariantChange(e.target.value);
+            }}
+            onClick={(e) => e.stopPropagation()}
+            className="w-full bg-slate-800/50 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:border-emerald-500 focus:outline-none"
+          >
+            <option value="">Select variant</option>
+            {uniqueVariants.map(variant => (
+              <option key={variant} value={variant}>{variant}</option>
+            ))}
+          </select>
+        </div>
+      )}
+    </div>
+  );
+}
 
 function SelectionCard({ active, label, sublabel, price, onClick, type, productId }) {
   const explanation = productId ? productExplanations[productId] : null;
