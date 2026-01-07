@@ -641,7 +641,7 @@ const productExplanations = {
   // Substrate - base types
   "gravel": "Gravel is safe and easy to clean. Rinse thoroughly before use. Provides surface for beneficial bacteria.",
   "sand": "Sand is natural-looking and safe. Some bettas enjoy sifting through it. Rinse well before adding to tank.",
-  "aquasoil": "Active soil is specifically for live plants. It releases nutrients and lowers pH slightly.",
+  "aquasoil": "Active plant soil releases nutrients for live plants and slightly lowers pH. Best used with live plants - not necessary for silk or plastic plants. Rinse before use to reduce cloudiness.",
   "bare": "Bare bottom is easiest to clean and prevents waste buildup. Some keepers prefer this for simplicity.",
   
   // Substrate variants (gravel and sand variants share base explanations)
