@@ -70,7 +70,30 @@ function groupVariants(products) {
                 label.match(corkPattern) || label.match(branchesPattern);
     
     if (match) {
-      let baseName, variant;
+      let baseName, variant, tankSize;
+      
+      // Extract tank size from label (look for patterns like "20 gallon", "40 Gallon", "120 Gallon", "4x2x2", etc.)
+      const tankSizePatterns = [
+        /(\d+)\s*gallon\s*tank/i,
+        /(\d+)\s*Gallon\s*Tank/i,
+        /(\d+-\d+)\s*gallon/i,
+        /(\d+x\d+x\d+)/i,
+        /\((\d+)\s*Gallon/i
+      ];
+      
+      for (const pattern of tankSizePatterns) {
+        const sizeMatch = label.match(pattern);
+        if (sizeMatch) {
+          if (sizeMatch[1].includes('x')) {
+            tankSize = sizeMatch[1]; // e.g., "4x2x2"
+          } else if (sizeMatch[1].includes('-')) {
+            tankSize = `${sizeMatch[1]}g`; // e.g., "10-20g"
+          } else {
+            tankSize = `${sizeMatch[1]}g`; // e.g., "20g"
+          }
+          break;
+        }
+      }
       
       if (halogenPattern.test(label)) {
         baseName = "Halogen Flood Lamp";
@@ -84,12 +107,14 @@ function groupVariants(products) {
       } else if (heatmatPattern.test(label)) {
         baseName = "Under Tank Heater (Mat)";
         variant = match[1]; // e.g., "10-20"
+        tankSize = `${match[1]}g`; // Already extracted from pattern
       } else if (slatePattern.test(label)) {
         baseName = "Slate Tile / Stone";
         variant = `${match[1]}" x ${match[2]}"`; // e.g., "6" x 6""
       } else if (linerPattern.test(label)) {
         baseName = "Reptile Carpet";
         variant = `${match[1]}g`; // e.g., "20g"
+        tankSize = `${match[1]}g`; // Already extracted from pattern
       } else if (bioactivePattern.test(label)) {
         baseName = "BioActive Terra Sahara";
         variant = `${match[1]} qts`; // e.g., "18 qts"
@@ -118,7 +143,8 @@ function groupVariants(products) {
         
         variantGroups.get(baseName).variants.push({
           ...product,
-          variant
+          variant,
+          tankSize: tankSize || null
         });
       }
     } else {
@@ -785,8 +811,20 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
     : null;
   const displayPrice = selectedVariantItem ? `$${selectedVariantItem.price.toFixed(2)}` : priceRange;
   
-  // Get unique variants
-  const uniqueVariants = [...new Set(variants.map(v => v.variant))].sort();
+  // Get unique variants with their tank sizes
+  const variantMap = new Map();
+  variants.forEach(v => {
+    if (!variantMap.has(v.variant)) {
+      variantMap.set(v.variant, v);
+    }
+  });
+  const uniqueVariants = Array.from(variantMap.values()).sort((a, b) => {
+    // Sort by tank size if available, otherwise by variant name
+    if (a.tankSize && b.tankSize) {
+      return a.tankSize.localeCompare(b.tankSize);
+    }
+    return a.variant.localeCompare(b.variant);
+  });
   
   // Get explanation
   const explanation = productId ? productExplanations[productId] : null;
@@ -824,6 +862,9 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
             {selectedVariantItem && (
               <div className="text-xs text-slate-400 mt-1">
                 {selectedVariantItem.variant}
+                {selectedVariantItem.tankSize && (
+                  <span className="text-emerald-400 ml-2">• {selectedVariantItem.tankSize}</span>
+                )}
               </div>
             )}
           </div>
@@ -848,8 +889,10 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
             className="w-full bg-slate-800/50 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:border-emerald-500 focus:outline-none"
           >
             <option value="">Select variant</option>
-            {uniqueVariants.map(variant => (
-              <option key={variant} value={variant}>{variant}</option>
+            {uniqueVariants.map(v => (
+              <option key={v.variant} value={v.variant}>
+                {v.variant}{v.tankSize ? ` (${v.tankSize})` : ''}
+              </option>
             ))}
           </select>
         </div>
