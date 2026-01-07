@@ -620,35 +620,49 @@ function Section({ title, icon, children }) {
     );
 }
 
-// Product explanations mapping
+// Product explanations mapping - covers all products including variants
 const productExplanations = {
   // Enclosures
+  "bowl": "⚠️ DANGEROUS: Bowls are too small and cause severe stress. Research shows bettas in bowls exhibit abnormal behavior and have shortened lifespans. Minimum 5 gallons required.",
   "5g": "5 gallons is the absolute minimum for bettas. Research shows tanks under 5 gallons cause stress and abnormal behavior. Larger is always better.",
   "10g": "10+ gallons allows bettas to fully express natural behaviors. More stable water parameters and room for enrichment.",
   "20g": "20 gallons provides excellent water stability and plenty of space for a planted aquarium. Ideal for betta welfare.",
   
   // Filtration
   "sponge": "Sponge filters are perfect for bettas - gentle flow that won't stress them, and they provide excellent biological filtration for the nitrogen cycle.",
-  "hang_on": "Hang-on-back filters work well but may need baffling to reduce flow. Bettas prefer gentle water movement.",
+  "hob": "Hang-on-back filters work well but may need baffling to reduce flow. Bettas prefer gentle water movement.",
+  "internal": "Internal power filters provide strong flow - may need baffling for bettas. Consider sponge filter for gentler flow.",
   
   // Heating
   "50w": "50W heaters work for 5-10 gallon tanks. Essential for tropical fish - bettas need 78-80°F to thrive.",
   "100w": "100W heaters are for larger tanks (10+ gallons). Always use a thermometer to verify temperature.",
   "thermometer": "Critical for monitoring temperature. Bettas need 78-80°F - too cold weakens their immune system.",
   
-  // Substrate
+  // Substrate - base types
   "gravel": "Gravel is safe and easy to clean. Rinse thoroughly before use. Provides surface for beneficial bacteria.",
   "sand": "Sand is natural-looking and safe. Some bettas enjoy sifting through it. Rinse well before adding to tank.",
   "aquasoil": "Active soil is specifically for live plants. It releases nutrients and lowers pH slightly.",
   "bare": "Bare bottom is easiest to clean and prevents waste buildup. Some keepers prefer this for simplicity.",
   
+  // Substrate variants (gravel and sand variants share base explanations)
+  "gravel_natural_gravel_light_2lbs": "Natural gravel provides a safe substrate. Light color shows waste easily. Rinse thoroughly before use.",
+  "sand_aquarium_sand_beige_2lbs": "Aquarium sand is safe and natural-looking. Beige color blends well with decor. Rinse well before adding.",
+  "sand_aquarium_sand_black_2lbs": "Black sand creates a striking contrast. Safe for bettas. Rinse thoroughly before use.",
+  "sand_aquarium_sand_white_2lbs": "White sand creates a clean, bright look. Safe for bettas. Rinse well before adding to tank.",
+  "sand_aquarium_sand_beige_5lbs": "Aquarium sand is safe and natural-looking. Larger quantity for bigger tanks. Rinse well before use.",
+  "sand_aquarium_sand_black_5lbs": "Black sand creates a striking contrast. Larger quantity for bigger tanks. Rinse thoroughly before use.",
+  
   // Decor
-  "live_easy": "Live plants help clean the water, provide hiding spots, and create a natural environment. Easy plants like anubias and java fern are beginner-friendly.",
+  "plastic": "⚠️ DANGEROUS: Plastic plants have sharp edges that tear betta fins, leading to infections. Use silk or live plants instead.",
   "silk": "Silk plants are soft and safe for delicate betta fins. Avoid plastic plants which can tear fins.",
+  "live_easy": "Live plants help clean the water, provide hiding spots, and create a natural environment. Easy plants like anubias and java fern are beginner-friendly.",
+  "betta_log": "Floating betta logs provide a resting spot near the surface where bettas can breathe air. Great enrichment item.",
   "driftwood": "Driftwood provides natural hiding spots and can help lower pH slightly. Boil before use to remove tannins.",
+  "driftwood_natural_driftwood_3_pcs_6_10_l": "Large driftwood pieces provide excellent hiding spots and natural decor. Boil before use to remove tannins and ensure it sinks.",
   
   // Water Care
   "conditioner": "Water conditioner removes chlorine and chloramine from tap water, which are toxic to fish. Essential for every water change.",
+  "testkit": "Test kit is critical for monitoring water quality. Ammonia and nitrite must be 0, nitrate should be under 20 ppm.",
   "test_kit": "Test kit is critical for monitoring water quality. Ammonia and nitrite must be 0, nitrate should be under 20 ppm.",
   "bacteria": "Beneficial bacteria starter helps establish the nitrogen cycle faster. Not required but helpful for new tanks.",
 };
@@ -911,9 +925,24 @@ function VariantCard({ baseLabel, priceRange, colors, sizes, variants, isActive,
             {isActive && <CheckCircle2 size={14} className="text-slate-950" />}
           </div>
 
-          <div className="flex-1">
-            <div className={`font-bold text-base transition-colors ${isActive ? "text-white" : "text-slate-300 group-hover:text-white"}`}>
-              {baseLabel}
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-3">
+              <div className={`font-bold text-base transition-colors flex-1 ${isActive ? "text-white" : "text-slate-300 group-hover:text-white"}`}>
+                {baseLabel}
+              </div>
+              {(() => {
+                // Get explanation - try specific variant ID first, then base type
+                const variantId = selectedVariant?.id;
+                const baseType = baseLabel.toLowerCase().includes("gravel") ? "gravel" : 
+                                baseLabel.toLowerCase().includes("sand") ? "sand" :
+                                baseLabel.toLowerCase().includes("driftwood") ? "driftwood" : null;
+                const explanation = variantId && productExplanations[variantId] 
+                  ? productExplanations[variantId]
+                  : baseType && productExplanations[baseType]
+                  ? productExplanations[baseType]
+                  : null;
+                return explanation ? <ProductTooltip explanation={explanation} /> : null;
+              })()}
             </div>
             {selectedVariant && (
               <div className="text-xs text-slate-400 mt-1">
