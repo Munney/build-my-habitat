@@ -12,10 +12,13 @@ import {
   ArrowRight,
   Waves,
   Copy,
-  Check
+  Check,
+  Bookmark,
+  BookmarkCheck
 } from "lucide-react";
 import config from "../../../data/betta.json";
-import { analytics } from "../../utils/analytics";
+import { analytics, trackEvent } from "../../utils/analytics";
+import { buildStorage } from "../../utils/buildStorage";
 
 // 👇 REPLACE THIS WITH YOUR ACTUAL AMAZON ASSOCIATE TAG
 const AFFILIATE_TAG = "habitatbuilde-20";
@@ -39,6 +42,7 @@ function SummaryContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [linkCopied, setLinkCopied] = useState(false);
+  const [buildSaved, setBuildSaved] = useState(false);
 
   // --- 1. REHYDRATE DATA ---
   const selections = useMemo(() => {
@@ -76,6 +80,14 @@ function SummaryContent() {
   // Track summary view
   useEffect(() => {
     analytics.trackSummaryView("betta", parseFloat(total), allItems.length);
+    
+    // Check if this build is already saved
+    const builds = buildStorage.getAllBuilds();
+    const currentUrl = window.location.href;
+    const isSaved = Object.values(builds).some(build => build.shareUrl === currentUrl);
+    if (isSaved) {
+      setBuildSaved(true);
+    }
   }, [total, allItems.length]);
 
   // --- 2. BUILD AMAZON CART URL ---
@@ -97,6 +109,38 @@ function SummaryContent() {
 
     return `${baseUrl}?${params.toString()}`;
   }, [allItems]);
+
+  const handleShare = async () => {
+    analytics.trackShareClick("share", "betta");
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `My Betta Fish Habitat Build - $${total}`,
+          text: `Check out my safe betta fish setup! Built with HabitatBuilder.`,
+          url: window.location.href
+        });
+      } catch (error) {
+        console.error("Error sharing:", error);
+      }
+    } else {
+      // Fallback for browsers that don't support Web Share API
+      navigator.clipboard.writeText(window.location.href);
+      setLinkCopied(true);
+      setTimeout(() => setLinkCopied(false), 2000);
+    }
+  };
+
+  const handleSaveBuild = () => {
+    const buildData = buildStorage.createBuildData("betta", selections, total, allItems);
+    buildData.shareUrl = window.location.href;
+    buildData.name = `Betta Build - $${total}`;
+    
+    const buildId = buildStorage.saveBuild(buildData);
+    if (buildId) {
+      setBuildSaved(true);
+      trackEvent("build_saved", { species: "betta", build_id: buildId });
+    }
+  };
 
   return (
     <main className="relative min-h-screen pt-28 pb-20 px-6">
@@ -124,41 +168,39 @@ function SummaryContent() {
           <div className="flex gap-3">
              <div className="relative">
                <button 
-                 onClick={() => {
-                   if (navigator.share) {
-                     navigator.share({
-                       title: `My Betta Fish Habitat Build - $${total}`,
-                       text: `Check out my safe betta fish setup! Built with HabitatBuilder.`,
-                       url: window.location.href
-                     }).catch(() => {});
-                   } else {
-                     // Fallback: copy to clipboard
-                     navigator.clipboard.writeText(window.location.href);
-                     setLinkCopied(true);
-                     setTimeout(() => setLinkCopied(false), 2000);
-                     analytics.trackEvent("share_click", { method: "copy", species: "betta" });
-                   }
-                 }}
+                 onClick={handleShare}
                  className="p-3 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors relative"
                  title="Share this build"
                >
                  {linkCopied ? <Check size={20} className="text-emerald-400" /> : <Share2 size={20} />}
                </button>
                {linkCopied && (
-                 <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-emerald-500 text-white text-xs rounded-lg whitespace-nowrap">
+                 <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-emerald-500 text-white text-xs rounded-lg whitespace-nowrap z-50">
                    Link copied!
                  </div>
                )}
              </div>
              <button 
+                onClick={handleSaveBuild}
+                disabled={buildSaved}
+                className={`p-3 rounded-xl border transition-colors ${
+                  buildSaved 
+                    ? "bg-emerald-500/20 border-emerald-500/50 text-emerald-400 cursor-not-allowed" 
+                    : "bg-white/5 border-white/10 text-white hover:bg-white/10"
+                }`}
+                title={buildSaved ? "Build saved!" : "Save this build"}
+             >
+               {buildSaved ? <BookmarkCheck size={20} /> : <Bookmark size={20} />}
+             </button>
+             <button 
                 onClick={() => {
                   window.print();
-                  analytics.trackEvent("print_click", { species: "betta" });
+                  analytics.trackPrintClick("betta");
                 }}
                 className="p-3 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors"
                 title="Print this build"
              >
-                <Printer size={20} />
+               <Printer size={20} />
              </button>
           </div>
         </div>

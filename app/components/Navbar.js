@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Hammer, BookOpen, Package, Info, Menu, X } from "lucide-react";
+import { Hammer, BookOpen, Package, Info, Menu, X, Bookmark } from "lucide-react";
 import { useState } from "react";
 
 export default function Navbar() {
@@ -21,6 +21,7 @@ export default function Navbar() {
     { name: "Builder", href: "/", icon: <Hammer size={18} /> },
     { name: "Research", href: "/research", icon: <BookOpen size={18} /> },
     { name: "Browse Parts", href: "/browse", icon: <Package size={18} /> },
+    { name: "My Builds", href: "/my-builds", icon: <Bookmark size={18} /> },
     { name: "FAQ", href: "/faq", icon: <Info size={18} /> },
   ];
 
