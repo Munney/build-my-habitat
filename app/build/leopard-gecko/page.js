@@ -780,7 +780,6 @@ const productExplanations = {
   // Substrates
   "papertowel": "Paper towels are the safest, easiest substrate for beginners. Easy to clean, prevents impaction risk, and allows you to monitor health easily.",
   "slate": "Slate tile provides a natural look while being easy to clean. Retains heat well and provides a solid surface. Safe and beginner-friendly.",
-  "liner": "Non-adhesive shelf liner is easy to clean and safe. Provides a solid surface that prevents impaction. Good beginner option.",
   "topsoil": "Organic topsoil mix creates a naturalistic environment. Requires proper preparation and monitoring. Only for experienced keepers who understand impaction risks.",
   "excavator": "Excavator clay allows geckos to dig and create burrows. Naturalistic but requires proper setup. Only for experienced keepers.",
   "bioactive": "Bioactive substrates create a self-cleaning ecosystem with beneficial microorganisms. Advanced setup requiring proper preparation. Only for experienced keepers.",

@@ -172,14 +172,6 @@
       "defaultProductUrl": "https://www.amazon.com/s?k=Slate%20Tile%20%2F%20Stone%20reptile&tag=habitatbuilde-20"
     },
     {
-      "id": "liner",
-      "label": "Non-Adhesive Shelf Liner",
-      "price": 5.99,
-      "type": "solid",
-      "amazonSearchUrl": "https://www.amazon.com/s?k=Non-Adhesive%20Shelf%20Liner%20reptile&tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/s?k=Non-Adhesive%20Shelf%20Liner%20reptile&tag=habitatbuilde-20"
-    },
-    {
       "id": "topsoil",
       "label": "Organic Topsoil Mix",
       "price": 4.99,
