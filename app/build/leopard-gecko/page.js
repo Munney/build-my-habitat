@@ -36,6 +36,7 @@ function toggle(list, id) {
 function groupVariants(products) {
   const variantGroups = new Map();
   const standalone = [];
+  const groupedProductIds = new Set(); // Track which product IDs have been grouped
   
   products.forEach(product => {
     const label = product.label;
@@ -148,8 +149,16 @@ function groupVariants(products) {
           variant,
           tankSize: tankSize || null
         });
+        
+        // Mark this product ID as grouped so it won't be added to standalone
+        groupedProductIds.add(id);
       }
     } else {
+      // Skip if this product was already grouped as a variant
+      if (groupedProductIds.has(id)) {
+        return; // Don't add to standalone
+      }
+      
       // Check if this is a standalone product that should be excluded because it has variants
       const labelLower = product.label.toLowerCase();
       
