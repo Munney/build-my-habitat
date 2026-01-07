@@ -877,22 +877,41 @@ const productExplanations = {
   // Substrates
   "papertowel": "Paper towels are the safest, easiest substrate for beginners. Easy to clean, prevents impaction risk, and allows you to monitor health easily.",
   "slate": "Slate tile provides a natural look while being easy to clean. Retains heat well and provides a solid surface. Safe and beginner-friendly.",
+  "slate_slate_tile_stone_6_in_x_6_in_s": "Slate tile (6\" x 6\") provides a natural look while being easy to clean. Perfect size for 20-gallon tanks. Retains heat well and provides a solid surface. Safe and beginner-friendly.",
+  "slate_slate_tile_stone_11_8_in_x_5_9": "Slate tile (11.8\" x 5.9\") provides a natural look while being easy to clean. Perfect size for 40-gallon tanks. Retains heat well and provides a solid surface. Safe and beginner-friendly.",
+  "slate_slate_tile_stone_15_7_in_x_9_8": "Slate tile (15.7\" x 9.8\") provides a natural look while being easy to clean. Perfect size for large enclosures (4x2x2). Retains heat well and provides a solid surface. Safe and beginner-friendly.",
+  "liner_reptile_carpet_20_gallon_tank": "Reptile carpet (20 gallon) is easy to clean and safe. Provides a solid surface that prevents impaction. Good beginner option for 20-gallon tanks.",
+  "liner_reptile_carpet_40_gallon_tank": "Reptile carpet (40 gallon) is easy to clean and safe. Provides a solid surface that prevents impaction. Good beginner option for 40-gallon tanks.",
   "topsoil": "Organic topsoil mix creates a naturalistic environment. Requires proper preparation and monitoring. Only for experienced keepers who understand impaction risks.",
+  "topsoil_organic_topsoil_mix_cocunut_ch": "Organic topsoil mix with coconut chips creates a naturalistic environment. Provides texture and enrichment. Requires proper preparation and monitoring. Only for experienced keepers who understand impaction risks.",
   "excavator": "Excavator clay allows geckos to dig and create burrows. Naturalistic but requires proper setup. Only for experienced keepers.",
-  "bioactive": "Bioactive substrates create a self-cleaning ecosystem with beneficial microorganisms. Advanced setup requiring proper preparation. Only for experienced keepers.",
+  "bioactive": "BioActive Terra Sahara creates a self-cleaning ecosystem with beneficial microorganisms. Advanced setup requiring proper preparation. Only for experienced keepers.",
+  "bioactive_bioactive_terra_sahara_18_qts_": "BioActive Terra Sahara (18 qts) creates a self-cleaning ecosystem for 20-40 gallon tanks. Contains beneficial microorganisms. Advanced setup requiring proper preparation. Only for experienced keepers.",
+  "bioactive_bioactive_terra_sahara_36_qts_": "BioActive Terra Sahara (36 qts) creates a self-cleaning ecosystem for large enclosures (4x2x2). Contains beneficial microorganisms. Advanced setup requiring proper preparation. Only for experienced keepers.",
   "sand": "⚠️ DANGEROUS: Calcium sand causes impaction when ingested. It clumps when wet and cannot pass through the digestive system. Use safe substrates instead.",
+  "sand_reptile_sand_calcium_white": "⚠️ DANGEROUS: White calcium sand causes impaction when ingested. It clumps when wet and cannot pass through the digestive system. Use safe substrates instead.",
+  "sand_reptile_sand_calcium_black": "⚠️ DANGEROUS: Black calcium sand causes impaction when ingested. It clumps when wet and cannot pass through the digestive system. Use safe substrates instead.",
+  "sand_reptile_sand_calcium_tan": "⚠️ DANGEROUS: Tan calcium sand causes impaction when ingested. It clumps when wet and cannot pass through the digestive system. Use safe substrates instead.",
+  "sand_reptile_sand_calcium_blue": "⚠️ DANGEROUS: Blue calcium sand causes impaction when ingested. It clumps when wet and cannot pass through the digestive system. Use safe substrates instead.",
   
   // Hides
   "warmhide": "Warm hide should be placed on the hot side of the tank. Geckos need a hide in the basking area to feel secure while thermoregulating.",
   "coolhide": "Cool hide should be placed on the cool side. Essential for geckos to escape heat and regulate body temperature. Every gecko needs at least one cool hide.",
   "humidhide": "Humid hide (moist hide) is essential for shedding. Fill with damp substrate (paper towels or sphagnum moss). Geckos need this to shed properly.",
   "corkbark": "Cork bark provides natural hiding spots and climbing opportunities. Can be used as additional cover or as a hide. Safe and natural-looking.",
+  "corkbark_cork_bark_flat_4_pcs": "Cork bark flat (4 pieces) provides natural hiding spots and climbing opportunities. Can be arranged to create multiple hiding areas. Safe and natural-looking.",
   "branches": "Climbing branches provide enrichment and exercise. Leopard geckos are not fully arboreal but enjoy climbing opportunities. Adds vertical space usage.",
+  "branches_climbing_branches_4_pcs_14_16_": "Climbing branches (4 pieces, 14-16 inches) provide enrichment and exercise. Leopard geckos are not fully arboreal but enjoy climbing opportunities. Adds vertical space usage and multiple perching spots.",
   
   // Supplements
   "calcium_no_d3": "Pure calcium (no D3) is used when you have UVB lighting. Geckos can synthesize D3 from UVB, so pure calcium is sufficient. Dust insects daily.",
   "calcium_d3": "Calcium with D3 is essential if you don't have UVB lighting. D3 helps geckos absorb calcium. Dust insects 3-4 times per week. Critical for bone health.",
   "multivitamin": "Multivitamin provides essential vitamins and minerals. Use 1-2 times per week in addition to calcium. Prevents nutritional deficiencies.",
+  
+  // Feeding
+  "bowls_black_rock": "Food and water dish set (black rock design) provides separate containers for food and water. Easy to clean and maintain. Natural-looking design.",
+  "bowls_tree_trunk": "Food and water dish set (tree trunk design) provides separate containers for food and water. Easy to clean and maintain. Natural-looking design.",
+  "bowls_sahara_rock": "Food and water dish set (Sahara rock design) includes one corner dish and one round dish. Easy to clean and maintain. Natural-looking design.",
 };
 
 function HeatingSection({ heating, selectedIds, selectedVariants, onToggle, onVariantToggle, selectedEnclosureSize }) {
