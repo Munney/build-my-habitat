@@ -16,7 +16,8 @@ import {
   Home as HomeIcon,
   Zap,
   ShieldCheck,
-  Unlock
+  Unlock,
+  AlertCircle
 } from "lucide-react";
 import config from "../../../data/leopard-gecko.json";
 import ProductTooltip from "../../components/ProductTooltip";
@@ -577,7 +578,11 @@ export default function LeopardGeckoBuilder() {
               </div>
             </Section>
 
-            <Section title="2. Enclosure Size" icon={<Box className={enclosureId ? "text-emerald-400" : "text-slate-400"} />}>
+            <Section 
+              title="2. Enclosure Size" 
+              icon={<Box className={enclosureId ? "text-emerald-400" : "text-slate-400"} />}
+              description="Choose the right size tank. Minimum 20 gallons required for adult geckos. Larger enclosures allow for better enrichment and natural behaviors."
+            >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {sortedEnclosures.map((e) => (
                   <SelectionCard
@@ -589,12 +594,17 @@ export default function LeopardGeckoBuilder() {
                     onClick={() => setEnclosureId(enclosureId === e.id ? null : e.id)}
                     type="checkbox"
                     productId={e.id}
+                    isRequired={e.id !== "10g"}
                   />
                 ))}
               </div>
             </Section>
 
-            <Section title="3. Heating & Control" icon={<Thermometer className={heatingIds.length ? "text-emerald-400" : "text-slate-400"} />}>
+            <Section 
+              title="3. Heating & Control" 
+              icon={<Thermometer className={heatingIds.length ? "text-emerald-400" : "text-slate-400"} />}
+              description="Geckos need a basking area of 88-92°F. You must select a primary heat source (halogen or DHP) and a thermostat to prevent burns."
+            >
               <HeatingSection 
                 heating={HEATING}
                 selectedIds={heatingIds}
@@ -634,7 +644,11 @@ export default function LeopardGeckoBuilder() {
               />
             </Section>
 
-            <Section title="4. Floor & Substrate" icon={<Layers className={substrateIds.length ? "text-emerald-400" : "text-slate-400"} />}>
+            <Section 
+              title="4. Floor & Substrate" 
+              icon={<Layers className={substrateIds.length ? "text-emerald-400" : "text-slate-400"} />}
+              description="Choose a safe substrate for your gecko. Beginners should use solid substrates (paper towels, slate, carpet). Loose substrates require experience."
+            >
               {!experience && (
                   <div className="mb-4 p-3 bg-amber-500/10 border border-amber-500/20 text-amber-200 text-xs rounded-xl flex items-center gap-2">
                       <AlertTriangle size={16} /> Please select an Experience Level above to see safe recommendations.
@@ -679,7 +693,11 @@ export default function LeopardGeckoBuilder() {
               />
             </Section>
 
-            <Section title="5. Hides & Decor" icon={<HomeIcon className={hideIds.length ? "text-emerald-400" : "text-slate-400"} />}>
+            <Section 
+              title="5. Hides & Decor" 
+              icon={<HomeIcon className={hideIds.length ? "text-emerald-400" : "text-slate-400"} />}
+              description="Geckos need at least 3 hides: warm hide (hot side), cool hide (cool side), and humid hide (for shedding). Additional decor provides enrichment."
+            >
               <HidesSection
                 hides={HIDES}
                 selectedIds={hideIds}
@@ -718,7 +736,11 @@ export default function LeopardGeckoBuilder() {
               />
             </Section>
 
-            <Section title="6. Vitamin Support" icon={<Zap className={supplementIds.length ? "text-emerald-400" : "text-slate-400"} />}>
+            <Section 
+              title="6. Vitamin Support" 
+              icon={<Zap className={supplementIds.length ? "text-emerald-400" : "text-slate-400"} />}
+              description="Essential for bone health. Use calcium with D3 if no UVB, or pure calcium if using UVB. Multivitamin prevents nutritional deficiencies."
+            >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {SUPPLEMENTS.map((s) => (
                   <SelectionCard
@@ -836,15 +858,20 @@ export default function LeopardGeckoBuilder() {
 
 /* ---------- UI COMPONENTS ---------- */
 
-function Section({ title, icon, children }) {
+function Section({ title, icon, description, children }) {
     return (
         <section className="bg-slate-900/60 backdrop-blur-md p-6 rounded-3xl border border-white/5 shadow-lg">
-            <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
-                <div className="p-2 bg-emerald-500/10 rounded-lg border border-emerald-500/20">
-                    {icon}
-                </div>
-                {title}
-            </h2>
+            <div className="mb-6">
+                <h2 className="text-xl font-bold text-white mb-2 flex items-center gap-3">
+                    <div className="p-2 bg-emerald-500/10 rounded-lg border border-emerald-500/20">
+                        {icon}
+                    </div>
+                    {title}
+                </h2>
+                {description && (
+                    <p className="text-sm text-slate-400 ml-[52px] leading-relaxed">{description}</p>
+                )}
+            </div>
             {children}
         </section>
     );
@@ -956,17 +983,22 @@ function HeatingSection({ heating, selectedIds, selectedVariants, onToggle, onVa
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
       {/* Standalone products (no variants) */}
-      {standalone.map((h) => (
-        <SelectionCard
-          key={h.id}
-          active={selectedIds.includes(h.id)}
-          label={h.label}
-          price={h.price}
-          onClick={() => onToggle(h.id)}
-          type="checkbox"
-          productId={h.id}
-        />
-      ))}
+      {standalone.map((h) => {
+        // Thermostat is required
+        const isRequired = h.id === "thermostat";
+        return (
+          <SelectionCard
+            key={h.id}
+            active={selectedIds.includes(h.id)}
+            label={h.label}
+            price={h.price}
+            onClick={() => onToggle(h.id)}
+            type="checkbox"
+            productId={h.id}
+            isRequired={isRequired}
+          />
+        );
+      })}
       
       {/* Variant groups */}
       {filteredGroups.map((group) => {
@@ -992,6 +1024,9 @@ function HeatingSection({ heating, selectedIds, selectedVariants, onToggle, onVa
         const maxPrice = Math.max(...prices);
         const priceRange = minPrice === maxPrice ? `$${minPrice.toFixed(2)}` : `$${minPrice.toFixed(2)} - $${maxPrice.toFixed(2)}`;
         
+        // Check if this variant group is required (primary heat sources)
+        const isRequired = group.baseName.includes("Halogen") || group.baseName.includes("Deep Heat") || group.baseName.includes("DHP") || group.baseName.includes("Under Tank Heater");
+        
         return (
           <VariantCard
             key={group.baseName}
@@ -1002,6 +1037,7 @@ function HeatingSection({ heating, selectedIds, selectedVariants, onToggle, onVa
             selectedVariant={variantSelection?.variant}
             isCheckbox={true}
             isSizeOnly={true}
+            isRequired={isRequired}
             onVariantChange={(variant) => {
               const variantItem = group.variants.find(v => v.variant === variant);
               if (variantItem) {
@@ -1116,6 +1152,9 @@ function SubstrateSection({ substrates, selectedIds, selectedVariants, onToggle,
         const maxPrice = Math.max(...prices);
         const priceRange = minPrice === maxPrice ? `$${minPrice.toFixed(2)}` : `$${minPrice.toFixed(2)} - $${maxPrice.toFixed(2)}`;
         
+        // Check if this variant group is required (primary heat sources)
+        const isRequired = group.baseName.includes("Halogen") || group.baseName.includes("Deep Heat") || group.baseName.includes("DHP") || group.baseName.includes("Under Tank Heater");
+        
         return (
           <VariantCard
             key={group.baseName}
@@ -1126,6 +1165,7 @@ function SubstrateSection({ substrates, selectedIds, selectedVariants, onToggle,
             selectedVariant={variantSelection?.variant}
             isCheckbox={true}
             isSizeOnly={true}
+            isRequired={isRequired}
             onVariantChange={(variant) => {
               const variantItem = group.variants.find(v => v.variant === variant);
               if (variantItem) {
@@ -1191,6 +1231,9 @@ function HidesSection({ hides, selectedIds, selectedVariants, onToggle, onVarian
         const maxPrice = Math.max(...prices);
         const priceRange = minPrice === maxPrice ? `$${minPrice.toFixed(2)}` : `$${minPrice.toFixed(2)} - $${maxPrice.toFixed(2)}`;
         
+        // Check if this variant group is required (primary heat sources)
+        const isRequired = group.baseName.includes("Halogen") || group.baseName.includes("Deep Heat") || group.baseName.includes("DHP") || group.baseName.includes("Under Tank Heater");
+        
         return (
           <VariantCard
             key={group.baseName}
@@ -1201,6 +1244,7 @@ function HidesSection({ hides, selectedIds, selectedVariants, onToggle, onVarian
             selectedVariant={variantSelection?.variant}
             isCheckbox={true}
             isSizeOnly={true}
+            isRequired={isRequired}
             onVariantChange={(variant) => {
               const variantItem = group.variants.find(v => v.variant === variant);
               if (variantItem) {
@@ -1224,7 +1268,7 @@ function HidesSection({ hides, selectedIds, selectedVariants, onToggle, onVarian
   );
 }
 
-function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVariant, onVariantChange, onSelect, isCheckbox = false, isSizeOnly = false, productId }) {
+function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVariant, onVariantChange, onSelect, isCheckbox = false, isSizeOnly = false, productId, isRequired = false }) {
   const selectedVariantItem = selectedVariant 
     ? variants.find(v => v.variant === selectedVariant)
     : null;
@@ -1281,6 +1325,8 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
       className={`group relative p-5 rounded-2xl border transition-all duration-300 cursor-pointer ${
         isActive
           ? "border-emerald-500 bg-emerald-500/10 shadow-[0_0_30px_-10px_rgba(16,185,129,0.3)] scale-[1.02]"
+          : isRequired
+          ? "border-amber-500/50 bg-amber-500/5 hover:border-amber-500/70 hover:bg-amber-500/10"
           : "border-slate-700/50 bg-slate-900/40 hover:border-slate-600 hover:bg-slate-800/60"
       }`}
       onClick={onSelect}
@@ -1291,16 +1337,22 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
             className={`mt-1 w-5 h-5 rounded-full flex items-center justify-center border transition-all shrink-0 ${
               isActive 
                 ? "bg-emerald-500 border-emerald-500 shadow-sm shadow-emerald-500/50" 
+                : isRequired
+                ? "bg-amber-500/20 border-amber-500/50 group-hover:border-amber-500/70"
                 : "bg-slate-800/50 border-slate-600 group-hover:border-slate-500"
             }`}
           >
             {isActive && <CheckCircle2 size={14} className="text-slate-950" />}
+            {!isActive && isRequired && <AlertCircle size={12} className="text-amber-400" />}
           </div>
 
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-3">
-              <div className={`font-bold text-base transition-colors flex-1 ${isActive ? "text-white" : "text-slate-300 group-hover:text-white"}`}>
+              <div className={`font-bold text-base transition-colors flex-1 ${isActive ? "text-white" : isRequired ? "text-amber-100 group-hover:text-white" : "text-slate-300 group-hover:text-white"}`}>
                 {baseLabel}
+                {isRequired && !isActive && (
+                  <span className="ml-2 text-xs font-normal text-amber-400">Required</span>
+                )}
               </div>
               {explanation && (
                 <ProductTooltip explanation={explanation} />
