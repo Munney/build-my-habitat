@@ -436,7 +436,46 @@ function Section({ title, icon, children }) {
     );
 }
 
-function SelectionCard({ active, label, sublabel, price, onClick, type }) {
+// Product explanations mapping for leopard gecko
+const productExplanations = {
+  // Enclosures
+  "10g": "⚠️ TOO SMALL: 10-gallon tanks are inadequate for adult leopard geckos. They cause chronic stress and prevent proper thermoregulation. Minimum 20 gallons required.",
+  "20g": "20 gallons (30\" x 12\" x 12\") is the absolute minimum for adult leopard geckos. Allows space for 3 hides and proper temperature gradient.",
+  "40g": "40-gallon breeder (36\" x 18\" x 18\") is recommended for optimal welfare. Provides excellent space for enrichment and natural behaviors.",
+  "pvc4x2": "4x2x2 PVC enclosure (120 gallons equivalent) is ideal for adult geckos. Excellent for bioactive setups and provides maximum space for enrichment.",
+  
+  // Heating
+  "heatmat": "Under tank heaters provide belly heat but don't create a proper basking spot. Must be used with a thermostat to prevent burns. Not recommended as primary heat source.",
+  "halogen": "Halogen flood lamps provide excellent basking heat and visible light. Mimics natural sunlight. Must be used with a thermostat. Best primary heat source option.",
+  "dhp": "Deep Heat Projectors emit infrared A & B wavelengths, penetrating deeper into tissue. No visible light. Excellent for 24/7 heating. Must be used with a thermostat.",
+  "thermostat": "⚠️ REQUIRED: Every heat source MUST be connected to a thermostat. Unregulated heating causes severe burns and can kill your gecko. This is non-negotiable.",
+  "uvb": "UVB lighting helps geckos synthesize vitamin D3 naturally. Optional but beneficial, especially if not using calcium with D3. ShadeDweller is perfect for leopard geckos.",
+  
+  // Substrates
+  "papertowel": "Paper towels are the safest, easiest substrate for beginners. Easy to clean, prevents impaction risk, and allows you to monitor health easily.",
+  "slate": "Slate tile provides a natural look while being easy to clean. Retains heat well and provides a solid surface. Safe and beginner-friendly.",
+  "liner": "Non-adhesive shelf liner is easy to clean and safe. Provides a solid surface that prevents impaction. Good beginner option.",
+  "topsoil": "Organic topsoil mix creates a naturalistic environment. Requires proper preparation and monitoring. Only for experienced keepers who understand impaction risks.",
+  "excavator": "Excavator clay allows geckos to dig and create burrows. Naturalistic but requires proper setup. Only for experienced keepers.",
+  "bioactive": "Bioactive substrates create a self-cleaning ecosystem with beneficial microorganisms. Advanced setup requiring proper preparation. Only for experienced keepers.",
+  "sand": "⚠️ DANGEROUS: Calcium sand causes impaction when ingested. It clumps when wet and cannot pass through the digestive system. Use safe substrates instead.",
+  
+  // Hides
+  "warmhide": "Warm hide should be placed on the hot side of the tank. Geckos need a hide in the basking area to feel secure while thermoregulating.",
+  "coolhide": "Cool hide should be placed on the cool side. Essential for geckos to escape heat and regulate body temperature. Every gecko needs at least one cool hide.",
+  "humidhide": "Humid hide (moist hide) is essential for shedding. Fill with damp substrate (paper towels or sphagnum moss). Geckos need this to shed properly.",
+  "corkbark": "Cork bark provides natural hiding spots and climbing opportunities. Can be used as additional cover or as a hide. Safe and natural-looking.",
+  "branches": "Climbing branches provide enrichment and exercise. Leopard geckos are not fully arboreal but enjoy climbing opportunities. Adds vertical space usage.",
+  
+  // Supplements
+  "calcium_no_d3": "Pure calcium (no D3) is used when you have UVB lighting. Geckos can synthesize D3 from UVB, so pure calcium is sufficient. Dust insects daily.",
+  "calcium_d3": "Calcium with D3 is essential if you don't have UVB lighting. D3 helps geckos absorb calcium. Dust insects 3-4 times per week. Critical for bone health.",
+  "multivitamin": "Multivitamin provides essential vitamins and minerals. Use 1-2 times per week in addition to calcium. Prevents nutritional deficiencies.",
+};
+
+function SelectionCard({ active, label, sublabel, price, onClick, type, productId }) {
+  const explanation = productId ? productExplanations[productId] : null;
+  
   return (
     <div
       onClick={onClick}
@@ -447,9 +486,9 @@ function SelectionCard({ active, label, sublabel, price, onClick, type }) {
       }`}
     >
       <div className="flex items-start justify-between gap-3">
-        <div className="flex items-start gap-3">
+        <div className="flex items-start gap-3 flex-1">
           <div
-            className={`mt-1 w-5 h-5 rounded-full flex items-center justify-center border transition-all ${
+            className={`mt-1 w-5 h-5 rounded-full flex items-center justify-center border transition-all shrink-0 ${
               active 
                 ? "bg-emerald-500 border-emerald-500 shadow-sm shadow-emerald-500/50" 
                 : "bg-slate-800/50 border-slate-600 group-hover:border-slate-500"
@@ -458,9 +497,14 @@ function SelectionCard({ active, label, sublabel, price, onClick, type }) {
             {active && <CheckCircle2 size={14} className="text-slate-950" />}
           </div>
 
-          <div>
-            <div className={`font-bold text-base transition-colors ${active ? "text-white" : "text-slate-300 group-hover:text-white"}`}>
-              {label}
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-3">
+              <div className={`font-bold text-base transition-colors flex-1 ${active ? "text-white" : "text-slate-300 group-hover:text-white"}`}>
+                {label}
+              </div>
+              {explanation && (
+                <ProductTooltip explanation={explanation} />
+              )}
             </div>
             {sublabel && (
               <div className="text-xs text-slate-500 mt-1 font-medium uppercase tracking-wide">{sublabel}</div>
@@ -468,7 +512,7 @@ function SelectionCard({ active, label, sublabel, price, onClick, type }) {
           </div>
         </div>
 
-        <span className={`font-mono text-sm font-bold ${active ? "text-emerald-400" : "text-slate-500"}`}>
+        <span className={`font-mono text-sm font-bold shrink-0 ${active ? "text-emerald-400" : "text-slate-500"}`}>
           {/* 👇 FIXED: Card Price display */}
           ${(price || 0).toFixed(2)}
         </span>
