@@ -178,10 +178,7 @@ export default function FAQPage() {
                       <button
                         onClick={() => {
                           toggleQuestion(categoryIndex, questionIndex);
-                          analytics.trackEvent("faq_toggle", { 
-                            category: category.category,
-                            question: faq.q 
-                          });
+                          analytics.trackFAQToggle(category.category, faq.q);
                         }}
                         className="w-full p-5 text-left flex items-center justify-between gap-4 hover:bg-white/5 transition-colors"
                       >
