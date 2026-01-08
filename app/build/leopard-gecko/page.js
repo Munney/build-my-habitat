@@ -498,7 +498,13 @@ export default function LeopardGeckoBuilder() {
   const scrollToSection = (sectionId) => {
     const section = sectionRefs.current[sectionId];
     if (section) {
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const elementPosition = section.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - 180; // Account for navbar (112px) + progress bar (68px) + padding
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
     }
   };
 
@@ -586,6 +592,10 @@ export default function LeopardGeckoBuilder() {
     
     // Block if there are critical errors
     if (checks.criticalErrors.length > 0) {
+      // Track validation errors
+      checks.criticalErrors.forEach(error => {
+        analytics.trackValidationError("leopard-gecko", "critical", error);
+      });
       // Scroll to the first error message
       const firstError = document.querySelector('.bg-red-500\\/10');
       if (firstError) {
@@ -594,6 +604,10 @@ export default function LeopardGeckoBuilder() {
       return;
     }
 
+    // Track builder completion
+    const totalPrice = allSelectedItems.reduce((sum, item) => sum + (item.price || 0), 0);
+    analytics.trackBuilderComplete("leopard-gecko", totalPrice, allSelectedItems.length);
+    
     const params = new URLSearchParams({
       exp: experience || "beginner",
       enclosure: enclosureId || "",

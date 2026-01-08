@@ -372,7 +372,13 @@ export default function BettaBuilder() {
   const scrollToSection = (sectionId) => {
     const section = sectionRefs.current[sectionId];
     if (section) {
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const elementPosition = section.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - 180; // Account for navbar (112px) + progress bar (68px) + padding
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
     }
   };
 
