@@ -20,17 +20,90 @@ import config from "../../../data/leopard-gecko.json";
 import { analytics, trackEvent } from "../../utils/analytics";
 import { buildStorage } from "../../utils/buildStorage";
 
-// Print styles
+// Print styles - Receipt format
 if (typeof window !== 'undefined') {
   const style = document.createElement('style');
   style.textContent = `
     @media print {
-      body { background: white !important; }
-      nav, footer, .no-print { display: none !important; }
-      .print-page-break { page-break-after: always; }
-      .print-item { page-break-inside: avoid; }
-      * { color: black !important; background: white !important; }
-      .border { border-color: #ccc !important; }
+      @page {
+        size: letter;
+        margin: 0.5in;
+      }
+      * {
+        color: black !important;
+        background: white !important;
+        box-shadow: none !important;
+      }
+      body {
+        background: white !important;
+        font-size: 10pt !important;
+        line-height: 1.2 !important;
+      }
+      nav, footer, .no-print, button, a[href^="http"] { 
+        display: none !important; 
+      }
+      main {
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      h1, h2, h3, h4 {
+        font-size: 12pt !important;
+        margin: 0.3em 0 !important;
+        page-break-after: avoid;
+      }
+      .grid, .flex {
+        display: block !important;
+      }
+      .rounded-xl, .rounded-2xl, .rounded-3xl {
+        border-radius: 0 !important;
+        border: 1px solid #ccc !important;
+        padding: 0.5em !important;
+        margin: 0.3em 0 !important;
+      }
+      .p-6, .p-8, .p-4 {
+        padding: 0.5em !important;
+      }
+      .mb-8, .mb-10, .mb-12 {
+        margin-bottom: 0.5em !important;
+      }
+      .mt-4, .mt-6, .mt-8 {
+        margin-top: 0.3em !important;
+      }
+      .gap-4, .gap-6, .gap-8 {
+        gap: 0.3em !important;
+      }
+      .text-4xl, .text-5xl {
+        font-size: 14pt !important;
+      }
+      .text-2xl, .text-3xl {
+        font-size: 12pt !important;
+      }
+      .text-lg {
+        font-size: 10pt !important;
+      }
+      .text-sm {
+        font-size: 9pt !important;
+      }
+      .text-xs {
+        font-size: 8pt !important;
+      }
+      .space-y-3 > * + *, .space-y-4 > * + * {
+        margin-top: 0.3em !important;
+      }
+      .space-y-6 > * + * {
+        margin-top: 0.5em !important;
+      }
+      img {
+        display: none !important;
+      }
+      .print-item {
+        page-break-inside: avoid;
+        border-bottom: 1px solid #ddd !important;
+        padding: 0.3em 0 !important;
+      }
+      .print-item:last-child {
+        border-bottom: none !important;
+      }
     }
   `;
   document.head.appendChild(style);
@@ -245,7 +318,7 @@ function SummaryContent() {
                             const productLink = (item.asin || getAsinFromUrl(item.defaultProductUrl))
                                 ? `https://www.amazon.com/dp/${item.asin || getAsinFromUrl(item.defaultProductUrl)}?tag=${AFFILIATE_TAG}` : "#";
                             return (
-                                <a key={i} href={productLink} target="_blank" rel="noopener noreferrer" className="p-5 flex items-center justify-between group hover:bg-gradient-to-r hover:from-emerald-500/10 hover:to-transparent transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded-lg">
+                                <div key={i} className="p-5 flex items-center justify-between group hover:bg-gradient-to-r hover:from-emerald-500/10 hover:to-transparent transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded-lg print-item">
                                     <div className="flex items-center gap-4">
                                         <div className="w-10 h-10 rounded-full bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center text-emerald-400 font-black text-sm border-2 border-slate-700/50 group-hover:border-emerald-500/50 group-hover:bg-gradient-to-br group-hover:from-emerald-500/20 group-hover:to-emerald-600/20 transition-all duration-300 shadow-sm">{i + 1}</div>
                                         <div>
@@ -256,7 +329,7 @@ function SummaryContent() {
                                     <div className="font-mono font-black text-emerald-400 text-lg group-hover:text-emerald-300 transition-colors">
                                         ${(item.price || 0).toFixed(2)}
                                     </div>
-                                </a>
+                                </div>
                             )
                         })}
                     </div>
