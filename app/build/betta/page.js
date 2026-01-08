@@ -26,6 +26,7 @@ import {
 // 👇 Verify this path matches your folder structure
 import config from "../../../data/betta.json";
 import ProductTooltip from "../../components/ProductTooltip";
+import ScrollToTop from "../../components/ScrollToTop";
 
 // Data Imports
 const ENCLOSURES = config.enclosures || [];

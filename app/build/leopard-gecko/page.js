@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import config from "../../../data/leopard-gecko.json";
 import ProductTooltip from "../../components/ProductTooltip";
+import ScrollToTop from "../../components/ScrollToTop";
 
 // Data Imports
 const ENCLOSURES = config.enclosures || [];
@@ -1156,6 +1157,9 @@ export default function LeopardGeckoBuilder() {
           </div>
         </div>
       </div>
+      
+      {/* Scroll to Top Button */}
+      <ScrollToTop />
     </main>
   );
 }

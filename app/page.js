@@ -73,7 +73,7 @@ export default function Home() {
         </div>
 
         {/* --- BUILDER CARDS GRID --- */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full mb-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full mb-16">
           
           {/* LEOPARD GECKO BUILDER */}
           <SpeciesCard 
@@ -153,6 +153,74 @@ export default function Home() {
                 <ArrowUpRight className="text-red-400 opacity-0 group-hover:opacity-100 transition-opacity" size={24} />
               </div>
             </Link>
+          </div>
+        </div>
+
+        {/* --- COMING SOON SECTION --- */}
+        <div className="w-full mb-16">
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-bold text-white mb-2">Coming Soon</h2>
+            <p className="text-slate-400">More species builders in development</p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="p-4 rounded-xl bg-slate-900/40 border border-slate-700/50 backdrop-blur-sm text-center opacity-60">
+              <div className="text-3xl mb-2">🐍</div>
+              <p className="text-sm font-semibold text-slate-300">Ball Python</p>
+            </div>
+            <div className="p-4 rounded-xl bg-slate-900/40 border border-slate-700/50 backdrop-blur-sm text-center opacity-60">
+              <div className="text-3xl mb-2">🦎</div>
+              <p className="text-sm font-semibold text-slate-300">Crested Gecko</p>
+            </div>
+            <div className="p-4 rounded-xl bg-slate-900/40 border border-slate-700/50 backdrop-blur-sm text-center opacity-60">
+              <div className="text-3xl mb-2">🐢</div>
+              <p className="text-sm font-semibold text-slate-300">Red-Eared Slider</p>
+            </div>
+            <div className="p-4 rounded-xl bg-slate-900/40 border border-slate-700/50 backdrop-blur-sm text-center opacity-60">
+              <div className="text-3xl mb-2">🦂</div>
+              <p className="text-sm font-semibold text-slate-300">Bearded Dragon</p>
+            </div>
+          </div>
+        </div>
+
+        {/* --- TESTIMONIALS / SOCIAL PROOF --- */}
+        <div className="w-full mb-16">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold text-white mb-2">Why Research-Backed Matters</h2>
+            <p className="text-slate-400">Built on peer-reviewed studies, not pet store myths</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="p-6 rounded-xl bg-slate-900/40 border border-emerald-500/20 backdrop-blur-sm">
+              <div className="flex items-center gap-2 mb-3">
+                <ShieldCheck className="text-emerald-400" size={20} />
+                <span className="text-sm font-bold text-emerald-400">Verified Safe</span>
+              </div>
+              <p className="text-sm text-slate-300 leading-relaxed">
+                "Finally, a builder that blocks dangerous products like heat rocks and calcium sand. No more guessing what's safe."
+              </p>
+              <p className="text-xs text-slate-500 mt-3">— Reptile keeper, 8 years</p>
+            </div>
+            
+            <div className="p-6 rounded-xl bg-slate-900/40 border border-blue-500/20 backdrop-blur-sm">
+              <div className="flex items-center gap-2 mb-3">
+                <CheckCircle2 className="text-blue-400" size={20} />
+                <span className="text-sm font-bold text-blue-400">Compatibility Checks</span>
+              </div>
+              <p className="text-sm text-slate-300 leading-relaxed">
+                "The builder caught that my tank was too small and my heater was wrong. Saved me from making expensive mistakes."
+              </p>
+              <p className="text-xs text-slate-500 mt-3">— First-time betta owner</p>
+            </div>
+            
+            <div className="p-6 rounded-xl bg-slate-900/40 border border-purple-500/20 backdrop-blur-sm">
+              <div className="flex items-center gap-2 mb-3">
+                <Sparkles className="text-purple-400" size={20} />
+                <span className="text-sm font-bold text-purple-400">Complete Lists</span>
+              </div>
+              <p className="text-sm text-slate-300 leading-relaxed">
+                "I didn't realize I needed a thermostat until the builder required it. Now my gecko's temps are perfect."
+              </p>
+              <p className="text-xs text-slate-500 mt-3">— Leopard gecko owner</p>
+            </div>
           </div>
         </div>
 

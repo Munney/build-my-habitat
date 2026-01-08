@@ -32,7 +32,7 @@ export default function FAQPage() {
         },
         {
           q: "Can I save or share my build?",
-          a: "Currently, you can share your build by copying the URL from your summary page. The URL contains all your selections, so anyone with the link can see your exact configuration. We're working on adding save functionality in the future!"
+          a: "Yes! You can save your build by clicking the bookmark icon on your summary page. Saved builds are stored locally in your browser and can be accessed from the 'My Builds' page. You can also share your build by clicking the share button - the URL contains all your selections, so anyone with the link can see your exact configuration."
         }
       ]
     },

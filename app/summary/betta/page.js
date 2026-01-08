@@ -20,6 +20,22 @@ import config from "../../../data/betta.json";
 import { analytics, trackEvent } from "../../utils/analytics";
 import { buildStorage } from "../../utils/buildStorage";
 
+// Print styles
+if (typeof window !== 'undefined') {
+  const style = document.createElement('style');
+  style.textContent = `
+    @media print {
+      body { background: white !important; }
+      nav, footer, .no-print { display: none !important; }
+      .print-page-break { page-break-after: always; }
+      .print-item { page-break-inside: avoid; }
+      * { color: black !important; background: white !important; }
+      .border { border-color: #ccc !important; }
+    }
+  `;
+  document.head.appendChild(style);
+}
+
 // 👇 REPLACE THIS WITH YOUR ACTUAL AMAZON ASSOCIATE TAG
 const AFFILIATE_TAG = "habitatbuilde-20";
 
