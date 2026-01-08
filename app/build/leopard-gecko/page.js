@@ -620,10 +620,12 @@ export default function LeopardGeckoBuilder() {
   }
 
   return (
-    <main className="relative min-h-screen pt-28 pb-20 px-6">
+    <main className="relative min-h-screen pb-20 px-6">
+      {/* Spacer for navbar */}
+      <div className="h-28"></div>
       
       {/* Horizontal Progress Bar */}
-      <div className="sticky top-[112px] z-40 mb-8 bg-slate-900/90 backdrop-blur-md border-b border-white/10 rounded-b-2xl overflow-hidden">
+      <div className="sticky top-[112px] z-40 mb-8 -mt-28 bg-slate-900/90 backdrop-blur-md border-b border-white/10 rounded-b-2xl overflow-hidden">
         <div className="h-1 bg-slate-800/50 relative">
           <div 
             className="h-full bg-gradient-to-r from-emerald-500 via-cyan-400 to-emerald-500 transition-all duration-700 ease-out shadow-lg shadow-emerald-500/30"
