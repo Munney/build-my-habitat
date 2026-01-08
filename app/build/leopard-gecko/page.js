@@ -634,7 +634,6 @@ export default function LeopardGeckoBuilder() {
                     active={enclosureId === e.id}
                     label={e.label}
                     price={e.price}
-                    sublabel={typeof e.size === "number" ? `${e.size} Gallon Equivalent` : "Custom Size"}
                     onClick={() => setEnclosureId(enclosureId === e.id ? null : e.id)}
                     type="checkbox"
                     productId={e.id}
