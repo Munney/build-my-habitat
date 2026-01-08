@@ -289,6 +289,44 @@ function SummaryContent() {
             </div>
         </div>
       </div>
+
+      {/* Name Build Dialog */}
+      {showNameDialog && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <div className="bg-slate-900 border border-white/20 rounded-2xl p-6 max-w-md w-full shadow-2xl">
+            <h3 className="text-xl font-bold text-white mb-4">Name Your Build</h3>
+            <input
+              type="text"
+              value={buildName}
+              onChange={(e) => setBuildName(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  handleSaveBuild();
+                } else if (e.key === 'Escape') {
+                  setShowNameDialog(false);
+                }
+              }}
+              placeholder="Enter build name..."
+              className="w-full px-4 py-3 rounded-xl bg-slate-800 border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 mb-4"
+              autoFocus
+            />
+            <div className="flex gap-3">
+              <button
+                onClick={handleSaveBuild}
+                className="flex-1 px-4 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold transition-colors"
+              >
+                Save
+              </button>
+              <button
+                onClick={() => setShowNameDialog(false)}
+                className="px-4 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold transition-colors"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
