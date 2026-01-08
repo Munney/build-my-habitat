@@ -39,8 +39,12 @@ if (typeof window !== 'undefined') {
         font-size: 10pt !important;
         line-height: 1.2 !important;
       }
-      nav, footer, .no-print, button, a[href^="http"] { 
+      nav, footer, .no-print, button { 
         display: none !important; 
+      }
+      a[href^="http"] {
+        text-decoration: none !important;
+        color: black !important;
       }
       main {
         padding: 0 !important;
@@ -342,8 +346,11 @@ function SummaryContent() {
                                     : "#";
 
                                 return (
-                                    <div 
+                                    <a 
                                       key={i} 
+                                      href={productLink}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
                                       className="p-5 flex items-center justify-between group hover:bg-gradient-to-r hover:from-blue-500/10 hover:to-transparent transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded-lg print-item"
                                     >
                                         <div className="flex items-center gap-4">
@@ -365,7 +372,7 @@ function SummaryContent() {
                                         <div className="font-mono font-black text-blue-400 text-lg group-hover:text-blue-300 transition-colors">
                                             ${(item.price || 0).toFixed(2)}
                                         </div>
-                                    </div>
+                                    </a>
                                 )
                             })
                         )}

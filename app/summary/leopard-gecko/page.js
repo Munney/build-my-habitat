@@ -39,8 +39,12 @@ if (typeof window !== 'undefined') {
         font-size: 10pt !important;
         line-height: 1.2 !important;
       }
-      nav, footer, .no-print, button, a[href^="http"] { 
+      nav, footer, .no-print, button { 
         display: none !important; 
+      }
+      a[href^="http"] {
+        text-decoration: none !important;
+        color: black !important;
       }
       main {
         padding: 0 !important;
@@ -318,7 +322,7 @@ function SummaryContent() {
                             const productLink = (item.asin || getAsinFromUrl(item.defaultProductUrl))
                                 ? `https://www.amazon.com/dp/${item.asin || getAsinFromUrl(item.defaultProductUrl)}?tag=${AFFILIATE_TAG}` : "#";
                             return (
-                                <div key={i} className="p-5 flex items-center justify-between group hover:bg-gradient-to-r hover:from-emerald-500/10 hover:to-transparent transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded-lg print-item">
+                                <a key={i} href={productLink} target="_blank" rel="noopener noreferrer" className="p-5 flex items-center justify-between group hover:bg-gradient-to-r hover:from-emerald-500/10 hover:to-transparent transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded-lg print-item">
                                     <div className="flex items-center gap-4">
                                         <div className="w-10 h-10 rounded-full bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center text-emerald-400 font-black text-sm border-2 border-slate-700/50 group-hover:border-emerald-500/50 group-hover:bg-gradient-to-br group-hover:from-emerald-500/20 group-hover:to-emerald-600/20 transition-all duration-300 shadow-sm">{i + 1}</div>
                                         <div>
@@ -329,7 +333,7 @@ function SummaryContent() {
                                     <div className="font-mono font-black text-emerald-400 text-lg group-hover:text-emerald-300 transition-colors">
                                         ${(item.price || 0).toFixed(2)}
                                     </div>
-                                </div>
+                                </a>
                             )
                         })}
                     </div>
