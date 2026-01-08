@@ -1488,17 +1488,18 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
               }
             }}
             onClick={(e) => e.stopPropagation()}
-            className={`w-full bg-gradient-to-b from-slate-800/80 to-slate-900/80 border-2 rounded-xl px-4 py-2.5 text-sm font-medium text-white transition-all duration-200 ${
+            className={`w-full bg-slate-900 border-2 rounded-xl px-4 py-2.5 text-sm font-medium text-slate-100 transition-all duration-200 ${
               isActive
                 ? "border-emerald-500/50 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-500/30"
                 : showRequired
                 ? "border-amber-500/50 focus:border-amber-400 focus:ring-2 focus:ring-amber-500/30"
                 : "border-slate-600/50 hover:border-slate-500 focus:border-emerald-500/50 focus:ring-2 focus:ring-emerald-500/20"
-            } focus:outline-none cursor-pointer backdrop-blur-sm`}
+            } focus:outline-none cursor-pointer`}
+            style={{ colorScheme: 'dark' }}
           >
-            <option value="">{isCheckbox && selectedVariant ? "Deselect" : "Select variant"}</option>
+            <option value="" className="bg-slate-900 text-slate-100">{isCheckbox && selectedVariant ? "Deselect" : "Select variant"}</option>
             {uniqueVariants.map(v => (
-              <option key={v.variant} value={v.variant}>
+              <option key={v.variant} value={v.variant} className="bg-slate-900 text-slate-100">
                 {v.variant}{v.tankSize ? ` (${v.tankSize})` : ''}
               </option>
             ))}

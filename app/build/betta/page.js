@@ -1082,15 +1082,16 @@ function VariantCard({ baseLabel, priceRange, colors, sizes, variants, isActive,
               value={selectedColor || ""}
               onChange={(e) => onColorChange(e.target.value)}
               onClick={(e) => e.stopPropagation()}
-              className={`w-full bg-gradient-to-b from-slate-800/80 to-slate-900/80 border-2 rounded-xl px-4 py-2.5 text-sm font-medium text-white transition-all duration-200 ${
+              className={`w-full bg-slate-900 border-2 rounded-xl px-4 py-2.5 text-sm font-medium text-slate-100 transition-all duration-200 ${
                 isActive
                   ? "border-blue-500/50 focus:border-blue-400 focus:ring-2 focus:ring-blue-500/30"
                   : "border-slate-600/50 hover:border-slate-500 focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20"
-              } focus:outline-none cursor-pointer backdrop-blur-sm`}
+              } focus:outline-none cursor-pointer`}
+              style={{ colorScheme: 'dark' }}
             >
-              <option value="">Select color</option>
+              <option value="" className="bg-slate-900 text-slate-100">Select color</option>
               {colors.map(color => (
-                <option key={color} value={color}>{color}</option>
+                <option key={color} value={color} className="bg-slate-900 text-slate-100">{color}</option>
               ))}
             </select>
           </div>
@@ -1103,15 +1104,16 @@ function VariantCard({ baseLabel, priceRange, colors, sizes, variants, isActive,
               value={selectedSize || ""}
               onChange={(e) => onSizeChange(e.target.value)}
               onClick={(e) => e.stopPropagation()}
-              className={`w-full bg-gradient-to-b from-slate-800/80 to-slate-900/80 border-2 rounded-xl px-4 py-2.5 text-sm font-medium text-white transition-all duration-200 ${
+              className={`w-full bg-slate-900 border-2 rounded-xl px-4 py-2.5 text-sm font-medium text-slate-100 transition-all duration-200 ${
                 isActive
                   ? "border-blue-500/50 focus:border-blue-400 focus:ring-2 focus:ring-blue-500/30"
                   : "border-slate-600/50 hover:border-slate-500 focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20"
-              } focus:outline-none cursor-pointer backdrop-blur-sm`}
+              } focus:outline-none cursor-pointer`}
+              style={{ colorScheme: 'dark' }}
             >
-              <option value="">Select {isSizeOnly ? "variant" : "size"}</option>
+              <option value="" className="bg-slate-900 text-slate-100">Select {isSizeOnly ? "variant" : "size"}</option>
               {sizes.map(size => (
-                <option key={size} value={size}>{size}</option>
+                <option key={size} value={size} className="bg-slate-900 text-slate-100">{size}</option>
               ))}
             </select>
           </div>
