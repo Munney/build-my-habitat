@@ -20,7 +20,7 @@ import config from "../../../data/betta.json";
 import { analytics, trackEvent } from "../../utils/analytics";
 import { buildStorage } from "../../utils/buildStorage";
 
-// Print styles - Receipt format
+// Print styles - Simple receipt format
 if (typeof window !== 'undefined') {
   const style = document.createElement('style');
   style.textContent = `
@@ -33,80 +33,69 @@ if (typeof window !== 'undefined') {
         color: black !important;
         background: white !important;
         box-shadow: none !important;
+        border: none !important;
+        border-radius: 0 !important;
       }
       body {
         background: white !important;
-        font-size: 10pt !important;
-        line-height: 1.2 !important;
+        font-size: 11pt !important;
+        font-family: Arial, sans-serif !important;
+        line-height: 1.4 !important;
       }
-      nav, footer, .no-print, button { 
-        display: none !important; 
-      }
-      a[href^="http"] {
-        text-decoration: none !important;
-        color: black !important;
+      nav, footer, .no-print, button, a[href^="http"], img, svg, .bg-gradient, .backdrop-blur {
+        display: none !important;
       }
       main {
         padding: 0 !important;
         margin: 0 !important;
+        max-width: 100% !important;
       }
-      h1, h2, h3, h4 {
-        font-size: 12pt !important;
-        margin: 0.3em 0 !important;
-        page-break-after: avoid;
-      }
-      .grid, .flex {
+      .print-receipt {
         display: block !important;
       }
-      .rounded-xl, .rounded-2xl, .rounded-3xl {
-        border-radius: 0 !important;
-        border: 1px solid #ccc !important;
-        padding: 0.5em !important;
-        margin: 0.3em 0 !important;
+      .print-receipt-header {
+        text-align: center;
+        margin-bottom: 1em;
+        border-bottom: 2px solid black;
+        padding-bottom: 0.5em;
       }
-      .p-6, .p-8, .p-4 {
-        padding: 0.5em !important;
+      .print-receipt-header h1 {
+        font-size: 16pt !important;
+        font-weight: bold !important;
+        margin: 0 0 0.3em 0 !important;
       }
-      .mb-8, .mb-10, .mb-12 {
-        margin-bottom: 0.5em !important;
+      .print-receipt-items {
+        margin: 1em 0;
       }
-      .mt-4, .mt-6, .mt-8 {
-        margin-top: 0.3em !important;
+      .print-receipt-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.3em 0;
+        border-bottom: 1px solid #ddd;
+        font-size: 11pt !important;
       }
-      .gap-4, .gap-6, .gap-8 {
-        gap: 0.3em !important;
+      .print-receipt-item-name {
+        flex: 1;
       }
-      .text-4xl, .text-5xl {
+      .print-receipt-item-price {
+        font-weight: bold;
+        margin-left: 1em;
+      }
+      .print-receipt-total {
+        margin-top: 1em;
+        padding-top: 0.5em;
+        border-top: 2px solid black;
+        display: flex;
+        justify-content: space-between;
         font-size: 14pt !important;
+        font-weight: bold !important;
       }
-      .text-2xl, .text-3xl {
-        font-size: 12pt !important;
+      /* Show receipt, hide everything else */
+      .print-receipt-only {
+        display: block !important;
       }
-      .text-lg {
-        font-size: 10pt !important;
-      }
-      .text-sm {
-        font-size: 9pt !important;
-      }
-      .text-xs {
-        font-size: 8pt !important;
-      }
-      .space-y-3 > * + *, .space-y-4 > * + * {
-        margin-top: 0.3em !important;
-      }
-      .space-y-6 > * + * {
-        margin-top: 0.5em !important;
-      }
-      img {
+      .print-receipt-only-hidden {
         display: none !important;
-      }
-      .print-item {
-        page-break-inside: avoid;
-        border-bottom: 1px solid #ddd !important;
-        padding: 0.3em 0 !important;
-      }
-      .print-item:last-child {
-        border-bottom: none !important;
       }
     }
   `;
@@ -249,7 +238,7 @@ function SummaryContent() {
       <div className="relative z-10 max-w-5xl mx-auto">
         
         {/* Receipt Format (Print Only) */}
-        <div className="print-receipt-only print-receipt hidden">
+        <div className="print-receipt-only print-receipt" style={{ display: 'none' }}>
           <div className="print-receipt-header">
             <h1>Final Betta Build</h1>
             <p>Verified configuration ID: #{Math.floor(Math.random() * 99999)}</p>
