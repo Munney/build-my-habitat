@@ -58,6 +58,8 @@ function SummaryContent() {
   const router = useRouter();
   const [linkCopied, setLinkCopied] = useState(false);
   const [buildSaved, setBuildSaved] = useState(false);
+  const [showNameDialog, setShowNameDialog] = useState(false);
+  const [buildName, setBuildName] = useState("");
 
   const selections = useMemo(() => {
     const get = (key, list) => {
@@ -138,14 +140,21 @@ function SummaryContent() {
     }
   };
 
+  const handleSaveClick = () => {
+    // Set default name
+    setBuildName(`Leopard Gecko Build - $${total}`);
+    setShowNameDialog(true);
+  };
+
   const handleSaveBuild = () => {
     const buildData = buildStorage.createBuildData("leopard-gecko", selections, total, allItems);
     buildData.shareUrl = window.location.href;
-    buildData.name = `Leopard Gecko Build - $${total}`;
+    buildData.name = buildName.trim() || `Leopard Gecko Build - $${total}`;
     
     const buildId = buildStorage.saveBuild(buildData);
     if (buildId) {
       setBuildSaved(true);
+      setShowNameDialog(false);
       trackEvent("build_saved", { species: "leopard-gecko", build_id: buildId });
     }
   };
@@ -186,7 +195,7 @@ function SummaryContent() {
                )}
              </div>
              <button 
-                onClick={handleSaveBuild}
+                onClick={handleSaveClick}
                 disabled={buildSaved}
                 className={`p-3 rounded-xl border transition-colors ${
                   buildSaved 
