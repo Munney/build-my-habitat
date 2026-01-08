@@ -5,7 +5,7 @@ export default function robots() {
       allow: '/',
       disallow: ['/api/', '/_next/'],
     },
-    sitemap: 'https://www.buildmyhabitat.com/sitemap.xml',
+    sitemap: 'https://www.buildmyhabitat.com/sitemap',
   };
 }
 
