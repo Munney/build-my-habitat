@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { analytics } from "../../utils/analytics";
 import {
@@ -19,7 +19,9 @@ import {
   ShieldCheck,
   Unlock,
   ChevronDown,
-  AlertCircle
+  AlertCircle,
+  Menu,
+  X
 } from "lucide-react";
 // 👇 Verify this path matches your folder structure
 import config from "../../../data/betta.json";
@@ -102,10 +104,35 @@ function groupVariants(products) {
 
 export default function BettaBuilder() {
   const router = useRouter();
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState(null);
+  const [visibleSections, setVisibleSections] = useState(new Set());
+  const sectionRefs = useRef({});
 
   // Track builder start
   useEffect(() => {
     analytics.trackBuilderStart("betta");
+  }, []);
+
+  // Scroll animations and section tracking
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisibleSections((prev) => new Set([...prev, entry.target.id]));
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: "-100px 0px -100px 0px" }
+    );
+
+    Object.values(sectionRefs.current).forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   // --- STATE ---
@@ -205,17 +232,40 @@ export default function BettaBuilder() {
   // --- PROGRESS CALCULATION ---
   const progress = useMemo(() => {
     let score = 0;
-    const totalSteps = 6; 
+    const totalSteps = 7; // Experience + 6 sections
     
+    if (experience) score++;
     if (enclosureId) score++;
     if (filtrationId) score++;
-    if (heaterId || hasThermometer) score++;
+    if (heaterId && hasThermometer) score++;
     if (substrateId) score++;
     if (decorIds.length > 0) score++;
     if (careIds.length > 0) score++;
 
     return Math.round((score / totalSteps) * 100);
-  }, [enclosureId, filtrationId, heaterId, hasThermometer, substrateId, decorIds, careIds]);
+  }, [experience, enclosureId, filtrationId, heaterId, hasThermometer, substrateId, decorIds, careIds]);
+
+  // Section completion tracking
+  const sectionCompletion = useMemo(() => ({
+    experience: !!experience,
+    enclosure: !!enclosureId,
+    filtration: !!filtrationId,
+    temperature: !!heaterId && hasThermometer,
+    substrate: !!substrateId,
+    decor: decorIds.length > 0,
+    watercare: careIds.length > 0,
+  }), [experience, enclosureId, filtrationId, heaterId, hasThermometer, substrateId, decorIds, careIds]);
+
+  // Section navigation data
+  const sections = [
+    { id: 'experience', title: 'Keeper Level', icon: Target },
+    { id: 'enclosure', title: 'Tank Size', icon: Box },
+    { id: 'filtration', title: 'Filtration', icon: Waves },
+    { id: 'temperature', title: 'Temperature', icon: Thermometer },
+    { id: 'substrate', title: 'Substrate', icon: Droplets },
+    { id: 'decor', title: 'Plants & Decor', icon: Sprout },
+    { id: 'watercare', title: 'Water Prep', icon: Droplets },
+  ];
 
   // --- COMPATIBILITY CHECKS ---
   const checks = useMemo(() => {
@@ -319,8 +369,68 @@ export default function BettaBuilder() {
     router.push(`/summary/betta?${params.toString()}`);
   }
 
+  const scrollToSection = (sectionId) => {
+    const section = sectionRefs.current[sectionId];
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <main className="relative min-h-screen pt-28 pb-20 px-6">
+      
+      {/* Horizontal Progress Bar */}
+      <div className="sticky top-28 z-40 mb-8 bg-slate-900/90 backdrop-blur-md border-b border-white/10 rounded-b-2xl overflow-hidden">
+        <div className="h-1 bg-slate-800/50 relative">
+          <div 
+            className="h-full bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-500 transition-all duration-700 ease-out shadow-lg shadow-blue-500/30"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+        <div className="px-6 py-3 flex items-center justify-between">
+          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Build Progress</span>
+          <span className="text-sm font-black text-blue-400">{progress}%</span>
+        </div>
+      </div>
+
+      {/* Sticky Section Quick-Nav (Desktop) */}
+      <div className="hidden lg:block fixed right-8 top-1/2 -translate-y-1/2 z-30">
+        <div className="bg-slate-900/90 backdrop-blur-md border border-white/10 rounded-2xl p-2 shadow-2xl">
+          <nav className="space-y-1">
+            {sections.map((section) => {
+              const Icon = section.icon;
+              const isCompleted = sectionCompletion[section.id];
+              const isActive = activeSection === section.id;
+              
+              return (
+                <button
+                  key={section.id}
+                  onClick={() => scrollToSection(section.id)}
+                  className={`group relative w-full p-3 rounded-xl transition-all duration-300 flex items-center gap-2 ${
+                    isActive
+                      ? "bg-blue-500/20 border border-blue-500/50 shadow-lg shadow-blue-500/20"
+                      : "hover:bg-white/5 border border-transparent"
+                  }`}
+                  title={section.title}
+                >
+                  <Icon size={16} className={isActive ? "text-blue-400" : isCompleted ? "text-emerald-400" : "text-slate-500"} />
+                  {isCompleted && !isActive && (
+                    <CheckCircle2 size={12} className="text-emerald-400 absolute -top-1 -right-1 bg-slate-900 rounded-full" />
+                  )}
+                </button>
+              );
+            })}
+          </nav>
+        </div>
+      </div>
+
+      {/* Mobile Sidebar Toggle */}
+      <button
+        onClick={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)}
+        className="lg:hidden fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-2xl shadow-blue-500/50 flex items-center justify-center border-2 border-blue-400/30 hover:scale-110 transition-transform"
+      >
+        {isMobileSidebarOpen ? <X size={24} /> : <ShoppingCart size={24} />}
+      </button>
       
       {/* --- CONTENT CONTAINER --- */}
       <div className="relative z-10 max-w-7xl mx-auto">
@@ -342,8 +452,8 @@ export default function BettaBuilder() {
                 </p>
             </div>
 
-            {/* Progress Radial */}
-            <div className="flex items-center gap-4 bg-slate-900/60 backdrop-blur-md p-4 rounded-2xl border border-white/10 shadow-xl">
+            {/* Progress Radial (Desktop) */}
+            <div className="hidden md:flex items-center gap-4 bg-slate-900/60 backdrop-blur-md p-4 rounded-2xl border border-white/10 shadow-xl">
                 <div className="text-right">
                     <p className="text-[10px] uppercase font-bold text-slate-400 tracking-widest">Build Status</p>
                     <p className="text-xl font-black text-white">{progress}% Ready</p>
@@ -364,7 +474,13 @@ export default function BettaBuilder() {
           <div className="space-y-10">
             
             {/* 1. Experience Level */}
-            <Section title="1. Keeper Level" icon={<Target className={experience ? "text-blue-400" : "text-slate-400"} />}>
+            <Section 
+              title="1. Keeper Level" 
+              icon={<Target />}
+              sectionId="experience"
+              isCompleted={sectionCompletion.experience}
+              sectionRef={(el) => { if (el) sectionRefs.current.experience = el; }}
+            >
               <div className="grid grid-cols-2 gap-4">
                 
                 {/* BEGINNER BUTTON */}
@@ -409,8 +525,11 @@ export default function BettaBuilder() {
             {/* 2. Enclosure */}
             <Section 
               title="2. Tank Size" 
-              icon={<Box className={enclosureId ? "text-blue-400" : "text-slate-400"} />}
+              icon={<Box />}
               description="Choose the right size tank. Minimum 5 gallons required for bettas. Larger tanks provide better water stability and enrichment."
+              sectionId="enclosure"
+              isCompleted={sectionCompletion.enclosure}
+              sectionRef={(el) => { if (el) sectionRefs.current.enclosure = el; }}
             >
               {!experience && (
                   <div className="mb-4 p-3 bg-blue-500/10 border border-blue-500/20 text-blue-200 text-xs rounded-xl flex items-center gap-2">
@@ -444,8 +563,11 @@ export default function BettaBuilder() {
             {/* 3. Filtration */}
             <Section 
               title="3. Filtration" 
-              icon={<Waves className={filtrationId ? "text-blue-400" : "text-slate-400"} />}
+              icon={<Waves />}
               description="Filters are essential for the nitrogen cycle. They remove toxic ammonia and provide biological filtration. Sponge filters are ideal for bettas."
+              sectionId="filtration"
+              isCompleted={sectionCompletion.filtration}
+              sectionRef={(el) => { if (el) sectionRefs.current.filtration = el; }}
             >
               {!filtrationId && (
                 <div className="mb-4 p-4 bg-amber-500/20 border-2 border-amber-500/70 rounded-xl flex items-center gap-3 shadow-lg shadow-amber-500/20" role="alert">
@@ -474,8 +596,11 @@ export default function BettaBuilder() {
             {/* 4. Heating */}
             <Section 
               title="4. Temperature" 
-              icon={<Thermometer className={heaterId || hasThermometer ? "text-blue-400" : "text-slate-400"} />}
+              icon={<Thermometer />}
               description="Bettas are tropical fish and need 78-80°F. A heater is required. A thermometer helps monitor temperature."
+              sectionId="temperature"
+              isCompleted={sectionCompletion.temperature}
+              sectionRef={(el) => { if (el) sectionRefs.current.temperature = el; }}
             >
               {!heaterId && (
                 <div className="mb-4 p-4 bg-amber-500/20 border-2 border-amber-500/70 rounded-xl flex items-center gap-3 shadow-lg shadow-amber-500/20" role="alert">
@@ -520,8 +645,11 @@ export default function BettaBuilder() {
             {/* 5. Substrate */}
             <Section 
               title="5. Substrate" 
-              icon={<Droplets className={substrateId ? "text-blue-400" : "text-slate-400"} />}
+              icon={<Droplets />}
               description="Choose a safe substrate. Gravel and sand are popular choices. Active plant soil is best for live plants. Bare bottom is easiest to clean."
+              sectionId="substrate"
+              isCompleted={sectionCompletion.substrate}
+              sectionRef={(el) => { if (el) sectionRefs.current.substrate = el; }}
             >
               {!substrateId && (
                 <div className="mb-4 p-4 bg-amber-500/20 border-2 border-amber-500/70 rounded-xl flex items-center gap-3 shadow-lg shadow-amber-500/20" role="alert">
@@ -547,8 +675,11 @@ export default function BettaBuilder() {
             {/* 6. Decor & Plants */}
             <Section 
               title="6. Plants & Decor" 
-              icon={<Sprout className={decorIds.length ? "text-blue-400" : "text-slate-400"} />}
+              icon={<Sprout />}
               description="Plants provide hiding spots and enrichment. Live plants help clean the water. Avoid plastic plants - they tear betta fins. Silk plants are safe alternatives."
+              sectionId="decor"
+              isCompleted={sectionCompletion.decor}
+              sectionRef={(el) => { if (el) sectionRefs.current.decor = el; }}
             >
               <DecorSection
                 decor={filteredDecor}
@@ -568,8 +699,11 @@ export default function BettaBuilder() {
              {/* 7. Water Care */}
              <Section 
                title="7. Water Prep" 
-               icon={<Droplets className={careIds.length ? "text-blue-400" : "text-slate-400"} />}
+               icon={<Droplets />}
                description="Water conditioner removes toxic chlorine. Test kits monitor water quality. Beneficial bacteria helps establish the nitrogen cycle faster."
+               sectionId="watercare"
+               isCompleted={sectionCompletion.watercare}
+               sectionRef={(el) => { if (el) sectionRefs.current.watercare = el; }}
              >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {WATERCARE.map((w) => (
@@ -589,8 +723,8 @@ export default function BettaBuilder() {
 
           </div>
 
-          {/* --- RIGHT: HUD SIDEBAR --- */}
-          <aside className="lg:sticky lg:top-28 h-fit space-y-6">
+          {/* --- RIGHT: HUD SIDEBAR (Desktop) --- */}
+          <aside className="hidden lg:block lg:sticky lg:top-40 h-fit space-y-6">
             
             {/* Inventory HUD */}
             <div className="bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
@@ -604,7 +738,7 @@ export default function BettaBuilder() {
               </div>
 
               <div className="p-5">
-                <div className="space-y-3 mb-6 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+                <div className="space-y-2 mb-6 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
                   {allSelectedItems.length === 0 ? (
                     <div className="text-center py-12 opacity-60 animate-pulse">
                         <div className="mx-auto w-16 h-16 border-2 border-dashed border-slate-500/50 rounded-2xl mb-4 flex items-center justify-center bg-slate-800/30 backdrop-blur-sm">
@@ -614,15 +748,22 @@ export default function BettaBuilder() {
                         <p className="text-xs text-slate-500">Select items from the sections below</p>
                     </div>
                   ) : (
-                    allSelectedItems.map((item) => (
-                        <div key={item.id} className="flex justify-between text-sm group">
-                            <span className="text-slate-300 group-hover:text-white transition-colors">
+                    allSelectedItems.map((item, index) => (
+                        <div 
+                          key={item.id} 
+                          className="group relative p-3 rounded-xl bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700/50 hover:border-blue-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10"
+                          style={{ animation: `fadeInSlide 0.3s ease-out ${index * 50}ms forwards` }}
+                        >
+                          <div className="flex items-start justify-between gap-3">
+                            <div className="flex-1 min-w-0">
+                              <p className="text-sm font-medium text-slate-200 group-hover:text-white transition-colors line-clamp-2">
                                 {item.label}
-                            </span>
-                            <span className="font-mono text-blue-400 opacity-80 group-hover:opacity-100">
-                                {/* 👇 FIX: Individual item price */}
+                              </p>
+                            </div>
+                            <span className="font-mono text-sm font-bold text-blue-400 shrink-0">
                                 ${(item.price || 0).toFixed(2)}
                             </span>
+                          </div>
                         </div>
                     ))
                   )}
@@ -688,6 +829,85 @@ export default function BettaBuilder() {
             </div>
           </aside>
         </div>
+
+        {/* --- MOBILE BOTTOM SIDEBAR --- */}
+        <div 
+          className={`lg:hidden fixed inset-x-0 bottom-0 z-50 bg-slate-900/95 backdrop-blur-xl border-t border-white/10 shadow-2xl transition-transform duration-300 ease-out ${
+            isMobileSidebarOpen ? 'translate-y-0' : 'translate-y-full'
+          }`}
+          style={{ maxHeight: '70vh' }}
+        >
+          <div className="p-4 border-b border-white/10 flex justify-between items-center">
+            <h3 className="font-bold flex items-center gap-2 text-white">
+              <ShoppingCart size={18} className="text-blue-400" /> Inventory
+            </h3>
+            <div className="flex items-center gap-3">
+              <span className="text-xs font-mono text-blue-400 bg-blue-500/10 px-2 py-1 rounded border border-blue-500/20">
+                  {allSelectedItems.length} ITEMS
+              </span>
+              <button
+                onClick={() => setIsMobileSidebarOpen(false)}
+                className="p-2 rounded-lg hover:bg-white/10 transition-colors"
+              >
+                <X size={20} className="text-slate-400" />
+              </button>
+            </div>
+          </div>
+
+          <div className="p-4 overflow-y-auto" style={{ maxHeight: 'calc(70vh - 120px)' }}>
+            <div className="space-y-2 mb-4">
+              {allSelectedItems.length === 0 ? (
+                <div className="text-center py-12 opacity-60">
+                  <div className="mx-auto w-16 h-16 border-2 border-dashed border-slate-500/50 rounded-2xl mb-4 flex items-center justify-center bg-slate-800/30">
+                    <ShoppingCart size={24} className="text-slate-500" />
+                  </div>
+                  <p className="text-sm font-medium text-slate-400 mb-1">Your build will appear here</p>
+                  <p className="text-xs text-slate-500">Select items from the sections above</p>
+                </div>
+              ) : (
+                allSelectedItems.map((item, index) => (
+                  <div 
+                    key={item.id} 
+                    className="group p-3 rounded-xl bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700/50 hover:border-blue-500/50 transition-all duration-300"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-slate-200 group-hover:text-white transition-colors">
+                          {item.label}
+                        </p>
+                      </div>
+                      <span className="font-mono text-sm font-bold text-blue-400 shrink-0">
+                          ${(item.price || 0).toFixed(2)}
+                      </span>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+
+            <div className="border-t border-white/10 pt-4 mb-4">
+              <div className="flex justify-between items-end mb-4">
+                <span className="text-slate-400 text-sm font-bold uppercase tracking-wider">Estimate</span>
+                <span className="text-3xl font-black text-white tracking-tight">${totalPrice.toFixed(2)}</span>
+              </div>
+
+              <button
+                onClick={() => {
+                  goToSummary();
+                  setIsMobileSidebarOpen(false);
+                }}
+                disabled={allSelectedItems.length === 0}
+                className={`w-full py-4 rounded-xl font-black text-lg flex items-center justify-center gap-2 transition-all duration-300 ${
+                  allSelectedItems.length === 0 
+                      ? "bg-slate-800/50 text-slate-500 cursor-not-allowed border border-slate-700/50" 
+                      : "bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white border-2 border-blue-400/30 hover:border-blue-300/50 shadow-lg shadow-blue-900/30"
+                }`}
+              >
+                Generate List <ArrowRight size={20} className="drop-shadow-sm" />
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
   );
@@ -695,16 +915,33 @@ export default function BettaBuilder() {
 
 /* ---------- UI COMPONENTS (Adapted for Blue Theme) ---------- */
 
-function Section({ title, icon, description, children }) {
+function Section({ title, icon, description, children, sectionId, isCompleted, sectionRef }) {
     return (
-        <section className="relative bg-gradient-to-br from-slate-900/80 via-slate-900/60 to-slate-900/80 backdrop-blur-md p-8 rounded-3xl border-2 border-white/10 shadow-xl overflow-hidden">
+        <section 
+          id={sectionId}
+          ref={sectionRef}
+          className={`relative bg-gradient-to-br from-slate-900/80 via-slate-900/60 to-slate-900/80 backdrop-blur-md p-8 rounded-3xl border-2 shadow-xl overflow-hidden transition-all duration-500 ${
+            isCompleted ? 'border-blue-500/50' : 'border-white/10'
+          }`}
+        >
             {/* Subtle background gradient */}
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-transparent pointer-events-none" />
             
+            {/* Completion indicator */}
+            {isCompleted && (
+              <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center border-2 border-emerald-400/50 shadow-lg shadow-emerald-500/30 z-10">
+                <CheckCircle2 size={16} className="text-white" />
+              </div>
+            )}
+            
             <div className="relative mb-6">
                 <h2 className="text-2xl font-black text-white mb-3 flex items-center gap-4">
-                    <div className="p-3 bg-gradient-to-br from-blue-500/20 to-blue-600/20 rounded-xl border-2 border-blue-500/30 shadow-lg shadow-blue-500/10">
-                        <div className="text-blue-400">
+                    <div className={`p-3 bg-gradient-to-br rounded-xl border-2 shadow-lg transition-all duration-300 ${
+                      isCompleted 
+                        ? 'from-emerald-500/20 to-emerald-600/20 border-emerald-500/30 shadow-emerald-500/10' 
+                        : 'from-blue-500/20 to-blue-600/20 border-blue-500/30 shadow-blue-500/10'
+                    }`}>
+                        <div className={isCompleted ? "text-emerald-400" : "text-blue-400"}>
                             {icon}
                         </div>
                     </div>

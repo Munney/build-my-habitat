@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
+import { analytics } from "../../utils/analytics";
 import {
   ChevronLeft,
   CheckCircle2,
@@ -17,7 +18,10 @@ import {
   Zap,
   ShieldCheck,
   Unlock,
-  AlertCircle
+  AlertCircle,
+  Menu,
+  X,
+  Sun
 } from "lucide-react";
 import config from "../../../data/leopard-gecko.json";
 import ProductTooltip from "../../components/ProductTooltip";
@@ -272,6 +276,36 @@ function sortVariantsByTankSize(variants) {
 
 export default function LeopardGeckoBuilder() {
   const router = useRouter();
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState(null);
+  const [visibleSections, setVisibleSections] = useState(new Set());
+  const sectionRefs = useRef({});
+
+  // Track builder start
+  useEffect(() => {
+    analytics.trackBuilderStart("leopard-gecko");
+  }, []);
+
+  // Scroll animations and section tracking
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisibleSections((prev) => new Set([...prev, entry.target.id]));
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: "-100px 0px -100px 0px" }
+    );
+
+    Object.values(sectionRefs.current).forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   // Sort enclosures by size (10, 15, 20, 35, 40, 120)
   const sortedEnclosures = useMemo(() => {
@@ -429,8 +463,9 @@ export default function LeopardGeckoBuilder() {
   // --- PROGRESS CALCULATION ---
   const progress = useMemo(() => {
     let score = 0;
-    const totalSteps = 5; 
+    const totalSteps = 6; // Experience + 5 sections
     
+    if (experience) score++;
     if (enclosureId) score++;
     if (heatingIds.length > 0) score++;
     if (substrateIds.length > 0) score++;
@@ -438,7 +473,34 @@ export default function LeopardGeckoBuilder() {
     if (supplementIds.length > 0) score++;
 
     return Math.round((score / totalSteps) * 100);
-  }, [enclosureId, heatingIds, substrateIds, hideIds, supplementIds]);
+  }, [experience, enclosureId, heatingIds, substrateIds, hideIds, supplementIds]);
+
+  // Section completion tracking
+  const sectionCompletion = useMemo(() => ({
+    experience: !!experience,
+    enclosure: !!enclosureId,
+    heating: heatingIds.length > 0,
+    substrate: substrateIds.length > 0,
+    hides: hideIds.length > 0,
+    supplements: supplementIds.length > 0,
+  }), [experience, enclosureId, heatingIds, substrateIds, hideIds, supplementIds]);
+
+  // Section navigation data
+  const sections = [
+    { id: 'experience', title: 'Experience Level', icon: Target },
+    { id: 'enclosure', title: 'Enclosure Size', icon: Box },
+    { id: 'heating', title: 'Heating & Control', icon: Thermometer },
+    { id: 'substrate', title: 'Floor & Substrate', icon: Layers },
+    { id: 'hides', title: 'Hides & Enrichment', icon: HomeIcon },
+    { id: 'supplements', title: 'Feeding', icon: Zap },
+  ];
+
+  const scrollToSection = (sectionId) => {
+    const section = sectionRefs.current[sectionId];
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   // --- COMPATIBILITY CHECKS ---
   const checks = useMemo(() => {
@@ -545,6 +607,60 @@ export default function LeopardGeckoBuilder() {
 
   return (
     <main className="relative min-h-screen pt-28 pb-20 px-6">
+      
+      {/* Horizontal Progress Bar */}
+      <div className="sticky top-28 z-40 mb-8 bg-slate-900/90 backdrop-blur-md border-b border-white/10 rounded-b-2xl overflow-hidden">
+        <div className="h-1 bg-slate-800/50 relative">
+          <div 
+            className="h-full bg-gradient-to-r from-emerald-500 via-cyan-400 to-emerald-500 transition-all duration-700 ease-out shadow-lg shadow-emerald-500/30"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+        <div className="px-6 py-3 flex items-center justify-between">
+          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Build Progress</span>
+          <span className="text-sm font-black text-emerald-400">{progress}%</span>
+        </div>
+      </div>
+
+      {/* Sticky Section Quick-Nav (Desktop) */}
+      <div className="hidden lg:block fixed right-8 top-1/2 -translate-y-1/2 z-30">
+        <div className="bg-slate-900/90 backdrop-blur-md border border-white/10 rounded-2xl p-2 shadow-2xl">
+          <nav className="space-y-1">
+            {sections.map((section) => {
+              const Icon = section.icon;
+              const isCompleted = sectionCompletion[section.id];
+              const isActive = activeSection === section.id;
+              
+              return (
+                <button
+                  key={section.id}
+                  onClick={() => scrollToSection(section.id)}
+                  className={`group relative w-full p-3 rounded-xl transition-all duration-300 flex items-center gap-2 ${
+                    isActive
+                      ? "bg-emerald-500/20 border border-emerald-500/50 shadow-lg shadow-emerald-500/20"
+                      : "hover:bg-white/5 border border-transparent"
+                  }`}
+                  title={section.title}
+                >
+                  <Icon size={16} className={isActive ? "text-emerald-400" : isCompleted ? "text-emerald-400" : "text-slate-500"} />
+                  {isCompleted && !isActive && (
+                    <CheckCircle2 size={12} className="text-emerald-400 absolute -top-1 -right-1 bg-slate-900 rounded-full" />
+                  )}
+                </button>
+              );
+            })}
+          </nav>
+        </div>
+      </div>
+
+      {/* Mobile Sidebar Toggle */}
+      <button
+        onClick={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)}
+        className="lg:hidden fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-gradient-to-r from-emerald-600 to-emerald-500 text-white shadow-2xl shadow-emerald-500/50 flex items-center justify-center border-2 border-emerald-400/30 hover:scale-110 transition-transform"
+      >
+        {isMobileSidebarOpen ? <X size={24} /> : <ShoppingCart size={24} />}
+      </button>
+
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
             <div>
@@ -562,7 +678,8 @@ export default function LeopardGeckoBuilder() {
                 </p>
             </div>
 
-            <div className="flex items-center gap-4 bg-slate-900/60 backdrop-blur-md p-4 rounded-2xl border border-white/10 shadow-xl">
+            {/* Progress Radial (Desktop) */}
+            <div className="hidden md:flex items-center gap-4 bg-slate-900/60 backdrop-blur-md p-4 rounded-2xl border border-white/10 shadow-xl">
                 <div className="text-right">
                     <p className="text-[10px] uppercase font-bold text-slate-400 tracking-widest">Build Status</p>
                     <p className="text-xl font-black text-white">{progress}% Ready</p>
@@ -579,7 +696,13 @@ export default function LeopardGeckoBuilder() {
 
         <div className="grid gap-8 lg:grid-cols-[1fr,360px] xl:grid-cols-[1fr,400px]">
           <div className="space-y-10">
-            <Section title="1. Keeper Level" icon={<Target className={experience ? "text-emerald-400" : "text-slate-400"} />}>
+            <Section 
+              title="1. Keeper Level" 
+              icon={<Target />}
+              sectionId="experience"
+              isCompleted={sectionCompletion.experience}
+              sectionRef={(el) => { if (el) sectionRefs.current.experience = el; }}
+            >
               <div className="grid grid-cols-2 gap-4">
                 <button
                     onClick={() => setExperience("beginner")}
@@ -618,8 +741,11 @@ export default function LeopardGeckoBuilder() {
 
             <Section 
               title="2. Enclosure Size" 
-              icon={<Box className={enclosureId ? "text-emerald-400" : "text-slate-400"} />}
+              icon={<Box />}
               description="Choose the right size tank. Minimum 20 gallons required for adult geckos. Larger enclosures allow for better enrichment and natural behaviors."
+              sectionId="enclosure"
+              isCompleted={sectionCompletion.enclosure}
+              sectionRef={(el) => { if (el) sectionRefs.current.enclosure = el; }}
             >
               {!enclosureId && (
                 <div className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
@@ -645,8 +771,11 @@ export default function LeopardGeckoBuilder() {
 
             <Section 
               title="3. Heating & Control" 
-              icon={<Thermometer className={heatingIds.length ? "text-emerald-400" : "text-slate-400"} />}
+              icon={<Thermometer />}
               description="Geckos need a basking area of 88-92°F. You must select a primary heat source (halogen or DHP) and a thermostat to prevent burns."
+              sectionId="heating"
+              isCompleted={sectionCompletion.heating}
+              sectionRef={(el) => { if (el) sectionRefs.current.heating = el; }}
             >
               <HeatingSection 
                 heating={HEATING}
@@ -689,8 +818,11 @@ export default function LeopardGeckoBuilder() {
 
             <Section 
               title="4. Floor & Substrate" 
-              icon={<Layers className={substrateIds.length ? "text-emerald-400" : "text-slate-400"} />}
+              icon={<Layers />}
               description="Choose a safe substrate for your gecko. Beginners should use solid substrates (paper towels, slate, carpet). Loose substrates require experience."
+              sectionId="substrate"
+              isCompleted={sectionCompletion.substrate}
+              sectionRef={(el) => { if (el) sectionRefs.current.substrate = el; }}
             >
               {!experience && (
                   <div className="mb-4 p-3 bg-amber-500/10 border border-amber-500/20 text-amber-200 text-xs rounded-xl flex items-center gap-2">
@@ -744,8 +876,11 @@ export default function LeopardGeckoBuilder() {
 
             <Section 
               title="5. Hides & Decor" 
-              icon={<HomeIcon className={hideIds.length ? "text-emerald-400" : "text-slate-400"} />}
+              icon={<HomeIcon />}
               description="Geckos need at least 3 hides: warm hide (hot side), cool hide (cool side), and humid hide (for shedding). Additional decor provides enrichment."
+              sectionId="hides"
+              isCompleted={sectionCompletion.hides}
+              sectionRef={(el) => { if (el) sectionRefs.current.hides = el; }}
             >
               <HidesSection
                 hides={HIDES}
@@ -787,8 +922,11 @@ export default function LeopardGeckoBuilder() {
 
             <Section 
               title="6. Vitamin Support" 
-              icon={<Zap className={supplementIds.length ? "text-emerald-400" : "text-slate-400"} />}
+              icon={<Zap />}
               description="Essential for bone health. Use calcium with D3 if no UVB, or pure calcium if using UVB. Multivitamin prevents nutritional deficiencies."
+              sectionId="supplements"
+              isCompleted={sectionCompletion.supplements}
+              sectionRef={(el) => { if (el) sectionRefs.current.supplements = el; }}
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {SUPPLEMENTS.map((s) => (
@@ -806,7 +944,7 @@ export default function LeopardGeckoBuilder() {
             </Section>
           </div>
 
-          <aside className="lg:sticky lg:top-28 h-fit space-y-6">
+          <aside className="hidden lg:block lg:sticky lg:top-40 h-fit space-y-6">
             <div className="bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
               <div className="p-5 border-b border-white/10 bg-white/5 flex justify-between items-center">
                 <h3 className="font-bold flex items-center gap-2 text-white">
@@ -818,7 +956,7 @@ export default function LeopardGeckoBuilder() {
               </div>
 
               <div className="p-5">
-                <div className="space-y-3 mb-6 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+                <div className="space-y-2 mb-6 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
                   {allSelectedItems.length === 0 ? (
                     <div className="text-center py-12 opacity-60 animate-pulse">
                         <div className="mx-auto w-16 h-16 border-2 border-dashed border-slate-500/50 rounded-2xl mb-4 flex items-center justify-center bg-slate-800/30 backdrop-blur-sm">
@@ -828,15 +966,22 @@ export default function LeopardGeckoBuilder() {
                         <p className="text-xs text-slate-500">Select items from the sections below</p>
                     </div>
                   ) : (
-                    allSelectedItems.map((item) => (
-                        <div key={item.id} className="flex justify-between text-sm group">
-                            <span className="text-slate-300 group-hover:text-white transition-colors">
+                    allSelectedItems.map((item, index) => (
+                        <div 
+                          key={item.id} 
+                          className="group relative p-3 rounded-xl bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700/50 hover:border-emerald-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/10"
+                          style={{ animation: `fadeInSlide 0.3s ease-out ${index * 50}ms forwards` }}
+                        >
+                          <div className="flex items-start justify-between gap-3">
+                            <div className="flex-1 min-w-0">
+                              <p className="text-sm font-medium text-slate-200 group-hover:text-white transition-colors line-clamp-2">
                                 {item.label}
-                            </span>
-                            <span className="font-mono text-emerald-400 opacity-80 group-hover:opacity-100">
-                                {/* 👇 FIXED: Individual Item Price */}
+                              </p>
+                            </div>
+                            <span className="font-mono text-sm font-bold text-emerald-400 shrink-0">
                                 ${(item.price || 0).toFixed(2)}
                             </span>
+                          </div>
                         </div>
                     ))
                   )}
@@ -901,6 +1046,85 @@ export default function LeopardGeckoBuilder() {
             </div>
           </aside>
         </div>
+
+        {/* --- MOBILE BOTTOM SIDEBAR --- */}
+        <div 
+          className={`lg:hidden fixed inset-x-0 bottom-0 z-50 bg-slate-900/95 backdrop-blur-xl border-t border-white/10 shadow-2xl transition-transform duration-300 ease-out ${
+            isMobileSidebarOpen ? 'translate-y-0' : 'translate-y-full'
+          }`}
+          style={{ maxHeight: '70vh' }}
+        >
+          <div className="p-4 border-b border-white/10 flex justify-between items-center">
+            <h3 className="font-bold flex items-center gap-2 text-white">
+              <ShoppingCart size={18} className="text-emerald-400" /> Inventory
+            </h3>
+            <div className="flex items-center gap-3">
+              <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded border border-emerald-500/20">
+                  {allSelectedItems.length} ITEMS
+              </span>
+              <button
+                onClick={() => setIsMobileSidebarOpen(false)}
+                className="p-2 rounded-lg hover:bg-white/10 transition-colors"
+              >
+                <X size={20} className="text-slate-400" />
+              </button>
+            </div>
+          </div>
+
+          <div className="p-4 overflow-y-auto" style={{ maxHeight: 'calc(70vh - 120px)' }}>
+            <div className="space-y-2 mb-4">
+              {allSelectedItems.length === 0 ? (
+                <div className="text-center py-12 opacity-60">
+                  <div className="mx-auto w-16 h-16 border-2 border-dashed border-slate-500/50 rounded-2xl mb-4 flex items-center justify-center bg-slate-800/30">
+                    <ShoppingCart size={24} className="text-slate-500" />
+                  </div>
+                  <p className="text-sm font-medium text-slate-400 mb-1">Your build will appear here</p>
+                  <p className="text-xs text-slate-500">Select items from the sections above</p>
+                </div>
+              ) : (
+                allSelectedItems.map((item, index) => (
+                  <div 
+                    key={item.id} 
+                    className="group p-3 rounded-xl bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700/50 hover:border-emerald-500/50 transition-all duration-300"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-slate-200 group-hover:text-white transition-colors">
+                          {item.label}
+                        </p>
+                      </div>
+                      <span className="font-mono text-sm font-bold text-emerald-400 shrink-0">
+                          ${(item.price || 0).toFixed(2)}
+                      </span>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+
+            <div className="border-t border-white/10 pt-4 mb-4">
+              <div className="flex justify-between items-end mb-4">
+                <span className="text-slate-400 text-sm font-bold uppercase tracking-wider">Estimate</span>
+                <span className="text-3xl font-black text-white tracking-tight">${totalPrice.toFixed(2)}</span>
+              </div>
+
+              <button
+                onClick={() => {
+                  goToSummary();
+                  setIsMobileSidebarOpen(false);
+                }}
+                disabled={allSelectedItems.length === 0}
+                className={`w-full py-4 rounded-xl font-black text-lg flex items-center justify-center gap-2 transition-all duration-300 ${
+                  allSelectedItems.length === 0 
+                      ? "bg-slate-800/50 text-slate-500 cursor-not-allowed border border-slate-700/50" 
+                      : "bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white border-2 border-emerald-400/30 hover:border-emerald-300/50 shadow-lg shadow-emerald-900/30"
+                }`}
+              >
+                Generate List <ArrowRight size={20} className="drop-shadow-sm" />
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
   );
@@ -908,15 +1132,32 @@ export default function LeopardGeckoBuilder() {
 
 /* ---------- UI COMPONENTS ---------- */
 
-function Section({ title, icon, description, children }) {
+function Section({ title, icon, description, children, sectionId, isCompleted, sectionRef }) {
     return (
-        <section className="relative bg-gradient-to-br from-slate-900/80 via-slate-900/60 to-slate-900/80 backdrop-blur-md p-8 rounded-3xl border-2 border-white/10 shadow-xl overflow-hidden">
+        <section 
+          id={sectionId}
+          ref={sectionRef}
+          className={`relative bg-gradient-to-br from-slate-900/80 via-slate-900/60 to-slate-900/80 backdrop-blur-md p-8 rounded-3xl border-2 shadow-xl overflow-hidden transition-all duration-500 ${
+            isCompleted ? 'border-emerald-500/50' : 'border-white/10'
+          }`}
+        >
             {/* Subtle background gradient */}
             <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-transparent pointer-events-none" />
             
+            {/* Completion indicator */}
+            {isCompleted && (
+              <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center border-2 border-emerald-400/50 shadow-lg shadow-emerald-500/30 z-10">
+                <CheckCircle2 size={16} className="text-white" />
+              </div>
+            )}
+            
             <div className="relative mb-6">
                 <h2 className="text-2xl font-black text-white mb-3 flex items-center gap-4">
-                    <div className="p-3 bg-gradient-to-br from-emerald-500/20 to-emerald-600/20 rounded-xl border-2 border-emerald-500/30 shadow-lg shadow-emerald-500/10">
+                    <div className={`p-3 bg-gradient-to-br rounded-xl border-2 shadow-lg transition-all duration-300 ${
+                      isCompleted 
+                        ? 'from-emerald-500/20 to-emerald-600/20 border-emerald-500/30 shadow-emerald-500/10' 
+                        : 'from-emerald-500/20 to-emerald-600/20 border-emerald-500/30 shadow-emerald-500/10'
+                    }`}>
                         <div className="text-emerald-400">
                             {icon}
                         </div>
