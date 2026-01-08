@@ -113,7 +113,20 @@ function groupVariants(products) {
   });
   
   // Filter out groups with only one variant (these should be standalone)
+  // Also filter driftwood groups to only include variants with "inches"
   const validGroups = Array.from(variantGroups.values()).filter(group => {
+    // For driftwood groups, filter to only include variants with "inches"
+    if (group.baseName.toLowerCase().includes("driftwood")) {
+      group.variants = group.variants.filter(v => 
+        v.label.toLowerCase().includes("inches")
+      );
+    }
+    
+    if (group.variants.length === 0) {
+      // No valid variants, remove this group entirely
+      return false;
+    }
+    
     if (group.variants.length === 1) {
       // Move single-variant products back to standalone
       standalone.push(group.variants[0]);
