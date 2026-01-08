@@ -761,12 +761,19 @@ export default function LeopardGeckoBuilder() {
               isCompleted={sectionCompletion.enclosure}
               sectionRef={(el) => { if (el) sectionRefs.current.enclosure = el; }}
             >
-              {!enclosureId && (
-                <div className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
+              <div 
+                className={`mb-4 overflow-hidden transition-all duration-300 ease-in-out ${
+                  !enclosureId 
+                    ? 'max-h-20 opacity-100' 
+                    : 'max-h-0 opacity-0 mb-0'
+                }`}
+                role={!enclosureId ? "alert" : undefined}
+              >
+                <div className="p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
                   <AlertCircle size={20} className="text-amber-400 shrink-0" />
                   <p className="text-amber-100 font-medium">One enclosure selection is required.</p>
                 </div>
-              )}
+              </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {sortedEnclosures.map((e) => (
                   <SelectionCard
@@ -843,12 +850,19 @@ export default function LeopardGeckoBuilder() {
                       <AlertTriangle size={16} /> Please select an Experience Level above to see safe recommendations.
                   </div>
               )}
-              {substrateIds.length === 0 && Object.keys(substrateVariants).length === 0 && (
-                <div className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
+              <div 
+                className={`mb-4 overflow-hidden transition-all duration-300 ease-in-out ${
+                  substrateIds.length === 0 && Object.keys(substrateVariants).length === 0
+                    ? 'max-h-20 opacity-100' 
+                    : 'max-h-0 opacity-0 mb-0'
+                }`}
+                role={substrateIds.length === 0 && Object.keys(substrateVariants).length === 0 ? "alert" : undefined}
+              >
+                <div className="p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
                   <AlertCircle size={20} className="text-amber-400 shrink-0" />
                   <p className="text-amber-100 font-medium">At least one substrate selection is required.</p>
                 </div>
-              )}
+              </div>
               <SubstrateSection
                 substrates={filteredSubstrates}
                 selectedIds={substrateIds}

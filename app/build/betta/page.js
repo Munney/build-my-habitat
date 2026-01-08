@@ -571,12 +571,19 @@ export default function BettaBuilder() {
                       <AlertTriangle size={16} /> Select an Experience Level above to verify safe tank sizes.
                   </div>
               )}
-              {!enclosureId && (
-                <div className="mb-4 p-4 bg-amber-500/20 border-2 border-amber-500/70 rounded-xl flex items-center gap-3 shadow-lg shadow-amber-500/20" role="alert">
+              <div 
+                className={`mb-4 overflow-hidden transition-all duration-300 ease-in-out ${
+                  !enclosureId 
+                    ? 'max-h-20 opacity-100' 
+                    : 'max-h-0 opacity-0 mb-0'
+                }`}
+                role={!enclosureId ? "alert" : undefined}
+              >
+                <div className="p-4 bg-amber-500/20 border-2 border-amber-500/70 rounded-xl flex items-center gap-3 shadow-lg shadow-amber-500/20">
                   <AlertCircle size={20} className="text-amber-400 shrink-0 flex-shrink-0" />
                   <p className="text-amber-100 font-medium text-base flex-1">One tank selection is required.</p>
                 </div>
-              )}
+              </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {filteredEnclosures.map((e) => (
                   <SelectionCard
@@ -604,12 +611,19 @@ export default function BettaBuilder() {
               isCompleted={sectionCompletion.filtration}
               sectionRef={(el) => { if (el) sectionRefs.current.filtration = el; }}
             >
-              {!filtrationId && (
-                <div className="mb-4 p-4 bg-amber-500/20 border-2 border-amber-500/70 rounded-xl flex items-center gap-3 shadow-lg shadow-amber-500/20" role="alert">
+              <div 
+                className={`mb-4 overflow-hidden transition-all duration-300 ease-in-out ${
+                  !filtrationId 
+                    ? 'max-h-20 opacity-100' 
+                    : 'max-h-0 opacity-0 mb-0'
+                }`}
+                role={!filtrationId ? "alert" : undefined}
+              >
+                <div className="p-4 bg-amber-500/20 border-2 border-amber-500/70 rounded-xl flex items-center gap-3 shadow-lg shadow-amber-500/20">
                   <AlertCircle size={20} className="text-amber-400 shrink-0 flex-shrink-0" />
                   <p className="text-amber-100 font-medium text-base flex-1">One filter selection is required.</p>
                 </div>
-              )}
+              </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {FILTRATION.map((f) => (
                   <SelectionCard
@@ -637,12 +651,19 @@ export default function BettaBuilder() {
               isCompleted={sectionCompletion.temperature}
               sectionRef={(el) => { if (el) sectionRefs.current.temperature = el; }}
             >
-              {!heaterId && (
-                <div className="mb-4 p-4 bg-amber-500/20 border-2 border-amber-500/70 rounded-xl flex items-center gap-3 shadow-lg shadow-amber-500/20" role="alert">
+              <div 
+                className={`mb-4 overflow-hidden transition-all duration-300 ease-in-out ${
+                  !heaterId 
+                    ? 'max-h-20 opacity-100' 
+                    : 'max-h-0 opacity-0 mb-0'
+                }`}
+                role={!heaterId ? "alert" : undefined}
+              >
+                <div className="p-4 bg-amber-500/20 border-2 border-amber-500/70 rounded-xl flex items-center gap-3 shadow-lg shadow-amber-500/20">
                   <AlertCircle size={20} className="text-amber-400 shrink-0 flex-shrink-0" />
                   <p className="text-amber-100 font-medium text-base flex-1">A heater (50W or 100W) is required.</p>
                 </div>
-              )}
+              </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {HEATING.map((h) => {
                   const isHeater = h.id === "50w" || h.id === "100w";
@@ -686,12 +707,19 @@ export default function BettaBuilder() {
               isCompleted={sectionCompletion.substrate}
               sectionRef={(el) => { if (el) sectionRefs.current.substrate = el; }}
             >
-              {!substrateId && (
-                <div className="mb-4 p-4 bg-amber-500/20 border-2 border-amber-500/70 rounded-xl flex items-center gap-3 shadow-lg shadow-amber-500/20" role="alert">
+              <div 
+                className={`mb-4 overflow-hidden transition-all duration-300 ease-in-out ${
+                  !substrateId 
+                    ? 'max-h-20 opacity-100' 
+                    : 'max-h-0 opacity-0 mb-0'
+                }`}
+                role={!substrateId ? "alert" : undefined}
+              >
+                <div className="p-4 bg-amber-500/20 border-2 border-amber-500/70 rounded-xl flex items-center gap-3 shadow-lg shadow-amber-500/20">
                   <AlertCircle size={20} className="text-amber-400 shrink-0 flex-shrink-0" />
                   <p className="text-amber-100 font-medium text-base flex-1">At least one substrate selection is required.</p>
                 </div>
-              )}
+              </div>
               <SubstrateSection
                 substrates={SUBSTRATES}
                 selectedId={substrateId}
