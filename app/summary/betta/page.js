@@ -248,8 +248,28 @@ function SummaryContent() {
     <main className="relative min-h-screen pt-28 pb-20 px-6">
       <div className="relative z-10 max-w-5xl mx-auto">
         
+        {/* Receipt Format (Print Only) */}
+        <div className="print-receipt-only print-receipt hidden">
+          <div className="print-receipt-header">
+            <h1>Final Betta Build</h1>
+            <p>Verified configuration ID: #{Math.floor(Math.random() * 99999)}</p>
+          </div>
+          <div className="print-receipt-items">
+            {allItems.map((item, i) => (
+              <div key={i} className="print-receipt-item">
+                <span className="print-receipt-item-name">{item.label}</span>
+                <span className="print-receipt-item-price">${(item.price || 0).toFixed(2)}</span>
+              </div>
+            ))}
+          </div>
+          <div className="print-receipt-total">
+            <span>Total:</span>
+            <span>${total}</span>
+          </div>
+        </div>
+
         {/* HEADER */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 print-receipt-only-hidden">
           <div>
             <button 
               onClick={() => router.back()}
@@ -307,7 +327,7 @@ function SummaryContent() {
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-[1fr,380px] gap-8">
+        <div className="grid lg:grid-cols-[1fr,380px] gap-8 print-receipt-only-hidden">
             
             {/* LEFT: THE BUILD LIST */}
             <div className="space-y-6">
