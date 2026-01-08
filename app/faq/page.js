@@ -128,8 +128,17 @@ export default function FAQPage() {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  // Flatten FAQs for structured data
+  const allFAQs = faqs.flatMap(category => 
+    category.questions.map(q => ({
+      question: q.q,
+      answer: q.a
+    }))
+  );
+
   return (
     <main className="min-h-screen pt-28 pb-20 px-6 relative z-10">
+      <FAQSchema faqs={allFAQs} />
       <div className="max-w-4xl mx-auto">
         
         {/* Back Button */}
