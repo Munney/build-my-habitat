@@ -5,10 +5,32 @@ import Image from "next/image";
 import { useState } from "react";
 import { ArrowRight, BookOpen, ArrowUpRight, ShieldCheck, CheckCircle2, Sparkles, FileText } from "lucide-react";
 import { analytics } from "./utils/analytics";
+import { HowToSchema } from "./components/StructuredData";
 
 export default function Home() {
+  // HowTo structured data for the homepage
+  const howToSteps = [
+    {
+      name: "Select Species",
+      text: "Choose your pet (Leopard Gecko or Betta Fish) and your experience level (Beginner or Experienced)."
+    },
+    {
+      name: "Build Setup",
+      text: "Configure your habitat by selecting an enclosure, heating, substrate, decor, and other essential items. Our builder guides you through each step with safety checks."
+    },
+    {
+      name: "Get Recommendations",
+      text: "Receive a complete, verified shopping list with Amazon links. All items are checked for compatibility and safety."
+    }
+  ];
+
   return (
     <main className="relative min-h-screen flex flex-col items-center justify-start overflow-hidden text-white selection:bg-sky-500/30">
+      <HowToSchema 
+        steps={howToSteps}
+        name="How to Build a Safe Pet Habitat"
+        description="Learn how to use HabitatBuilder to create a safe, research-backed habitat for your pet in three simple steps."
+      />
       
       {/* NOTE: The Background Image was removed from here 
           because it is now in app/layout.js 

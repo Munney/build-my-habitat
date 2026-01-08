@@ -51,9 +51,49 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  // Structured Data for Organization
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "HabitatBuilder",
+    "url": "https://www.buildmyhabitat.com",
+    "logo": "https://www.buildmyhabitat.com/og-image.jpg",
+    "description": "Build safe, research-backed habitats for your pets with our smart configurator",
+    "sameAs": []
+  };
+
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "HabitatBuilder",
+    "url": "https://www.buildmyhabitat.com",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://www.buildmyhabitat.com/browse?search={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  };
+
   return (
     <html lang="en">
       <head>
+        {/* Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteSchema),
+          }}
+        />
+        
         {/* Google Tag Manager - Must be as high in head as possible */}
         <script
           dangerouslySetInnerHTML={{

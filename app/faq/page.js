@@ -10,6 +10,7 @@ import {
   CheckCircle2
 } from "lucide-react";
 import { analytics, trackEvent } from "../utils/analytics";
+import { FAQSchema } from "../components/StructuredData";
 
 export default function FAQPage() {
   const [openIndex, setOpenIndex] = useState(null);
