@@ -1184,13 +1184,14 @@ function SubstrateSection({ substrates, selectedId, selectedVariants, onSelect, 
             }}
             onSelect={() => {
               // Always select first variant when clicking the card (for betta, single select behavior)
+              // This matches the gecko builder behavior where clicking selects the first variant
               if (group.variants.length > 0) {
-                // If already selected and active, deselect it (toggle behavior)
+                // If already selected and it's the currently active variant, toggle off
                 if (variantSelection && selectedVariant && selectedId === selectedVariant.id) {
                   // Toggle off
                   onVariantSelect(group.baseName, null, null, null);
                 } else {
-                  // Select first variant
+                  // Select first variant (always select on first click)
                   const first = group.variants[0];
                   onVariantSelect(group.baseName, first.color, first.size, first.id);
                 }
