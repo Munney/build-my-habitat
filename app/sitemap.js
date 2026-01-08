@@ -1,4 +1,4 @@
-export default function sitemap() {
+export default async function sitemap() {
   const baseUrl = 'https://www.buildmyhabitat.com';
   
   // Define all important pages
