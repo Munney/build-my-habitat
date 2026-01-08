@@ -1300,7 +1300,12 @@ function DecorSection({ decor, selectedIds, selectedVariants, onToggle, onVarian
               }
             }}
             onSelect={() => {
-              if (!variantSelection && group.variants.length > 0) {
+              // Toggle behavior: if already selected, deselect; otherwise select first variant
+              if (variantSelection && selectedVariant && isActive) {
+                // Toggle off - deselect the variant
+                onVariantToggle(group.baseName, null, null, null);
+              } else if (group.variants.length > 0) {
+                // Select first variant
                 const first = group.variants[0];
                 onVariantToggle(group.baseName, first.color, first.size, first.id);
               }
