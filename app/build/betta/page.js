@@ -606,11 +606,12 @@ export default function BettaBuilder() {
               <div className="p-5">
                 <div className="space-y-3 mb-6 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
                   {allSelectedItems.length === 0 ? (
-                    <div className="text-center py-8 opacity-50">
-                        <div className="mx-auto w-10 h-10 border-2 border-dashed border-slate-500 rounded-lg mb-2 flex items-center justify-center">
-                            <ShoppingCart size={16} className="text-slate-500" />
+                    <div className="text-center py-12 opacity-60 animate-pulse">
+                        <div className="mx-auto w-16 h-16 border-2 border-dashed border-slate-500/50 rounded-2xl mb-4 flex items-center justify-center bg-slate-800/30 backdrop-blur-sm">
+                            <ShoppingCart size={24} className="text-slate-500" />
                         </div>
-                        <p className="text-sm text-slate-400">Select items to build</p>
+                        <p className="text-sm font-medium text-slate-400 mb-1">Your build will appear here</p>
+                        <p className="text-xs text-slate-500">Select items from the sections below</p>
                     </div>
                   ) : (
                     allSelectedItems.map((item) => (
@@ -638,13 +639,13 @@ export default function BettaBuilder() {
                 <button
                   onClick={goToSummary}
                   disabled={allSelectedItems.length === 0}
-                  className={`w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all ${
+                  className={`w-full py-4 rounded-xl font-black text-lg flex items-center justify-center gap-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
                     allSelectedItems.length === 0 
-                        ? "bg-slate-800 text-slate-500 cursor-not-allowed" 
-                        : "bg-blue-600 hover:bg-blue-500 text-white hover:scale-[1.02] hover:shadow-lg hover:shadow-blue-900/40 active:scale-95"
+                        ? "bg-slate-800/50 text-slate-500 cursor-not-allowed border border-slate-700/50" 
+                        : "bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white border-2 border-blue-400/30 hover:border-blue-300/50 hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/40 active:scale-[0.98] shadow-lg shadow-blue-900/30"
                   }`}
                 >
-                  Generate List <ArrowRight size={18} />
+                  Generate List <ArrowRight size={20} className="drop-shadow-sm" />
                 </button>
               </div>
             </div>
@@ -696,19 +697,28 @@ export default function BettaBuilder() {
 
 function Section({ title, icon, description, children }) {
     return (
-        <section className="bg-slate-900/60 backdrop-blur-md p-6 rounded-3xl border border-white/5 shadow-lg">
-            <div className="mb-6">
-                <h2 className="text-xl font-bold text-white mb-2 flex items-center gap-3">
-                    <div className="p-2 bg-blue-500/10 rounded-lg border border-blue-500/20">
-                        {icon}
+        <section className="relative bg-gradient-to-br from-slate-900/80 via-slate-900/60 to-slate-900/80 backdrop-blur-md p-8 rounded-3xl border-2 border-white/10 shadow-xl overflow-hidden">
+            {/* Subtle background gradient */}
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-transparent pointer-events-none" />
+            
+            <div className="relative mb-6">
+                <h2 className="text-2xl font-black text-white mb-3 flex items-center gap-4">
+                    <div className="p-3 bg-gradient-to-br from-blue-500/20 to-blue-600/20 rounded-xl border-2 border-blue-500/30 shadow-lg shadow-blue-500/10">
+                        <div className="text-blue-400">
+                            {icon}
+                        </div>
                     </div>
-                    {title}
+                    <span className="bg-gradient-to-r from-white to-slate-200 bg-clip-text text-transparent drop-shadow-sm">
+                        {title}
+                    </span>
                 </h2>
                 {description && (
-                    <p className="text-sm text-slate-400 ml-[52px] leading-relaxed">{description}</p>
+                    <p className="text-sm text-slate-300 ml-[68px] leading-relaxed font-medium">{description}</p>
                 )}
             </div>
-            {children}
+            <div className="relative">
+                {children}
+            </div>
         </section>
     );
 }
@@ -768,35 +778,44 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
   return (
     <div
       onClick={onClick}
-      className={`group relative p-5 rounded-2xl border cursor-pointer transition-all duration-300 ${
+      className={`group relative p-6 rounded-3xl border-2 cursor-pointer transition-all duration-300 overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
         active
-          ? "border-blue-500 bg-blue-500/10 shadow-[0_0_30px_-10px_rgba(59,130,246,0.3)] scale-[1.02]"
+          ? "border-blue-500/80 bg-gradient-to-br from-blue-500/15 via-blue-500/10 to-slate-900/60 shadow-[0_0_40px_-5px_rgba(59,130,246,0.4)] shadow-blue-500/20 scale-[1.02]"
           : showRequired
-          ? "border-amber-500/50 bg-amber-500/5 hover:border-amber-500/70 hover:bg-amber-500/10"
-          : "border-slate-700/50 bg-slate-900/40 hover:border-slate-600 hover:bg-slate-800/60"
+          ? "border-amber-500/60 bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-slate-900/60 hover:border-amber-500/80 hover:shadow-lg hover:shadow-amber-500/10"
+          : "border-slate-700/60 bg-gradient-to-br from-slate-900/70 via-slate-900/50 to-slate-900/70 hover:border-blue-500/40 hover:bg-gradient-to-br hover:from-slate-800/70 hover:via-slate-800/50 hover:to-slate-800/70 hover:shadow-lg hover:shadow-blue-500/10"
       }`}
     >
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex items-start gap-3 flex-1">
+      {/* Premium accent line */}
+      <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r transition-all duration-300 ${
+        active 
+          ? "from-blue-400 via-cyan-400 to-blue-500 opacity-100" 
+          : showRequired
+          ? "from-amber-400 via-amber-300 to-amber-400 opacity-100"
+          : "from-transparent via-slate-700 to-transparent opacity-0 group-hover:opacity-100 group-hover:from-blue-500/50 group-hover:via-blue-400/50 group-hover:to-blue-500/50"
+      }`} />
+      
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex items-start gap-4 flex-1">
           <div
-            className={`mt-1 w-5 h-5 rounded-full flex items-center justify-center border transition-all shrink-0 ${
+            className={`mt-1 w-6 h-6 rounded-full flex items-center justify-center border-2 transition-all shadow-lg shrink-0 ${
               active 
-                ? "bg-blue-500 border-blue-500 shadow-sm shadow-blue-500/50" 
+                ? "bg-gradient-to-br from-blue-400 to-blue-600 border-blue-400 shadow-blue-500/50" 
                 : showRequired
-                ? "bg-amber-500/20 border-amber-500/50 group-hover:border-amber-500/70"
-                : "bg-slate-800/50 border-slate-600 group-hover:border-slate-500"
+                ? "bg-gradient-to-br from-amber-500/30 to-amber-600/30 border-amber-500/60 shadow-amber-500/30"
+                : "bg-gradient-to-br from-slate-700 to-slate-800 border-slate-600 group-hover:border-blue-500/50 group-hover:shadow-blue-500/20"
             }`}
           >
-            {active && <CheckCircle2 size={14} className="text-slate-950" />}
-            {showRequired && <AlertCircle size={12} className="text-amber-400" />}
+            {active && <CheckCircle2 size={16} className="text-white drop-shadow-sm" />}
+            {showRequired && <AlertCircle size={14} className="text-amber-400 drop-shadow-sm" />}
           </div>
 
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-3">
-              <div className={`font-bold text-base transition-colors flex-1 ${active ? "text-white" : showRequired ? "text-amber-100 group-hover:text-white" : "text-slate-300 group-hover:text-white"}`}>
+              <div className={`font-bold text-lg transition-colors flex-1 ${active ? "text-white drop-shadow-sm" : showRequired ? "text-amber-100 group-hover:text-white" : "text-slate-200 group-hover:text-white"}`}>
                 {label}
                 {showRequired && (
-                  <span className="ml-2 text-xs font-normal text-amber-400">Required</span>
+                  <span className="ml-2 text-xs font-semibold text-amber-400 uppercase tracking-wide">Required</span>
                 )}
               </div>
               {explanation && (
@@ -804,15 +823,14 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
               )}
             </div>
             {sublabel && (
-              <div className="text-xs text-slate-500 mt-1 font-medium uppercase tracking-wide">{sublabel}</div>
+              <div className="text-xs font-medium text-slate-400 mt-1.5 px-2 py-1 rounded-md bg-slate-800/50 border border-slate-700/50 inline-block uppercase tracking-wide">{sublabel}</div>
             )}
           </div>
         </div>
 
-        {/* 👇 FIX: Card price */}
-        <span className={`font-mono text-sm font-bold shrink-0 ${active ? "text-blue-400" : "text-slate-500"}`}>
-          ${(price || 0).toFixed(2)}
-        </span>
+        <div className={`flex flex-col items-end shrink-0 ${active ? "text-blue-400" : showRequired ? "text-amber-400" : "text-slate-400"}`}>
+          <span className="font-mono text-lg font-bold">${(price || 0).toFixed(2)}</span>
+        </div>
       </div>
     </div>
   );
@@ -1011,11 +1029,20 @@ function VariantCard({ baseLabel, priceRange, colors, sizes, variants, isActive,
   
   return (
     <div
-      className={`group relative p-6 rounded-3xl border-2 transition-all duration-300 overflow-hidden ${
+      className={`group relative p-6 rounded-3xl border-2 transition-all duration-300 overflow-hidden cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
         isActive
           ? "border-blue-500/80 bg-gradient-to-br from-blue-500/15 via-blue-500/10 to-slate-900/60 shadow-[0_0_40px_-5px_rgba(59,130,246,0.4)] shadow-blue-500/20 scale-[1.02]"
           : "border-slate-700/60 bg-gradient-to-br from-slate-900/70 via-slate-900/50 to-slate-900/70 hover:border-blue-500/40 hover:bg-gradient-to-br hover:from-slate-800/70 hover:via-slate-800/50 hover:to-slate-800/70 hover:shadow-lg hover:shadow-blue-500/10"
       }`}
+      onClick={onSelect}
+      tabIndex={0}
+      role="button"
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onSelect();
+        }
+      }}
     >
       {/* Premium accent line */}
       <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r transition-all duration-300 ${

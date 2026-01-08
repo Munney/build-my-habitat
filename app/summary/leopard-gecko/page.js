@@ -196,11 +196,18 @@ function SummaryContent() {
 
         <div className="grid lg:grid-cols-[1fr,380px] gap-8">
             <div className="space-y-6">
-                <div className="p-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-start gap-4">
-                    <div className="p-3 bg-emerald-500 text-slate-950 rounded-xl shadow-lg shadow-emerald-900/20"><ShieldCheck size={24} /></div>
-                    <div>
-                        <h3 className="text-emerald-400 font-bold text-lg">Vet-Verified Husbandry</h3>
-                        <p className="text-emerald-200/70 text-sm leading-relaxed mt-1">This setup provides a safe heat gradient and proper supplementation for a Leopard Gecko.</p>
+                <div className="relative p-6 rounded-3xl bg-gradient-to-br from-emerald-500/15 via-emerald-500/10 to-slate-900/60 border-2 border-emerald-500/30 shadow-xl overflow-hidden">
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-500 opacity-100" />
+                    <div className="relative flex items-start gap-4">
+                        <div className="p-3 bg-gradient-to-br from-emerald-500 to-emerald-600 text-white rounded-xl shadow-lg shadow-emerald-500/30 border-2 border-emerald-400/30">
+                            <ShieldCheck size={24} className="drop-shadow-sm" />
+                        </div>
+                        <div className="flex-1">
+                            <h3 className="text-emerald-400 font-black text-lg mb-2 drop-shadow-sm">Vet-Verified Husbandry</h3>
+                            <p className="text-emerald-200/80 text-sm leading-relaxed font-medium">
+                                This setup provides a safe heat gradient and proper supplementation for a Leopard Gecko.
+                            </p>
+                        </div>
                     </div>
                 </div>
 
@@ -213,16 +220,15 @@ function SummaryContent() {
                             const productLink = (item.asin || getAsinFromUrl(item.defaultProductUrl))
                                 ? `https://www.amazon.com/dp/${item.asin || getAsinFromUrl(item.defaultProductUrl)}?tag=${AFFILIATE_TAG}` : "#";
                             return (
-                                <a key={i} href={productLink} target="_blank" rel="noopener noreferrer" className="p-5 flex items-center justify-between group hover:bg-emerald-500/5 transition-all">
+                                <a key={i} href={productLink} target="_blank" rel="noopener noreferrer" className="p-5 flex items-center justify-between group hover:bg-gradient-to-r hover:from-emerald-500/10 hover:to-transparent transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded-lg">
                                     <div className="flex items-center gap-4">
-                                        <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-emerald-500 font-bold text-xs border border-white/5 group-hover:border-emerald-500/30 transition-colors">{i + 1}</div>
+                                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center text-emerald-400 font-black text-sm border-2 border-slate-700/50 group-hover:border-emerald-500/50 group-hover:bg-gradient-to-br group-hover:from-emerald-500/20 group-hover:to-emerald-600/20 transition-all duration-300 shadow-sm">{i + 1}</div>
                                         <div>
-                                            <p className="font-bold text-slate-200 group-hover:text-white transition-colors flex items-center gap-2">{item.label} <ExternalLink size={12} className="opacity-0 group-hover:opacity-50 transition-opacity" /></p>
-                                            <span className="text-[10px] uppercase tracking-wider font-bold text-slate-500 border border-slate-700 px-1.5 py-0.5 rounded mt-1 inline-block">{item.type || 'Essential'}</span>
+                                            <p className="font-bold text-slate-200 group-hover:text-white transition-colors flex items-center gap-2 text-base">{item.label} <ExternalLink size={14} className="opacity-0 group-hover:opacity-60 transition-opacity text-emerald-400" /></p>
+                                            <span className="text-[10px] uppercase tracking-wider font-bold text-slate-400 bg-slate-800/50 border border-slate-700/50 px-2 py-1 rounded-md mt-1.5 inline-block">{item.type || 'Essential'}</span>
                                         </div>
                                     </div>
-                                    <div className="font-mono font-bold text-emerald-400 text-lg">
-                                        {/* 👇 FIX: Individual price with toFixed(2) */}
+                                    <div className="font-mono font-black text-emerald-400 text-lg group-hover:text-emerald-300 transition-colors">
                                         ${(item.price || 0).toFixed(2)}
                                     </div>
                                 </a>
@@ -242,9 +248,9 @@ function SummaryContent() {
                     <a 
                         href={amazonCartUrl} target="_blank" rel="noopener noreferrer"
                         onClick={() => analytics.trackAmazonCartClick("leopard-gecko", total, allItems.length)}
-                        className="w-full py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-lg transition-all shadow-lg shadow-emerald-900/20 flex items-center justify-center gap-2"
+                        className="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-black text-lg border-2 border-emerald-400/30 hover:border-emerald-300/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-emerald-500/40 active:scale-[0.98] shadow-lg shadow-emerald-900/30 flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
                     >
-                        Buy All on Amazon <ArrowRight size={20} />
+                        Buy All on Amazon <ArrowRight size={20} className="drop-shadow-sm" />
                     </a>
                     <p className="text-xs text-slate-500 mt-4 relative z-10 px-4">*Clicking this will auto-fill your Amazon Cart.</p>
                 </div>

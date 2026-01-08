@@ -211,15 +211,18 @@ function SummaryContent() {
             <div className="space-y-6">
                 
                 {/* Status Card */}
-                <div className="p-6 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-start gap-4">
-                    <div className="p-3 bg-blue-500 text-slate-950 rounded-xl shadow-lg shadow-blue-900/20">
-                        <ShieldCheck size={24} />
-                    </div>
-                    <div>
-                        <h3 className="text-blue-400 font-bold text-lg">100% Aquatic Verified</h3>
-                        <p className="text-blue-200/70 text-sm leading-relaxed mt-1">
-                            This build is safe for Bettas. Proper filtration flow and heating included.
-                        </p>
+                <div className="relative p-6 rounded-3xl bg-gradient-to-br from-blue-500/15 via-blue-500/10 to-slate-900/60 border-2 border-blue-500/30 shadow-xl overflow-hidden">
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 opacity-100" />
+                    <div className="relative flex items-start gap-4">
+                        <div className="p-3 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl shadow-lg shadow-blue-500/30 border-2 border-blue-400/30">
+                            <ShieldCheck size={24} className="drop-shadow-sm" />
+                        </div>
+                        <div className="flex-1">
+                            <h3 className="text-blue-400 font-black text-lg mb-2 drop-shadow-sm">100% Aquatic Verified</h3>
+                            <p className="text-blue-200/80 text-sm leading-relaxed font-medium">
+                                This build is safe for Bettas. Proper filtration flow and heating included.
+                            </p>
+                        </div>
                     </div>
                 </div>
 
@@ -246,26 +249,25 @@ function SummaryContent() {
                                       href={productLink}
                                       target="_blank"
                                       rel="noopener noreferrer"
-                                      className="p-5 flex items-center justify-between group hover:bg-blue-500/5 transition-all cursor-pointer"
+                                      className="p-5 flex items-center justify-between group hover:bg-gradient-to-r hover:from-blue-500/10 hover:to-transparent transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded-lg"
                                     >
                                         <div className="flex items-center gap-4">
-                                            <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-blue-500 font-bold text-xs border border-white/5 group-hover:border-blue-500/30 group-hover:text-blue-400 transition-colors">
+                                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center text-blue-400 font-black text-sm border-2 border-slate-700/50 group-hover:border-blue-500/50 group-hover:bg-gradient-to-br group-hover:from-blue-500/20 group-hover:to-blue-600/20 transition-all duration-300 shadow-sm">
                                                 {i + 1}
                                             </div>
                                             <div>
-                                                <p className="font-bold text-slate-200 group-hover:text-white transition-colors flex items-center gap-2">
+                                                <p className="font-bold text-slate-200 group-hover:text-white transition-colors flex items-center gap-2 text-base">
                                                     {item.label}
-                                                    <ExternalLink size={12} className="opacity-0 group-hover:opacity-50 transition-opacity" />
+                                                    <ExternalLink size={14} className="opacity-0 group-hover:opacity-60 transition-opacity text-blue-400" />
                                                 </p>
                                                 {item.type && (
-                                                    <span className="text-[10px] uppercase tracking-wider font-bold text-slate-500 border border-slate-700 px-1.5 py-0.5 rounded mt-1 inline-block">
+                                                    <span className="text-[10px] uppercase tracking-wider font-bold text-slate-400 bg-slate-800/50 border border-slate-700/50 px-2 py-1 rounded-md mt-1.5 inline-block">
                                                         {item.type}
                                                     </span>
                                                 )}
                                             </div>
                                         </div>
-                                        {/* 👇 FIX: Item price formatting */}
-                                        <div className="font-mono font-bold text-blue-400 text-lg">
+                                        <div className="font-mono font-black text-blue-400 text-lg group-hover:text-blue-300 transition-colors">
                                             ${(item.price || 0).toFixed(2)}
                                         </div>
                                     </a>
@@ -295,9 +297,9 @@ function SummaryContent() {
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={() => analytics.trackAmazonCartClick("betta", total, allItems.length)}
-                        className="w-full py-4 rounded-xl bg-blue-500 hover:bg-blue-400 text-slate-950 font-black text-lg transition-all hover:scale-[1.02] shadow-lg shadow-blue-900/20 active:scale-95 relative z-10 flex items-center justify-center gap-2"
+                        className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-black text-lg border-2 border-blue-400/30 hover:border-blue-300/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/40 active:scale-[0.98] shadow-lg shadow-blue-900/30 relative z-10 flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
                     >
-                        Buy All on Amazon <ArrowRight size={20} />
+                        Buy All on Amazon <ArrowRight size={20} className="drop-shadow-sm" />
                     </a>
                     
                     <p className="text-xs text-slate-500 mt-4 relative z-10 px-4 leading-relaxed">
