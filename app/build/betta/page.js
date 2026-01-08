@@ -266,16 +266,24 @@ export default function BettaBuilder() {
     return Math.round((score / totalSteps) * 100);
   }, [experience, enclosureId, filtrationId, heaterId, hasThermometer, substrateId, decorIds, careIds]);
 
-  // Section completion tracking
-  const sectionCompletion = useMemo(() => ({
-    experience: !!experience,
-    enclosure: !!enclosureId,
-    filtration: !!filtrationId,
-    temperature: !!heaterId && hasThermometer,
-    substrate: !!substrateId,
-    decor: decorIds.length > 0,
-    watercare: careIds.length > 0,
-  }), [experience, enclosureId, filtrationId, heaterId, hasThermometer, substrateId, decorIds, careIds]);
+  // Section completion tracking - only mark complete when ALL requirements are met
+  const sectionCompletion = useMemo(() => {
+    // Check requirements based on the validation logic
+    const hasValidEnclosure = !!enclosureId && selectedEnclosure && selectedEnclosure.size >= 5;
+    const hasFiltration = !!filtrationId;
+    const hasTemperature = !!heaterId && hasThermometer; // Both required
+    const hasSubstrate = !!substrateId;
+    
+    return {
+      experience: !!experience,
+      enclosure: hasValidEnclosure, // Must be selected AND >= 5 gallons
+      filtration: hasFiltration, // Required
+      temperature: hasTemperature, // Both heater and thermometer required
+      substrate: hasSubstrate, // Required
+      decor: decorIds.length > 0, // Optional, but show complete if selected
+      watercare: careIds.length > 0, // Optional, but show complete if selected
+    };
+  }, [experience, enclosureId, filtrationId, heaterId, hasThermometer, substrateId, decorIds, careIds, selectedEnclosure]);
 
   // Section navigation data
   const sections = [
@@ -577,7 +585,7 @@ export default function BettaBuilder() {
                     label={e.label}
                     price={e.price}
                     sublabel={e.size + " Gallons"}
-                    onClick={() => setEnclosureId(e.id)}
+                    onClick={() => setEnclosureId(enclosureId === e.id ? null : e.id)}
                     type="radio"
                     colorClass="blue"
                     productId={e.id}
@@ -610,7 +618,7 @@ export default function BettaBuilder() {
                     label={f.label}
                     price={f.price}
                     sublabel={`Flow: ${f.flow}`}
-                    onClick={() => setFiltrationId(f.id)}
+                    onClick={() => setFiltrationId(filtrationId === f.id ? null : f.id)}
                     type="radio"
                     colorClass="blue"
                     productId={f.id}
