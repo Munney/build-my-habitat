@@ -124,7 +124,17 @@ function getAsinFromUrl(url) {
 
 export default function GeckoSummary() {
   return (
-    <Suspense fallback={<div className="min-h-screen pt-32 text-center text-white">Loading Build...</div>}>
+    <Suspense fallback={
+      <main className="relative min-h-screen pt-28 pb-20 px-6">
+        <div className="relative z-10 max-w-5xl mx-auto">
+          <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">
+            <div className="w-16 h-16 border-4 border-emerald-500/30 border-t-emerald-500 rounded-full animate-spin"></div>
+            <p className="text-white font-medium text-lg">Loading your build...</p>
+            <p className="text-slate-400 text-sm">Preparing your habitat configuration</p>
+          </div>
+        </div>
+      </main>
+    }>
       <SummaryContent />
     </Suspense>
   );
@@ -167,16 +177,17 @@ function SummaryContent() {
   // 👇 FIX: Total price with toFixed(2)
   const total = allItems.reduce((acc, item) => acc + (item.price || 0), 0).toFixed(2);
 
-  // Track summary view
+  // Track summary view and check if build is saved
   useEffect(() => {
     analytics.trackSummaryView("leopard-gecko", parseFloat(total), allItems.length);
     
     // Check if this build is already saved
     const builds = buildStorage.getAllBuilds();
     const currentUrl = window.location.href;
-    const isSaved = Object.values(builds).some(build => build.shareUrl === currentUrl);
-    if (isSaved) {
+    const savedBuild = Object.values(builds).find(build => build.shareUrl === currentUrl);
+    if (savedBuild) {
       setBuildSaved(true);
+      setBuildName(savedBuild.name || `Leopard Gecko Build - $${total}`);
     }
   }, [total, allItems.length]);
 
@@ -243,7 +254,7 @@ function SummaryContent() {
         {/* Receipt Format (Print Only) */}
         <div className="print-receipt-only print-receipt">
           <div className="print-receipt-header">
-            <h1>Final Gecko Build</h1>
+            <h1>{buildName || `Final Gecko Build`}</h1>
             <p>Verified configuration ID: #{Math.floor(Math.random() * 99999)}</p>
           </div>
           <div className="print-receipt-items">

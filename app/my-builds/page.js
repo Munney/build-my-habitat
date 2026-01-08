@@ -14,10 +14,12 @@ import {
 } from "lucide-react";
 import { buildStorage } from "../utils/buildStorage";
 import { analytics, trackEvent } from "../utils/analytics";
+import { ToastContainer } from "../components/Toast";
 
 export default function MyBuildsPage() {
   const [builds, setBuilds] = useState({});
   const [loading, setLoading] = useState(true);
+  const [toasts, setToasts] = useState([]);
 
   useEffect(() => {
     const savedBuilds = buildStorage.getAllBuilds();
@@ -26,13 +28,21 @@ export default function MyBuildsPage() {
     trackEvent("my_builds_view", {});
   }, []);
 
-  const handleDelete = (buildId) => {
-    if (confirm("Are you sure you want to delete this build?")) {
-      buildStorage.deleteBuild(buildId);
-      const updatedBuilds = buildStorage.getAllBuilds();
-      setBuilds(updatedBuilds);
-      trackEvent("build_deleted", { build_id: buildId });
-    }
+  const addToast = (message, type = "success") => {
+    const id = Date.now();
+    setToasts((prev) => [...prev, { id, message, type }]);
+  };
+
+  const removeToast = (id) => {
+    setToasts((prev) => prev.filter((toast) => toast.id !== id));
+  };
+
+  const handleDelete = (buildId, buildName) => {
+    buildStorage.deleteBuild(buildId);
+    const updatedBuilds = buildStorage.getAllBuilds();
+    setBuilds(updatedBuilds);
+    trackEvent("build_deleted", { build_id: buildId });
+    addToast(`"${buildName}" deleted successfully`, "success");
   };
 
   const buildArray = Object.values(builds).sort((a, b) => 
@@ -42,8 +52,11 @@ export default function MyBuildsPage() {
   if (loading) {
     return (
       <main className="relative min-h-screen pt-28 pb-20 px-6">
-        <div className="relative z-10 max-w-6xl mx-auto text-center text-white">
-          <p>Loading your builds...</p>
+        <div className="relative z-10 max-w-6xl mx-auto">
+          <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">
+            <div className="w-16 h-16 border-4 border-emerald-500/30 border-t-emerald-500 rounded-full animate-spin"></div>
+            <p className="text-white font-medium">Loading your builds...</p>
+          </div>
         </div>
       </main>
     );
@@ -51,6 +64,7 @@ export default function MyBuildsPage() {
 
   return (
     <main className="relative min-h-screen pt-28 pb-20 px-6">
+      <ToastContainer toasts={toasts} removeToast={removeToast} />
       <div className="relative z-10 max-w-6xl mx-auto space-y-8">
         
         {/* Header */}
@@ -96,9 +110,10 @@ export default function MyBuildsPage() {
                 >
                   {/* Delete Button */}
                   <button
-                    onClick={() => handleDelete(build.id)}
+                    onClick={() => handleDelete(build.id, build.name || `${speciesLabel} Build`)}
                     className="absolute top-4 right-4 p-2 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500/20 opacity-0 group-hover:opacity-100 transition-opacity"
                     title="Delete build"
+                    aria-label={`Delete ${build.name || speciesLabel} build`}
                   >
                     <Trash2 size={16} />
                   </button>

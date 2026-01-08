@@ -54,6 +54,7 @@ export default function Navbar() {
                     ? "bg-white/10 text-white border-white/10 shadow-lg shadow-white/5"
                     : "text-slate-300 border-transparent hover:text-emerald-400 hover:bg-white/5"
                 }`}
+                aria-current={active ? "page" : undefined}
               >
                 {link.icon}
                 {link.name}
@@ -66,6 +67,9 @@ export default function Navbar() {
         <button 
           className="md:hidden text-white"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={isMobileMenuOpen}
+          aria-controls="mobile-menu"
         >
           {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} className="text-emerald-400" />}
         </button>
@@ -74,7 +78,12 @@ export default function Navbar() {
 
       {/* MOBILE DROPDOWN (Matches your theme) */}
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-28 left-0 w-full bg-[#020617] border-b border-white/10 p-4 flex flex-col gap-2 shadow-2xl">
+        <div 
+          id="mobile-menu"
+          className="md:hidden absolute top-28 left-0 w-full bg-[#020617] border-b border-white/10 p-4 flex flex-col gap-2 shadow-2xl"
+          role="menu"
+          aria-label="Navigation menu"
+        >
            {navLinks.map((link) => {
              const active = isActive(link.href);
              return (
@@ -87,6 +96,8 @@ export default function Navbar() {
                       ? 'bg-white/10 text-white border-white/10' 
                       : 'text-slate-300 border-transparent hover:bg-white/5'
                   }`}
+                  role="menuitem"
+                  aria-current={active ? "page" : undefined}
                 >
                   {link.icon}
                   {link.name}
