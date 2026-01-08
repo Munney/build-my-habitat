@@ -54,18 +54,24 @@ function groupVariants(products) {
     // Exclude "Active Plant Soil" from pattern2 matching
     const pattern2 = /^(.+?)\s+(Beige|Black|White|Light|Dark)\s+\((.+?)\)$/i;
     // Pattern 3: "Natural Driftwood 3 pcs (6-10 inches) Large" or "Natural Driftwood 4 pcs (4-6 inches) Small"
+    // Only match driftwood variants that include "inches" in the label
     const pattern3 = /^(.+?)\s+(\d+)\s+pcs\s+\((.+?)\)\s+(Large|Small)$/i;
     
     // Skip pattern2 for "Active Plant Soil" - it should be standalone
     const isActivePlantSoil = label.toLowerCase().includes("active plant soil");
     
-    let match = label.match(pattern1) || (!isActivePlantSoil && label.match(pattern2)) || label.match(pattern3);
+    // For driftwood, only group if it contains "inches"
+    const isDriftwood = label.toLowerCase().includes("driftwood");
+    const hasInches = label.toLowerCase().includes("inches");
+    
+    let match = label.match(pattern1) || (!isActivePlantSoil && label.match(pattern2)) || (pattern3.test(label) && isDriftwood && hasInches);
     
     if (match && !isActivePlantSoil) {
       let baseName, color, size;
       
-      if (pattern3.test(label)) {
-        // Driftwood pattern: "Natural Driftwood 3 pcs (6-10) Large"
+      if (pattern3.test(label) && isDriftwood && hasInches) {
+        // Driftwood pattern: "Natural Driftwood 3 pcs (6-10 inches) Large"
+        // Only include variants with "inches" in the label
         baseName = match[1].trim();
         // For driftwood, the full variant description is the size
         size = `${match[2]} pcs (${match[3]}) ${match[4]}`;
