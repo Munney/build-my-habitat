@@ -43,20 +43,25 @@ function toggle(list, id) {
 function groupVariants(products) {
   const variantGroups = new Map();
   const standalone = [];
+  const groupedProductIds = new Set(); // Track which product IDs have been grouped
   
   products.forEach(product => {
     const label = product.label;
     
     // Pattern 1: "Natural Gravel - Light (2lbs)" or "Natural Gravel - Dark (5lbs)"
     const pattern1 = /^(.+?)\s+-\s+(Light|Dark|Beige|Black|White)\s+\((.+?)\)$/i;
-    // Pattern 2: "Aquarium Sand Beige (2lbs)" or "Aquarium Sand Black (2lbs)"
+    // Pattern 2: "Aquarium Sand Beige (2lbs)" or "Aquarium Sand Black (2lbs)" - but NOT "Active Plant Soil Dark"
+    // Exclude "Active Plant Soil" from pattern2 matching
     const pattern2 = /^(.+?)\s+(Beige|Black|White|Light|Dark)\s+\((.+?)\)$/i;
     // Pattern 3: "Natural Driftwood 3 pcs (6-10 inches) Large" or "Natural Driftwood 4 pcs (4-6 inches) Small"
     const pattern3 = /^(.+?)\s+(\d+)\s+pcs\s+\((.+?)\)\s+(Large|Small)$/i;
     
-    let match = label.match(pattern1) || label.match(pattern2) || label.match(pattern3);
+    // Skip pattern2 for "Active Plant Soil" - it should be standalone
+    const isActivePlantSoil = label.toLowerCase().includes("active plant soil");
     
-    if (match) {
+    let match = label.match(pattern1) || (!isActivePlantSoil && label.match(pattern2)) || label.match(pattern3);
+    
+    if (match && !isActivePlantSoil) {
       let baseName, color, size;
       
       if (pattern3.test(label)) {
@@ -85,21 +90,37 @@ function groupVariants(products) {
         color: color || null,
         size
       });
+      groupedProductIds.add(product.id);
     } else {
       // Check if this is a standalone product or if other products are variants of it
       const firstWord = product.label.split(' ')[0];
       const hasVariants = products.some(p => 
         p.id !== product.id && 
-        p.label.toLowerCase().startsWith(firstWord.toLowerCase() + ' ')
+        p.label.toLowerCase().startsWith(firstWord.toLowerCase() + ' ') &&
+        !groupedProductIds.has(p.id)
       );
       
-      if (!hasVariants) {
+      if (!hasVariants || isActivePlantSoil) {
         standalone.push(product);
       }
     }
   });
   
-  return { groups: Array.from(variantGroups.values()), standalone };
+  // Filter out groups with only one variant (these should be standalone)
+  const validGroups = Array.from(variantGroups.values()).filter(group => {
+    if (group.variants.length === 1) {
+      // Move single-variant products back to standalone
+      standalone.push(group.variants[0]);
+      groupedProductIds.delete(group.variants[0].id);
+      return false;
+    }
+    return true;
+  });
+  
+  // Filter standalone to exclude any products that are in groups
+  const finalStandalone = standalone.filter(p => !groupedProductIds.has(p.id));
+  
+  return { groups: validGroups, standalone: finalStandalone };
 }
 
 export default function BettaBuilder() {
@@ -386,7 +407,7 @@ export default function BettaBuilder() {
     <main className="relative min-h-screen pt-28 pb-20 px-6">
       
       {/* Horizontal Progress Bar */}
-      <div className="sticky top-28 z-40 mb-8 bg-slate-900/90 backdrop-blur-md border-b border-white/10 rounded-b-2xl overflow-hidden">
+      <div className="sticky top-[112px] z-40 mb-8 bg-slate-900/90 backdrop-blur-md border-b border-white/10 rounded-b-2xl overflow-hidden">
         <div className="h-1 bg-slate-800/50 relative">
           <div 
             className="h-full bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-500 transition-all duration-700 ease-out shadow-lg shadow-blue-500/30"
@@ -667,13 +688,27 @@ export default function BettaBuilder() {
                 substrates={SUBSTRATES}
                 selectedId={substrateId}
                 selectedVariants={substrateVariants}
-                onSelect={(id) => setSubstrateId(id)}
+                onSelect={(id) => {
+                  // Toggle behavior: if same ID, deselect (set to null)
+                  setSubstrateId(substrateId === id ? null : id);
+                }}
                 onVariantSelect={(baseName, color, size, variantId) => {
-                  setSubstrateVariants(prev => ({
-                    ...prev,
-                    [baseName]: { color, size }
-                  }));
-                  setSubstrateId(variantId);
+                  if (variantId === null) {
+                    // Deselect
+                    setSubstrateVariants(prev => {
+                      const newVariants = { ...prev };
+                      delete newVariants[baseName];
+                      return newVariants;
+                    });
+                    setSubstrateId(null);
+                  } else {
+                    // Select variant
+                    setSubstrateVariants(prev => ({
+                      ...prev,
+                      [baseName]: { color, size }
+                    }));
+                    setSubstrateId(variantId);
+                  }
                 }}
               />
             </Section>
@@ -1148,10 +1183,17 @@ function SubstrateSection({ substrates, selectedId, selectedVariants, onSelect, 
               }
             }}
             onSelect={() => {
-              // Select first variant if none selected
-              if (!variantSelection && group.variants.length > 0) {
-                const first = group.variants[0];
-                onVariantSelect(group.baseName, first.color, first.size, first.id);
+              // Always select first variant when clicking the card (for betta, single select behavior)
+              if (group.variants.length > 0) {
+                // If already selected and active, deselect it (toggle behavior)
+                if (variantSelection && selectedVariant && selectedId === selectedVariant.id) {
+                  // Toggle off
+                  onVariantSelect(group.baseName, null, null, null);
+                } else {
+                  // Select first variant
+                  const first = group.variants[0];
+                  onVariantSelect(group.baseName, first.color, first.size, first.id);
+                }
               }
             }}
           />
