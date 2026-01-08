@@ -64,23 +64,26 @@ function groupVariants(products) {
     const isDriftwood = label.toLowerCase().includes("driftwood");
     const hasInches = label.toLowerCase().includes("inches");
     
-    let match = label.match(pattern1) || (!isActivePlantSoil && label.match(pattern2)) || (pattern3.test(label) && isDriftwood && hasInches);
+    // Try each pattern and get the actual match array
+    let match = label.match(pattern1) || 
+                (!isActivePlantSoil && label.match(pattern2)) || 
+                (isDriftwood && hasInches && label.match(pattern3));
     
     if (match && !isActivePlantSoil) {
       let baseName, color, size;
       
-      if (pattern3.test(label) && isDriftwood && hasInches) {
+      if (isDriftwood && hasInches && pattern3.test(label)) {
         // Driftwood pattern: "Natural Driftwood 3 pcs (6-10 inches) Large"
         // Only include variants with "inches" in the label
-        baseName = match[1].trim();
+        baseName = match[1] ? match[1].trim() : '';
         // For driftwood, the full variant description is the size
-        size = `${match[2]} pcs (${match[3]}) ${match[4]}`;
+        size = `${match[2] || ''} pcs (${match[3] || ''}) ${match[4] || ''}`;
         color = null; // No color for driftwood
       } else if (pattern1.test(label) || pattern2.test(label)) {
         // Gravel/Sand pattern
-        baseName = match[1].trim();
-        color = match[2].trim();
-        size = match[3].trim();
+        baseName = match[1] ? match[1].trim() : '';
+        color = match[2] ? match[2].trim() : '';
+        size = match[3] ? match[3].trim() : '';
       }
       
       if (!variantGroups.has(baseName)) {
