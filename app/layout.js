@@ -14,6 +14,16 @@ export const metadata = {
   description: 'Stop guessing at the pet store. Build safe, complete, and species-appropriate habitats for Leopard Geckos, Betta Fish, and more with our smart configurator.',
   keywords: 'reptile habitat builder, aquarium setup, betta fish care, leopard gecko setup, pet habitat configurator, safe pet enclosures, research-backed pet care',
   authors: [{ name: 'HabitatBuilder' }],
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/icon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
   openGraph: {
     title: 'HabitatBuilder - Smart Reptile & Aquarium Setup Configurator',
     description: 'Build safe, complete, and species-appropriate habitats with research-backed recommendations.',
