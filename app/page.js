@@ -182,6 +182,56 @@ export default function Home() {
           </div>
         </div>
 
+        {/* --- SPECIFIC TOPIC GUIDES --- */}
+        <div className="w-full mb-16">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-black text-white mb-3">Specific Topic Guides</h2>
+            <p className="text-slate-400">In-depth guides on specific topics and common problems</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <Link
+              href="/guides/betta-fish-tank-size"
+              onClick={() => analytics.trackNavClick("guide-betta-tank-size")}
+              className="group p-5 rounded-xl bg-blue-500/10 border border-blue-500/20 hover:border-blue-500/40 transition-all hover:-translate-y-1"
+            >
+              <h3 className="text-lg font-bold text-white mb-2">Betta Fish Tank Size</h3>
+              <p className="text-sm text-slate-300">Why 5+ gallons is essential</p>
+            </Link>
+            <Link
+              href="/guides/betta-fish-heater"
+              onClick={() => analytics.trackNavClick("guide-betta-heater")}
+              className="group p-5 rounded-xl bg-blue-500/10 border border-blue-500/20 hover:border-blue-500/40 transition-all hover:-translate-y-1"
+            >
+              <h3 className="text-lg font-bold text-white mb-2">Betta Fish Heater Guide</h3>
+              <p className="text-sm text-slate-300">Temperature requirements</p>
+            </Link>
+            <Link
+              href="/guides/betta-fish-filter"
+              onClick={() => analytics.trackNavClick("guide-betta-filter")}
+              className="group p-5 rounded-xl bg-blue-500/10 border border-blue-500/20 hover:border-blue-500/40 transition-all hover:-translate-y-1"
+            >
+              <h3 className="text-lg font-bold text-white mb-2">Betta Fish Filter Guide</h3>
+              <p className="text-sm text-slate-300">Low-flow filtration options</p>
+            </Link>
+            <Link
+              href="/guides/leopard-gecko-not-eating"
+              onClick={() => analytics.trackNavClick("guide-gecko-not-eating")}
+              className="group p-5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 hover:border-emerald-500/40 transition-all hover:-translate-y-1"
+            >
+              <h3 className="text-lg font-bold text-white mb-2">Gecko Not Eating?</h3>
+              <p className="text-sm text-slate-300">Causes and solutions</p>
+            </Link>
+            <Link
+              href="/guides/leopard-gecko-substrate"
+              onClick={() => analytics.trackNavClick("guide-gecko-substrate")}
+              className="group p-5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 hover:border-emerald-500/40 transition-all hover:-translate-y-1"
+            >
+              <h3 className="text-lg font-bold text-white mb-2">Leopard Gecko Substrate</h3>
+              <p className="text-sm text-slate-300">Safe vs dangerous options</p>
+            </Link>
+          </div>
+        </div>
+
         {/* --- QUICK LINKS TO EDUCATIONAL CONTENT --- */}
         <div className="w-full mb-16">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
