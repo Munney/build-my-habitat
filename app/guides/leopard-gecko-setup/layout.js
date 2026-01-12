@@ -1,10 +1,10 @@
 export const metadata = {
-  title: 'Leopard Gecko Setup Guide | The Ultimate Care Sheet',
-  description: 'Stop using dangerous starter kits. Learn the vet-approved way to set up a Leopard Gecko tank: 40-gallon breeder size, halogen heating, safe substrate, and more.',
-  keywords: ['leopard gecko setup', 'leopard gecko tank size', 'best substrate for leopard gecko', 'gecko lighting guide', 'reptile husbandry'],
+  title: 'Complete Leopard Gecko Setup Guide 2024 | Tank, Heating, Substrate',
+  description: 'Complete leopard gecko setup guide: 40-gallon breeder tanks, proper heating (Halogen/DHP), UVB lighting, safe substrates, and essential accessories. Build your gecko habitat step-by-step.',
+  keywords: 'leopard gecko setup, leopard gecko tank setup, leopard gecko habitat, leopard gecko enclosure, leopard gecko tank size, leopard gecko heating, leopard gecko substrate, leopard gecko uvb, 40 gallon leopard gecko, leopard gecko beginner setup, leopard gecko setup guide, how to set up leopard gecko tank',
   openGraph: {
-    title: 'The Ultimate Leopard Gecko Setup Guide',
-    description: 'Forget the 10-gallon tank. Here is the modern, vet-approved standard for thriving geckos.',
+    title: 'Complete Leopard Gecko Setup Guide 2024',
+    description: 'Step-by-step guide to building a safe, vet-approved leopard gecko habitat. Learn about tank size, heating, substrate, and all essential equipment.',
     images: ['/gecko.jpg'],
   },
 };

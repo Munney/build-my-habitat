@@ -11,14 +11,52 @@ import {
   ArrowRight, 
   ArrowLeft, // 👈 Added ArrowLeft for the back button
   ShieldAlert, 
-  CheckCircle2 
+  CheckCircle2,
+  HelpCircle
 } from "lucide-react";
 
 import Footer from "../../components/Footer";
+import { FAQSchema } from "../../components/StructuredData";
 
 export default function LeopardGeckoGuidePage() {
+  const faqs = [
+    {
+      question: "What size tank does a leopard gecko need?",
+      answer: "A leopard gecko needs a minimum of 20 gallons (20-gallon long tank), but a 40-gallon breeder tank is recommended for optimal health and well-being. The 40-gallon breeder provides enough space for proper temperature gradients and enrichment."
+    },
+    {
+      question: "Do leopard geckos need UVB lighting?",
+      answer: "While leopard geckos can survive without UVB, providing low-level UVB (2-5% UVB bulb) is beneficial for their health. It helps with calcium metabolism and mimics natural sunlight. However, proper supplementation is still essential."
+    },
+    {
+      question: "What substrate is safe for leopard geckos?",
+      answer: "Safe substrates include paper towels, slate tile, reptile carpet, or a 70/30 mix of organic topsoil and playsand. Avoid calcium sand, walnut shells, and wood chips as they pose impaction risks."
+    },
+    {
+      question: "What heating is best for leopard geckos?",
+      answer: "Halogen flood lamps or Deep Heat Projectors (DHP) are the best heating options for leopard geckos. They provide deep muscle penetration and mimic natural sunlight. Always use a thermostat to control temperature. Avoid heat rocks and heat mats."
+    },
+    {
+      question: "What temperature should a leopard gecko tank be?",
+      answer: "Leopard geckos need a temperature gradient: warm side 88-92°F (31-33°C) and cool side 70-75°F (21-24°C). This allows them to thermoregulate by moving between warm and cool areas."
+    },
+    {
+      question: "How do I set up a leopard gecko tank for beginners?",
+      answer: "Start with a 40-gallon breeder tank, halogen or DHP heating with a thermostat, safe substrate (paper towels for beginners), three hides (warm, cool, and moist), a water dish, calcium dish, and proper lighting. Use our interactive builder to get a complete shopping list."
+    },
+    {
+      question: "Can leopard geckos live in a 10-gallon tank?",
+      answer: "No, a 10-gallon tank is too small for a leopard gecko. The minimum is 20 gallons, but 40 gallons is recommended. Small tanks make it impossible to create proper temperature gradients and provide adequate enrichment."
+    },
+    {
+      question: "What do I need for a complete leopard gecko setup?",
+      answer: "A complete leopard gecko setup includes: 40-gallon breeder tank, halogen or DHP heating with thermostat, UVB lighting (optional but recommended), safe substrate, three hides (warm, cool, moist), water dish, calcium dish, supplements (calcium with D3, multivitamin), thermometer, and enrichment items (plants, branches, rocks)."
+    }
+  ];
+
   return (
     <>
+      <FAQSchema faqs={faqs} />
       <main className="min-h-screen pt-28 pb-20 px-6 relative z-10">
         
         {/* --- BACK TO HUB BUTTON --- */}
@@ -38,10 +76,10 @@ export default function LeopardGeckoGuidePage() {
             Beginner's Guide
           </div>
           <h1 className="text-5xl md:text-6xl font-black text-white mb-6 drop-shadow-lg leading-tight">
-            The Ultimate <span className="text-emerald-400">Leopard Gecko Setup</span>
+            Complete Leopard Gecko Setup Guide 2024
           </h1>
           <p className="text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto">
-            Forget the starter kits. Here is the vet-approved, evidence-based guide to building a safe and thriving habitat for your new gecko.
+            Learn how to set up a leopard gecko tank the right way. This complete guide covers tank size, heating, substrate, lighting, and all essential equipment for a thriving leopard gecko habitat.
           </p>
           
           <div className="mt-10">
@@ -61,7 +99,7 @@ export default function LeopardGeckoGuidePage() {
           <GuideSection 
             Icon={Box} 
             iconColor="#34d399" // Bright Emerald Green
-            title="1. The Enclosure Size"
+            title="1. Leopard Gecko Tank Size & Enclosure"
           >
             <p className="text-slate-300 mb-4">
               Size matters. A small tank is not just cramped; it makes it impossible to create the necessary temperature gradient for your gecko's health.
@@ -77,7 +115,7 @@ export default function LeopardGeckoGuidePage() {
           <GuideSection 
             Icon={Flame} 
             iconColor="#fb923c" // Bright Neon Orange
-            title="2. Heating & Lighting"
+            title="2. Leopard Gecko Heating & Lighting Setup"
           >
             <div className="bg-red-500/10 border border-red-500/30 p-4 rounded-xl mb-4 flex items-start gap-3">
               <ShieldAlert size={24} className="text-red-400 shrink-0" />
@@ -99,7 +137,7 @@ export default function LeopardGeckoGuidePage() {
           <GuideSection 
             Icon={Droplets} 
             iconColor="#22d3ee" // Bright Cyan Blue
-            title="3. Safe Substrate"
+            title="3. Leopard Gecko Substrate: Safe Options"
           >
             <p className="text-slate-300 mb-4">
               The wrong substrate can cause impaction (a deadly blockage). Choose wisely based on your experience level.
@@ -144,6 +182,53 @@ export default function LeopardGeckoGuidePage() {
             </ul>
           </GuideSection>
 
+        </div>
+
+        {/* --- FAQ SECTION --- */}
+        <div className="max-w-4xl mx-auto mt-20">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-black text-white mb-4">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-slate-400 text-lg">
+              Common questions about leopard gecko setup and care
+            </p>
+          </div>
+          
+          <div className="space-y-4">
+            <FAQItem 
+              question="What size tank does a leopard gecko need?"
+              answer="A leopard gecko needs a minimum of 20 gallons (20-gallon long tank), but a 40-gallon breeder tank is recommended for optimal health and well-being. The 40-gallon breeder provides enough space for proper temperature gradients and enrichment."
+            />
+            <FAQItem 
+              question="Do leopard geckos need UVB lighting?"
+              answer="While leopard geckos can survive without UVB, providing low-level UVB (2-5% UVB bulb) is beneficial for their health. It helps with calcium metabolism and mimics natural sunlight. However, proper supplementation is still essential."
+            />
+            <FAQItem 
+              question="What substrate is safe for leopard geckos?"
+              answer="Safe substrates include paper towels, slate tile, reptile carpet, or a 70/30 mix of organic topsoil and playsand. Avoid calcium sand, walnut shells, and wood chips as they pose impaction risks."
+            />
+            <FAQItem 
+              question="What heating is best for leopard geckos?"
+              answer="Halogen flood lamps or Deep Heat Projectors (DHP) are the best heating options for leopard geckos. They provide deep muscle penetration and mimic natural sunlight. Always use a thermostat to control temperature. Avoid heat rocks and heat mats."
+            />
+            <FAQItem 
+              question="What temperature should a leopard gecko tank be?"
+              answer="Leopard geckos need a temperature gradient: warm side 88-92°F (31-33°C) and cool side 70-75°F (21-24°C). This allows them to thermoregulate by moving between warm and cool areas."
+            />
+            <FAQItem 
+              question="How do I set up a leopard gecko tank for beginners?"
+              answer="Start with a 40-gallon breeder tank, halogen or DHP heating with a thermostat, safe substrate (paper towels for beginners), three hides (warm, cool, and moist), a water dish, calcium dish, and proper lighting. Use our interactive builder to get a complete shopping list."
+            />
+            <FAQItem 
+              question="Can leopard geckos live in a 10-gallon tank?"
+              answer="No, a 10-gallon tank is too small for a leopard gecko. The minimum is 20 gallons, but 40 gallons is recommended. Small tanks make it impossible to create proper temperature gradients and provide adequate enrichment."
+            />
+            <FAQItem 
+              question="What do I need for a complete leopard gecko setup?"
+              answer="A complete leopard gecko setup includes: 40-gallon breeder tank, halogen or DHP heating with thermostat, UVB lighting (optional but recommended), safe substrate, three hides (warm, cool, moist), water dish, calcium dish, supplements (calcium with D3, multivitamin), thermometer, and enrichment items (plants, branches, rocks)."
+            />
+          </div>
         </div>
 
         {/* --- CTA --- */}
@@ -196,5 +281,30 @@ function GuidePoint({ children, alert }) {
       </div>
       <div>{children}</div>
     </li>
+  );
+}
+
+function FAQItem({ question, answer }) {
+  const [isOpen, setIsOpen] = React.useState(false);
+  
+  return (
+    <div className="bg-slate-900/50 backdrop-blur-md rounded-2xl border border-white/10 overflow-hidden">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-white/5 transition-colors"
+        aria-expanded={isOpen}
+      >
+        <h3 className="text-lg font-bold text-white pr-4">{question}</h3>
+        <HelpCircle 
+          size={20} 
+          className={`text-emerald-400 shrink-0 transition-transform ${isOpen ? 'rotate-180' : ''}`} 
+        />
+      </button>
+      {isOpen && (
+        <div className="px-6 pb-4">
+          <p className="text-slate-300 leading-relaxed">{answer}</p>
+        </div>
+      )}
+    </div>
   );
 }
