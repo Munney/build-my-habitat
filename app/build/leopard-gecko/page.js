@@ -980,6 +980,8 @@ export default function LeopardGeckoBuilder() {
                     onClick={() => setSupplementIds((ids) => toggle(ids, s.id))}
                     type="checkbox"
                     productId={s.id}
+                    asin={s.asin}
+                    product={s}
                   />
                 ))}
               </div>
@@ -1360,6 +1362,8 @@ function HeatingSection({ heating, selectedIds, selectedVariants, onToggle, onVa
             type="checkbox"
             productId={h.id}
             isRequired={isRequired}
+            asin={h.asin}
+            product={h}
           />
         );
       })}
@@ -1491,6 +1495,8 @@ function SubstrateSection({ substrates, selectedIds, selectedVariants, onToggle,
           onClick={() => onToggle(s.id)}
           type="checkbox"
           productId={s.id}
+          asin={s.asin}
+          product={s}
         />
       ))}
       
@@ -1576,6 +1582,8 @@ function HidesSection({ hides, selectedIds, selectedVariants, onToggle, onVarian
             type="checkbox"
             productId={h.id}
             isRequired={isRequired}
+            asin={h.asin}
+            product={h}
           />
         );
       })}
