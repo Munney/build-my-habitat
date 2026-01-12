@@ -17,12 +17,10 @@ export const metadata = {
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
-      { url: '/icon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/icon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
     ],
-    apple: [
-      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
-    ],
+    apple: '/apple-touch-icon.png',
   },
   openGraph: {
     title: 'HabitatBuilder - Smart Reptile & Aquarium Setup Configurator',
@@ -103,6 +101,15 @@ export default function RootLayout({ children }) {
             __html: JSON.stringify(websiteSchema),
           }}
         />
+        
+        {/* Favicon */}
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
+        <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        
+        {/* Web App Manifest */}
+        <link rel="manifest" href="/site.webmanifest" />
         
         {/* Google Tag Manager - Must be as high in head as possible */}
         <script
