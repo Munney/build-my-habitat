@@ -331,15 +331,26 @@ export default function LeopardGeckoBuilder() {
 
   // --- FILTERING LOGIC ---
   const filteredSubstrates = useMemo(() => {
+    // Always block calcium sand - it's dangerous for all users (causes impaction)
+    const safeSubstrates = SUBSTRATES.filter(s => {
+      const name = s.label.toLowerCase();
+      const id = s.id.toLowerCase();
+      // Block calcium sand completely (dangerous for everyone)
+      if (name.includes("calcium sand") || id.includes("calcium") && id.includes("sand")) {
+        return false;
+      }
+      return true;
+    });
+    
     if (experience === "beginner") {
-        return SUBSTRATES.filter(s => {
+        return safeSubstrates.filter(s => {
             if (s.type === "loose") return false;
             const name = s.label.toLowerCase();
             const isLooseName = name.includes("soil") || name.includes("sand") || name.includes("dirt") || name.includes("excavator") || name.includes("bioactive");
             return !isLooseName;
         });
     }
-    return SUBSTRATES;
+    return safeSubstrates;
   }, [experience]);
 
   // --- SELECTION LOGIC ---

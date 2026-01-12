@@ -200,6 +200,12 @@ export default function BettaBuilder() {
     return ENCLOSURES;
   }, [experience]);
 
+  // Filter out high-flow filters - they stress bettas (guide recommends avoiding them)
+  // Sponge filters are best, HOB can work if adjustable, but high-flow should be avoided
+  const filteredFiltration = useMemo(() => {
+    return FILTRATION.filter(f => f.flow !== "high");
+  }, []);
+
   // Filter out unsafe decor (plastic plants) - research shows they tear fins
   const filteredDecor = useMemo(() => {
     return DECOR.filter(d => d.id !== "plastic");
@@ -207,7 +213,7 @@ export default function BettaBuilder() {
 
   // --- SELECTION LOGIC ---
   const selectedEnclosure = ENCLOSURES.find((e) => e.id === enclosureId);
-  const selectedFiltration = FILTRATION.find((f) => f.id === filtrationId);
+  const selectedFiltration = filteredFiltration.find((f) => f.id === filtrationId);
   
   // Handle substrate selection (including variants)
   const selectedSubstrate = useMemo(() => {
@@ -650,7 +656,7 @@ export default function BettaBuilder() {
                 </div>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {FILTRATION.map((f) => (
+                {filteredFiltration.map((f) => (
                   <SelectionCard
                     key={f.id}
                     active={filtrationId === f.id}
