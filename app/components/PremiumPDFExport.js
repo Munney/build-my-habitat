@@ -59,7 +59,9 @@ export function PremiumPDFExport({ buildName, items, total, species = "betta" })
         doc.setTextColor(255, 255, 255);
         doc.setFontSize(9);
         doc.setFont("helvetica", "bold");
-        doc.text(String(index + 1), 25, yPos + 2, { align: "center" });
+        // Center the number in the circle: yPos is circle center, adjust for text baseline
+        // Font size 9 has ~6.5 units height, so offset by ~1.5 to center vertically
+        doc.text(String(index + 1), 25, yPos + 1.5, { align: "center" });
 
         // Item name
         doc.setTextColor(0, 0, 0);
