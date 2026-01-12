@@ -148,6 +148,7 @@ function SummaryContent() {
   const [buildSaved, setBuildSaved] = useState(false);
   const [showNameDialog, setShowNameDialog] = useState(false);
   const [buildName, setBuildName] = useState("");
+  const [showEmailPopup, setShowEmailPopup] = useState(false);
 
   const selections = useMemo(() => {
     const get = (key, list) => {
