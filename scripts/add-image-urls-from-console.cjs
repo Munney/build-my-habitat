@@ -5,13 +5,15 @@
  * you can use this script to add them to your JSON files.
  * 
  * Usage:
- * 1. Create a file called image-urls.json with this format:
+ * 1. Create a file called image-urls.json in the project root with this format:
  *    [
  *      { "asin": "B09MQBB6CP", "imageUrl": "https://..." },
  *      { "asin": "B0D3KPYCQ9", "imageUrl": "https://..." }
  *    ]
  * 
  * 2. Run: node scripts/add-image-urls-from-console.cjs
+ * 
+ * The script will automatically find matching ASINs and add imageUrl to all products.
  */
 
 const fs = require('fs');
