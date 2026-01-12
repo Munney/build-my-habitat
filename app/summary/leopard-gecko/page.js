@@ -146,7 +146,6 @@ export default function GeckoSummary() {
 function SummaryContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [linkCopied, setLinkCopied] = useState(false);
   const [buildSaved, setBuildSaved] = useState(false);
   const [showNameDialog, setShowNameDialog] = useState(false);
   const [buildName, setBuildName] = useState("");
@@ -212,25 +211,6 @@ function SummaryContent() {
     return `${baseUrl}?${params.toString()}`;
   }, [allItems]);
 
-  const handleShare = async () => {
-    analytics.trackShareClick("share", "leopard-gecko");
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: `My Leopard Gecko Habitat Build - $${total}`,
-          text: `Check out my safe leopard gecko setup! Built with HabitatBuilder.`,
-          url: window.location.href
-        });
-      } catch (error) {
-        console.error("Error sharing:", error);
-      }
-    } else {
-      // Fallback for browsers that don't support Web Share API
-      navigator.clipboard.writeText(window.location.href);
-      setLinkCopied(true);
-      setTimeout(() => setLinkCopied(false), 2000);
-    }
-  };
 
   const handleSaveClick = () => {
     // Set default name
@@ -292,20 +272,12 @@ function SummaryContent() {
           </div>
 
           <div className="flex gap-3 no-print">
-             <div className="relative">
-               <button 
-                 onClick={handleShare}
-                 className="p-3 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors relative"
-                 title="Share this build"
-               >
-                 {linkCopied ? <Check size={20} className="text-emerald-400" /> : <Share2 size={20} />}
-               </button>
-               {linkCopied && (
-                 <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-emerald-500 text-white text-xs rounded-lg whitespace-nowrap z-50">
-                   Link copied!
-                 </div>
-               )}
-             </div>
+             <SocialShare 
+               buildName={buildName || "Leopard Gecko Build"}
+               total={parseFloat(total)}
+               species="leopard-gecko"
+               shareUrl={typeof window !== "undefined" ? window.location.href : ""}
+             />
              <button 
                 onClick={handleSaveClick}
                 disabled={buildSaved}
