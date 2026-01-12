@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Download, Sparkles, CheckCircle2, X } from "lucide-react";
-import jsPDF from "jspdf";
 
 export function PremiumPDFExport({ buildName, items, total, species = "betta" }) {
   const [isGenerating, setIsGenerating] = useState(false);

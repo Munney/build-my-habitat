@@ -9,6 +9,8 @@ import { HowToSchema } from "./components/StructuredData";
 import { EmailCapturePopup, ExitIntentTracker } from "./components/EmailCapture";
 
 export default function Home() {
+  const [showEmailPopup, setShowEmailPopup] = useState(false);
+
   // HowTo structured data for the homepage
   const howToSteps = [
     {

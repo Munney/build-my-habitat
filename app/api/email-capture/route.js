@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
-import { writeFile, mkdir } from "fs/promises";
+import { writeFileSync, mkdirSync } from "fs";
 import { existsSync } from "fs";
 import path from "path";
+import { readFileSync } from "fs";
 
 // Simple file-based email storage (no external service needed)
 // Emails are saved to data/emails.json for easy access
@@ -21,7 +22,7 @@ export async function POST(request) {
     // Create data directory if it doesn't exist
     const dataDir = path.join(process.cwd(), "data");
     if (!existsSync(dataDir)) {
-      await mkdir(dataDir, { recursive: true });
+      mkdirSync(dataDir, { recursive: true });
     }
 
     // Read existing emails
@@ -30,24 +31,12 @@ export async function POST(request) {
     
     if (existsSync(emailsFile)) {
       try {
-        const fileContent = await import(emailsFile + "?update=" + Date.now());
-        emails = fileContent.default || [];
-      } catch (e) {
-        // File might be empty or invalid, start fresh
-        emails = [];
-      }
-    }
-
-    // Try reading synchronously as fallback
-    if (emails.length === 0 && existsSync(emailsFile)) {
-      const fs = require("fs");
-      try {
-        const content = fs.readFileSync(emailsFile, "utf8");
+        const content = readFileSync(emailsFile, "utf8");
         if (content.trim()) {
           emails = JSON.parse(content);
         }
       } catch (e) {
-        // Start fresh if file is corrupted
+        // File might be empty or invalid, start fresh
         emails = [];
       }
     }
@@ -66,16 +55,12 @@ export async function POST(request) {
       });
 
       // Save to file
-      const fs = require("fs");
-      fs.writeFileSync(emailsFile, JSON.stringify(emails, null, 2), "utf8");
+      writeFileSync(emailsFile, JSON.stringify(emails, null, 2), "utf8");
 
       console.log(`✅ Email captured: ${email} (${source})`);
     } else {
       console.log(`⚠️ Email already exists: ${email}`);
     }
-
-    // Optional: Send yourself an email notification (if you want)
-    // You can set up a simple email notification later
 
     return NextResponse.json(
       { 
@@ -103,8 +88,7 @@ export async function GET(request) {
       return NextResponse.json({ emails: [], total: 0 });
     }
 
-    const fs = require("fs");
-    const content = fs.readFileSync(emailsFile, "utf8");
+    const content = readFileSync(emailsFile, "utf8");
     const emails = content.trim() ? JSON.parse(content) : [];
 
     return NextResponse.json({

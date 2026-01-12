@@ -7,6 +7,7 @@ import Analytics from "./components/Analytics";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.buildmyhabitat.com'),
   title: {
     template: '%s | HabitatBuilder',
     default: 'Leopard Gecko & Betta Fish Setup Builder | HabitatBuilder',
