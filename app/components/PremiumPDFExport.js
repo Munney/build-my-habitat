@@ -12,12 +12,8 @@ export function PremiumPDFExport({ buildName, items, total, species = "betta" })
     setIsGenerating(true);
 
     try {
-      // Dynamic import jsPDF
-      if (!jsPDF) {
-        const jsPDFModule = await import("jspdf");
-        jsPDF = jsPDFModule.default;
-      }
-      
+      // Dynamic import jsPDF (client-side only)
+      const { default: jsPDF } = await import("jspdf");
       const doc = new jsPDF();
       const pageWidth = doc.internal.pageSize.getWidth();
       const pageHeight = doc.internal.pageSize.getHeight();

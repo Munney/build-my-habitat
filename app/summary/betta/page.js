@@ -210,25 +210,6 @@ function SummaryContent() {
     return `${baseUrl}?${params.toString()}`;
   }, [allItems]);
 
-  const handleShare = async () => {
-    analytics.trackShareClick("share", "betta");
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: `My Betta Fish Habitat Build - $${total}`,
-          text: `Check out my safe betta fish setup! Built with HabitatBuilder.`,
-          url: window.location.href
-        });
-      } catch (error) {
-        console.error("Error sharing:", error);
-      }
-    } else {
-      // Fallback for browsers that don't support Web Share API
-      navigator.clipboard.writeText(window.location.href);
-      setLinkCopied(true);
-      setTimeout(() => setLinkCopied(false), 2000);
-    }
-  };
 
   const handleSaveClick = () => {
     // Set default name
