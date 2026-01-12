@@ -19,6 +19,7 @@ import {
 import config from "../../../data/leopard-gecko.json";
 import { analytics, trackEvent } from "../../utils/analytics";
 import { buildStorage } from "../../utils/buildStorage";
+import { EmailCaptureInline, EmailCapturePopup, ExitIntentTracker } from "../../components/EmailCapture";
 
 // Print styles - Receipt format
 if (typeof window !== 'undefined') {

@@ -6,6 +6,7 @@ import { useState } from "react";
 import { ArrowRight, BookOpen, ArrowUpRight, ShieldCheck, CheckCircle2, Sparkles, FileText } from "lucide-react";
 import { analytics } from "./utils/analytics";
 import { HowToSchema } from "./components/StructuredData";
+import { EmailCapturePopup, ExitIntentTracker } from "./components/EmailCapture";
 
 export default function Home() {
   // HowTo structured data for the homepage

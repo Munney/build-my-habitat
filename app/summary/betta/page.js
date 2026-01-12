@@ -19,6 +19,7 @@ import {
 import config from "../../../data/betta.json";
 import { analytics, trackEvent } from "../../utils/analytics";
 import { buildStorage } from "../../utils/buildStorage";
+import { EmailCaptureInline, EmailCapturePopup, ExitIntentTracker } from "../../components/EmailCapture";
 
 // Print styles - Simple receipt format
 if (typeof window !== 'undefined') {
@@ -137,6 +138,7 @@ function SummaryContent() {
   const [buildSaved, setBuildSaved] = useState(false);
   const [showNameDialog, setShowNameDialog] = useState(false);
   const [buildName, setBuildName] = useState("");
+  const [showEmailPopup, setShowEmailPopup] = useState(false);
 
   // --- 1. REHYDRATE DATA ---
   const selections = useMemo(() => {
