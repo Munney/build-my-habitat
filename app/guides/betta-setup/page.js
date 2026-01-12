@@ -11,14 +11,52 @@ import {
   ArrowRight, 
   ArrowLeft, // 👈 Added ArrowLeft for the back button
   ShieldAlert, 
-  CheckCircle2 
+  CheckCircle2,
+  HelpCircle
 } from "lucide-react";
 
 import Footer from "../../components/Footer";
+import { FAQSchema } from "../../components/StructuredData";
 
 export default function BettaGuidePage() {
+  const faqs = [
+    {
+      question: "What size tank does a betta fish need?",
+      answer: "A betta fish needs a minimum of 5 gallons, but 10 gallons is recommended for easier maintenance and better water quality. Larger tanks are more stable and provide more swimming space for your betta."
+    },
+    {
+      question: "Do betta fish need a heater?",
+      answer: "Yes, betta fish absolutely need a heater. They are tropical fish and require water temperature between 78-80°F (25.5-26.5°C). Room temperature water is usually too cold and can cause stress, lethargy, and illness."
+    },
+    {
+      question: "What filter is best for betta fish?",
+      answer: "Sponge filters are the best choice for betta fish. They provide gentle filtration and aeration without creating strong currents that can stress bettas. Avoid high-flow hang-on-back filters that can blow your betta around the tank."
+    },
+    {
+      question: "Can betta fish live in bowls?",
+      answer: "No, betta fish cannot live in bowls. Bowls are too small (usually less than 1 gallon), cannot maintain proper temperature, and cannot support a filter. This leads to ammonia poisoning and a slow, painful death. A minimum 5-gallon tank with heater and filter is essential."
+    },
+    {
+      question: "What temperature should a betta fish tank be?",
+      answer: "Betta fish need water temperature between 78-80°F (25.5-26.5°C) at all times. Use an adjustable aquarium heater set to maintain this temperature range. Use the '5 watts per gallon' rule to choose the right heater size."
+    },
+    {
+      question: "How do I set up a betta fish tank for beginners?",
+      answer: "Start with a 5-10 gallon tank, adjustable heater (5 watts per gallon), sponge filter, water conditioner, API Master Test Kit, smooth substrate, silk or live plants, and a betta hammock. Most importantly, cycle your tank before adding your betta to establish beneficial bacteria."
+    },
+    {
+      question: "Do betta fish need a filter?",
+      answer: "Yes, betta fish need a filter to maintain water quality. The filter removes waste, provides biological filtration, and helps oxygenate the water. A sponge filter is ideal as it provides gentle filtration without strong currents."
+    },
+    {
+      question: "What do I need for a complete betta fish setup?",
+      answer: "A complete betta fish setup includes: 5-10 gallon tank with lid, adjustable heater (5 watts per gallon), sponge filter, water conditioner, API Master Test Kit, smooth substrate, silk or live plants, betta hammock or floating log, and proper lighting. Don't forget to cycle the tank before adding your betta!"
+    }
+  ];
+
   return (
     <>
+      <FAQSchema faqs={faqs} />
       <main className="min-h-screen pt-28 pb-20 px-6 relative z-10">
         
         {/* --- BACK TO HUB BUTTON --- */}
@@ -38,10 +76,10 @@ export default function BettaGuidePage() {
             Beginner's Guide
           </div>
           <h1 className="text-5xl md:text-6xl font-black text-white mb-6 drop-shadow-lg leading-tight">
-            The Ultimate <span className="text-blue-400">Betta Fish Setup</span>
+            Complete Betta Fish Tank Setup Guide 2025
           </h1>
           <p className="text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto">
-            Stop buying bowls. Betta fish are intelligent, tropical animals that require specific water conditions to survive. Here is how to do it right.
+            Learn how to set up a betta fish tank the right way. This complete guide covers tank size, heating, filtration, cycling, and all essential equipment for a healthy betta fish habitat.
           </p>
           
           <div className="mt-10">
@@ -61,7 +99,7 @@ export default function BettaGuidePage() {
           <GuideSection 
             Icon={Box} 
             iconColor="#60a5fa" // Bright Blue
-            title="1. Tank Size & Shape"
+            title="1. Betta Fish Tank Size & Requirements"
           >
             <p className="text-slate-300 mb-4">
               The "puddle myth" is false. While Bettas can survive in small cups briefly, they slowly die from ammonia poisoning in anything less than 5 gallons.
@@ -77,7 +115,7 @@ export default function BettaGuidePage() {
           <GuideSection 
             Icon={Waves} 
             iconColor="#2dd4bf" // Teal/Cyan
-            title="2. Filtration & Flow"
+            title="2. Betta Fish Filter: Low-Flow Options"
           >
             <div className="bg-red-500/10 border border-red-500/30 p-4 rounded-xl mb-4 flex items-start gap-3">
               <ShieldAlert size={24} className="text-red-400 shrink-0" />
@@ -98,7 +136,7 @@ export default function BettaGuidePage() {
           <GuideSection 
             Icon={Thermometer} 
             iconColor="#fb923c" // Orange
-            title="3. Tropical Heating"
+            title="3. Betta Fish Heater: Temperature Requirements"
           >
             <p className="text-slate-300 mb-4">
               Bettas are tropical fish. Room temperature water is almost always too cold, causing lethargy and immune system failure.
@@ -142,6 +180,53 @@ export default function BettaGuidePage() {
             </ul>
           </GuideSection>
 
+        </div>
+
+        {/* --- FAQ SECTION --- */}
+        <div className="max-w-4xl mx-auto mt-20">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-black text-white mb-4">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-slate-400 text-lg">
+              Common questions about betta fish tank setup and care
+            </p>
+          </div>
+          
+          <div className="space-y-4">
+            <FAQItem 
+              question="What size tank does a betta fish need?"
+              answer="A betta fish needs a minimum of 5 gallons, but 10 gallons is recommended for easier maintenance and better water quality. Larger tanks are more stable and provide more swimming space for your betta."
+            />
+            <FAQItem 
+              question="Do betta fish need a heater?"
+              answer="Yes, betta fish absolutely need a heater. They are tropical fish and require water temperature between 78-80°F (25.5-26.5°C). Room temperature water is usually too cold and can cause stress, lethargy, and illness."
+            />
+            <FAQItem 
+              question="What filter is best for betta fish?"
+              answer="Sponge filters are the best choice for betta fish. They provide gentle filtration and aeration without creating strong currents that can stress bettas. Avoid high-flow hang-on-back filters that can blow your betta around the tank."
+            />
+            <FAQItem 
+              question="Can betta fish live in bowls?"
+              answer="No, betta fish cannot live in bowls. Bowls are too small (usually less than 1 gallon), cannot maintain proper temperature, and cannot support a filter. This leads to ammonia poisoning and a slow, painful death. A minimum 5-gallon tank with heater and filter is essential."
+            />
+            <FAQItem 
+              question="What temperature should a betta fish tank be?"
+              answer="Betta fish need water temperature between 78-80°F (25.5-26.5°C) at all times. Use an adjustable aquarium heater set to maintain this temperature range. Use the '5 watts per gallon' rule to choose the right heater size."
+            />
+            <FAQItem 
+              question="How do I set up a betta fish tank for beginners?"
+              answer="Start with a 5-10 gallon tank, adjustable heater (5 watts per gallon), sponge filter, water conditioner, API Master Test Kit, smooth substrate, silk or live plants, and a betta hammock. Most importantly, cycle your tank before adding your betta to establish beneficial bacteria."
+            />
+            <FAQItem 
+              question="Do betta fish need a filter?"
+              answer="Yes, betta fish need a filter to maintain water quality. The filter removes waste, provides biological filtration, and helps oxygenate the water. A sponge filter is ideal as it provides gentle filtration without strong currents."
+            />
+            <FAQItem 
+              question="What do I need for a complete betta fish setup?"
+              answer="A complete betta fish setup includes: 5-10 gallon tank with lid, adjustable heater (5 watts per gallon), sponge filter, water conditioner, API Master Test Kit, smooth substrate, silk or live plants, betta hammock or floating log, and proper lighting. Don't forget to cycle the tank before adding your betta!"
+            />
+          </div>
         </div>
 
         {/* --- CTA --- */}
@@ -194,5 +279,30 @@ function GuidePoint({ children, alert }) {
       </div>
       <div>{children}</div>
     </li>
+  );
+}
+
+function FAQItem({ question, answer }) {
+  const [isOpen, setIsOpen] = React.useState(false);
+  
+  return (
+    <div className="bg-slate-900/50 backdrop-blur-md rounded-2xl border border-white/10 overflow-hidden">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-white/5 transition-colors"
+        aria-expanded={isOpen}
+      >
+        <h3 className="text-lg font-bold text-white pr-4">{question}</h3>
+        <HelpCircle 
+          size={20} 
+          className={`text-blue-400 shrink-0 transition-transform ${isOpen ? 'rotate-180' : ''}`} 
+        />
+      </button>
+      {isOpen && (
+        <div className="px-6 pb-4">
+          <p className="text-slate-300 leading-relaxed">{answer}</p>
+        </div>
+      )}
+    </div>
   );
 }
