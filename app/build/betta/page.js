@@ -193,12 +193,10 @@ export default function BettaBuilder() {
   const [careIds, setCareIds] = useState([]);
 
   // --- FILTERING LOGIC ---
+  // Always block bowls - they're dangerous for all users (guide states they cannot support filtration/heating and lead to death)
   const filteredEnclosures = useMemo(() => {
-    if (experience === "beginner") {
-        return ENCLOSURES.filter(e => e.type !== "unsafe");
-    }
-    return ENCLOSURES;
-  }, [experience]);
+    return ENCLOSURES.filter(e => e.type !== "unsafe" && e.id !== "bowl");
+  }, []);
 
   // Filter out high-flow filters - they stress bettas (guide recommends avoiding them)
   // Sponge filters are best, HOB can work if adjustable, but high-flow should be avoided
