@@ -9,10 +9,10 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   title: {
     template: '%s | HabitatBuilder',
-    default: 'HabitatBuilder - Smart Reptile & Aquarium Setup Configurator',
+    default: 'Leopard Gecko & Betta Fish Setup Builder | HabitatBuilder',
   },
-  description: 'Stop guessing at the pet store. Build safe, complete, and species-appropriate habitats for Leopard Geckos, Betta Fish, and more with our smart configurator.',
-  keywords: 'reptile habitat builder, aquarium setup, betta fish care, leopard gecko setup, pet habitat configurator, safe pet enclosures, research-backed pet care',
+  description: 'Build safe, vet-approved habitats for Leopard Geckos and Betta Fish. Free compatibility checker, complete setup guides, and verified product lists. Start your 40-gallon gecko or 5+ gallon betta setup today.',
+  keywords: 'leopard gecko setup, betta fish tank setup, leopard gecko habitat, betta fish care, leopard gecko tank setup, betta fish setup, reptile habitat builder, aquarium setup, leopard gecko enclosure, betta fish tank size, leopard gecko heating, betta fish heater, leopard gecko substrate, betta fish filter, safe pet enclosures, research-backed pet care',
   authors: [{ name: 'HabitatBuilder' }],
   icons: {
     icon: [

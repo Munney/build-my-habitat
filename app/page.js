@@ -52,10 +52,10 @@ export default function Home() {
           </div>
           
           <h1 className="relative text-5xl md:text-7xl font-black tracking-tight text-white drop-shadow-[0_0_25px_rgba(255,255,255,0.6)]">
-            Build My Habitat
+            Leopard Gecko & Betta Fish Setup Builder
           </h1>
           <p className="relative text-lg md:text-xl text-slate-300 font-medium leading-relaxed drop-shadow-lg">
-            Stop guessing at the pet store. Build safe, complete, and species-appropriate habitats with compatibility checks and curated recommendations.
+            Build safe, vet-approved habitats for Leopard Geckos and Betta Fish. Free compatibility checker, complete setup guides, and verified shopping lists.
           </p>
         </div>
 
