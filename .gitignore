@@ -8,6 +8,9 @@
 # testing
 /coverage
 
+# Email data (contains user emails - keep private!)
+data/emails.json
+
 # next.js
 /.next/
 /out/

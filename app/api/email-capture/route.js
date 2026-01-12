@@ -1,7 +1,10 @@
 import { NextResponse } from "next/server";
+import { writeFile, mkdir } from "fs/promises";
+import { existsSync } from "fs";
+import path from "path";
 
-// This endpoint collects emails and can integrate with Mailchimp, ConvertKit, etc.
-// For now, it just stores them. You can add Mailchimp API integration later.
+// Simple file-based email storage (no external service needed)
+// Emails are saved to data/emails.json for easy access
 
 export async function POST(request) {
   try {
@@ -15,47 +18,71 @@ export async function POST(request) {
       );
     }
 
-    // TODO: Integrate with your email service
-    // Option 1: Mailchimp
-    // Option 2: ConvertKit
-    // Option 3: SendGrid
-    // Option 4: Store in database for now
+    // Create data directory if it doesn't exist
+    const dataDir = path.join(process.cwd(), "data");
+    if (!existsSync(dataDir)) {
+      await mkdir(dataDir, { recursive: true });
+    }
 
-    // For now, just log it (you can add Mailchimp API call here)
-    console.log("Email captured:", { email, source, leadMagnet, timestamp: new Date().toISOString() });
-
-    // Example Mailchimp integration (uncomment and add your API key):
-    /*
-    const MAILCHIMP_API_KEY = process.env.MAILCHIMP_API_KEY;
-    const MAILCHIMP_LIST_ID = process.env.MAILCHIMP_LIST_ID;
+    // Read existing emails
+    const emailsFile = path.join(dataDir, "emails.json");
+    let emails = [];
     
-    if (MAILCHIMP_API_KEY && MAILCHIMP_LIST_ID) {
-      const response = await fetch(
-        `https://us1.api.mailchimp.com/3.0/lists/${MAILCHIMP_LIST_ID}/members`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${MAILCHIMP_API_KEY}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email_address: email,
-            status: "subscribed",
-            tags: [source, leadMagnet],
-          }),
-        }
-      );
-      
-      if (!response.ok) {
-        const error = await response.json();
-        console.error("Mailchimp error:", error);
+    if (existsSync(emailsFile)) {
+      try {
+        const fileContent = await import(emailsFile + "?update=" + Date.now());
+        emails = fileContent.default || [];
+      } catch (e) {
+        // File might be empty or invalid, start fresh
+        emails = [];
       }
     }
-    */
 
-    // Return success
+    // Try reading synchronously as fallback
+    if (emails.length === 0 && existsSync(emailsFile)) {
+      const fs = require("fs");
+      try {
+        const content = fs.readFileSync(emailsFile, "utf8");
+        if (content.trim()) {
+          emails = JSON.parse(content);
+        }
+      } catch (e) {
+        // Start fresh if file is corrupted
+        emails = [];
+      }
+    }
+
+    // Check if email already exists
+    const emailExists = emails.some(e => e.email.toLowerCase() === email.toLowerCase());
+    
+    if (!emailExists) {
+      // Add new email
+      emails.push({
+        email: email.toLowerCase(),
+        source,
+        leadMagnet,
+        timestamp: new Date().toISOString(),
+        date: new Date().toLocaleDateString(),
+      });
+
+      // Save to file
+      const fs = require("fs");
+      fs.writeFileSync(emailsFile, JSON.stringify(emails, null, 2), "utf8");
+
+      console.log(`✅ Email captured: ${email} (${source})`);
+    } else {
+      console.log(`⚠️ Email already exists: ${email}`);
+    }
+
+    // Optional: Send yourself an email notification (if you want)
+    // You can set up a simple email notification later
+
     return NextResponse.json(
-      { success: true, message: "Email captured successfully" },
+      { 
+        success: true, 
+        message: "Email captured successfully",
+        total: emails.length
+      },
       { status: 200 }
     );
   } catch (error) {
@@ -67,3 +94,28 @@ export async function POST(request) {
   }
 }
 
+// GET endpoint to view collected emails (for your use only)
+export async function GET(request) {
+  try {
+    const emailsFile = path.join(process.cwd(), "data", "emails.json");
+    
+    if (!existsSync(emailsFile)) {
+      return NextResponse.json({ emails: [], total: 0 });
+    }
+
+    const fs = require("fs");
+    const content = fs.readFileSync(emailsFile, "utf8");
+    const emails = content.trim() ? JSON.parse(content) : [];
+
+    return NextResponse.json({
+      emails,
+      total: emails.length
+    });
+  } catch (error) {
+    console.error("Error reading emails:", error);
+    return NextResponse.json(
+      { error: "Error reading emails" },
+      { status: 500 }
+    );
+  }
+}
