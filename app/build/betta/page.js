@@ -350,10 +350,10 @@ export default function BettaBuilder() {
         const errorMsg = "Filter is REQUIRED. Without it, toxic ammonia will kill your fish. Nitrogen cycle cannot occur without filtration.";
         messages.push({ level: "error", text: errorMsg });
         criticalErrors.push(errorMsg);
-    } else if (selectedFiltration.flow === "high") {
-        messages.push({ level: "warning", text: "Bettas hate strong flow. Baffle this filter or choose a sponge filter." });
     } else if (selectedFiltration.flow === "low") {
         messages.push({ level: "ok", text: "Sponge filters are perfect for Bettas." });
+    } else if (selectedFiltration.flow === "medium") {
+        messages.push({ level: "warning", text: "HOB filters work but may need baffling to reduce flow. Ensure it has adjustable flow settings." });
     }
 
     // 3. Heating Logic - REQUIRED (tropical fish)
