@@ -83,6 +83,10 @@
   const asinMatch = window.location.href.match(/\/dp\/([A-Z0-9]{10})/);
   const asin = asinMatch ? asinMatch[1] : 'UNKNOWN';
   
+    // Restore console functions
+  console.warn = originalWarn;
+  console.error = originalError;
+  
   // Display results
   if (imageUrl) {
     console.log('%c✅ Image URL Found!', 'color: green; font-size: 16px; font-weight: bold;');
