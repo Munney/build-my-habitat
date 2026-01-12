@@ -800,6 +800,8 @@ export default function LeopardGeckoBuilder() {
                     type="checkbox"
                     productId={e.id}
                     isRequired={false}
+                    asin={e.asin}
+                    product={e}
                   />
                 ))}
               </div>
