@@ -1850,10 +1850,24 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
       
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-start gap-4 flex-1">
-          {/* Product Image (optional - will be implemented when image URLs are available) */}
-          {productAsin && (
+          {/* Product Image */}
+          {productAsin && (product?.imageUrl || productAsin) && (
             <div className="w-16 h-16 shrink-0 rounded-lg overflow-hidden border border-slate-700/50 bg-slate-800/50 flex items-center justify-center">
-              <Package size={24} className="text-slate-500" />
+              {product?.imageUrl ? (
+                <img
+                  src={product.imageUrl}
+                  alt={label}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    // Fallback to placeholder if image fails to load
+                    e.target.style.display = 'none';
+                    e.target.nextElementSibling.style.display = 'flex';
+                  }}
+                />
+              ) : null}
+              <div className={`w-full h-full items-center justify-center ${product?.imageUrl ? 'hidden' : 'flex'}`}>
+                <Package size={24} className="text-slate-500" />
+              </div>
             </div>
           )}
           
