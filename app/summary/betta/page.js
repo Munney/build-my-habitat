@@ -329,6 +329,37 @@ function SummaryContent() {
           </div>
         </div>
 
+        {/* Email Capture Inline */}
+        <div className="mb-8 print-receipt-only-hidden">
+          <EmailCaptureInline 
+            onSuccess={(email) => {
+              console.log("Email captured:", email);
+            }}
+            leadMagnet="Betta Setup Checklist"
+          />
+        </div>
+
+        {/* Exit Intent Tracker */}
+        <ExitIntentTracker 
+          onExitIntent={() => {
+            if (typeof window !== "undefined" && !sessionStorage.getItem("exitIntentShown")) {
+              setShowEmailPopup(true);
+              sessionStorage.setItem("exitIntentShown", "true");
+            }
+          }}
+        />
+
+        {/* Email Popup */}
+        {showEmailPopup && (
+          <EmailCapturePopup
+            onClose={() => setShowEmailPopup(false)}
+            onSuccess={(email) => {
+              console.log("Email captured from popup:", email);
+            }}
+            leadMagnet="Complete Setup Checklist"
+          />
+        )}
+
         <div className="grid lg:grid-cols-[1fr,380px] gap-8 print-receipt-only-hidden">
             
             {/* LEFT: THE BUILD LIST */}
