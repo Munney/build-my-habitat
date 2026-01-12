@@ -21,7 +21,8 @@ import {
   AlertCircle,
   Menu,
   X,
-  Sun
+  Sun,
+  Package
 } from "lucide-react";
 import config from "../../../data/leopard-gecko.json";
 import ProductTooltip from "../../components/ProductTooltip";

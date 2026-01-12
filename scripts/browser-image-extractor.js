@@ -3,10 +3,13 @@
  * 
  * INSTRUCTIONS:
  * 1. Open an Amazon product page (e.g., https://www.amazon.com/dp/B09MQBB6CP)
- * 2. Open browser console (F12 or Right-click → Inspect → Console)
- * 3. Copy and paste this entire script into the console
- * 4. Press Enter
- * 5. The script will display the image URL and copy it to your clipboard
+ * 2. Press F12 to open Developer Tools
+ * 3. Click on the "Console" tab (usually the default tab, looks like >_ or says "Console")
+ * 4. You'll see a text input at the bottom with a ">" prompt
+ * 5. Copy this ENTIRE script (from line 14 to the end)
+ * 6. Paste it into the console input area
+ * 7. Press Enter
+ * 8. The script will display the image URL and copy it to your clipboard
  * 
  * Then you can add it to your JSON data files manually, or use the update script below
  */
