@@ -229,8 +229,36 @@ export default function BettaGuidePage() {
           </div>
         </div>
 
+        {/* --- RELATED RESOURCES --- */}
+        <div className="max-w-4xl mx-auto mt-20 mb-12">
+          <h2 className="text-2xl font-bold text-white mb-6 text-center">Related Resources</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Link
+              href="/build/betta"
+              className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20 hover:border-blue-500/40 transition-all text-center"
+            >
+              <h3 className="text-sm font-bold text-white mb-1">Interactive Builder</h3>
+              <p className="text-xs text-slate-400">Build your setup</p>
+            </Link>
+            <Link
+              href="/care-sheets"
+              className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20 hover:border-blue-500/40 transition-all text-center"
+            >
+              <h3 className="text-sm font-bold text-white mb-1">Care Sheets</h3>
+              <p className="text-xs text-slate-400">Quick reference</p>
+            </Link>
+            <Link
+              href="/common-mistakes"
+              className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20 hover:border-blue-500/40 transition-all text-center"
+            >
+              <h3 className="text-sm font-bold text-white mb-1">Common Mistakes</h3>
+              <p className="text-xs text-slate-400">Avoid dangers</p>
+            </Link>
+          </div>
+        </div>
+
         {/* --- CTA --- */}
-        <div className="max-w-4xl mx-auto text-center mt-20">
+        <div className="max-w-4xl mx-auto text-center mt-12">
           <h2 className="text-3xl font-black text-white mb-6">
             Ready to design your tank?
           </h2>

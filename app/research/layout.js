@@ -1,9 +1,11 @@
 export const metadata = {
-  title: 'Husbandry Research & Care Guides',
-  description: 'Read the veterinary standards and scientific research behind our habitat recommendations. Learn about the Nitrogen Cycle, DHP Heating, and UVB safety.',
+  title: 'Pet Habitat Research & Scientific Studies | HabitatBuilder',
+  description: 'Evidence-based research on leopard gecko and betta fish care. Peer-reviewed studies on tank size, heating, enrichment, and welfare. Learn the science behind safe pet habitats.',
+  keywords: 'leopard gecko research, betta fish research, reptile husbandry studies, aquarium research, pet care science, veterinary standards, herpetology research, fish welfare studies',
   openGraph: {
-    title: 'HabitatBuilder Research Library',
-    description: 'We don\'t guess. We build based on science. Read our care guides here.',
+    title: 'HabitatBuilder Research Library - Science-Based Pet Care',
+    description: 'We don\'t guess. We build based on science. Read peer-reviewed research on leopard gecko and betta fish care.',
+    images: ['/og-image.jpg'],
   },
 };
 

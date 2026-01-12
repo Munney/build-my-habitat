@@ -51,6 +51,24 @@ export default async function sitemap() {
       priority: 0.6,
     },
     {
+      url: `${baseUrl}/care-sheets`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/common-mistakes`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/about`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
       url: `${baseUrl}/my-builds`,
       lastModified: new Date(),
       changeFrequency: 'weekly',

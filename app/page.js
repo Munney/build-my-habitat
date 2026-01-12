@@ -145,6 +145,43 @@ export default function Home() {
           </Link>
         </div>
 
+        {/* --- COMPLETE SETUP GUIDES --- */}
+        <div className="w-full mb-16">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-black text-white mb-3">Complete Setup Guides</h2>
+            <p className="text-slate-400">Step-by-step guides with everything you need to know</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <Link
+              href="/guides/leopard-gecko-setup"
+              onClick={() => analytics.trackNavClick("guide-leopard-gecko")}
+              className="group p-6 rounded-2xl bg-gradient-to-r from-emerald-500/10 to-emerald-600/10 border border-emerald-500/20 hover:border-emerald-500/40 transition-all duration-300 hover:-translate-y-1"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-1">Complete Leopard Gecko Setup Guide</h3>
+                  <p className="text-sm text-slate-300">Tank size, heating, substrate, lighting, and all essentials</p>
+                </div>
+                <ArrowUpRight className="text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity" size={24} />
+              </div>
+            </Link>
+            
+            <Link
+              href="/guides/betta-setup"
+              onClick={() => analytics.trackNavClick("guide-betta")}
+              className="group p-6 rounded-2xl bg-gradient-to-r from-blue-500/10 to-blue-600/10 border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 hover:-translate-y-1"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-1">Complete Betta Fish Setup Guide</h3>
+                  <p className="text-sm text-slate-300">Tank size, heater, filter, cycling, and all essentials</p>
+                </div>
+                <ArrowUpRight className="text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity" size={24} />
+              </div>
+            </Link>
+          </div>
+        </div>
+
         {/* --- QUICK LINKS TO EDUCATIONAL CONTENT --- */}
         <div className="w-full mb-16">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
