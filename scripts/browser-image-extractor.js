@@ -86,24 +86,25 @@
   const asinMatch = window.location.href.match(/\/dp\/([A-Z0-9]{10})/);
   const asin = asinMatch ? asinMatch[1] : 'UNKNOWN';
   
-    // Restore console functions
-  console.warn = originalWarn;
-  console.error = originalError;
-  
-  // Display results
+    // Display results
   if (imageUrl) {
-    console.log('%c✅ Image URL Found!', 'color: green; font-size: 16px; font-weight: bold;');
-    console.log('ASIN:', asin);
-    console.log('Image URL:', imageUrl);
+    console.log('\n%c✅ SUCCESS! Image URL Found!', 'color: green; font-size: 18px; font-weight: bold;');
+    console.log('%cASIN:', 'color: cyan; font-weight: bold;', asin);
+    console.log('%cImage URL:', 'color: cyan; font-weight: bold;', imageUrl);
     
     // Try to copy to clipboard
     if (navigator.clipboard) {
       navigator.clipboard.writeText(imageUrl).then(() => {
-        console.log('%c📋 Image URL copied to clipboard!', 'color: blue; font-weight: bold;');
+        console.log('%c📋 Image URL copied to clipboard!', 'color: blue; font-weight: bold; font-size: 14px;');
       }).catch(() => {
-        console.log('⚠️ Could not copy to clipboard, but URL is displayed above');
+        console.log('%c⚠️ Could not copy to clipboard, but URL is displayed above', 'color: orange;');
       });
     }
+    
+    // Also copy the JSON format for easy pasting
+    const jsonFormat = JSON.stringify({ asin, imageUrl }, null, 2);
+    console.log('\n%c📋 Copy this JSON format:', 'color: yellow; font-weight: bold;');
+    console.log(jsonFormat);
     
     // Create a preview
     const preview = document.createElement('div');
@@ -122,13 +123,26 @@
       success: true
     };
   } else {
-    console.log('%c❌ Could not find image URL', 'color: red; font-size: 16px; font-weight: bold;');
-    console.log('Try scrolling the page or waiting for images to load, then run this script again.');
+    console.log('\n%c❌ Could not find image URL', 'color: red; font-size: 18px; font-weight: bold;');
+    console.log('%c💡 Tips:', 'color: yellow; font-weight: bold;');
+    console.log('1. Wait a few seconds for the page to fully load');
+    console.log('2. Scroll down slightly to trigger lazy loading');
+    console.log('3. Make sure you\'re on the product page (not a search results page)');
+    console.log('4. Try refreshing the page and running the script again\n');
+    
+    // Restore console functions
+    console.warn = originalWarn;
+    console.error = originalError;
+    
     return {
       asin,
       imageUrl: null,
       success: false
     };
   }
+  
+  // Restore console functions
+  console.warn = originalWarn;
+  console.error = originalError;
 })();
 
