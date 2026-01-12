@@ -328,7 +328,38 @@ function SummaryContent() {
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-[1fr,380px] gap-8">
+        {/* Email Capture Inline */}
+        <div className="mb-8 print-receipt-only-hidden">
+          <EmailCaptureInline 
+            onSuccess={(email) => {
+              console.log("Email captured:", email);
+            }}
+            leadMagnet="Leopard Gecko Setup Checklist"
+          />
+        </div>
+
+        {/* Exit Intent Tracker */}
+        <ExitIntentTracker 
+          onExitIntent={() => {
+            if (typeof window !== "undefined" && !sessionStorage.getItem("exitIntentShown")) {
+              setShowEmailPopup(true);
+              sessionStorage.setItem("exitIntentShown", "true");
+            }
+          }}
+        />
+
+        {/* Email Popup */}
+        {showEmailPopup && (
+          <EmailCapturePopup
+            onClose={() => setShowEmailPopup(false)}
+            onSuccess={(email) => {
+              console.log("Email captured from popup:", email);
+            }}
+            leadMagnet="Complete Setup Checklist"
+          />
+        )}
+
+        <div className="grid lg:grid-cols-[1fr,380px] gap-8 print-receipt-only-hidden">
             <div className="space-y-6">
                 <div className="relative p-6 rounded-3xl bg-gradient-to-br from-emerald-500/15 via-emerald-500/10 to-slate-900/60 border-2 border-emerald-500/30 shadow-xl overflow-hidden">
                     <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-500 opacity-100" />
