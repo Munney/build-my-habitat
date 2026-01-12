@@ -20,6 +20,8 @@ import config from "../../../data/leopard-gecko.json";
 import { analytics, trackEvent } from "../../utils/analytics";
 import { buildStorage } from "../../utils/buildStorage";
 import { EmailCaptureInline, EmailCapturePopup, ExitIntentTracker } from "../../components/EmailCapture";
+import { PremiumPDFExport } from "../../components/PremiumPDFExport";
+import { SocialShare } from "../../components/SocialShare";
 
 // Print styles - Receipt format
 if (typeof window !== 'undefined') {
@@ -405,6 +407,24 @@ function SummaryContent() {
             </div>
 
             <div className="lg:sticky lg:top-28 h-fit space-y-6">
+              
+              {/* Premium PDF Export in Sidebar */}
+              <div className="bg-gradient-to-br from-emerald-500/10 to-blue-500/10 border border-emerald-500/20 rounded-2xl p-6 mb-6">
+                <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                  <Download size={20} className="text-emerald-400" />
+                  Export Your Build
+                </h3>
+                <PremiumPDFExport
+                  buildName={buildName || "Leopard Gecko Build"}
+                  items={allItems}
+                  total={parseFloat(total)}
+                  species="leopard-gecko"
+                />
+                <p className="text-xs text-slate-400 mt-3 text-center">
+                  Professional PDF with setup instructions
+                </p>
+              </div>
+              
                 <div className="p-8 rounded-3xl bg-gradient-to-br from-slate-900 to-slate-950 border border-white/10 shadow-2xl text-center relative overflow-hidden group">
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-emerald-500/5 blur-3xl rounded-full pointer-events-none" />
                     <p className="text-slate-400 text-sm font-bold uppercase tracking-widest mb-2 relative z-10">Est. Total Cost</p>

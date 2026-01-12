@@ -14,12 +14,15 @@ import {
   Copy,
   Check,
   Bookmark,
-  BookmarkCheck
+  BookmarkCheck,
+  Download
 } from "lucide-react";
 import config from "../../../data/betta.json";
 import { analytics, trackEvent } from "../../utils/analytics";
 import { buildStorage } from "../../utils/buildStorage";
 import { EmailCaptureInline, EmailCapturePopup, ExitIntentTracker } from "../../components/EmailCapture";
+import { PremiumPDFExport } from "../../components/PremiumPDFExport";
+import { SocialShare } from "../../components/SocialShare";
 
 // Print styles - Simple receipt format
 if (typeof window !== 'undefined') {
@@ -290,20 +293,12 @@ function SummaryContent() {
           </div>
 
           <div className="flex gap-3">
-             <div className="relative">
-               <button 
-                 onClick={handleShare}
-                 className="p-3 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors relative"
-                 title="Share this build"
-               >
-                 {linkCopied ? <Check size={20} className="text-emerald-400" /> : <Share2 size={20} />}
-               </button>
-               {linkCopied && (
-                 <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-emerald-500 text-white text-xs rounded-lg whitespace-nowrap z-50">
-                   Link copied!
-                 </div>
-               )}
-             </div>
+             <SocialShare 
+               buildName={buildName || "Betta Build"}
+               total={parseFloat(total)}
+               species="betta"
+               shareUrl={typeof window !== "undefined" ? window.location.href : ""}
+             />
              <button 
                 onClick={handleSaveClick}
                 disabled={buildSaved}
