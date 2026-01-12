@@ -73,3 +73,36 @@ export function ProductSchema({ product }) {
   );
 }
 
+export function BreadcrumbSchema({ items }) {
+  const baseUrl = 'https://www.buildmyhabitat.com';
+  const breadcrumbList = [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": baseUrl
+    },
+    ...items.map((item, index) => ({
+      "@type": "ListItem",
+      "position": index + 2,
+      "name": item.label,
+      "item": `${baseUrl}${item.href}`
+    }))
+  ];
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": breadcrumbList
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(schema),
+      }}
+    />
+  );
+}
+
