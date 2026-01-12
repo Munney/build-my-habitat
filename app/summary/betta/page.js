@@ -28,6 +28,13 @@ import { SocialShare } from "../../components/SocialShare";
 if (typeof window !== 'undefined') {
   const style = document.createElement('style');
   style.textContent = `
+    /* Hide print-only content on screen */
+    .print-receipt-only {
+      display: none !important;
+    }
+    .print-receipt-only-hidden {
+      display: block;
+    }
     @media print {
       @page {
         size: letter;
