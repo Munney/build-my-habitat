@@ -15,6 +15,58 @@
  */
 
 (function() {
+  // Save original console functions
+  const originalLog = console.log;
+  const originalWarn = console.warn;
+  const originalError = console.error;
+  
+  // Clear console and suppress Amazon's noisy warnings
+  console.clear();
+  
+  // Temporarily suppress all console output
+  console.warn = function() {};
+  console.error = function() {};
+  
+  // Restore console with filtering after a brief moment
+  setTimeout(() => {
+    console.warn = function(...args) {
+      const message = args.join(' ');
+      const suppressPatterns = [
+        'preloaded with link preload', 'WEBGL_debug_renderer_info',
+        'InstallTrigger is deprecated', 'Window.fullScreen attribute',
+        'onmozfullscreen', 'SES Removing unpermitted', 'Source map error',
+        'Quirks Mode', 'Cookie warnings', 'OpaqueResponseBlocking',
+        'Partitioned cookie', 'Ignoring unsupported entryTypes',
+        'The Components object is deprecated', 'VIDEOJS: WARN',
+        'Teleparty', 'Message Controller', 'Video Event Listener',
+        'Loaded Replace Script', 'Setting Page COntrols', 'Chat forwarder',
+        'Video forwarder', 'Ping received', 'Browse script loaded',
+        'Got background script', 'Waiting for content script',
+        'DOMException: Window.sessionStorage', 'Failed to execute \'postMessage\'',
+        'TypeError: can\'t access property', 'Cross-Origin Request Blocked',
+        'A resource is blocked by OpaqueResponseBlocking'
+      ];
+      if (!suppressPatterns.some(p => message.includes(p))) {
+        originalWarn.apply(console, args);
+      }
+    };
+    
+    console.error = function(...args) {
+      const message = args.join(' ');
+      const suppressPatterns = [
+        'preloaded with link preload', 'Cross-Origin Request Blocked',
+        'DOMException: Window.sessionStorage', 'Failed to execute \'postMessage\'',
+        'TypeError: can\'t access property', 'A resource is blocked'
+      ];
+      if (!suppressPatterns.some(p => message.includes(p))) {
+        originalError.apply(console, args);
+      }
+    };
+    
+    console.log('%c🖼️ Amazon Image Extractor', 'color: blue; font-size: 18px; font-weight: bold;');
+    console.log('%cExtracting image URL...\n', 'color: gray;');
+  }, 100);
+  
   // Try multiple methods to get the main product image
   let imageUrl = null;
   
@@ -86,8 +138,10 @@
   const asinMatch = window.location.href.match(/\/dp\/([A-Z0-9]{10})/);
   const asin = asinMatch ? asinMatch[1] : 'UNKNOWN';
   
+  // Wait a moment for console setup, then display results
+  setTimeout(() => {
     // Display results
-  if (imageUrl) {
+    if (imageUrl) {
     console.log('\n%c✅ SUCCESS! Image URL Found!', 'color: green; font-size: 18px; font-weight: bold;');
     console.log('%cASIN:', 'color: cyan; font-weight: bold;', asin);
     console.log('%cImage URL:', 'color: cyan; font-weight: bold;', imageUrl);
@@ -134,15 +188,18 @@
     console.warn = originalWarn;
     console.error = originalError;
     
-    return {
-      asin,
-      imageUrl: null,
-      success: false
-    };
-  }
+      return {
+        asin,
+        imageUrl: null,
+        success: false
+      };
+    }
+  }, 200);
   
-  // Restore console functions
-  console.warn = originalWarn;
-  console.error = originalError;
+  // Restore console functions at the end
+  setTimeout(() => {
+    console.warn = originalWarn;
+    console.error = originalError;
+  }, 1000);
 })();
 
