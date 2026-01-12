@@ -214,8 +214,19 @@ function SummaryContent() {
     const params = new URLSearchParams();
     params.append("AssociateTag", AFFILIATE_TAG);
 
+    // Deduplicate items by ASIN to prevent adding duplicates
+    const seenAsins = new Set();
+    const uniqueItems = allItems.filter((item) => {
+        const asin = item.asin || getAsinFromUrl(item.defaultProductUrl);
+        if (asin && !seenAsins.has(asin)) {
+            seenAsins.add(asin);
+            return true;
+        }
+        return false;
+    });
+
     let index = 1;
-    allItems.forEach((item) => {
+    uniqueItems.forEach((item) => {
         const asin = item.asin || getAsinFromUrl(item.defaultProductUrl);
         if (asin) {
             params.append(`ASIN.${index}`, asin);
