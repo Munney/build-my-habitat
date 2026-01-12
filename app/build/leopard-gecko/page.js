@@ -1813,10 +1813,12 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
   );
 }
 
-function SelectionCard({ active, label, sublabel, price, onClick, type, productId, isRequired = false }) {
+function SelectionCard({ active, label, sublabel, price, onClick, type, productId, isRequired = false, asin = null, product = null }) {
   const explanation = productId ? productExplanations[productId] : null;
   // Only show required indicator if not selected
   const showRequired = isRequired && !active;
+  // Get ASIN from product object if available
+  const productAsin = asin || product?.asin || null;
   
   return (
     <div
@@ -1840,6 +1842,13 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
       
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-start gap-4 flex-1">
+          {/* Product Image (optional - will be implemented when image URLs are available) */}
+          {productAsin && (
+            <div className="w-16 h-16 shrink-0 rounded-lg overflow-hidden border border-slate-700/50 bg-slate-800/50 flex items-center justify-center">
+              <Package size={24} className="text-slate-500" />
+            </div>
+          )}
+          
           <div
             className={`mt-1 w-6 h-6 rounded-full flex items-center justify-center border-2 transition-all shadow-lg shrink-0 ${
               active 
