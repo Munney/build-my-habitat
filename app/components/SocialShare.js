@@ -27,7 +27,7 @@ export function SocialShare({ buildName, total, species, shareUrl }) {
   };
 
   const handleNativeShare = async () => {
-    if (navigator.share) {
+    if (typeof window !== "undefined" && navigator.share) {
       try {
         await navigator.share({
           title: `My ${species === "betta" ? "Betta Fish" : "Leopard Gecko"} Habitat Build - $${total}`,

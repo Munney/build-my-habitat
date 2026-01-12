@@ -14,7 +14,8 @@ import {
   Copy,
   Check,
   Bookmark,
-  BookmarkCheck
+  BookmarkCheck,
+  Download
 } from "lucide-react";
 import config from "../../../data/leopard-gecko.json";
 import { analytics, trackEvent } from "../../utils/analytics";
