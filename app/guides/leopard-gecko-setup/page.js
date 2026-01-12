@@ -76,7 +76,7 @@ export default function LeopardGeckoGuidePage() {
             Beginner's Guide
           </div>
           <h1 className="text-5xl md:text-6xl font-black text-white mb-6 drop-shadow-lg leading-tight">
-            Complete Leopard Gecko Setup Guide 2024
+            Complete Leopard Gecko Setup Guide 2025
           </h1>
           <p className="text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto">
             Learn how to set up a leopard gecko tank the right way. This complete guide covers tank size, heating, substrate, lighting, and all essential equipment for a thriving leopard gecko habitat.
