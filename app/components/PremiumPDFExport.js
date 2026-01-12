@@ -53,7 +53,7 @@ export function PremiumPDFExport({ buildName, items, total, species = "betta" })
           yPos = 20;
         }
 
-        // Item number
+        // Item number circle (positioned at yPos)
         doc.setFillColor(59, 130, 246); // blue-500
         doc.circle(25, yPos, 6, "F");
         doc.setTextColor(255, 255, 255);
@@ -72,7 +72,11 @@ export function PremiumPDFExport({ buildName, items, total, species = "betta" })
         doc.setFont("helvetica", "bold");
         doc.text(`$${(item.price || 0).toFixed(2)}`, pageWidth - 30, yPos, { align: "right" });
 
-        yPos += Math.max(itemName.length * 5, 12);
+        // Calculate spacing: circle is 12 units tall (radius 6 * 2), plus spacing
+        // Each line of text is about 5 units tall, so we need at least 15-18 units total
+        const textHeight = itemName.length * 5; // Height of text (5 units per line)
+        const minSpacing = 18; // Minimum spacing to prevent circle overlap (circle height 12 + 6 padding)
+        yPos += Math.max(textHeight, minSpacing);
       });
 
       // Total
