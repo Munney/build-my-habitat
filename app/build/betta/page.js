@@ -28,6 +28,7 @@ import config from "../../../data/betta.json";
 import ProductTooltip from "../../components/ProductTooltip";
 import ScrollToTop from "../../components/ScrollToTop";
 import { AIHabitatAssistant } from "../../components/AIHabitatAssistant";
+import { SetupTemplates } from "../../components/SetupTemplates";
 
 // Data Imports
 const ENCLOSURES = config.enclosures || [];
@@ -193,6 +194,88 @@ export default function BettaBuilder() {
   const [decorVariants, setDecorVariants] = useState({}); // For driftwood variants
   const [careIds, setCareIds] = useState([]);
 
+  // --- TEMPLATE APPLICATION ---
+  const applyTemplate = (template) => {
+    // Set enclosure
+    if (template.enclosureId) {
+      setEnclosureId(template.enclosureId);
+    }
+    
+    // Set filtration
+    if (template.filtrationIds && template.filtrationIds.length > 0) {
+      setFiltrationId(template.filtrationIds[0]); // Betta uses single selection
+    }
+    
+    // Set substrate
+    if (template.substrateIds && template.substrateIds.length > 0) {
+      setSubstrateId(template.substrateIds[0]); // Betta uses single selection
+    }
+    if (template.substrateVariants) {
+      // Find variant product ID and set it
+      Object.entries(template.substrateVariants).forEach(([baseName, selection]) => {
+        const { groups } = groupVariants(SUBSTRATES);
+        for (const group of groups) {
+          if (group.baseName === baseName) {
+            // Find variant by color/size match
+            const variant = group.variants.find(v => 
+              (v.color === selection.color || !selection.color) &&
+              (v.size === selection.size || !selection.size)
+            );
+            if (variant) {
+              setSubstrateId(variant.id);
+            }
+          }
+        }
+      });
+      setSubstrateVariants(template.substrateVariants);
+    }
+    
+    // Set heating
+    if (template.heatingIds) {
+      // Find heater (50w or 100w) and thermometer
+      const heater = template.heatingIds.find(id => id === "50w" || id === "100w");
+      const hasThermo = template.heatingIds.includes("thermometer");
+      if (heater) {
+        setHeaterId(heater);
+      } else {
+        setHeaterId(null);
+      }
+      setHasThermometer(hasThermo);
+    }
+    
+    // Set decor
+    if (template.decorIds) {
+      setDecorIds(template.decorIds);
+    }
+    if (template.decorVariants) {
+      // Find variant product IDs and add them to decorIds
+      const variantIds = [];
+      Object.entries(template.decorVariants).forEach(([baseName, selection]) => {
+        const { groups } = groupVariants(DECOR);
+        for (const group of groups) {
+          if (group.baseName === baseName) {
+            const variant = group.variants.find(v => 
+              (v.size === selection.size || !selection.size)
+            );
+            if (variant) {
+              variantIds.push(variant.id);
+            }
+          }
+        }
+      });
+      setDecorIds(prev => [...(template.decorIds || []), ...variantIds]);
+      setDecorVariants(template.decorVariants);
+    }
+    
+    // Set watercare
+    if (template.watercareIds) {
+      setCareIds(template.watercareIds);
+    }
+    
+    // Scroll to top to show the applied template
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   // --- FILTERING LOGIC ---
   // Always block bowls - they're dangerous for all users (guide states they cannot support filtration/heating and lead to death)
   const filteredEnclosures = useMemo(() => {
@@ -281,9 +364,8 @@ export default function BettaBuilder() {
   // --- PROGRESS CALCULATION ---
   const progress = useMemo(() => {
     let score = 0;
-    const totalSteps = 7; // Experience + 6 sections
+    const totalSteps = 6; // 6 sections (experience not counted)
     
-    if (experience) score++;
     if (enclosureId) score++;
     if (filtrationId) score++;
     if (heaterId && hasThermometer) score++;
@@ -292,7 +374,7 @@ export default function BettaBuilder() {
     if (careIds.length > 0) score++;
 
     return Math.round((score / totalSteps) * 100);
-  }, [experience, enclosureId, filtrationId, heaterId, hasThermometer, substrateId, decorIds, careIds]);
+  }, [enclosureId, filtrationId, heaterId, hasThermometer, substrateId, decorIds, careIds]);
 
   // Section completion tracking - only mark complete when ALL requirements are met
   const sectionCompletion = useMemo(() => {
@@ -513,7 +595,7 @@ export default function BettaBuilder() {
                     Betta Fish <span className="text-blue-500">Configurator</span>
                 </h1>
                 <p className="text-slate-300 mt-2 max-w-2xl text-lg font-medium">
-                    Design a planted paradise. We'll ensure flow and temp are safe.
+                    Design a betta paradise. We'll ensure flow and temp are safe.
                 </p>
             </div>
 
@@ -537,6 +619,10 @@ export default function BettaBuilder() {
           
           {/* --- LEFT: BUILDER --- */}
           <div className="space-y-10">
+            <SetupTemplates 
+              species="betta" 
+              onApplyTemplate={applyTemplate}
+            />
             
             {/* 1. Experience Level */}
             <Section 
@@ -551,7 +637,7 @@ export default function BettaBuilder() {
                 {/* BEGINNER BUTTON */}
                 <button
                     onClick={() => setExperience("beginner")}
-                    className={`relative overflow-hidden p-5 rounded-2xl border transition-all duration-300 group text-left ${
+                    className={`relative overflow-hidden p-5 rounded-2xl border transition-all duration-300 group text-left cursor-pointer ${
                       experience === "beginner"
                         ? "border-blue-500 bg-blue-500/10 shadow-[0_0_20px_-5px_rgba(59,130,246,0.3)]"
                         : "border-slate-700/50 bg-slate-900/40 hover:border-blue-500/50 hover:bg-slate-800/60"
@@ -569,7 +655,7 @@ export default function BettaBuilder() {
                 {/* EXPERIENCED BUTTON */}
                 <button
                     onClick={() => setExperience("experienced")}
-                    className={`relative overflow-hidden p-5 rounded-2xl border transition-all duration-300 group text-left ${
+                    className={`relative overflow-hidden p-5 rounded-2xl border transition-all duration-300 group text-left cursor-pointer ${
                       experience === "experienced"
                         ? "border-blue-500 bg-blue-500/10 shadow-[0_0_20px_-5px_rgba(59,130,246,0.3)]"
                         : "border-slate-700/50 bg-slate-900/40 hover:border-blue-500/50 hover:bg-slate-800/60"

@@ -1,0 +1,59 @@
+{
+  "leopard-gecko": {
+    "budget": {
+      "name": "Budget Setup",
+      "description": "Essential items for a safe, basic leopard gecko habitat (~$200-250)",
+      "experience": "beginner",
+      "enclosureId": "20g",
+      "substrateIds": ["papertowel"],
+      "substrateVariants": {},
+      "heatingIds": ["heatmat_10_20", "thermostat"],
+      "heatingVariants": {},
+      "hideIds": ["warmhide", "coolhide", "humidhide"],
+      "hideVariants": {},
+      "supplementIds": ["calcium_d3", "multivitamin"]
+    },
+    "premium": {
+      "name": "Premium Setup",
+      "description": "Complete setup with optimal heating, UVB, and bioactive substrate (~$400-500)",
+      "experience": "experienced",
+      "enclosureId": "40g",
+      "substrateIds": [],
+      "substrateVariants": {
+        "BioActive Terra Sahara": {
+          "variant": "18 qts"
+        }
+      },
+      "heatingIds": ["dhp_75w", "thermostat", "uvb_24"],
+      "heatingVariants": {},
+      "hideIds": ["warmhide", "coolhide", "humidhide", "corkbark_cork_bark_flat_4_pcs", "branches_climbing_branches_4_pcs_14_16_"],
+      "hideVariants": {},
+      "supplementIds": ["calcium_no_d3", "multivitamin"]
+    }
+  },
+  "betta": {
+    "budget": {
+      "name": "Budget Setup",
+      "description": "Essential items for a safe betta habitat (~$100-150)",
+      "enclosureId": "5g",
+      "filtrationIds": ["sponge"],
+      "heatingIds": ["50w", "thermometer"],
+      "substrateIds": ["bare"],
+      "substrateVariants": {},
+      "decorIds": ["silk"],
+      "watercareIds": ["conditioner", "bacteria"]
+    },
+    "premium": {
+      "name": "Premium Setup",
+      "description": "Complete setup with live plants and optimal filtration (~$200-300)",
+      "enclosureId": "10g",
+      "filtrationIds": ["hob"],
+      "heatingIds": ["100w", "thermometer"],
+      "substrateIds": ["aquasoil"],
+      "substrateVariants": {},
+      "decorIds": ["live_easy", "betta_log", "driftwood"],
+      "watercareIds": ["conditioner", "bacteria", "testkit"]
+    }
+  }
+}
+

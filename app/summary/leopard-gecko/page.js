@@ -23,6 +23,7 @@ import { buildStorage } from "../../utils/buildStorage";
 import { EmailCaptureInline, EmailCapturePopup, ExitIntentTracker } from "../../components/EmailCapture";
 import { PremiumPDFExport } from "../../components/PremiumPDFExport";
 import { SocialShare } from "../../components/SocialShare";
+import { CareInstructions } from "../../components/CareInstructions";
 
 // Print styles - Receipt format
 if (typeof window !== 'undefined') {
@@ -402,6 +403,9 @@ function SummaryContent() {
                         })}
                     </div>
                 </div>
+
+                {/* Care Instructions */}
+                <CareInstructions species="leopard-gecko" />
             </div>
 
             <div className="lg:sticky lg:top-28 h-fit space-y-6">

@@ -27,6 +27,7 @@ import config from "../../../data/leopard-gecko.json";
 import ProductTooltip from "../../components/ProductTooltip";
 import ScrollToTop from "../../components/ScrollToTop";
 import { AIHabitatAssistant } from "../../components/AIHabitatAssistant";
+import { SetupTemplates } from "../../components/SetupTemplates";
 
 // Data Imports
 const ENCLOSURES = config.enclosures || [];
@@ -330,6 +331,93 @@ export default function LeopardGeckoBuilder() {
   const [hideVariants, setHideVariants] = useState({}); // { baseName: { variant } }
   const [supplementIds, setSupplementIds] = useState([]);
 
+  // --- TEMPLATE APPLICATION ---
+  const applyTemplate = (template) => {
+    // Set experience level
+    if (template.experience) {
+      setExperience(template.experience);
+    }
+    
+    // Set enclosure
+    if (template.enclosureId) {
+      setEnclosureId(template.enclosureId);
+    }
+    
+    // Set substrates
+    if (template.substrateIds) {
+      setSubstrateIds(template.substrateIds);
+    }
+    if (template.substrateVariants) {
+      // Find variant product IDs and add them to substrateIds
+      const variantIds = [];
+      Object.entries(template.substrateVariants).forEach(([baseName, selection]) => {
+        const { groups } = groupVariants(SUBSTRATES);
+        for (const group of groups) {
+          if (group.baseName === baseName) {
+            const variant = group.variants.find(v => v.variant === selection.variant);
+            if (variant) {
+              variantIds.push(variant.id);
+            }
+          }
+        }
+      });
+      setSubstrateIds(prev => [...(template.substrateIds || []), ...variantIds]);
+      setSubstrateVariants(template.substrateVariants);
+    }
+    
+    // Set heating
+    if (template.heatingIds) {
+      setHeatingIds(template.heatingIds);
+    }
+    if (template.heatingVariants) {
+      // Find variant product IDs and add them to heatingIds
+      const variantIds = [];
+      Object.entries(template.heatingVariants).forEach(([baseName, selection]) => {
+        const { groups } = groupVariants(HEATING);
+        for (const group of groups) {
+          if (group.baseName === baseName) {
+            const variant = group.variants.find(v => v.variant === selection.variant);
+            if (variant) {
+              variantIds.push(variant.id);
+            }
+          }
+        }
+      });
+      setHeatingIds(prev => [...(template.heatingIds || []), ...variantIds]);
+      setHeatingVariants(template.heatingVariants);
+    }
+    
+    // Set hides
+    if (template.hideIds) {
+      setHideIds(template.hideIds);
+    }
+    if (template.hideVariants) {
+      // Find variant product IDs and add them to hideIds
+      const variantIds = [];
+      Object.entries(template.hideVariants).forEach(([baseName, selection]) => {
+        const { groups } = groupVariants(HIDES);
+        for (const group of groups) {
+          if (group.baseName === baseName) {
+            const variant = group.variants.find(v => v.variant === selection.variant);
+            if (variant) {
+              variantIds.push(variant.id);
+            }
+          }
+        }
+      });
+      setHideIds(prev => [...(template.hideIds || []), ...variantIds]);
+      setHideVariants(template.hideVariants);
+    }
+    
+    // Set supplements
+    if (template.supplementIds) {
+      setSupplementIds(template.supplementIds);
+    }
+    
+    // Scroll to top to show the applied template
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   // --- FILTERING LOGIC ---
   const filteredSubstrates = useMemo(() => {
     // Always block calcium sand - it's dangerous for all users (causes impaction)
@@ -476,9 +564,8 @@ export default function LeopardGeckoBuilder() {
   // --- PROGRESS CALCULATION ---
   const progress = useMemo(() => {
     let score = 0;
-    const totalSteps = 6; // Experience + 5 sections
+    const totalSteps = 5; // 5 sections (experience not counted)
     
-    if (experience) score++;
     if (enclosureId) score++;
     if (heatingIds.length > 0) score++;
     if (substrateIds.length > 0) score++;
@@ -486,7 +573,7 @@ export default function LeopardGeckoBuilder() {
     if (supplementIds.length > 0) score++;
 
     return Math.round((score / totalSteps) * 100);
-  }, [experience, enclosureId, heatingIds, substrateIds, hideIds, supplementIds]);
+  }, [enclosureId, heatingIds, substrateIds, hideIds, supplementIds]);
 
   // Section completion tracking
   const sectionCompletion = useMemo(() => ({
@@ -527,11 +614,7 @@ export default function LeopardGeckoBuilder() {
     const criticalErrors = [];
 
     if (selectedEnclosure) {
-      if (selectedEnclosure.id === "10g") {
-        const errorMsg = "10-gallon is too small for an adult leopard gecko. Research shows inadequate space causes stress and health issues. Minimum 20 gallons required.";
-        messages.push({ level: "error", text: errorMsg });
-        criticalErrors.push(errorMsg);
-      } else if (selectedEnclosure.id === "20g") {
+      if (selectedEnclosure.id === "20g") {
         messages.push({ level: "ok", text: "20-gallon long meets minimum size requirements." });
       } else if (selectedEnclosure.id === "pvc4x2") {
         messages.push({ level: "ok", text: "4x2x2 provides excellent space for natural behaviors." });
@@ -725,6 +808,10 @@ export default function LeopardGeckoBuilder() {
 
         <div className="grid gap-8 lg:grid-cols-[1fr,360px] xl:grid-cols-[1fr,400px]">
           <div className="space-y-10">
+            <SetupTemplates 
+              species="leopard-gecko" 
+              onApplyTemplate={applyTemplate}
+            />
             <Section 
               title="1. Keeper Level" 
               icon={<Target />}
@@ -735,7 +822,7 @@ export default function LeopardGeckoBuilder() {
               <div className="grid grid-cols-2 gap-4">
                 <button
                     onClick={() => setExperience("beginner")}
-                    className={`relative overflow-hidden p-5 rounded-2xl border transition-all duration-300 group text-left ${
+                    className={`relative overflow-hidden p-5 rounded-2xl border transition-all duration-300 group text-left cursor-pointer ${
                       experience === "beginner"
                         ? "border-emerald-500 bg-emerald-500/10 shadow-[0_0_20px_-5px_rgba(16,185,129,0.3)]"
                         : "border-slate-700/50 bg-slate-900/40 hover:border-emerald-500/50 hover:bg-slate-800/60"
@@ -751,7 +838,7 @@ export default function LeopardGeckoBuilder() {
                 </button>
                 <button
                     onClick={() => setExperience("experienced")}
-                    className={`relative overflow-hidden p-5 rounded-2xl border transition-all duration-300 group text-left ${
+                    className={`relative overflow-hidden p-5 rounded-2xl border transition-all duration-300 group text-left cursor-pointer ${
                       experience === "experienced"
                         ? "border-emerald-500 bg-emerald-500/10 shadow-[0_0_20px_-5px_rgba(16,185,129,0.3)]"
                         : "border-slate-700/50 bg-slate-900/40 hover:border-emerald-500/50 hover:bg-slate-800/60"
@@ -1243,7 +1330,6 @@ function Section({ title, icon, description, children, sectionId, isCompleted, s
 // Product explanations mapping for leopard gecko
 const productExplanations = {
   // Enclosures
-  "10g": "⚠️ TOO SMALL: 10-gallon tanks are inadequate for adult leopard geckos. They cause chronic stress and prevent proper thermoregulation. Minimum 20 gallons required.",
   "20g": "20 gallons (30\" x 12\" x 12\") is the absolute minimum for adult leopard geckos. Allows space for 3 hides and proper temperature gradient.",
   "40g": "40-gallon breeder (36\" x 18\" x 18\") is recommended for optimal welfare. Provides excellent space for enrichment and natural behaviors.",
   "pvc4x2": "4x2x2 PVC enclosure (120 gallons equivalent) is ideal for adult geckos. Excellent for bioactive setups and provides maximum space for enrichment.",

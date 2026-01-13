@@ -23,6 +23,7 @@ import { buildStorage } from "../../utils/buildStorage";
 import { EmailCaptureInline, EmailCapturePopup, ExitIntentTracker } from "../../components/EmailCapture";
 import { PremiumPDFExport } from "../../components/PremiumPDFExport";
 import { SocialShare } from "../../components/SocialShare";
+import { CareInstructions } from "../../components/CareInstructions";
 
 // Print styles - Simple receipt format
 if (typeof window !== 'undefined') {
@@ -426,6 +427,8 @@ function SummaryContent() {
                     </div>
                 </div>
 
+                {/* Care Instructions */}
+                <CareInstructions species="betta" />
             </div>
 
             {/* RIGHT: CHECKOUT PANEL */}

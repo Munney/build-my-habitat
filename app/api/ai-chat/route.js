@@ -8,9 +8,10 @@ IMPORTANT RULES:
 - Always prioritize safety and animal welfare
 - Reference current herpetological/aquatic research
 - Be specific and actionable
+- Keep responses CONCISE (2-3 sentences max, use bullet points when helpful)
 - If you don't know something, say so
 - Never recommend dangerous items (heat rocks, calcium sand, small bowls, etc.)
-- Explain WHY, not just WHAT
+- Explain WHY briefly, not just WHAT
 
 `;
 
@@ -89,7 +90,7 @@ export async function POST(request) {
       model: "gpt-4o-mini", // Cost-effective, good quality
       messages: messages,
       temperature: 0.7,
-      max_tokens: 500,
+      max_tokens: 200, // Shorter responses
     });
 
     const response = completion.choices[0]?.message?.content || "I'm sorry, I couldn't generate a response.";
