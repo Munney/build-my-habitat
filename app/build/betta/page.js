@@ -892,7 +892,7 @@ export default function BettaBuilder() {
                         : "bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white border-2 border-blue-400/30 hover:border-blue-300/50 hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/40 active:scale-[0.98] shadow-lg shadow-blue-900/30"
                   }`}
                 >
-                  Generate List <ArrowRight size={20} className="drop-shadow-sm" />
+                  Generate Habitat <ArrowRight size={20} className="drop-shadow-sm" />
                 </button>
               </div>
             </div>

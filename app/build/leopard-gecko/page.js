@@ -1050,7 +1050,7 @@ export default function LeopardGeckoBuilder() {
                         : "bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white border-2 border-emerald-400/30 hover:border-emerald-300/50 hover:scale-[1.02] hover:shadow-xl hover:shadow-emerald-500/40 active:scale-[0.98] shadow-lg shadow-emerald-900/30"
                   }`}
                 >
-                  Generate List <ArrowRight size={20} className="drop-shadow-sm" />
+                  Generate Habitat <ArrowRight size={20} className="drop-shadow-sm" />
                 </button>
               </div>
             </div>
