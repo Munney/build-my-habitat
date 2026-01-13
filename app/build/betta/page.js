@@ -918,7 +918,6 @@ export default function BettaBuilder() {
 
           {/* --- RIGHT: HUD SIDEBAR (Desktop) --- */}
           <aside className="hidden lg:block lg:sticky lg:top-40 h-fit space-y-6">
-            
             {/* Inventory HUD */}
             <div className="bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
               <div className="p-5 border-b border-white/10 bg-white/5 flex justify-between items-center">

@@ -8,7 +8,7 @@ export function AIHabitatAssistant({ currentBuild = null, species = null }) {
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      content: "Hi! I'm your Habitat Assistant. I can help you with:\n\n• Setup questions\n• Troubleshooting\n• Product recommendations\n• Care advice\n\nWhat would you like to know?",
+      content: "Hi! I'm your Habitat Assistant from HabitatBuilder. I provide research-backed, science-based advice to help your pet thrive.\n\nI can help with:\n• Setup questions (heating, substrate, sizing)\n• Troubleshooting your current build\n• Safety concerns and best practices\n• Care requirements specific to your species\n\nWhat would you like to know?",
     },
   ]);
   const [input, setInput] = useState("");
@@ -104,7 +104,7 @@ export function AIHabitatAssistant({ currentBuild = null, species = null }) {
               </div>
               <div>
                 <h3 className="font-bold text-white">AI Habitat Assistant</h3>
-                <p className="text-xs text-white/80">Ask me anything about your setup</p>
+                <p className="text-xs text-white/80">Research-backed, science-based advice</p>
               </div>
             </div>
             <button
@@ -166,7 +166,7 @@ export function AIHabitatAssistant({ currentBuild = null, species = null }) {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder="Ask about your habitat setup..."
+                placeholder="Ask about heating, substrate, sizing, or care..."
                 className="flex-1 bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
                 disabled={isLoading}
               />
@@ -180,7 +180,7 @@ export function AIHabitatAssistant({ currentBuild = null, species = null }) {
               </button>
             </div>
             <p className="text-xs text-slate-500 mt-2 text-center">
-              Powered by AI • May make mistakes
+              <span className="text-emerald-400">✓</span> Research-backed • <span className="text-emerald-400">✓</span> Safety-focused
             </p>
           </div>
         </div>
