@@ -21,8 +21,7 @@ import {
   AlertCircle,
   Menu,
   X,
-  Sun,
-  Package
+  Sun
 } from "lucide-react";
 import config from "../../../data/leopard-gecko.json";
 import ProductTooltip from "../../components/ProductTooltip";
@@ -1828,8 +1827,6 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
   const explanation = productId ? productExplanations[productId] : null;
   // Only show required indicator if not selected
   const showRequired = isRequired && !active;
-  // Get ASIN from product object if available
-  const productAsin = asin || product?.asin || null;
   
   return (
     <div
@@ -1853,27 +1850,6 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
       
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-start gap-4 flex-1">
-          {/* Product Image */}
-          {productAsin && (product?.imageUrl || productAsin) && (
-            <div className="w-16 h-16 shrink-0 rounded-lg overflow-hidden border border-slate-700/50 bg-slate-800/50 flex items-center justify-center">
-              {product?.imageUrl ? (
-                <img
-                  src={product.imageUrl}
-                  alt={label}
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    // Fallback to placeholder if image fails to load
-                    e.target.style.display = 'none';
-                    e.target.nextElementSibling.style.display = 'flex';
-                  }}
-                />
-              ) : null}
-              <div className={`w-full h-full items-center justify-center ${product?.imageUrl ? 'hidden' : 'flex'}`}>
-                <Package size={24} className="text-slate-500" />
-              </div>
-            </div>
-          )}
-          
           <div
             className={`mt-1 w-6 h-6 rounded-full flex items-center justify-center border-2 transition-all shadow-lg shrink-0 ${
               active 
