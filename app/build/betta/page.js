@@ -27,6 +27,7 @@ import {
 import config from "../../../data/betta.json";
 import ProductTooltip from "../../components/ProductTooltip";
 import ScrollToTop from "../../components/ScrollToTop";
+import { AIHabitatAssistant } from "../../components/AIHabitatAssistant";
 
 // Data Imports
 const ENCLOSURES = config.enclosures || [];
@@ -1015,6 +1016,23 @@ export default function BettaBuilder() {
           </div>
         </div>
       </div>
+      
+      {/* Scroll to Top Button */}
+      <ScrollToTop />
+      
+      {/* AI Habitat Assistant */}
+      <AIHabitatAssistant 
+        currentBuild={{
+          experience,
+          enclosure: enclosureId,
+          filtration: filtrationId,
+          substrate: substrateId,
+          heating: heaterId,
+          decor: decorIds,
+          care: careIds,
+        }}
+        species="betta"
+      />
     </main>
   );
 }

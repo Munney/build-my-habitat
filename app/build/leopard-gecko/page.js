@@ -26,6 +26,7 @@ import {
 import config from "../../../data/leopard-gecko.json";
 import ProductTooltip from "../../components/ProductTooltip";
 import ScrollToTop from "../../components/ScrollToTop";
+import { AIHabitatAssistant } from "../../components/AIHabitatAssistant";
 
 // Data Imports
 const ENCLOSURES = config.enclosures || [];
@@ -1175,6 +1176,19 @@ export default function LeopardGeckoBuilder() {
       
       {/* Scroll to Top Button */}
       <ScrollToTop />
+      
+      {/* AI Habitat Assistant */}
+      <AIHabitatAssistant 
+        currentBuild={{
+          experience,
+          enclosure: enclosureId,
+          substrate: substrateIds,
+          heating: heatingIds,
+          hides: hideIds,
+          supplements: supplementIds,
+        }}
+        species="leopard-gecko"
+      />
     </main>
   );
 }
