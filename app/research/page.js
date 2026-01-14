@@ -95,7 +95,7 @@ export default function ResearchPage() {
           {articles.map((article, i) => (
             <div 
               key={i} 
-              className="group p-4 sm:p-6 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 shadow-lg"
+              className="group p-4 sm:p-6 rounded-2xl card-warm hover:bg-slate-800/70 transition-all duration-300 hover:-translate-y-1"
             >
               <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
                 <div className="space-y-3 flex-1 min-w-0">

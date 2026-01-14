@@ -76,17 +76,23 @@ export default function Home() {
           </div>
           
           <h1 className="relative text-5xl md:text-7xl font-black tracking-tight text-white drop-shadow-[0_0_25px_rgba(255,255,255,0.6)]">
-            Safe Pet Habitat Builder
+            Build a Safe, Species Correct Habitat in Minutes
           </h1>
           <p className="relative text-lg md:text-xl text-slate-300 font-medium leading-relaxed drop-shadow-lg">
-            Build safe, vet-approved habitats for your pets. Free compatibility checker, complete setup guides, and verified shopping lists.
+            Design a complete setup for your pet using research based care standards so you can avoid guesswork and unsafe advice.
           </p>
         </div>
 
         {/* How It Works */}
-        <div className="w-full max-w-4xl mb-20">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="text-center p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10">
+        <div className="w-full max-w-4xl mb-20 relative">
+          {/* Very faint vertical gradient for subtle hierarchy - behind cards only */}
+          <div className="absolute inset-0 -z-10 rounded-3xl" style={{
+            background: 'linear-gradient(to bottom, transparent, rgba(15, 23, 42, 0.25), rgba(15, 23, 42, 0.3), rgba(15, 23, 42, 0.25), transparent)',
+            transform: 'translateY(5%)',
+            height: '110%'
+          }} />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-0">
+            <div className="text-center p-6 rounded-2xl card-warm">
               <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center">
                 <span className="text-2xl font-black text-emerald-400">1</span>
               </div>
@@ -96,7 +102,7 @@ export default function Home() {
               </p>
             </div>
             
-            <div className="text-center p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10">
+            <div className="text-center p-6 rounded-2xl card-warm">
               <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center">
                 <span className="text-2xl font-black text-blue-400">2</span>
               </div>
@@ -106,7 +112,7 @@ export default function Home() {
               </p>
             </div>
             
-            <div className="text-center p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10">
+            <div className="text-center p-6 rounded-2xl card-warm">
               <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center">
                 <span className="text-2xl font-black text-purple-400">3</span>
               </div>

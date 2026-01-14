@@ -64,12 +64,12 @@ export default function AboutPage() {
 
 function StandardCard({ icon, title, desc }) {
   return (
-    <div className="bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-sm hover:bg-white/10 transition-colors text-left">
-      <div className="mb-4 bg-slate-900/50 w-fit p-3 rounded-xl border border-white/5">
+    <div className="card-warm p-8 rounded-2xl hover:bg-slate-800/70 transition-colors text-left">
+      <div className="mb-4 bg-slate-900/50 w-fit p-3 rounded-xl border border-slate-700">
         {icon}
       </div>
       <h3 className="text-xl font-bold text-white mb-3">{title}</h3>
-      <p className="text-slate-400 leading-relaxed">
+      <p className="text-slate-300 leading-relaxed">
         {desc}
       </p>
     </div>

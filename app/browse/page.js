@@ -10,6 +10,18 @@ import geckoData from "../../data/leopard-gecko.json";
 // 👇 REPLACE WITH YOUR AMAZON TAG
 const AFFILIATE_TAG = "habitatbuilde-20";
 
+// List of removed product IDs by species that should not appear in browse page
+// Keep this updated when products are removed from the builders
+const REMOVED_PRODUCT_IDS = {
+  "Gecko": [
+    "10g", // 10 Gallon Tank removed (too small for leopard geckos)
+    // Add more removed product IDs for geckos here as needed
+  ],
+  "Betta": [
+    // Add removed product IDs for bettas here as needed
+  ],
+};
+
 export default function BrowsePage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filter, setFilter] = useState("all");
@@ -29,6 +41,12 @@ export default function BrowsePage() {
       if (!list || !Array.isArray(list)) return; 
 
       list.forEach(item => {
+        // Skip removed products for this species
+        const removedForSpecies = REMOVED_PRODUCT_IDS[species] || [];
+        if (removedForSpecies.includes(item.id)) {
+          return;
+        }
+
         // Link Logic: Prefer direct URL, then ASIN, then Search
         let link = item.url || item.defaultProductUrl || null;
         if (!link) {

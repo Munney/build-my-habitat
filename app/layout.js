@@ -1,10 +1,21 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
-import Image from "next/image";
+import { Inter, Source_Serif_4 } from "next/font/google";
 import Navbar from "./components/Navbar"; // 👈 Import the new file
 import Analytics from "./components/Analytics";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ 
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+  weight: ["400", "500"], // Body: 400, UI labels: 500
+});
+
+const sourceSerif = Source_Serif_4({
+  subsets: ["latin"],
+  variable: "--font-source-serif",
+  weight: ["500", "600"], // Headings: 500-600
+  display: "swap",
+});
 
 export const metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.buildmyhabitat.com'),
@@ -140,7 +151,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           }}
         />
       </head>
-      <body className={`${inter.className} bg-[#020617] text-slate-200 min-h-screen flex flex-col`}>
+      <body className={`${inter.variable} ${sourceSerif.variable} ${inter.className} text-slate-200 min-h-screen flex flex-col`}>
         {/* Google Tag Manager (noscript) - Must be immediately after opening body tag */}
         <noscript>
           <iframe
@@ -153,16 +164,62 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         {/* End Google Tag Manager (noscript) */}
         
         {/* --- GLOBAL BACKGROUND --- */}
-        <div className="fixed inset-0 -z-50">
-          <Image 
-            src="/background.jpg"
-            alt="Jungle Background"
-            fill
-            className="object-cover opacity-85"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#020617]/85 via-[#020617]/75 to-[#020617]/90 backdrop-blur-[0.5px]" />
-        </div>
+        {/* Dark grainy background with subtle, diffused light sources */}
+        <div className="fixed inset-0 -z-50" style={{
+          background: `
+            radial-gradient(
+              ellipse 2800px 2000px at 5% 15%,
+              rgba(94, 234, 212, 0.06) 0%,
+              rgba(94, 234, 212, 0.04) 20%,
+              rgba(94, 234, 212, 0.02) 40%,
+              transparent 60%
+            ),
+            radial-gradient(
+              ellipse 3000px 2200px at 10% 20%,
+              rgba(16, 185, 129, 0.04) 0%,
+              rgba(16, 185, 129, 0.02) 30%,
+              transparent 50%
+            ),
+            radial-gradient(
+              ellipse 2600px 1900px at 95% 90%,
+              rgba(59, 130, 246, 0.08) 0%,
+              rgba(59, 130, 246, 0.05) 20%,
+              rgba(59, 130, 246, 0.03) 40%,
+              transparent 60%
+            ),
+            radial-gradient(
+              ellipse 2800px 2100px at 88% 85%,
+              rgba(37, 99, 235, 0.05) 0%,
+              rgba(37, 99, 235, 0.03) 25%,
+              transparent 50%
+            ),
+            linear-gradient(
+              135deg,
+              rgba(16, 185, 129, 0.02) 0%,
+              transparent 30%,
+              transparent 70%,
+              rgba(59, 130, 246, 0.02) 100%
+            ),
+            linear-gradient(
+              45deg,
+              rgba(94, 234, 212, 0.015) 0%,
+              transparent 50%
+            ),
+            #020617
+          `,
+          position: 'fixed',
+          width: '100%',
+          height: '100%'
+        }} />
+        {/* Grain texture overlay - fine, consistent grain */}
+        <div 
+          className="fixed inset-0 -z-40 opacity-[0.025] pointer-events-none"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+            backgroundSize: '300px 300px',
+            imageRendering: 'auto'
+          }}
+        />
 
         {/* --- NAVBAR COMPONENT --- */}
         {/* This contains the large logo AND the moving box logic */}

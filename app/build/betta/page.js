@@ -600,7 +600,7 @@ export default function BettaBuilder() {
             </div>
 
             {/* Progress Radial (Desktop) */}
-            <div className="hidden md:flex items-center gap-4 bg-slate-900/60 backdrop-blur-md p-4 rounded-2xl border border-white/10 shadow-xl">
+            <div className="hidden md:flex items-center gap-4 card-warm p-4 rounded-2xl">
                 <div className="text-right">
                     <p className="text-[10px] uppercase font-bold text-slate-400 tracking-widest">Build Status</p>
                     <p className="text-xl font-black text-white">{progress}% Ready</p>

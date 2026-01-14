@@ -256,9 +256,9 @@ export default function GeckoNotEatingPage() {
 
 function GuideSection({ Icon, iconColor, title, children }) {
   return (
-    <section className="bg-slate-900/50 backdrop-blur-md p-8 rounded-3xl border border-white/10 shadow-lg">
-      <div className="flex items-center gap-4 mb-6 border-b border-white/5 pb-4">
-        <div className="p-3 bg-slate-800/80 rounded-2xl border border-white/5 shadow-inner">
+    <section className="bg-slate-800 p-8 rounded-3xl border border-slate-700 shadow-lg">
+      <div className="flex items-center gap-4 mb-6 border-b border-slate-700 pb-4">
+        <div className="p-3 bg-slate-900/50 rounded-2xl border border-slate-700 shadow-inner">
           <Icon size={32} style={{ color: iconColor }} />
         </div>
         <h2 className="text-2xl font-bold text-white">{title}</h2>
@@ -283,7 +283,7 @@ function FAQItem({ question, answer }) {
   const [isOpen, setIsOpen] = React.useState(false);
   return (
     <div className="bg-slate-900/50 backdrop-blur-md rounded-2xl border border-white/10 overflow-hidden">
-      <button onClick={() => setIsOpen(!isOpen)} className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-white/5 transition-colors" aria-expanded={isOpen}>
+      <button onClick={() => setIsOpen(!isOpen)} className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-slate-900/30 transition-colors" aria-expanded={isOpen}>
         <h3 className="text-lg font-bold text-white pr-4">{question}</h3>
         <HelpCircle size={20} className={`text-emerald-400 shrink-0 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
