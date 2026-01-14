@@ -51,6 +51,10 @@ export default function BettaGuidePage() {
     {
       question: "What do I need for a complete betta fish setup?",
       answer: "A complete betta fish setup includes: 5-10 gallon tank with lid, adjustable heater (5 watts per gallon), sponge filter, water conditioner, API Master Test Kit, smooth substrate, silk or live plants, betta hammock or floating log, and proper lighting. Don't forget to cycle the tank before adding your betta!"
+    },
+    {
+      question: "Can I skip this guide and just use the builder?",
+      answer: "Yes. The builder applies these same principles and prevents incompatible or unsafe selections. It walks you through each step with safety checks and compatibility verification, so you can build a safe habitat without reading every detail."
     }
   ];
 
@@ -123,17 +127,45 @@ export default function BettaGuidePage() {
             </div>
           </GuideSection>
 
-          {/* 2. Filtration & Flow */}
+          {/* 2. Heating */}
+          <GuideSection 
+            Icon={Thermometer} 
+            iconColor="#fb923c" // Orange
+            title="2. Betta Fish Heater: Temperature Requirements"
+          >
+            <p className="text-slate-300 mb-4">
+              Bettas are tropical fish. Room temperature water is almost always too cold, causing lethargy and immune system failure.
+            </p>
+            <ul className="space-y-3">
+              <GuidePoint><strong>🔥 Heat & Temperature:</strong> Maintain a steady 78°F - 80°F (25.5°C - 26.5°C) at all times.</GuidePoint>
+              <GuidePoint><strong>Wattage:</strong> Use the "5 Watts per Gallon" rule (e.g., a 50W heater for a 10-gallon tank).</GuidePoint>
+              <GuidePoint><strong>Adjustable:</strong> Avoid pre-set heaters. Buy one with a dial so you can control the temperature precisely.</GuidePoint>
+            </ul>
+            
+            {/* Contextual Builder CTA */}
+            <div className="mt-6 pt-6 border-t border-slate-700">
+              <p className="text-sm text-slate-400 mb-3">Heating mistakes are the #1 cause of health issues.</p>
+              <Link
+                href="/build/betta"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/30 hover:border-blue-500/50 text-blue-300 text-sm font-semibold rounded-lg transition-all"
+              >
+                Let the builder choose compatible heating safely <ArrowRight size={16} />
+              </Link>
+            </div>
+          </GuideSection>
+
+          {/* 3. Filtration & Flow */}
           <GuideSection 
             Icon={Waves} 
             iconColor="#2dd4bf" // Teal/Cyan
-            title="2. Betta Fish Filter: Low-Flow Options"
+            title="3. Betta Fish Filter: Low-Flow Options"
           >
             <div className="bg-red-500/10 border border-red-500/30 p-4 rounded-xl mb-4 flex items-start gap-3">
-              <ShieldAlert size={24} className="text-red-400 shrink-0" />
+              <span className="text-2xl shrink-0">⚠️</span>
               <div>
-                <p className="text-red-200 text-sm font-medium leading-relaxed mb-2">
-                  <strong>CRITICAL:</strong> You must "Cycle" your tank (grow beneficial bacteria) before adding the fish, or ammonia levels will kill them.
+                <p className="text-red-200 text-sm font-semibold mb-1">⚠️ Safety Warning</p>
+                <p className="text-red-200 text-sm leading-relaxed mb-2">
+                  You must "Cycle" your tank (grow beneficial bacteria) before adding the fish, or ammonia levels will kill them.
                 </p>
                 <p className="text-red-200 text-sm leading-relaxed">
                   Cycling means establishing beneficial bacteria that process toxic ammonia into safer compounds.
@@ -147,44 +179,6 @@ export default function BettaGuidePage() {
               <GuidePoint><strong>Best Filter:</strong> A Sponge Filter is the gold standard. It provides aeration and biological filtration with zero dangerous suction.</GuidePoint>
               <GuidePoint><strong>Avoid:</strong> High-flow Hang-on-Back filters can blow your Betta around the tank, causing stress and fin rot.</GuidePoint>
             </ul>
-            
-            {/* Contextual Builder CTA */}
-            <div className="mt-6 pt-6 border-t border-slate-700">
-              <p className="text-sm text-slate-400 mb-3">Filtration and cycling mistakes are the #1 cause of betta deaths.</p>
-              <Link
-                href="/build/betta"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/30 hover:border-blue-500/50 text-blue-300 text-sm font-semibold rounded-lg transition-all"
-              >
-                Let the builder choose a safe, low-flow setup <ArrowRight size={16} />
-              </Link>
-            </div>
-          </GuideSection>
-
-          {/* 3. Heating */}
-          <GuideSection 
-            Icon={Thermometer} 
-            iconColor="#fb923c" // Orange
-            title="3. Betta Fish Heater: Temperature Requirements"
-          >
-            <p className="text-slate-300 mb-4">
-              Bettas are tropical fish. Room temperature water is almost always too cold, causing lethargy and immune system failure.
-            </p>
-            <ul className="space-y-3">
-              <GuidePoint><strong>Temperature:</strong> Maintain a steady 78°F - 80°F (25.5°C - 26.5°C) at all times.</GuidePoint>
-              <GuidePoint><strong>Wattage:</strong> Use the "5 Watts per Gallon" rule (e.g., a 50W heater for a 10-gallon tank).</GuidePoint>
-              <GuidePoint><strong>Adjustable:</strong> Avoid pre-set heaters. Buy one with a dial so you can control the temperature precisely.</GuidePoint>
-            </ul>
-            
-            {/* Contextual Builder CTA */}
-            <div className="mt-6 pt-6 border-t border-slate-700">
-              <p className="text-sm text-slate-400 mb-3">Temperature swings are hard to diagnose and easy to prevent.</p>
-              <Link
-                href="/build/betta"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/30 hover:border-blue-500/50 text-blue-300 text-sm font-semibold rounded-lg transition-all"
-              >
-                Have the builder select a compatible heater automatically <ArrowRight size={16} />
-              </Link>
-            </div>
           </GuideSection>
 
           {/* 4. Plants & Decor */}
@@ -199,7 +193,7 @@ export default function BettaGuidePage() {
             <ul className="space-y-3">
               <GuidePoint><strong>Silk or Live:</strong> Never use plastic plants. If it can snag pantyhose, it will rip your Betta's fins.</GuidePoint>
               <GuidePoint><strong>Resting Spots:</strong> Bettas sleep near the surface. Add a "Betta Hammock" (leaf) or a Floating Log.</GuidePoint>
-              <GuidePoint><strong>Substrate:</strong> Smooth gravel or sand is preferred. Avoid sharp rocks.</GuidePoint>
+              <GuidePoint alert><strong>❌ Avoid:</strong> Plastic plants with sharp edges. Smooth gravel or sand is preferred for substrate.</GuidePoint>
             </ul>
           </GuideSection>
 
@@ -265,6 +259,10 @@ export default function BettaGuidePage() {
               question="What do I need for a complete betta fish setup?"
               answer="A complete betta fish setup includes: 5-10 gallon tank with lid, adjustable heater (5 watts per gallon), sponge filter, water conditioner, API Master Test Kit, smooth substrate, silk or live plants, betta hammock or floating log, and proper lighting. Don't forget to cycle the tank before adding your betta!"
             />
+            <FAQItem 
+              question="Can I skip this guide and just use the builder?"
+              answer="Yes. The builder applies these same principles and prevents incompatible or unsafe selections. It walks you through each step with safety checks and compatibility verification, so you can build a safe habitat without reading every detail."
+            />
           </div>
         </div>
 
@@ -299,15 +297,15 @@ export default function BettaGuidePage() {
         {/* --- CTA --- */}
         <div className="max-w-4xl mx-auto text-center mt-12">
           <h2 className="text-3xl font-black text-white mb-6">
-            Ready to design it without guesswork?
+            Ready to build it without guesswork?
           </h2>
           <p className="text-slate-300 leading-relaxed max-w-2xl mx-auto mb-10">
-            The builder applies these same principles automatically and checks compatibility as you go.
+            Our builder applies these principles automatically and checks compatibility as you go.
           </p>
           
           <Link
             href="/build/betta"
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 md:px-10 md:py-5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-full transition-all hover:scale-105 shadow-xl shadow-blue-900/30 text-sm md:text-lg whitespace-nowrap"
+            className="inline-flex items-center justify-center gap-2 px-8 py-4 md:px-10 md:py-5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-full transition-all hover:scale-105 shadow-xl shadow-blue-900/30 text-sm md:text-lg whitespace-nowrap"
           >
             Launch Betta Builder <ArrowRight size={20} className="shrink-0 md:w-6 md:h-6" />
           </Link>
@@ -353,7 +351,7 @@ function FAQItem({ question, answer }) {
   const [isOpen, setIsOpen] = React.useState(false);
   
   return (
-    <div className="card-warm rounded-2xl overflow-hidden">
+    <div className="bg-slate-900/50 backdrop-blur-md rounded-2xl border border-white/10 overflow-hidden">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-slate-900/30 transition-colors"
