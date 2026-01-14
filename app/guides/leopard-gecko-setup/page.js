@@ -51,6 +51,10 @@ export default function LeopardGeckoGuidePage() {
     {
       question: "What do I need for a complete leopard gecko setup?",
       answer: "A complete leopard gecko setup includes: 40-gallon breeder tank, halogen or DHP heating with thermostat, UVB lighting (optional but recommended), safe substrate, three hides (warm, cool, moist), water dish, calcium dish, supplements (calcium with D3, multivitamin), thermometer, and enrichment items (plants, branches, rocks)."
+    },
+    {
+      question: "Can I skip this guide and just use the builder?",
+      answer: "Yes. The builder applies these same principles and prevents incompatible or unsafe selections. It walks you through each step with safety checks and compatibility verification, so you can build a safe habitat without reading every detail."
     }
   ];
 
@@ -63,26 +67,27 @@ export default function LeopardGeckoGuidePage() {
         <div className="max-w-4xl mx-auto mb-8">
           <Link 
             href="/" 
-            className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors font-medium text-sm group"
+            className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors font-medium text-base group"
           >
-            <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
+            <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
             Back to Hub
           </Link>
         </div>
 
         {/* --- HERO SECTION --- */}
         <div className="max-w-4xl mx-auto text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-6">
-            Beginner's Guide
-          </div>
-          <h1 className="text-5xl md:text-6xl font-black text-white mb-6 drop-shadow-lg leading-tight">
-            Complete Leopard Gecko Setup Guide 2025
+          <h1 className="text-5xl md:text-6xl font-black text-white mb-4 drop-shadow-lg leading-tight">
+            Complete Leopard Gecko Setup Guide <span className="text-emerald-400 text-3xl md:text-4xl font-semibold">(Beginner Friendly)</span>
           </h1>
-          <p className="text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto">
-            Learn how to set up a leopard gecko tank the right way. This complete guide covers tank size, heating, substrate, lighting, and all essential equipment for a thriving leopard gecko habitat.
+          <h2 className="text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto mb-6">
+            Tank size, heating, substrate, lighting, and essential equipment explained step by step.
+          </h2>
+          
+          <p className="text-base text-slate-400 leading-relaxed max-w-2xl mx-auto mb-8">
+            If you want a full explanation, read on. If you want a safe setup fast, the builder handles this step by step.
           </p>
           
-          <div className="mt-10">
+          <div className="mt-6">
             <Link
               href="/build/leopard-gecko"
               className="inline-flex items-center justify-center gap-2 px-6 py-3 md:px-8 md:py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-full transition-all hover:scale-105 shadow-lg shadow-emerald-900/20 text-sm md:text-base whitespace-nowrap"
@@ -109,6 +114,17 @@ export default function LeopardGeckoGuidePage() {
               <GuidePoint><strong>Gold Standard:</strong> A 40-gallon breeder or a 4x2x2 PVC enclosure is highly recommended for a thriving animal.</GuidePoint>
               <GuidePoint><strong>Floor Space &gt; Height:</strong> Leopard geckos are terrestrial. They need room to walk, not climb.</GuidePoint>
             </ul>
+            
+            {/* Contextual Builder CTA */}
+            <div className="mt-6 pt-6 border-t border-slate-700">
+              <p className="text-sm text-slate-400 mb-3">Not sure which enclosure size fits your space?</p>
+              <Link
+                href="/build/leopard-gecko"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/30 hover:border-emerald-500/50 text-emerald-300 text-sm font-semibold rounded-lg transition-all"
+              >
+                Build a Leopard Gecko Habitat <ArrowRight size={16} />
+              </Link>
+            </div>
           </GuideSection>
 
           {/* 2. Heating & Lighting */}
@@ -118,19 +134,33 @@ export default function LeopardGeckoGuidePage() {
             title="2. Leopard Gecko Heating & Lighting Setup"
           >
             <div className="bg-red-500/10 border border-red-500/30 p-4 rounded-xl mb-4 flex items-start gap-3">
-              <ShieldAlert size={24} className="text-red-400 shrink-0" />
-              <p className="text-red-200 text-sm font-medium leading-relaxed">
-                <strong>WARNING:</strong> Never use "Heat Rocks." They cause severe, life-threatening burns. Heat mats are outdated and less effective.
-              </p>
+              <span className="text-2xl shrink-0">⚠️</span>
+              <div>
+                <p className="text-red-200 text-sm font-semibold mb-1">⚠️ Safety Warning</p>
+                <p className="text-red-200 text-sm leading-relaxed">
+                  Never use "Heat Rocks." They cause severe, life-threatening burns. Heat mats are increasingly discouraged because they do not provide effective ambient heating or mimic natural warmth.
+                </p>
+              </div>
             </div>
             <p className="text-slate-300 mb-4">
               Leopard geckos are "crepuscular" (active at dawn/dusk) but still benefit from overhead heating that mimics the sun.
             </p>
             <ul className="space-y-3">
-              <GuidePoint><strong>Primary Heat:</strong> Use a Halogen Flood Lamp or Deep Heat Projector (DHP) for deep muscle penetration.</GuidePoint>
+              <GuidePoint><strong>🔥 Heat & Temperature:</strong> Use a Halogen Flood Lamp or Deep Heat Projector (DHP) for deep muscle penetration.</GuidePoint>
               <GuidePoint><strong>Mandatory Control:</strong> Every heat source <em>must</em> be connected to a thermostat to prevent overheating.</GuidePoint>
               <GuidePoint><strong>Temps:</strong> Aim for a warm side of 88-92°F and a cool side of 70-75°F.</GuidePoint>
             </ul>
+            
+            {/* Contextual Builder CTA */}
+            <div className="mt-6 pt-6 border-t border-slate-700">
+              <p className="text-sm text-slate-400 mb-3">Heating mistakes are the #1 cause of health issues.</p>
+              <Link
+                href="/build/leopard-gecko"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/30 hover:border-emerald-500/50 text-emerald-300 text-sm font-semibold rounded-lg transition-all"
+              >
+                Let the builder choose compatible heating safely <ArrowRight size={16} />
+              </Link>
+            </div>
           </GuideSection>
 
           {/* 3. Substrate */}
@@ -145,7 +175,7 @@ export default function LeopardGeckoGuidePage() {
             <ul className="space-y-3">
               <GuidePoint><strong>Safe Solid Options:</strong> Paper towels, slate tile, or a textured reptile carpet are easy to clean and 100% safe.</GuidePoint>
               <GuidePoint><strong>Safe Loose Option:</strong> A 70/30 mix of organic topsoil and playsand is excellent for natural digging behavior.</GuidePoint>
-              <GuidePoint alert><strong>AVOID:</strong> Calcium sand, walnut shells, and wood chips. These are major impaction risks.</GuidePoint>
+              <GuidePoint alert><strong>❌ Avoid:</strong> Calcium sand, walnut shells, and wood chips. These are major impaction risks.</GuidePoint>
             </ul>
           </GuideSection>
 
@@ -228,6 +258,10 @@ export default function LeopardGeckoGuidePage() {
               question="What do I need for a complete leopard gecko setup?"
               answer="A complete leopard gecko setup includes: 40-gallon breeder tank, halogen or DHP heating with thermostat, UVB lighting (optional but recommended), safe substrate, three hides (warm, cool, moist), water dish, calcium dish, supplements (calcium with D3, multivitamin), thermometer, and enrichment items (plants, branches, rocks)."
             />
+            <FAQItem 
+              question="Can I skip this guide and just use the builder?"
+              answer="Yes. The builder applies these same principles and prevents incompatible or unsafe selections. It walks you through each step with safety checks and compatibility verification, so you can build a safe habitat without reading every detail."
+            />
           </div>
         </div>
 
@@ -262,10 +296,10 @@ export default function LeopardGeckoGuidePage() {
         {/* --- CTA --- */}
         <div className="max-w-4xl mx-auto text-center mt-12">
           <h2 className="text-3xl font-black text-white mb-6">
-            Ready to build the perfect habitat?
+            Ready to build it without guesswork?
           </h2>
           <p className="text-slate-300 leading-relaxed max-w-2xl mx-auto mb-10">
-            Our smart builder will guide you through selecting all these compatible parts.
+            Our builder applies these principles automatically and checks compatibility as you go.
           </p>
           
           <Link

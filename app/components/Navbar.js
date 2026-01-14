@@ -18,11 +18,11 @@ export default function Navbar() {
   };
 
   const navLinks = [
-    { name: "Builder", href: "/", icon: <Hammer size={18} /> },
-    { name: "Research", href: "/research", icon: <BookOpen size={18} /> },
-    { name: "Browse Parts", href: "/browse", icon: <Package size={18} /> },
-    { name: "My Builds", href: "/my-builds", icon: <Bookmark size={18} /> },
-    { name: "FAQ", href: "/faq", icon: <Info size={18} /> },
+    { name: "Builder", href: "/", icon: <Hammer size={20} /> },
+    { name: "Research", href: "/research", icon: <BookOpen size={20} /> },
+    { name: "Browse Parts", href: "/browse", icon: <Package size={20} /> },
+    { name: "My Builds", href: "/my-builds", icon: <Bookmark size={20} /> },
+    { name: "FAQ", href: "/faq", icon: <Info size={20} /> },
   ];
 
   return (
@@ -49,7 +49,7 @@ export default function Navbar() {
                 // 👇 DYNAMIC STYLING:
                 // If Active: Uses your original "bg-white/10" and "border-white/10"
                 // If Inactive: Uses your original "text-slate-300" and "hover:bg-white/5"
-                className={`flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-bold transition-colors border ${
+                className={`flex items-center gap-2 rounded-xl px-5 py-3 text-base font-bold transition-colors border ${
                   active
                     ? "bg-white/10 text-white border-white/10 shadow-lg shadow-white/5"
                     : "text-slate-300 border-transparent hover:text-emerald-400 hover:bg-white/5"

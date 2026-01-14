@@ -212,58 +212,105 @@ export default function Home() {
           </div>
         </div>
 
-        {/* --- SPECIFIC TOPIC GUIDES --- */}
-        <div className="w-full mb-16">
+        {/* --- SETUP HELP BY TOPIC --- */}
+        <div className="w-full max-w-4xl mx-auto mb-16">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-black text-white mb-3">Specific Topic Guides</h2>
-            <p className="text-slate-400">In-depth guides on specific topics and common problems</p>
+            <h2 className="text-2xl font-bold text-white mb-2">Setup Help by Topic</h2>
+            <p className="text-slate-400 text-sm">Quick guides organized by when you need them</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+          {/* Before You Build */}
+          <div className="mb-8">
+            <h3 className="text-sm font-bold text-slate-300 uppercase tracking-wider mb-4">Before You Build</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <Link
+                href="/guides/betta-fish-tank-size"
+                onClick={() => analytics.trackNavClick("guide-betta-tank-size")}
+                className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all"
+              >
+                <h4 className="text-lg font-semibold text-slate-200 mb-1">Betta Fish Tank Size</h4>
+                <p className="text-sm text-slate-400">Why 5+ gallons is essential</p>
+              </Link>
+              <Link
+                href="/guides/leopard-gecko-setup"
+                onClick={() => analytics.trackNavClick("guide-gecko-enclosure")}
+                className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all"
+              >
+                <h4 className="text-lg font-semibold text-slate-200 mb-1">Leopard Gecko Enclosure Size</h4>
+                <p className="text-sm text-slate-400">Minimum sizes and space requirements</p>
+              </Link>
+            </div>
+          </div>
+
+          {/* While You Build */}
+          <div className="mb-8">
+            <h3 className="text-sm font-bold text-slate-300 uppercase tracking-wider mb-4">While You Build</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <Link
+                href="/guides/betta-fish-heater"
+                onClick={() => analytics.trackNavClick("guide-betta-heater")}
+                className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all"
+              >
+                <h4 className="text-lg font-semibold text-slate-200 mb-1">Betta Heater Guide</h4>
+                <p className="text-sm text-slate-400">Temperature requirements</p>
+              </Link>
+              <Link
+                href="/guides/betta-fish-filter"
+                onClick={() => analytics.trackNavClick("guide-betta-filter")}
+                className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all"
+              >
+                <h4 className="text-lg font-semibold text-slate-200 mb-1">Betta Filter Guide</h4>
+                <p className="text-sm text-slate-400">Low-flow filtration options</p>
+              </Link>
+              <Link
+                href="/guides/leopard-gecko-substrate"
+                onClick={() => analytics.trackNavClick("guide-gecko-substrate")}
+                className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all"
+              >
+                <h4 className="text-lg font-semibold text-slate-200 mb-1">Leopard Gecko Substrate</h4>
+                <p className="text-sm text-slate-400">Safe vs dangerous options</p>
+              </Link>
+            </div>
+          </div>
+
+          {/* Avoid These Mistakes */}
+          <div className="mb-8">
+            <h3 className="text-sm font-bold text-slate-300 uppercase tracking-wider mb-4">Avoid These Mistakes</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <Link
+                href="/guides/leopard-gecko-not-eating"
+                onClick={() => analytics.trackNavClick("guide-gecko-not-eating")}
+                className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all"
+              >
+                <h4 className="text-lg font-semibold text-slate-200 mb-1">Gecko Not Eating?</h4>
+                <p className="text-sm text-slate-400">Causes and solutions</p>
+              </Link>
+              <Link
+                href="/common-mistakes"
+                onClick={() => analytics.trackNavClick("common-mistakes")}
+                className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all"
+              >
+                <h4 className="text-lg font-semibold text-slate-200 mb-1">Common Mistakes</h4>
+                <p className="text-sm text-slate-400">Learn what NOT to do</p>
+              </Link>
+            </div>
+          </div>
+
+          {/* Bridge CTA */}
+          <div className="text-center pt-4 border-t border-slate-700/50">
+            <p className="text-sm text-slate-400 mb-4">Still unsure? The builder walks you through this step by step.</p>
             <Link
-              href="/guides/betta-fish-tank-size"
-              onClick={() => analytics.trackNavClick("guide-betta-tank-size")}
-              className="group p-5 rounded-xl bg-blue-500/10 border border-blue-500/20 hover:border-blue-500/40 transition-all hover:-translate-y-1"
+              href="/build/leopard-gecko"
+              onClick={() => analytics.trackNavClick("guide-cta-builder")}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-full transition-all hover:scale-105 text-sm"
             >
-              <h3 className="text-lg font-bold text-white mb-2">Betta Fish Tank Size</h3>
-              <p className="text-sm text-slate-300">Why 5+ gallons is essential</p>
-            </Link>
-            <Link
-              href="/guides/betta-fish-heater"
-              onClick={() => analytics.trackNavClick("guide-betta-heater")}
-              className="group p-5 rounded-xl bg-blue-500/10 border border-blue-500/20 hover:border-blue-500/40 transition-all hover:-translate-y-1"
-            >
-              <h3 className="text-lg font-bold text-white mb-2">Betta Fish Heater Guide</h3>
-              <p className="text-sm text-slate-300">Temperature requirements</p>
-            </Link>
-            <Link
-              href="/guides/betta-fish-filter"
-              onClick={() => analytics.trackNavClick("guide-betta-filter")}
-              className="group p-5 rounded-xl bg-blue-500/10 border border-blue-500/20 hover:border-blue-500/40 transition-all hover:-translate-y-1"
-            >
-              <h3 className="text-lg font-bold text-white mb-2">Betta Fish Filter Guide</h3>
-              <p className="text-sm text-slate-300">Low-flow filtration options</p>
-            </Link>
-            <Link
-              href="/guides/leopard-gecko-not-eating"
-              onClick={() => analytics.trackNavClick("guide-gecko-not-eating")}
-              className="group p-5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 hover:border-emerald-500/40 transition-all hover:-translate-y-1"
-            >
-              <h3 className="text-lg font-bold text-white mb-2">Gecko Not Eating?</h3>
-              <p className="text-sm text-slate-300">Causes and solutions</p>
-            </Link>
-            <Link
-              href="/guides/leopard-gecko-substrate"
-              onClick={() => analytics.trackNavClick("guide-gecko-substrate")}
-              className="group p-5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 hover:border-emerald-500/40 transition-all hover:-translate-y-1"
-            >
-              <h3 className="text-lg font-bold text-white mb-2">Leopard Gecko Substrate</h3>
-              <p className="text-sm text-slate-300">Safe vs dangerous options</p>
+              Start the Habitat Builder <ArrowRight size={16} />
             </Link>
           </div>
         </div>
 
         {/* --- QUICK LINKS TO EDUCATIONAL CONTENT --- */}
-        <div className="w-full mb-16">
+        <div className="w-full max-w-4xl mx-auto mb-16">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Link
               href="/care-sheets"
@@ -286,8 +333,8 @@ export default function Home() {
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="text-xl font-bold text-white mb-1">Common Mistakes</h3>
-                  <p className="text-sm text-slate-300">Learn what NOT to do - avoid dangerous practices</p>
+                  <h3 className="text-xl font-bold text-white mb-1">Complete Safety Guide</h3>
+                  <p className="text-sm text-slate-300">Deep dive into dangerous practices and how to avoid them</p>
                 </div>
                 <ArrowUpRight className="text-red-400 opacity-0 group-hover:opacity-100 transition-opacity" size={24} />
               </div>
@@ -361,40 +408,6 @@ export default function Home() {
               <p className="text-xs text-slate-500 mt-3">— Leopard gecko owner</p>
             </div>
           </div>
-        </div>
-
-        {/* --- HUSBANDRY GUIDES --- */}
-        <div className="w-full">
-            <div className="flex items-center gap-3 mb-8 px-2 border-b border-white/10 pb-4">
-                <BookOpen className="text-indigo-400" size={24} />
-                <h2 className="text-2xl font-bold text-white">Husbandry Guides</h2>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                
-                {/* Gecko Guide */}
-                <GuideCard 
-                    href="/guides/leopard-gecko-setup"
-                    title="Leopard Gecko Setup"
-                    description="A complete breakdown of heating (Halogen vs DHP), substrate safety, and enclosure sizes."
-                    imageSrc="/gecko-guide.jpg"
-                    fallbackSrc="/gecko.jpg"
-                    accentColor="text-emerald-400"
-                    hoverBorder="hover:border-emerald-500/30"
-                />
-
-                {/* Betta Guide */}
-                <GuideCard 
-                    // 👇 FIXED: Changed from "/guides/betta-fish-care" to the correct path
-                    href="/guides/betta-setup"
-                    title="Betta Fish Care 101"
-                    description="Why bowls are dangerous, understanding the nitrogen cycle, and the best live plants."
-                    imageSrc="/betta-guide.jpg"
-                    fallbackSrc="/betta.jpg"
-                    accentColor="text-blue-400"
-                    hoverBorder="hover:border-blue-500/30"
-                />
-            </div>
         </div>
 
         {/* Disclaimer Footer */}

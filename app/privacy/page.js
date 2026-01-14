@@ -9,12 +9,12 @@ export default function PrivacyPage() {
         <div className="max-w-4xl mx-auto">
           {/* Back Button */}
           <div className="mb-8">
-            <Link 
+            <Link
               href="/"
-              className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors font-medium text-sm group"
+              className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors font-medium text-base group"
             >
-              <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-              Back to Home
+              <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+              Back to Hub
             </Link>
           </div>
 
@@ -124,13 +124,14 @@ export default function PrivacyPage() {
             </section>
           </div>
 
-          {/* Back to Home */}
+          {/* Back to Hub */}
           <div className="text-center mt-12">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-bold rounded-full transition-all shadow-lg hover:shadow-blue-500/40"
+              className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors font-medium text-base group"
             >
-              Back to Home
+              <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+              Back to Hub
             </Link>
           </div>
         </div>

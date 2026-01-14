@@ -4,7 +4,7 @@ import { useMemo, useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { analytics } from "../../utils/analytics";
 import {
-  ChevronLeft,
+  ArrowLeft,
   CheckCircle2,
   AlertTriangle,
   XCircle,
@@ -587,9 +587,9 @@ export default function BettaBuilder() {
             <div>
                 <button
                     onClick={() => router.push("/")}
-                    className="flex items-center gap-2 text-slate-400 hover:text-blue-400 transition-colors mb-4 text-sm font-bold uppercase tracking-wider"
+                    className="flex items-center gap-2 text-slate-400 hover:text-blue-400 transition-colors mb-4 text-base font-medium group"
                 >
-                    <ChevronLeft size={16} /> Back to Hub
+                    <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" /> Back to Hub
                 </button>
                 <h1 className="text-4xl md:text-5xl font-black tracking-tight text-white drop-shadow-lg">
                     Betta Fish <span className="text-blue-500">Configurator</span>

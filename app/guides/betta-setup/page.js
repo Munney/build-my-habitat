@@ -63,26 +63,27 @@ export default function BettaGuidePage() {
         <div className="max-w-4xl mx-auto mb-8">
           <Link 
             href="/" 
-            className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors font-medium text-sm group"
+            className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors font-medium text-base group"
           >
-            <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
+            <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
             Back to Hub
           </Link>
         </div>
 
         {/* --- HERO SECTION --- */}
         <div className="max-w-4xl mx-auto text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-wider mb-6">
-            Beginner's Guide
-          </div>
-          <h1 className="text-5xl md:text-6xl font-black text-white mb-6 drop-shadow-lg leading-tight">
-            Complete Betta Fish Tank Setup Guide 2025
+          <h1 className="text-5xl md:text-6xl font-black text-white mb-4 drop-shadow-lg leading-tight">
+            Complete Betta Fish Tank Setup Guide <span className="text-blue-400 text-3xl md:text-4xl font-semibold">(Beginner Friendly)</span>
           </h1>
-          <p className="text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto">
-            Learn how to set up a betta fish tank the right way. This complete guide covers tank size, heating, filtration, cycling, and all essential equipment for a healthy betta fish habitat.
+          <h2 className="text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto mb-6">
+            Tank size, filtration, heating, cycling, and essential equipment explained step by step.
+          </h2>
+          
+          <p className="text-base text-slate-400 leading-relaxed max-w-2xl mx-auto mb-8">
+            If you want a full explanation, read on. If you want a safe setup fast, the builder handles this step by step.
           </p>
           
-          <div className="mt-10">
+          <div className="mt-6">
             <Link
               href="/build/betta"
               className="inline-flex items-center justify-center gap-2 px-6 py-3 md:px-8 md:py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-full transition-all hover:scale-105 shadow-lg shadow-blue-900/20 text-sm md:text-base whitespace-nowrap"
@@ -102,13 +103,24 @@ export default function BettaGuidePage() {
             title="1. Betta Fish Tank Size & Requirements"
           >
             <p className="text-slate-300 mb-4">
-              The "puddle myth" is false. While Bettas can survive in small cups briefly, they slowly die from ammonia poisoning in anything less than 5 gallons.
+              The "puddle myth" is false. While Bettas can survive in small cups briefly, they are at high risk of ammonia poisoning in tanks smaller than 5 gallons.
             </p>
             <ul className="space-y-3">
               <GuidePoint><strong>Minimum Size:</strong> 5 Gallons is the absolute minimum. 10 Gallons is easier to maintain.</GuidePoint>
               <GuidePoint><strong>Shape:</strong> Long and shallow is better than tall. Bettas need to reach the surface to breathe.</GuidePoint>
               <GuidePoint><strong>Lid Required:</strong> Bettas are excellent jumpers. A tight-fitting lid is mandatory.</GuidePoint>
             </ul>
+            
+            {/* Contextual Builder CTA */}
+            <div className="mt-6 pt-6 border-t border-slate-700">
+              <p className="text-sm text-slate-400 mb-3">Not sure which tank size fits your space?</p>
+              <Link
+                href="/build/betta"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/30 hover:border-blue-500/50 text-blue-300 text-sm font-semibold rounded-lg transition-all"
+              >
+                Build a Betta Tank Setup <ArrowRight size={16} />
+              </Link>
+            </div>
           </GuideSection>
 
           {/* 2. Filtration & Flow */}
@@ -119,9 +131,14 @@ export default function BettaGuidePage() {
           >
             <div className="bg-red-500/10 border border-red-500/30 p-4 rounded-xl mb-4 flex items-start gap-3">
               <ShieldAlert size={24} className="text-red-400 shrink-0" />
-              <p className="text-red-200 text-sm font-medium leading-relaxed">
-                <strong>CRITICAL:</strong> You must "Cycle" your tank (grow beneficial bacteria) before adding the fish, or ammonia levels will kill them.
-              </p>
+              <div>
+                <p className="text-red-200 text-sm font-medium leading-relaxed mb-2">
+                  <strong>CRITICAL:</strong> You must "Cycle" your tank (grow beneficial bacteria) before adding the fish, or ammonia levels will kill them.
+                </p>
+                <p className="text-red-200 text-sm leading-relaxed">
+                  Cycling means establishing beneficial bacteria that process toxic ammonia into safer compounds.
+                </p>
+              </div>
             </div>
             <p className="text-slate-300 mb-4">
               Bettas have long, heavy fins that make swimming against currents difficult. They need clean water with very gentle flow.
@@ -130,6 +147,17 @@ export default function BettaGuidePage() {
               <GuidePoint><strong>Best Filter:</strong> A Sponge Filter is the gold standard. It provides aeration and biological filtration with zero dangerous suction.</GuidePoint>
               <GuidePoint><strong>Avoid:</strong> High-flow Hang-on-Back filters can blow your Betta around the tank, causing stress and fin rot.</GuidePoint>
             </ul>
+            
+            {/* Contextual Builder CTA */}
+            <div className="mt-6 pt-6 border-t border-slate-700">
+              <p className="text-sm text-slate-400 mb-3">Filtration and cycling mistakes are the #1 cause of betta deaths.</p>
+              <Link
+                href="/build/betta"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/30 hover:border-blue-500/50 text-blue-300 text-sm font-semibold rounded-lg transition-all"
+              >
+                Let the builder choose a safe, low-flow setup <ArrowRight size={16} />
+              </Link>
+            </div>
           </GuideSection>
 
           {/* 3. Heating */}
@@ -146,6 +174,17 @@ export default function BettaGuidePage() {
               <GuidePoint><strong>Wattage:</strong> Use the "5 Watts per Gallon" rule (e.g., a 50W heater for a 10-gallon tank).</GuidePoint>
               <GuidePoint><strong>Adjustable:</strong> Avoid pre-set heaters. Buy one with a dial so you can control the temperature precisely.</GuidePoint>
             </ul>
+            
+            {/* Contextual Builder CTA */}
+            <div className="mt-6 pt-6 border-t border-slate-700">
+              <p className="text-sm text-slate-400 mb-3">Temperature swings are hard to diagnose and easy to prevent.</p>
+              <Link
+                href="/build/betta"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/30 hover:border-blue-500/50 text-blue-300 text-sm font-semibold rounded-lg transition-all"
+              >
+                Have the builder select a compatible heater automatically <ArrowRight size={16} />
+              </Link>
+            </div>
           </GuideSection>
 
           {/* 4. Plants & Decor */}
@@ -174,7 +213,7 @@ export default function BettaGuidePage() {
               You cannot just use tap water. It contains chlorine which burns fish gills.
             </p>
             <ul className="space-y-3">
-              <GuidePoint><strong>Dechlorinator:</strong> You MUST use a water conditioner (like Seachem Prime) with every water change.</GuidePoint>
+              <GuidePoint><strong>Dechlorinator:</strong> You MUST use a water conditioner (such as Seachem Prime) with every water change.</GuidePoint>
               <GuidePoint><strong>Testing:</strong> Own an API Master Test Kit. Test strips are notoriously inaccurate.</GuidePoint>
               <GuidePoint><strong>Maintenance:</strong> Perform a 20-30% partial water change once a week. Never change 100% of the water at once.</GuidePoint>
             </ul>
@@ -260,10 +299,10 @@ export default function BettaGuidePage() {
         {/* --- CTA --- */}
         <div className="max-w-4xl mx-auto text-center mt-12">
           <h2 className="text-3xl font-black text-white mb-6">
-            Ready to design your tank?
+            Ready to design it without guesswork?
           </h2>
           <p className="text-slate-300 leading-relaxed max-w-2xl mx-auto mb-10">
-            Our smart builder will guide you through selecting the right tank, heater, and filter.
+            The builder applies these same principles automatically and checks compatibility as you go.
           </p>
           
           <Link

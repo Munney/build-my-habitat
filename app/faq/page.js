@@ -144,10 +144,10 @@ export default function FAQPage() {
         {/* Back Button */}
         <Link 
           href="/" 
-          className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors font-medium text-sm mb-8 group"
+          className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors font-medium text-base mb-8 group"
         >
-          <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-          Back to Home
+          <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+          Back to Hub
         </Link>
 
         {/* Header */}

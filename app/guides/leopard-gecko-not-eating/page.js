@@ -59,9 +59,9 @@ export default function GeckoNotEatingPage() {
       <main className="min-h-screen pt-28 pb-20 px-6 relative z-10">
         
         <div className="max-w-4xl mx-auto mb-8">
-          <Link href="/" className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors font-medium text-sm group">
-            <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-            Back to Home
+          <Link href="/" className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors font-medium text-base group">
+            <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+            Back to Hub
           </Link>
         </div>
 
