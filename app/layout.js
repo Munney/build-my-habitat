@@ -42,7 +42,7 @@ export const metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://www.buildmyhabitat.com/og-image.jpg',
+        url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.buildmyhabitat.com'}/opengraph-image`,
         width: 1200,
         height: 630,
         alt: 'HabitatBuilder - Build Safe Pet Habitats',

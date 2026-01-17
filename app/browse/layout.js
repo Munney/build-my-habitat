@@ -5,7 +5,7 @@ export const metadata = {
   openGraph: {
     title: 'HabitatBuilder Parts Database - Verified Safe Supplies',
     description: 'Don\'t guess at the pet store. Browse hundreds of verified safe supplies for reptiles and fish.',
-    images: ['/og-image.jpg'], 
+    images: ['/opengraph-image'], 
   },
 };
 

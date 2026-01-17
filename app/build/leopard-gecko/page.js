@@ -547,6 +547,42 @@ export default function LeopardGeckoBuilder() {
     return [...direct, ...variantItems];
   }, [hideIds, hideVariants]);
   
+  // Filter supplements based on UVB selection
+  const hasUVB = useMemo(() => {
+    return heatingIds.some(id => id.startsWith("uvb_"));
+  }, [heatingIds]);
+  
+  // Auto-adjust supplements when UVB selection changes
+  useEffect(() => {
+    setSupplementIds(prev => {
+      if (hasUVB) {
+        // If UVB is selected, remove calcium_d3 if present
+        if (prev.includes("calcium_d3")) {
+          return prev.filter(id => id !== "calcium_d3");
+        }
+      } else {
+        // If no UVB, remove calcium_no_d3 if present
+        if (prev.includes("calcium_no_d3")) {
+          return prev.filter(id => id !== "calcium_no_d3");
+        }
+      }
+      return prev; // No change needed
+    });
+  }, [hasUVB]);
+  
+  // Filter available supplements based on UVB
+  const availableSupplements = useMemo(() => {
+    return SUPPLEMENTS.filter(s => {
+      if (hasUVB) {
+        // With UVB: only show calcium_no_d3 and multivitamin
+        return s.id === "calcium_no_d3" || s.id === "multivitamin";
+      } else {
+        // Without UVB: only show calcium_d3 and multivitamin
+        return s.id === "calcium_d3" || s.id === "multivitamin";
+      }
+    });
+  }, [hasUVB]);
+  
   const selectedSupplements = pickMany(SUPPLEMENTS, supplementIds);
 
   const allSelectedItems = useMemo(() => {
@@ -879,20 +915,33 @@ export default function LeopardGeckoBuilder() {
                 </div>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {sortedEnclosures.map((e) => (
-                  <SelectionCard
-                    key={e.id}
-                    active={enclosureId === e.id}
-                    label={e.label}
-                    price={e.price}
-                    onClick={() => setEnclosureId(enclosureId === e.id ? null : e.id)}
-                    type="checkbox"
-                    productId={e.id}
-                    isRequired={false}
-                    asin={e.asin}
-                    product={e}
-                  />
-                ))}
+                {sortedEnclosures.map((e) => {
+                  const isRecommended = e.id === "20g";
+                  const isBelowMinimum = e.id === "15g";
+                  
+                  return (
+                    <div key={e.id} className={isBelowMinimum ? "opacity-70" : ""}>
+                      <SelectionCard
+                        active={enclosureId === e.id}
+                        label={e.label}
+                        price={e.price}
+                        onClick={() => setEnclosureId(enclosureId === e.id ? null : e.id)}
+                        type="checkbox"
+                        productId={e.id}
+                        isRequired={false}
+                        asin={e.asin}
+                        product={e}
+                        sublabel={
+                          isRecommended 
+                            ? "Recommended" 
+                            : isBelowMinimum 
+                            ? "Below recommended minimum for adults" 
+                            : undefined
+                        }
+                      />
+                    </div>
+                  );
+                })}
               </div>
             </Section>
 
@@ -904,6 +953,9 @@ export default function LeopardGeckoBuilder() {
               isCompleted={sectionCompletion.heating}
               sectionRef={(el) => { if (el) sectionRefs.current.heating = el; }}
             >
+              <p className="text-sm text-slate-300 mb-4 font-medium">
+                Select ONE primary heat source. The builder ensures compatibility.
+              </p>
               <HeatingSection 
                 heating={HEATING}
                 selectedIds={heatingIds}
@@ -951,6 +1003,9 @@ export default function LeopardGeckoBuilder() {
               isCompleted={sectionCompletion.substrate}
               sectionRef={(el) => { if (el) sectionRefs.current.substrate = el; }}
             >
+              <p className="text-sm text-slate-300 mb-4 font-medium">
+                Select one primary substrate. The builder prevents unsafe combinations.
+              </p>
               {!experience && (
                   <div className="mb-4 p-3 bg-amber-500/10 border border-amber-500/20 text-amber-200 text-xs rounded-xl flex items-center gap-2">
                       <AlertTriangle size={16} /> Please select an Experience Level above to see safe recommendations.
@@ -1062,8 +1117,21 @@ export default function LeopardGeckoBuilder() {
               isCompleted={sectionCompletion.supplements}
               sectionRef={(el) => { if (el) sectionRefs.current.supplements = el; }}
             >
+              <p className="text-sm text-slate-300 mb-4 font-medium">
+                The builder ensures correct combinations based on your lighting setup.
+              </p>
+              {hasUVB && (
+                <div className="mb-4 p-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-200 text-xs rounded-xl flex items-center gap-2">
+                  <CheckCircle2 size={16} /> UVB detected: Using Pure Calcium (No D3) to prevent D3 overdose.
+                </div>
+              )}
+              {!hasUVB && supplementIds.length > 0 && (
+                <div className="mb-4 p-3 bg-amber-500/10 border border-amber-500/20 text-amber-200 text-xs rounded-xl flex items-center gap-2">
+                  <AlertCircle size={16} /> No UVB selected: Using Calcium + D3 to ensure proper vitamin D3 synthesis.
+                </div>
+              )}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {SUPPLEMENTS.map((s) => (
+                {availableSupplements.map((s) => (
                   <SelectionCard
                     key={s.id}
                     active={supplementIds.includes(s.id)}
@@ -1591,20 +1659,34 @@ function SubstrateSection({ substrates, selectedIds, selectedVariants, onToggle,
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
       {/* Standalone products (no variants) */}
-      {filteredStandalone.map((s) => (
-        <SelectionCard
-          key={s.id}
-          active={selectedIds.includes(s.id)}
-          label={s.label}
-          price={s.price}
-          sublabel={s.type === "solid" ? "Easy to Clean" : "Naturalistic Look"}
-          onClick={() => onToggle(s.id)}
-          type="checkbox"
-          productId={s.id}
-          asin={s.asin}
-          product={s}
-        />
-      ))}
+      {filteredStandalone.map((s) => {
+        const isRecommended = s.id === "papertowel" || s.id === "slate";
+        const isAdvanced = s.id === "bioactive" || s.label.toLowerCase().includes("bioactive");
+        
+        let sublabelText;
+        if (isRecommended) {
+          sublabelText = "Recommended for Beginners";
+        } else if (isAdvanced) {
+          sublabelText = "Advanced";
+        } else {
+          sublabelText = s.type === "solid" ? "Easy to Clean" : "Naturalistic Look";
+        }
+        
+        return (
+          <SelectionCard
+            key={s.id}
+            active={selectedIds.includes(s.id)}
+            label={s.label}
+            price={s.price}
+            sublabel={sublabelText}
+            onClick={() => onToggle(s.id)}
+            type="checkbox"
+            productId={s.id}
+            asin={s.asin}
+            product={s}
+          />
+        );
+      })}
       
       {/* Variant groups */}
       {filteredGroups.map((group) => {
@@ -1635,6 +1717,9 @@ function SubstrateSection({ substrates, selectedIds, selectedVariants, onToggle,
                            group.baseName.includes("Deep Heat") || group.baseName.includes("DHP")) &&
                            !group.baseName.includes("Under Tank Heater");
         
+        // Check if this is a bioactive variant group
+        const isAdvanced = group.baseName.toLowerCase().includes("bioactive") || group.baseLabel.toLowerCase().includes("bioactive");
+        
         return (
           <VariantCard
             key={group.baseName}
@@ -1646,6 +1731,7 @@ function SubstrateSection({ substrates, selectedIds, selectedVariants, onToggle,
             isCheckbox={true}
             isSizeOnly={true}
             isRequired={isRequired}
+            sublabel={isAdvanced ? "Advanced" : undefined}
             onVariantChange={(variant) => {
               const variantItem = group.variants.find(v => v.variant === variant);
               if (variantItem) {
@@ -1757,7 +1843,7 @@ function HidesSection({ hides, selectedIds, selectedVariants, onToggle, onVarian
   );
 }
 
-function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVariant, onVariantChange, onSelect, isCheckbox = false, isSizeOnly = false, productId, isRequired = false }) {
+function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVariant, onVariantChange, onSelect, isCheckbox = false, isSizeOnly = false, productId, isRequired = false, sublabel }) {
   const selectedVariantItem = selectedVariant 
     ? variants.find(v => v.variant === selectedVariant)
     : null;
@@ -1861,6 +1947,9 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
                 {baseLabel}
                 {showRequired && (
                   <span className="ml-2 text-xs font-semibold text-amber-400 uppercase tracking-wide">Required</span>
+                )}
+                {sublabel === "Advanced" && (
+                  <span className="ml-2 text-xs font-semibold text-purple-400 uppercase tracking-wide bg-purple-500/20 px-2 py-0.5 rounded-md border border-purple-500/30">Advanced</span>
                 )}
               </div>
               {explanation && (
@@ -1974,13 +2063,16 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
                 {showRequired && (
                   <span className="ml-2 text-xs font-semibold text-amber-400 uppercase tracking-wide">Required</span>
                 )}
+                {sublabel === "Recommended" && (
+                  <span className="ml-2 text-xs font-semibold text-emerald-400 uppercase tracking-wide bg-emerald-500/20 px-2 py-0.5 rounded-md border border-emerald-500/30">Recommended</span>
+                )}
               </div>
               {explanation && (
                 <ProductTooltip explanation={explanation} />
               )}
             </div>
-            {sublabel && (
-              <div className="text-xs font-medium text-slate-400 mt-1.5 px-2 py-1 rounded-md bg-slate-800/50 border border-slate-700/50 inline-block uppercase tracking-wide">{sublabel}</div>
+            {sublabel && sublabel !== "Recommended" && (
+              <div className="text-xs font-medium text-amber-300/80 mt-1.5 px-2 py-1 rounded-md bg-amber-500/10 border border-amber-500/30 inline-block">{sublabel}</div>
             )}
           </div>
         </div>
