@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useRef, useEffect } from "react";
 import { Search, PackageSearch, ArrowUpRight, X, Filter, DollarSign, Tag } from "lucide-react";
+import Footer from "../components/Footer";
 
 // These imports will work now that your folder structure is fixed!
 import bettaData from "../../data/betta.json";
@@ -189,6 +190,7 @@ export default function BrowsePage() {
     priceRange.max !== maxPrice;
 
   return (
+    <>
     <main className="relative min-h-screen pt-28 pb-20 px-6 text-slate-200">
       <div className="relative z-10 max-w-6xl mx-auto space-y-10">
         
@@ -405,5 +407,7 @@ export default function BrowsePage() {
         </div>
       </div>
     </main>
+    <Footer />
+    </>
   );
 }

@@ -311,7 +311,7 @@ export default function LeopardGeckoGuidePage() {
         </div>
 
       </main>
-      <Footer />
+      <Footer variant="minimal" />
     </>
   );
 }

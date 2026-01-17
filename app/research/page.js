@@ -76,6 +76,7 @@ export default function ResearchPage() {
   ];
 
   return (
+    <>
     <main className="relative min-h-screen py-20 px-4 sm:px-6">
       <div className="relative z-10 max-w-4xl mx-auto space-y-8 sm:space-y-12">
         
@@ -135,5 +136,7 @@ export default function ResearchPage() {
 
       </div>
     </main>
+    <Footer />
+  </>
   );
 }

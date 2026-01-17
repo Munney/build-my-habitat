@@ -1,7 +1,27 @@
 import Link from "next/link";
-import { Github, Twitter, Heart } from "lucide-react";
+import { Github, Twitter, Heart, ArrowLeft } from "lucide-react";
 
-export default function Footer() {
+export default function Footer({ variant = "full" }) {
+  // Minimal footer for guides and builder flows
+  if (variant === "minimal") {
+    return (
+      <footer className="w-full border-t border-white/10 bg-[#020617]/80 backdrop-blur-md text-slate-400 text-sm">
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 text-xs">
+            <span>&copy; {new Date().getFullYear()} HabitatBuilder</span>
+            <span className="hidden md:inline">•</span>
+            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <span className="hidden md:inline">•</span>
+            <Link href="/about" className="hover:text-white transition-colors">The Standard</Link>
+            <span className="hidden md:inline">•</span>
+            <span className="opacity-70">Not professional veterinary advice.</span>
+          </div>
+        </div>
+      </footer>
+    );
+  }
+
+  // Full footer for homepage and top-level pages
   return (
     <footer className="w-full border-t border-white/10 bg-[#020617]/80 backdrop-blur-md text-slate-400 text-sm">
       <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">

@@ -28,6 +28,7 @@ import ProductTooltip from "../../components/ProductTooltip";
 import ScrollToTop from "../../components/ScrollToTop";
 import { AIHabitatAssistant } from "../../components/AIHabitatAssistant";
 import { SetupTemplates } from "../../components/SetupTemplates";
+import Footer from "../../components/Footer";
 
 // Data Imports
 const ENCLOSURES = config.enclosures || [];
@@ -716,6 +717,7 @@ export default function LeopardGeckoBuilder() {
   }
 
   return (
+    <>
     <main className="relative min-h-screen pb-20 px-6">
       {/* Spacer for navbar */}
       <div className="h-28"></div>
@@ -1277,6 +1279,8 @@ export default function LeopardGeckoBuilder() {
         species="leopard-gecko"
       />
     </main>
+    <Footer variant="minimal" />
+  </>
   );
 }
 

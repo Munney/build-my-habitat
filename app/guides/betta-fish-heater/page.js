@@ -265,7 +265,7 @@ export default function BettaHeaterPage() {
         </div>
 
       </main>
-      <Footer />
+      <Footer variant="minimal" />
     </>
   );
 }

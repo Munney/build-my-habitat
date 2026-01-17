@@ -242,7 +242,7 @@ export default function BettaFilterPage() {
         </div>
 
       </main>
-      <Footer />
+      <Footer variant="minimal" />
     </>
   );
 }

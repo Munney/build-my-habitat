@@ -311,7 +311,7 @@ export default function BettaTankSizePage() {
         </div>
 
       </main>
-      <Footer />
+      <Footer variant="minimal" />
     </>
   );
 }

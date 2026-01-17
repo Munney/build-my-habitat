@@ -242,7 +242,7 @@ export default function GeckoSubstratePage() {
         </div>
 
       </main>
-      <Footer />
+      <Footer variant="minimal" />
     </>
   );
 }

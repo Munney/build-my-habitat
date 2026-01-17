@@ -46,7 +46,7 @@ export default function PrivacyPage() {
               </p>
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li><strong>Build Data:</strong> Your habitat configurations are stored locally in your browser. We don't send this data to our servers unless you explicitly share a build via URL.</li>
-                <li><strong>Analytics:</strong> We use Google Analytics to understand how visitors use our site. This includes anonymous data like page views, time on site, and general location (country/city level).</li>
+                <li><strong>Analytics:</strong> We use Google Analytics to understand how visitors use our site. This includes anonymous data like page views, time on site, and general location (country/city level). This data is derived from IP addresses and is not used to identify individual users.</li>
                 <li><strong>No Personal Accounts:</strong> We don't require registration or collect email addresses, names, or payment information.</li>
               </ul>
             </section>
@@ -60,8 +60,9 @@ export default function PrivacyPage() {
                 <li>To improve our website and user experience</li>
                 <li>To understand which features are most useful</li>
                 <li>To fix bugs and technical issues</li>
-                <li>We do NOT sell your data to third parties</li>
-                <li>We do NOT use your data for advertising purposes</li>
+                <li>We do not sell your personal data.</li>
+                <li>We do not use third-party advertising pixels or run targeted advertising campaigns.</li>
+                <li>Analytics data is used only to understand site usage and improve functionality.</li>
               </ul>
             </section>
 
@@ -74,7 +75,7 @@ export default function PrivacyPage() {
                 We use cookies for:
               </p>
               <ul className="list-disc list-inside space-y-2 ml-4">
-                <li><strong>Analytics:</strong> Google Analytics cookies to track site usage (you can opt out via Google Analytics Opt-out Browser Add-on)</li>
+                <li><strong>Analytics:</strong> Some analytics cookies may be set automatically when you use the site. Google Analytics cookies track site usage. You can opt out of Google Analytics tracking using Google's opt-out tools.</li>
                 <li><strong>Local Storage:</strong> Your saved builds are stored in your browser's local storage, not on our servers</li>
                 <li><strong>No Third-Party Advertising:</strong> We don't use advertising cookies or tracking pixels</li>
               </ul>
@@ -99,8 +100,7 @@ export default function PrivacyPage() {
               </h2>
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li>You can clear your browser's local storage to delete saved builds</li>
-                <li>You can opt out of Google Analytics tracking</li>
-                <li>You can use the site without accepting cookies (though some features may not work)</li>
+                <li>You can opt out of Google Analytics tracking using Google's opt-out tools</li>
                 <li>You can contact us with privacy concerns (see contact information below)</li>
               </ul>
             </section>
@@ -116,10 +116,28 @@ export default function PrivacyPage() {
 
             <section className="bg-slate-900/50 backdrop-blur-md p-8 rounded-2xl border border-white/10">
               <h2 className="text-2xl font-bold text-white mb-4">
+                Children's Privacy
+              </h2>
+              <p>
+                HabitatBuilder does not knowingly collect personal information from children under 13. Because we do not collect personal data or require accounts, this risk is minimal.
+              </p>
+            </section>
+
+            <section className="bg-slate-900/50 backdrop-blur-md p-8 rounded-2xl border border-white/10">
+              <h2 className="text-2xl font-bold text-white mb-4">
                 Contact Us
               </h2>
               <p>
-                If you have questions about this privacy policy, please contact us through our website or social media channels.
+                If you have questions about this privacy policy, you can contact us through the contact options available on our website.
+              </p>
+            </section>
+
+            <section className="bg-slate-900/50 backdrop-blur-md p-8 rounded-2xl border border-white/10">
+              <h2 className="text-2xl font-bold text-white mb-4">
+                Jurisdiction
+              </h2>
+              <p>
+                This website is operated from the United States.
               </p>
             </section>
           </div>

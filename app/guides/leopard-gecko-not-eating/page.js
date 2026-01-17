@@ -249,7 +249,7 @@ export default function GeckoNotEatingPage() {
         </div>
 
       </main>
-      <Footer />
+      <Footer variant="minimal" />
     </>
   );
 }

@@ -522,6 +522,7 @@ export default function BettaBuilder() {
   };
 
   return (
+    <>
     <main className="relative min-h-screen pb-20 px-6">
       {/* Spacer for navbar */}
       <div className="h-28"></div>
@@ -1119,6 +1120,8 @@ export default function BettaBuilder() {
         species="betta"
       />
     </main>
+    <Footer variant="minimal" />
+  </>
   );
 }
 

@@ -312,7 +312,7 @@ export default function BettaGuidePage() {
         </div>
 
       </main>
-      <Footer />
+      <Footer variant="minimal" />
     </>
   );
 }

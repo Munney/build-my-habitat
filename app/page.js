@@ -7,6 +7,7 @@ import { ArrowRight, BookOpen, ArrowUpRight, ShieldCheck, CheckCircle2, Sparkles
 import { analytics } from "./utils/analytics";
 import { HowToSchema } from "./components/StructuredData";
 import { EmailCapturePopup, ExitIntentTracker } from "./components/EmailCapture";
+import Footer from "./components/Footer";
 
 export default function Home() {
   const [showEmailPopup, setShowEmailPopup] = useState(false);
@@ -28,6 +29,7 @@ export default function Home() {
   ];
 
   return (
+    <>
     <main className="relative min-h-screen flex flex-col items-center justify-start overflow-hidden text-white selection:bg-sky-500/30">
       <HowToSchema 
         steps={howToSteps}
@@ -416,6 +418,8 @@ export default function Home() {
         </p>
       </div>
     </main>
+    <Footer />
+  </>
   );
 }
 
