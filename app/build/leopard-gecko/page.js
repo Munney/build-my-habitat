@@ -1158,6 +1158,62 @@ export default function LeopardGeckoBuilder() {
               isLocked={isSectionLocked.hides}
               sectionRef={(el) => { if (el) sectionRefs.current.hides = el; }}
             >
+              {/* Check for missing required hides */}
+              {(() => {
+                const hasWarmHide = hideIds.includes("warmhide");
+                const hasCoolHide = hideIds.includes("coolhide");
+                const hasHumidHide = hideIds.includes("humidhide");
+                const missingHides = [];
+                if (!hasWarmHide) missingHides.push("warm hide");
+                if (!hasCoolHide) missingHides.push("cool hide");
+                if (!hasHumidHide) missingHides.push("humid hide");
+                
+                if (missingHides.length > 0 && hideIds.length > 0) {
+                  // Only show if some hides are selected but required ones are missing
+                  return (
+                    <div className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
+                      <AlertCircle size={20} className="text-amber-400 shrink-0" />
+                      <p className="text-amber-100 font-medium flex-1">
+                        {missingHides.length === 3
+                          ? "Warm hide, cool hide, and humid hide are required."
+                          : missingHides.length === 2
+                          ? `${missingHides[0]} and ${missingHides[1]} are required.`
+                          : `${missingHides[0]} is required.`}
+                      </p>
+                      <WhyRequiredToggle 
+                        explanation={
+                          missingHides.length === 3
+                            ? "Geckos need warm hide for thermoregulation, cool hide to escape heat, and humid hide for proper shedding. Without all three, they can develop health issues."
+                            : missingHides.includes("warm hide") && missingHides.includes("cool hide")
+                            ? "Geckos need warm hide for thermoregulation and cool hide to escape heat. Both are essential for temperature regulation."
+                            : missingHides.includes("warm hide") && missingHides.includes("humid hide")
+                            ? "Geckos need warm hide for thermoregulation and humid hide for proper shedding. Both are essential for health."
+                            : missingHides.includes("cool hide") && missingHides.includes("humid hide")
+                            ? "Geckos need cool hide to escape heat and humid hide for proper shedding. Both are essential for health."
+                            : missingHides[0] === "warm hide"
+                            ? "Geckos need a warm hide on the hot side for thermoregulation and digestion."
+                            : missingHides[0] === "cool hide"
+                            ? "Geckos need a cool hide on the cool side to escape heat and regulate body temperature."
+                            : "Geckos need a humid hide for proper shedding. Without it, they can develop stuck shed which can lead to infection."
+                        }
+                      />
+                    </div>
+                  );
+                } else if (hideIds.length === 0) {
+                  // Show when no hides are selected at all
+                  return (
+                    <div className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
+                      <AlertCircle size={20} className="text-amber-400 shrink-0" />
+                      <p className="text-amber-100 font-medium flex-1">Warm hide, cool hide, and humid hide are required.</p>
+                      <WhyRequiredToggle 
+                        explanation="Geckos need warm hide for thermoregulation, cool hide to escape heat, and humid hide for proper shedding. Without all three, they can develop health issues."
+                      />
+                    </div>
+                  );
+                }
+                return null;
+              })()}
+              
               <HidesSection
                 hides={HIDES}
                 selectedIds={hideIds}
@@ -1208,6 +1264,18 @@ export default function LeopardGeckoBuilder() {
               <p className="text-sm text-slate-300 mb-4 font-medium">
                 The builder ensures correct combinations based on your lighting setup.
               </p>
+              
+              {/* Check for missing supplements */}
+              {supplementIds.length === 0 && (
+                <div className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
+                  <AlertCircle size={20} className="text-amber-400 shrink-0" />
+                  <p className="text-amber-100 font-medium flex-1">At least one supplement is required.</p>
+                  <WhyRequiredToggle 
+                    explanation="Geckos need calcium for bone health. Without UVB, they need calcium with D3. With UVB, they need pure calcium. Multivitamin prevents deficiencies."
+                  />
+                </div>
+              )}
+              
               {hasUVB && (
                 <div className="mb-4 p-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-200 text-xs rounded-xl flex items-center gap-2">
                   <CheckCircle2 size={16} /> UVB detected: Using Pure Calcium (No D3) to prevent D3 overdose.
