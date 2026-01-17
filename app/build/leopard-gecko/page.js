@@ -1463,6 +1463,7 @@ function Section({ title, icon, description, children, sectionId, isCompleted, s
 
 function WhyRequiredToggle({ explanation }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
   const buttonRef = useRef(null);
@@ -1472,8 +1473,11 @@ function WhyRequiredToggle({ explanation }) {
     setIsMounted(true);
   }, []);
 
+  // Show tooltip on hover (desktop) or when clicked (mobile)
+  const showTooltip = isOpen || isHovered;
+
   useEffect(() => {
-    if (isOpen && buttonRef.current && isMounted) {
+    if (showTooltip && buttonRef.current && isMounted) {
       const updatePosition = () => {
         if (buttonRef.current) {
           const rect = buttonRef.current.getBoundingClientRect();
@@ -1498,9 +1502,9 @@ function WhyRequiredToggle({ explanation }) {
         window.removeEventListener('resize', updatePosition);
       };
     }
-  }, [isOpen, isMounted]);
+  }, [showTooltip, isMounted]);
 
-  // Close on outside click
+  // Close on outside click (only for click-opened tooltips)
   useEffect(() => {
     if (!isOpen) return;
     
@@ -1519,7 +1523,7 @@ function WhyRequiredToggle({ explanation }) {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isOpen]);
   
-  const tooltipContent = isOpen && isMounted && (
+  const tooltipContent = showTooltip && isMounted && (
     <div
       ref={tooltipRef}
       className="fixed w-80 p-4 bg-slate-800 border border-slate-700 rounded-xl shadow-2xl z-[9999]"
@@ -1527,17 +1531,22 @@ function WhyRequiredToggle({ explanation }) {
         top: `${tooltipPosition.top}px`,
         left: `${tooltipPosition.left}px`,
       }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       <p className="text-sm text-slate-200 leading-relaxed">{explanation}</p>
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          setIsOpen(false);
-        }}
-        className="mt-3 text-xs text-emerald-400 hover:text-emerald-300 font-medium"
-      >
-        Close
-      </button>
+      {/* Only show close button when opened via click (mobile) */}
+      {isOpen && (
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsOpen(false);
+          }}
+          className="mt-3 text-xs text-emerald-400 hover:text-emerald-300 font-medium"
+        >
+          Close
+        </button>
+      )}
     </div>
   );
   
@@ -1549,6 +1558,8 @@ function WhyRequiredToggle({ explanation }) {
           e.stopPropagation();
           setIsOpen(!isOpen);
         }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         className="text-xs text-amber-300 hover:text-amber-200 font-medium underline decoration-dotted underline-offset-2 transition-colors"
       >
         Why is this required?
