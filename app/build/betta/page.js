@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { analytics } from "../../utils/analytics";
 import {
@@ -1200,10 +1201,88 @@ export default function BettaBuilder() {
 /* ---------- INLINE "WHY" TOGGLE COMPONENTS ---------- */
 function WhyRequiredToggle({ explanation }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+  const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
+  const buttonRef = useRef(null);
+  const tooltipRef = useRef(null);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (isOpen && buttonRef.current && isMounted) {
+      const updatePosition = () => {
+        if (buttonRef.current) {
+          const rect = buttonRef.current.getBoundingClientRect();
+          const tooltipWidth = 320; // w-80 = 20rem = 320px
+          const tooltipHeight = 150; // approximate
+          const spacing = 8; // mt-2 = 0.5rem = 8px
+          
+          // Position below the button, aligned to the right
+          setTooltipPosition({
+            top: rect.bottom + spacing,
+            left: rect.right - tooltipWidth, // Align right edge with button right edge
+          });
+        }
+      };
+      
+      updatePosition();
+      window.addEventListener('scroll', updatePosition, true);
+      window.addEventListener('resize', updatePosition);
+      
+      return () => {
+        window.removeEventListener('scroll', updatePosition, true);
+        window.removeEventListener('resize', updatePosition);
+      };
+    }
+  }, [isOpen, isMounted]);
+
+  // Close on outside click
+  useEffect(() => {
+    if (!isOpen) return;
+    
+    const handleClickOutside = (e) => {
+      if (
+        buttonRef.current &&
+        !buttonRef.current.contains(e.target) &&
+        tooltipRef.current &&
+        !tooltipRef.current.contains(e.target)
+      ) {
+        setIsOpen(false);
+      }
+    };
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isOpen]);
+  
+  const tooltipContent = isOpen && isMounted && (
+    <div
+      ref={tooltipRef}
+      className="fixed w-80 p-4 bg-slate-800 border border-slate-700 rounded-xl shadow-2xl z-[9999]"
+      style={{
+        top: `${tooltipPosition.top}px`,
+        left: `${tooltipPosition.left}px`,
+      }}
+    >
+      <p className="text-sm text-slate-200 leading-relaxed">{explanation}</p>
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          setIsOpen(false);
+        }}
+        className="mt-3 text-xs text-blue-400 hover:text-blue-300 font-medium"
+      >
+        Close
+      </button>
+    </div>
+  );
   
   return (
     <div className="relative">
       <button
+        ref={buttonRef}
         onClick={(e) => {
           e.stopPropagation();
           setIsOpen(!isOpen);
@@ -1212,20 +1291,7 @@ function WhyRequiredToggle({ explanation }) {
       >
         Why is this required?
       </button>
-      {isOpen && (
-        <div className="absolute right-0 top-full mt-2 w-80 p-4 bg-slate-800 border border-slate-700 rounded-xl shadow-2xl z-50">
-          <p className="text-sm text-slate-200 leading-relaxed">{explanation}</p>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsOpen(false);
-            }}
-            className="mt-3 text-xs text-blue-400 hover:text-blue-300 font-medium"
-          >
-            Close
-          </button>
-        </div>
-      )}
+      {isMounted && createPortal(tooltipContent, document.body)}
     </div>
   );
 }
