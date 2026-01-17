@@ -996,6 +996,48 @@ export default function LeopardGeckoBuilder() {
               <p className="text-sm text-slate-300 mb-4 font-medium">
                 Select ONE primary heat source. The builder ensures compatibility.
               </p>
+              
+              {/* Check for missing required heating items */}
+              {(() => {
+                const hasPrimaryHeat = heatingIds.some(id => 
+                  id.startsWith("halogen_") || 
+                  id.startsWith("dhp_")
+                ) || Object.keys(heatingVariants).some(baseName => 
+                  (baseName.includes("Halogen") || baseName.includes("Flood Lamp") || 
+                   baseName.includes("Deep Heat") || baseName.includes("DHP")) &&
+                  !baseName.includes("Under Tank Heater")
+                );
+                const hasThermostat = heatingIds.includes("thermostat");
+                const missingItems = [];
+                if (!hasPrimaryHeat) missingItems.push("primary heat source");
+                if (!hasThermostat) missingItems.push("thermostat");
+                
+                if (missingItems.length > 0) {
+                  return (
+                    <div className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
+                      <AlertCircle size={20} className="text-amber-400 shrink-0" />
+                      <p className="text-amber-100 font-medium flex-1">
+                        {missingItems.length === 2 
+                          ? "Primary heat source and thermostat are required."
+                          : missingItems[0] === "primary heat source"
+                          ? "Primary heat source is required."
+                          : "Thermostat is required."}
+                      </p>
+                      <WhyRequiredToggle 
+                        explanation={
+                          missingItems.length === 2
+                            ? "Geckos need 88-92°F basking area for digestion. A thermostat prevents burns and death from unregulated heat."
+                            : missingItems[0] === "primary heat source"
+                            ? "Geckos need 88-92°F basking area for proper digestion and thermoregulation. Halogen or DHP provides this."
+                            : "Unregulated heat sources can cause severe burns and death. A thermostat is essential for safety."
+                        }
+                      />
+                    </div>
+                  );
+                }
+                return null;
+              })()}
+              
               <HeatingSection 
                 heating={HEATING}
                 selectedIds={heatingIds}
