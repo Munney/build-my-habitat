@@ -715,7 +715,7 @@ export default function BettaBuilder() {
                   <AlertCircle size={20} className="text-amber-400 shrink-0 flex-shrink-0" />
                   <p className="text-amber-100 font-medium text-base flex-1">One tank selection is required.</p>
                   <WhyRequiredToggle 
-                    explanation="Research shows bettas in tanks under 5 gallons exhibit stress behaviors and have shortened lifespans. A proper tank size is essential for their health and wellbeing."
+                    explanation="Bettas under 5 gallons show stress and have shorter lifespans. Proper tank size is essential for health."
                   />
                 </div>
               </div>
@@ -770,7 +770,7 @@ export default function BettaBuilder() {
                   <AlertCircle size={20} className="text-amber-400 shrink-0 flex-shrink-0" />
                   <p className="text-amber-100 font-medium text-base flex-1">One filter selection is required.</p>
                   <WhyRequiredToggle 
-                    explanation="Filters are essential for the nitrogen cycle. Without filtration, toxic ammonia from fish waste accumulates and can kill your betta. Biological filtration converts ammonia into safer compounds."
+                    explanation="Filters process toxic ammonia from waste. Without filtration, ammonia builds up and can kill your betta."
                   />
                 </div>
               </div>
@@ -825,7 +825,7 @@ export default function BettaBuilder() {
                   <AlertCircle size={20} className="text-amber-400 shrink-0 flex-shrink-0" />
                   <p className="text-amber-100 font-medium text-base flex-1">A heater (50W or 100W) is required.</p>
                   <WhyRequiredToggle 
-                    explanation="Bettas are tropical fish native to warm waters (78-80°F). Without a heater, room temperature water is too cold, causing stress, weakened immune systems, and increased disease risk."
+                    explanation="Bettas need 78-80°F water. Room temperature is too cold, causing stress and weakened immune systems."
                   />
                 </div>
               </div>
@@ -834,7 +834,7 @@ export default function BettaBuilder() {
                 <div className="mb-4 p-3 bg-amber-500/10 border border-amber-500/20 text-amber-200 text-xs rounded-xl flex items-center gap-2">
                   <AlertCircle size={16} /> Thermometer is required to monitor temperature.
                   <WhyRequiredToggle 
-                    explanation="Bettas need 78-80°F water. Without a thermometer, you can't monitor temperature. Too cold weakens their immune system, too hot causes stress. A thermometer is essential for safe heating."
+                    explanation="You need a thermometer to monitor temperature. Too cold or too hot causes stress and health issues."
                   />
                 </div>
               )}
@@ -1220,12 +1220,12 @@ function WhyRequiredToggle({ explanation }) {
         if (buttonRef.current) {
           const rect = buttonRef.current.getBoundingClientRect();
           const tooltipWidth = 320; // w-80 = 20rem = 320px
-          const tooltipHeight = 150; // approximate
-          const spacing = 8; // mt-2 = 0.5rem = 8px
+          const tooltipHeight = 120; // approximate
+          const spacing = 8; // spacing = 0.5rem = 8px
           
-          // Position below the button, aligned to the right
+          // Position above the button, aligned to the right
           setTooltipPosition({
-            top: rect.bottom + spacing,
+            top: rect.top - tooltipHeight - spacing,
             left: rect.right - tooltipWidth, // Align right edge with button right edge
           });
         }

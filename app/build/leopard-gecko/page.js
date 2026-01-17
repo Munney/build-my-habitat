@@ -949,7 +949,7 @@ export default function LeopardGeckoBuilder() {
                   <AlertCircle size={20} className="text-amber-400 shrink-0" />
                   <p className="text-amber-100 font-medium flex-1">One enclosure selection is required.</p>
                   <WhyRequiredToggle 
-                    explanation="Research shows leopard geckos in enclosures under 20 gallons exhibit stress behaviors and have limited space for proper thermoregulation. A 20-gallon minimum ensures adequate space for hides, heating gradient, and natural behaviors."
+                    explanation="Geckos under 20 gallons show stress and can't maintain proper temperature gradients. Minimum size ensures space for hides and natural behaviors."
                   />
                 </div>
               </div>
@@ -1064,7 +1064,7 @@ export default function LeopardGeckoBuilder() {
                   <AlertCircle size={20} className="text-amber-400 shrink-0" />
                   <p className="text-amber-100 font-medium flex-1">At least one substrate selection is required.</p>
                   <WhyRequiredToggle 
-                    explanation="Leopard geckos need a substrate to provide traction, maintain humidity, and create a natural environment. Without proper substrate, geckos can develop stress behaviors and have difficulty with natural behaviors like digging and burrowing."
+                    explanation="Substrate provides traction, maintains humidity, and supports natural behaviors. Without it, geckos can develop stress and health issues."
                   />
                 </div>
               </div>
@@ -1482,12 +1482,12 @@ function WhyRequiredToggle({ explanation }) {
         if (buttonRef.current) {
           const rect = buttonRef.current.getBoundingClientRect();
           const tooltipWidth = 320; // w-80 = 20rem = 320px
-          const tooltipHeight = 150; // approximate
-          const spacing = 8; // mt-2 = 0.5rem = 8px
+          const tooltipHeight = 120; // approximate
+          const spacing = 8; // spacing = 0.5rem = 8px
           
-          // Position below the button, aligned to the right
+          // Position above the button, aligned to the right
           setTooltipPosition({
-            top: rect.bottom + spacing,
+            top: rect.top - tooltipHeight - spacing,
             left: rect.right - tooltipWidth, // Align right edge with button right edge
           });
         }
