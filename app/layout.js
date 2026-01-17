@@ -36,7 +36,7 @@ export const metadata = {
   },
   openGraph: {
     title: 'HabitatBuilder - Smart Reptile & Aquarium Setup Configurator',
-    description: 'Build safe, complete, and species-appropriate habitats with research-backed recommendations.',
+    description: 'Build safe, complete, and species-appropriate habitats with research-backed recommendations. Get your verified shopping list in minutes.',
     url: 'https://www.buildmyhabitat.com',
     siteName: 'HabitatBuilder',
     type: 'website',

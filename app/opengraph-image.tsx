@@ -86,9 +86,28 @@ export default async function Image() {
               textAlign: 'center',
               maxWidth: '800px',
               lineHeight: 1.5,
+              marginBottom: 40,
             }}
           >
             Build safe, complete, and species-appropriate habitats with research-backed recommendations.
+          </div>
+          
+          {/* Call-to-Action Button */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '16px 48px',
+              background: 'linear-gradient(135deg, #10b981 0%, #22d3ee 100%)',
+              borderRadius: '12px',
+              fontSize: 28,
+              fontWeight: 700,
+              color: '#ffffff',
+              boxShadow: '0 8px 24px rgba(16, 185, 129, 0.3)',
+            }}
+          >
+            Start Building →
           </div>
         </div>
       </div>
