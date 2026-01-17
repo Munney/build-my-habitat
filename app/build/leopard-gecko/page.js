@@ -622,6 +622,18 @@ export default function LeopardGeckoBuilder() {
     supplements: supplementIds.length > 0,
   }), [experience, enclosureId, heatingIds, substrateIds, hideIds, supplementIds]);
 
+  // Determine if a section is locked (prerequisites not met)
+  const isSectionLocked = useMemo(() => {
+    return {
+      experience: false, // Always available
+      enclosure: !experience, // Needs experience level
+      heating: !sectionCompletion.enclosure, // Needs enclosure selected
+      substrate: !sectionCompletion.heating, // Needs heating selected
+      hides: !sectionCompletion.substrate, // Needs substrate selected
+      supplements: !sectionCompletion.substrate, // Needs substrate selected
+    };
+  }, [experience, sectionCompletion]);
+
   // Section navigation data
   const sections = [
     { id: 'experience', title: 'Experience Level', icon: Target },
@@ -899,6 +911,7 @@ export default function LeopardGeckoBuilder() {
               description="Choose the right size tank. Minimum 20 gallons required for adult geckos. Larger enclosures allow for better enrichment and natural behaviors."
               sectionId="enclosure"
               isCompleted={sectionCompletion.enclosure}
+              isLocked={isSectionLocked.enclosure}
               sectionRef={(el) => { if (el) sectionRefs.current.enclosure = el; }}
             >
               <div 
@@ -911,7 +924,10 @@ export default function LeopardGeckoBuilder() {
               >
                 <div className="p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
                   <AlertCircle size={20} className="text-amber-400 shrink-0" />
-                  <p className="text-amber-100 font-medium">One enclosure selection is required.</p>
+                  <p className="text-amber-100 font-medium flex-1">One enclosure selection is required.</p>
+                  <WhyRequiredToggle 
+                    explanation="Research shows leopard geckos in enclosures under 20 gallons exhibit stress behaviors and have limited space for proper thermoregulation. A 20-gallon minimum ensures adequate space for hides, heating gradient, and natural behaviors."
+                  />
                 </div>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -951,6 +967,7 @@ export default function LeopardGeckoBuilder() {
               description="Geckos need a basking area of 88-92°F. You must select a primary heat source (halogen or DHP) and a thermostat to prevent burns."
               sectionId="heating"
               isCompleted={sectionCompletion.heating}
+              isLocked={isSectionLocked.heating}
               sectionRef={(el) => { if (el) sectionRefs.current.heating = el; }}
             >
               <p className="text-sm text-slate-300 mb-4 font-medium">
@@ -1001,6 +1018,7 @@ export default function LeopardGeckoBuilder() {
               description="Choose a safe substrate for your gecko. Beginners should use solid substrates (paper towels, slate, carpet). Loose substrates require experience."
               sectionId="substrate"
               isCompleted={sectionCompletion.substrate}
+              isLocked={isSectionLocked.substrate}
               sectionRef={(el) => { if (el) sectionRefs.current.substrate = el; }}
             >
               <p className="text-sm text-slate-300 mb-4 font-medium">
@@ -1021,7 +1039,10 @@ export default function LeopardGeckoBuilder() {
               >
                 <div className="p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
                   <AlertCircle size={20} className="text-amber-400 shrink-0" />
-                  <p className="text-amber-100 font-medium">At least one substrate selection is required.</p>
+                  <p className="text-amber-100 font-medium flex-1">At least one substrate selection is required.</p>
+                  <WhyRequiredToggle 
+                    explanation="Leopard geckos need a substrate to provide traction, maintain humidity, and create a natural environment. Without proper substrate, geckos can develop stress behaviors and have difficulty with natural behaviors like digging and burrowing."
+                  />
                 </div>
               </div>
               <SubstrateSection
@@ -1069,6 +1090,7 @@ export default function LeopardGeckoBuilder() {
               description="Geckos need at least 3 hides: warm hide (hot side), cool hide (cool side), and humid hide (for shedding). Additional decor provides enrichment."
               sectionId="hides"
               isCompleted={sectionCompletion.hides}
+              isLocked={isSectionLocked.hides}
               sectionRef={(el) => { if (el) sectionRefs.current.hides = el; }}
             >
               <HidesSection
@@ -1115,6 +1137,7 @@ export default function LeopardGeckoBuilder() {
               description="Essential for bone health. Use calcium with D3 if no UVB, or pure calcium if using UVB. Multivitamin prevents nutritional deficiencies."
               sectionId="supplements"
               isCompleted={sectionCompletion.supplements}
+              isLocked={isSectionLocked.supplements}
               sectionRef={(el) => { if (el) sectionRefs.current.supplements = el; }}
             >
               <p className="text-sm text-slate-300 mb-4 font-medium">
@@ -1354,13 +1377,13 @@ export default function LeopardGeckoBuilder() {
 
 /* ---------- UI COMPONENTS ---------- */
 
-function Section({ title, icon, description, children, sectionId, isCompleted, sectionRef }) {
+function Section({ title, icon, description, children, sectionId, isCompleted, sectionRef, isLocked = false }) {
     return (
         <section 
           id={sectionId}
           ref={sectionRef}
           className={`relative bg-gradient-to-br from-slate-900/80 via-slate-900/60 to-slate-900/80 backdrop-blur-md p-8 rounded-3xl border-2 shadow-xl overflow-hidden transition-all duration-500 ${
-            isCompleted ? 'border-emerald-500/50' : 'border-white/10'
+            isCompleted ? 'border-emerald-500/50' : isLocked ? 'border-white/5 opacity-40' : 'border-white/10'
           }`}
         >
             {/* Subtle background gradient */}
@@ -1373,30 +1396,78 @@ function Section({ title, icon, description, children, sectionId, isCompleted, s
               </div>
             )}
             
+            {/* Locked overlay */}
+            {isLocked && (
+              <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm rounded-3xl flex items-center justify-center z-20 pointer-events-none">
+                <div className="text-center p-6">
+                  <AlertCircle size={32} className="text-slate-500 mx-auto mb-3" />
+                  <p className="text-slate-400 font-medium text-sm">Complete previous sections to unlock</p>
+                </div>
+              </div>
+            )}
+            
             <div className="relative mb-6">
                 <h2 className="text-2xl font-black text-white mb-3 flex items-center gap-4">
                     <div className={`p-3 bg-gradient-to-br rounded-xl border-2 shadow-lg transition-all duration-300 ${
                       isCompleted 
                         ? 'from-emerald-500/20 to-emerald-600/20 border-emerald-500/30 shadow-emerald-500/10' 
+                        : isLocked
+                        ? 'from-slate-700/20 to-slate-800/20 border-slate-700/30'
                         : 'from-emerald-500/20 to-emerald-600/20 border-emerald-500/30 shadow-emerald-500/10'
                     }`}>
-                        <div className="text-emerald-400">
+                        <div className={isCompleted ? "text-emerald-400" : isLocked ? "text-slate-500" : "text-emerald-400"}>
                             {icon}
                         </div>
                     </div>
-                    <span className="bg-gradient-to-r from-white to-slate-200 bg-clip-text text-transparent drop-shadow-sm">
+                    <span className={`bg-gradient-to-r bg-clip-text text-transparent drop-shadow-sm ${
+                      isLocked ? 'from-slate-500 to-slate-600' : 'from-white to-slate-200'
+                    }`}>
                         {title}
                     </span>
                 </h2>
                 {description && (
-                    <p className="text-sm text-slate-300 ml-[68px] leading-relaxed font-medium">{description}</p>
+                    <p className={`text-sm ml-[68px] leading-relaxed font-medium ${
+                      isLocked ? 'text-slate-500' : 'text-slate-300'
+                    }`}>{description}</p>
                 )}
             </div>
-            <div className="relative">
+            <div className={`relative ${isLocked ? 'pointer-events-none' : ''}`}>
                 {children}
             </div>
         </section>
     );
+}
+
+function WhyRequiredToggle({ explanation }) {
+  const [isOpen, setIsOpen] = useState(false);
+  
+  return (
+    <div className="relative">
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          setIsOpen(!isOpen);
+        }}
+        className="text-xs text-amber-300 hover:text-amber-200 font-medium underline decoration-dotted underline-offset-2 transition-colors"
+      >
+        Why is this required?
+      </button>
+      {isOpen && (
+        <div className="absolute right-0 top-full mt-2 w-80 p-4 bg-slate-800 border border-slate-700 rounded-xl shadow-2xl z-50">
+          <p className="text-sm text-slate-200 leading-relaxed">{explanation}</p>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsOpen(false);
+            }}
+            className="mt-3 text-xs text-emerald-400 hover:text-emerald-300 font-medium"
+          >
+            Close
+          </button>
+        </div>
+      )}
+    </div>
+  );
 }
 
 // Product explanations mapping for leopard gecko

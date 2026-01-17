@@ -363,6 +363,7 @@ function SummaryContent() {
 
         <div className="grid lg:grid-cols-[1fr,380px] gap-8 print-receipt-only-hidden">
             <div className="space-y-6">
+                {/* Status Card - What You Built */}
                 <div className="relative p-6 rounded-3xl bg-gradient-to-br from-emerald-500/15 via-emerald-500/10 to-slate-900/60 border-2 border-emerald-500/30 shadow-xl overflow-hidden">
                     <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-500 opacity-100" />
                     <div className="relative flex items-start gap-4">
@@ -370,12 +371,38 @@ function SummaryContent() {
                             <ShieldCheck size={24} className="drop-shadow-sm" />
                         </div>
                         <div className="flex-1">
-                            <h3 className="text-emerald-400 font-black text-lg mb-2 drop-shadow-sm">Vet-Verified Husbandry</h3>
-                            <p className="text-emerald-200/80 text-sm leading-relaxed font-medium">
-                                This setup provides a safe heat gradient and proper supplementation for a Leopard Gecko.
+                            <h3 className="text-emerald-400 font-black text-lg mb-2 drop-shadow-sm">What You Built</h3>
+                            <p className="text-emerald-200/80 text-sm leading-relaxed font-medium mb-3">
+                                A complete leopard gecko habitat with {allItems.length} verified components. This setup includes proper enclosure size, safe heating with temperature control, appropriate substrate, essential hides, and proper supplementation.
+                            </p>
+                            <h4 className="text-emerald-300 font-bold text-sm mb-1">Why It's Safe</h4>
+                            <p className="text-emerald-200/70 text-xs leading-relaxed">
+                                All components are research-backed and compatible. Enclosure size meets minimum requirements, heating provides proper temperature gradient, substrate is safe for your experience level, and supplementation matches your lighting setup.
                             </p>
                         </div>
                     </div>
+                </div>
+
+                {/* What To Do Next */}
+                <div className="relative p-6 rounded-3xl bg-gradient-to-br from-slate-800/80 to-slate-900/80 border border-white/10 shadow-xl">
+                    <h3 className="text-white font-black text-lg mb-3 flex items-center gap-2">
+                        <ArrowRight size={20} className="text-emerald-400" />
+                        What To Do Next
+                    </h3>
+                    <ol className="space-y-2 text-sm text-slate-300">
+                        <li className="flex gap-3">
+                            <span className="text-emerald-400 font-bold">1.</span>
+                            <span>Purchase all items from the list below (click any item to view on Amazon)</span>
+                        </li>
+                        <li className="flex gap-3">
+                            <span className="text-emerald-400 font-bold">2.</span>
+                            <span>Set up your enclosure and allow it to stabilize for 24-48 hours before adding your gecko</span>
+                        </li>
+                        <li className="flex gap-3">
+                            <span className="text-emerald-400 font-bold">3.</span>
+                            <span>Read the care instructions below for detailed setup steps and temperature monitoring</span>
+                        </li>
+                    </ol>
                 </div>
 
                 <div className="bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
