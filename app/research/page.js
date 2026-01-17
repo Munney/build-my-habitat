@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { ExternalLink, BookOpen } from "lucide-react";
 import { analytics, trackEvent } from "../utils/analytics";
+import Footer from "../components/Footer";
 
 export default function ResearchPage() {
   // Track page view
