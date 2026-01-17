@@ -29,6 +29,7 @@ import ProductTooltip from "../../components/ProductTooltip";
 import ScrollToTop from "../../components/ScrollToTop";
 import { AIHabitatAssistant } from "../../components/AIHabitatAssistant";
 import { SetupTemplates } from "../../components/SetupTemplates";
+import Footer from "../../components/Footer";
 
 // Data Imports
 const ENCLOSURES = config.enclosures || [];
