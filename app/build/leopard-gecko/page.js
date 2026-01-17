@@ -1164,9 +1164,9 @@ export default function LeopardGeckoBuilder() {
                 const hasCoolHide = hideIds.includes("coolhide");
                 const hasHumidHide = hideIds.includes("humidhide");
                 const missingHides = [];
-                if (!hasWarmHide) missingHides.push("warm hide");
-                if (!hasCoolHide) missingHides.push("cool hide");
-                if (!hasHumidHide) missingHides.push("humid hide");
+                if (!hasWarmHide) missingHides.push("Warm hide");
+                if (!hasCoolHide) missingHides.push("Cool hide");
+                if (!hasHumidHide) missingHides.push("Humid hide");
                 
                 if (missingHides.length > 0 && hideIds.length > 0) {
                   // Only show if some hides are selected but required ones are missing
@@ -1184,15 +1184,15 @@ export default function LeopardGeckoBuilder() {
                         explanation={
                           missingHides.length === 3
                             ? "Geckos need warm hide for thermoregulation, cool hide to escape heat, and humid hide for proper shedding. Without all three, they can develop health issues."
-                            : missingHides.includes("warm hide") && missingHides.includes("cool hide")
+                            : missingHides.includes("Warm hide") && missingHides.includes("Cool hide")
                             ? "Geckos need warm hide for thermoregulation and cool hide to escape heat. Both are essential for temperature regulation."
-                            : missingHides.includes("warm hide") && missingHides.includes("humid hide")
+                            : missingHides.includes("Warm hide") && missingHides.includes("Humid hide")
                             ? "Geckos need warm hide for thermoregulation and humid hide for proper shedding. Both are essential for health."
-                            : missingHides.includes("cool hide") && missingHides.includes("humid hide")
+                            : missingHides.includes("Cool hide") && missingHides.includes("Humid hide")
                             ? "Geckos need cool hide to escape heat and humid hide for proper shedding. Both are essential for health."
-                            : missingHides[0] === "warm hide"
+                            : missingHides[0] === "Warm hide"
                             ? "Geckos need a warm hide on the hot side for thermoregulation and digestion."
-                            : missingHides[0] === "cool hide"
+                            : missingHides[0] === "Cool hide"
                             ? "Geckos need a cool hide on the cool side to escape heat and regulate body temperature."
                             : "Geckos need a humid hide for proper shedding. Without it, they can develop stuck shed which can lead to infection."
                         }
