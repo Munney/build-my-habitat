@@ -612,6 +612,28 @@ export default function LeopardGeckoBuilder() {
     return Math.round((score / totalSteps) * 100);
   }, [enclosureId, heatingIds, substrateIds, hideIds, supplementIds]);
 
+  // Check if heating section has all required items (primary heat source + thermostat)
+  const hasCompleteHeating = useMemo(() => {
+    if (heatingIds.length === 0 && Object.keys(heatingVariants).length === 0) {
+      return false;
+    }
+    
+    // Check for primary heat source (halogen or DHP)
+    const hasPrimaryHeat = heatingIds.some(id => 
+      id.startsWith("halogen_") || 
+      id.startsWith("dhp_")
+    ) || Object.keys(heatingVariants).some(baseName => 
+      (baseName.includes("Halogen") || baseName.includes("Flood Lamp") || 
+       baseName.includes("Deep Heat") || baseName.includes("DHP")) &&
+      !baseName.includes("Under Tank Heater")
+    );
+    
+    // Check for thermostat
+    const hasThermostat = heatingIds.includes("thermostat");
+    
+    return hasPrimaryHeat && hasThermostat;
+  }, [heatingIds, heatingVariants]);
+
   // Section completion tracking
   const sectionCompletion = useMemo(() => ({
     experience: !!experience,
@@ -628,11 +650,11 @@ export default function LeopardGeckoBuilder() {
       experience: false, // Always available
       enclosure: !experience, // Needs experience level
       heating: !sectionCompletion.enclosure, // Needs enclosure selected
-      substrate: !sectionCompletion.heating, // Needs heating selected
+      substrate: !hasCompleteHeating, // Needs ALL required heating items (primary heat + thermostat)
       hides: !sectionCompletion.substrate, // Needs substrate selected
       supplements: !sectionCompletion.substrate, // Needs substrate selected
     };
-  }, [experience, sectionCompletion]);
+  }, [experience, sectionCompletion, hasCompleteHeating]);
 
   // Section navigation data
   const sections = [
