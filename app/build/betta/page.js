@@ -396,6 +396,19 @@ export default function BettaBuilder() {
     };
   }, [experience, enclosureId, filtrationId, heaterId, hasThermometer, substrateId, decorIds, careIds, selectedEnclosure]);
 
+  // Determine if a section is locked (prerequisites not met)
+  const isSectionLocked = useMemo(() => {
+    return {
+      experience: false, // Always available
+      enclosure: !experience, // Needs experience level
+      filtration: !sectionCompletion.enclosure, // Needs tank selected
+      temperature: !sectionCompletion.filtration, // Needs filter selected
+      substrate: !sectionCompletion.temperature, // Needs heater/thermometer
+      decor: !sectionCompletion.substrate, // Needs substrate
+      watercare: !sectionCompletion.substrate, // Needs substrate
+    };
+  }, [experience, sectionCompletion]);
+
   // Section navigation data
   const sections = [
     { id: 'experience', title: 'Keeper Level', icon: Target },
@@ -700,23 +713,37 @@ export default function BettaBuilder() {
                 <div className="p-4 bg-amber-500/20 border-2 border-amber-500/70 rounded-xl flex items-center gap-3 shadow-lg shadow-amber-500/20">
                   <AlertCircle size={20} className="text-amber-400 shrink-0 flex-shrink-0" />
                   <p className="text-amber-100 font-medium text-base flex-1">One tank selection is required.</p>
+                  <WhyRequiredToggle 
+                    explanation="Research shows bettas in tanks under 5 gallons exhibit stress behaviors and have shortened lifespans. A proper tank size is essential for their health and wellbeing."
+                  />
                 </div>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {filteredEnclosures.map((e) => (
-                  <SelectionCard
-                    key={e.id}
-                    active={enclosureId === e.id}
-                    label={e.label}
-                    price={e.price}
-                    sublabel={e.size + " Gallons"}
-                    onClick={() => setEnclosureId(enclosureId === e.id ? null : e.id)}
-                    type="radio"
-                    colorClass="blue"
-                    productId={e.id}
-                    isRequired={false}
-                  />
-                ))}
+                {filteredEnclosures.map((e) => {
+                  const isRecommended = e.id === "10g"; // 10 gallon is recommended for most bettas
+                  const isBestForBeginners = e.id === "5g" || e.id === "10g";
+                  
+                  return (
+                    <SelectionCard
+                      key={e.id}
+                      active={enclosureId === e.id}
+                      label={e.label}
+                      price={e.price}
+                      sublabel={
+                        isRecommended 
+                          ? "Recommended for most bettas" 
+                          : isBestForBeginners 
+                          ? "Best for beginners" 
+                          : e.size + " Gallons"
+                      }
+                      onClick={() => setEnclosureId(enclosureId === e.id ? null : e.id)}
+                      type="radio"
+                      colorClass="blue"
+                      productId={e.id}
+                      isRequired={false}
+                    />
+                  );
+                })}
               </div>
             </Section>
 
@@ -727,6 +754,7 @@ export default function BettaBuilder() {
               description="Filters are essential for the nitrogen cycle. They remove toxic ammonia and provide biological filtration. Sponge filters are ideal for bettas."
               sectionId="filtration"
               isCompleted={sectionCompletion.filtration}
+              isLocked={isSectionLocked.filtration}
               sectionRef={(el) => { if (el) sectionRefs.current.filtration = el; }}
             >
               <div 
@@ -740,23 +768,37 @@ export default function BettaBuilder() {
                 <div className="p-4 bg-amber-500/20 border-2 border-amber-500/70 rounded-xl flex items-center gap-3 shadow-lg shadow-amber-500/20">
                   <AlertCircle size={20} className="text-amber-400 shrink-0 flex-shrink-0" />
                   <p className="text-amber-100 font-medium text-base flex-1">One filter selection is required.</p>
+                  <WhyRequiredToggle 
+                    explanation="Filters are essential for the nitrogen cycle. Without filtration, toxic ammonia from fish waste accumulates and can kill your betta. Biological filtration converts ammonia into safer compounds."
+                  />
                 </div>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {filteredFiltration.map((f) => (
-                  <SelectionCard
-                    key={f.id}
-                    active={filtrationId === f.id}
-                    label={f.label}
-                    price={f.price}
-                    sublabel={`Flow: ${f.flow}`}
-                    onClick={() => setFiltrationId(filtrationId === f.id ? null : f.id)}
-                    type="radio"
-                    colorClass="blue"
-                    productId={f.id}
-                    isRequired={false}
-                  />
-                ))}
+                {filteredFiltration.map((f) => {
+                  const isRecommended = f.id === "sponge"; // Sponge filter is recommended
+                  const isBestForBeginners = f.id === "sponge";
+                  
+                  return (
+                    <SelectionCard
+                      key={f.id}
+                      active={filtrationId === f.id}
+                      label={f.label}
+                      price={f.price}
+                      sublabel={
+                        isRecommended 
+                          ? "Recommended for most bettas" 
+                          : isBestForBeginners 
+                          ? "Best for beginners" 
+                          : `Flow: ${f.flow}`
+                      }
+                      onClick={() => setFiltrationId(filtrationId === f.id ? null : f.id)}
+                      type="radio"
+                      colorClass="blue"
+                      productId={f.id}
+                      isRequired={false}
+                    />
+                  );
+                })}
               </div>
             </Section>
 
@@ -767,6 +809,7 @@ export default function BettaBuilder() {
               description="Bettas are tropical fish and need 78-80°F. A heater is required. A thermometer helps monitor temperature."
               sectionId="temperature"
               isCompleted={sectionCompletion.temperature}
+              isLocked={isSectionLocked.temperature}
               sectionRef={(el) => { if (el) sectionRefs.current.temperature = el; }}
             >
               <div 
@@ -780,8 +823,20 @@ export default function BettaBuilder() {
                 <div className="p-4 bg-amber-500/20 border-2 border-amber-500/70 rounded-xl flex items-center gap-3 shadow-lg shadow-amber-500/20">
                   <AlertCircle size={20} className="text-amber-400 shrink-0 flex-shrink-0" />
                   <p className="text-amber-100 font-medium text-base flex-1">A heater (50W or 100W) is required.</p>
+                  <WhyRequiredToggle 
+                    explanation="Bettas are tropical fish native to warm waters (78-80°F). Without a heater, room temperature water is too cold, causing stress, weakened immune systems, and increased disease risk."
+                  />
                 </div>
               </div>
+              {/* Thermometer requirement note */}
+              {!hasThermometer && (
+                <div className="mb-4 p-3 bg-amber-500/10 border border-amber-500/20 text-amber-200 text-xs rounded-xl flex items-center gap-2">
+                  <AlertCircle size={16} /> Thermometer is required to monitor temperature.
+                  <WhyRequiredToggle 
+                    explanation="Bettas need 78-80°F water. Without a thermometer, you can't monitor temperature. Too cold weakens their immune system, too hot causes stress. A thermometer is essential for safe heating."
+                  />
+                </div>
+              )}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {HEATING.map((h) => {
                   const isHeater = h.id === "50w" || h.id === "100w";
@@ -791,12 +846,25 @@ export default function BettaBuilder() {
                   // Only thermometer is required (not heaters)
                   const isRequired = isThermometer && !hasThermometer;
                   
+                  // Recommended badges
+                  const isRecommended = h.id === "50w"; // 50W is recommended for most tanks
+                  const isBestForBeginners = h.id === "50w";
+                  
                   return (
                     <SelectionCard
                       key={h.id}
                       active={isActive}
                       label={h.label}
                       price={h.price}
+                      sublabel={
+                        isThermometer 
+                          ? undefined 
+                          : isRecommended 
+                          ? "Recommended for most tanks" 
+                          : isBestForBeginners 
+                          ? "Best for beginners" 
+                          : undefined
+                      }
                       onClick={() => {
                         if (isHeater) {
                           // Single selection for heaters - toggle if same, otherwise select new one
@@ -823,6 +891,7 @@ export default function BettaBuilder() {
               description="Choose a safe substrate. Gravel and sand are popular choices. Active plant soil is best for live plants. Bare bottom is easiest to clean."
               sectionId="substrate"
               isCompleted={sectionCompletion.substrate}
+              isLocked={isSectionLocked.substrate}
               sectionRef={(el) => { if (el) sectionRefs.current.substrate = el; }}
             >
               <div 
@@ -874,6 +943,7 @@ export default function BettaBuilder() {
               description="Plants provide hiding spots and enrichment. Live plants help clean the water. Avoid plastic plants - they tear betta fins. Silk plants are safe alternatives."
               sectionId="decor"
               isCompleted={sectionCompletion.decor}
+              isLocked={isSectionLocked.decor}
               sectionRef={(el) => { if (el) sectionRefs.current.decor = el; }}
             >
               <DecorSection
@@ -898,6 +968,7 @@ export default function BettaBuilder() {
                description="Water conditioner removes toxic chlorine. Test kits monitor water quality. Beneficial bacteria helps establish the nitrogen cycle faster."
                sectionId="watercare"
                isCompleted={sectionCompletion.watercare}
+               isLocked={isSectionLocked.watercare}
                sectionRef={(el) => { if (el) sectionRefs.current.watercare = el; }}
              >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -1126,15 +1197,80 @@ export default function BettaBuilder() {
   );
 }
 
+/* ---------- INLINE "WHY" TOGGLE COMPONENTS ---------- */
+function WhyRequiredToggle({ explanation }) {
+  const [isOpen, setIsOpen] = useState(false);
+  
+  return (
+    <div className="relative">
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          setIsOpen(!isOpen);
+        }}
+        className="text-xs text-amber-300 hover:text-amber-200 font-medium underline decoration-dotted underline-offset-2 transition-colors"
+      >
+        Why is this required?
+      </button>
+      {isOpen && (
+        <div className="absolute right-0 top-full mt-2 w-80 p-4 bg-slate-800 border border-slate-700 rounded-xl shadow-2xl z-50">
+          <p className="text-sm text-slate-200 leading-relaxed">{explanation}</p>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsOpen(false);
+            }}
+            className="mt-3 text-xs text-blue-400 hover:text-blue-300 font-medium"
+          >
+            Close
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function WhyUnsafeToggle({ explanation }) {
+  const [isOpen, setIsOpen] = useState(false);
+  
+  return (
+    <div className="relative">
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          setIsOpen(!isOpen);
+        }}
+        className="text-xs text-red-300 hover:text-red-200 font-medium underline decoration-dotted underline-offset-2 transition-colors"
+      >
+        Why is this unsafe?
+      </button>
+      {isOpen && (
+        <div className="absolute right-0 top-full mt-2 w-80 p-4 bg-slate-800 border border-red-500/30 rounded-xl shadow-2xl z-50">
+          <p className="text-sm text-slate-200 leading-relaxed">{explanation}</p>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsOpen(false);
+            }}
+            className="mt-3 text-xs text-blue-400 hover:text-blue-300 font-medium"
+          >
+            Close
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
 /* ---------- UI COMPONENTS (Adapted for Blue Theme) ---------- */
 
-function Section({ title, icon, description, children, sectionId, isCompleted, sectionRef }) {
+function Section({ title, icon, description, children, sectionId, isCompleted, sectionRef, isLocked = false }) {
     return (
         <section 
           id={sectionId}
           ref={sectionRef}
           className={`relative bg-gradient-to-br from-slate-900/80 via-slate-900/60 to-slate-900/80 backdrop-blur-md p-8 rounded-3xl border-2 shadow-xl overflow-hidden transition-all duration-500 ${
-            isCompleted ? 'border-blue-500/50' : 'border-white/10'
+            isCompleted ? 'border-blue-500/50' : isLocked ? 'border-white/5 opacity-40' : 'border-white/10'
           }`}
         >
             {/* Subtle background gradient */}
@@ -1147,26 +1283,42 @@ function Section({ title, icon, description, children, sectionId, isCompleted, s
               </div>
             )}
             
+            {/* Locked overlay */}
+            {isLocked && (
+              <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm rounded-3xl flex items-center justify-center z-20 pointer-events-none">
+                <div className="text-center p-6">
+                  <AlertCircle size={32} className="text-slate-500 mx-auto mb-3" />
+                  <p className="text-slate-400 font-medium text-sm">Complete previous sections to unlock</p>
+                </div>
+              </div>
+            )}
+            
             <div className="relative mb-6">
                 <h2 className="text-2xl font-black text-white mb-3 flex items-center gap-4">
                     <div className={`p-3 bg-gradient-to-br rounded-xl border-2 shadow-lg transition-all duration-300 ${
                       isCompleted 
                         ? 'from-emerald-500/20 to-emerald-600/20 border-emerald-500/30 shadow-emerald-500/10' 
+                        : isLocked
+                        ? 'from-slate-700/20 to-slate-800/20 border-slate-700/30'
                         : 'from-blue-500/20 to-blue-600/20 border-blue-500/30 shadow-blue-500/10'
                     }`}>
-                        <div className={isCompleted ? "text-emerald-400" : "text-blue-400"}>
+                        <div className={isCompleted ? "text-emerald-400" : isLocked ? "text-slate-500" : "text-blue-400"}>
                             {icon}
                         </div>
                     </div>
-                    <span className="bg-gradient-to-r from-white to-slate-200 bg-clip-text text-transparent drop-shadow-sm">
+                    <span className={`bg-gradient-to-r bg-clip-text text-transparent drop-shadow-sm ${
+                      isLocked ? 'from-slate-500 to-slate-600' : 'from-white to-slate-200'
+                    }`}>
                         {title}
                     </span>
                 </h2>
                 {description && (
-                    <p className="text-sm text-slate-300 ml-[68px] leading-relaxed font-medium">{description}</p>
+                    <p className={`text-sm ml-[68px] leading-relaxed font-medium ${
+                      isLocked ? 'text-slate-500' : 'text-slate-300'
+                    }`}>{description}</p>
                 )}
             </div>
-            <div className="relative">
+            <div className={`relative ${isLocked ? 'pointer-events-none' : ''}`}>
                 {children}
             </div>
         </section>

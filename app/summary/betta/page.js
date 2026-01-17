@@ -360,7 +360,7 @@ function SummaryContent() {
             {/* LEFT: THE BUILD LIST */}
             <div className="space-y-6">
                 
-                {/* Status Card */}
+                {/* Status Card - What You Built */}
                 <div className="relative p-6 rounded-3xl bg-gradient-to-br from-blue-500/15 via-blue-500/10 to-slate-900/60 border-2 border-blue-500/30 shadow-xl overflow-hidden">
                     <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 opacity-100" />
                     <div className="relative flex items-start gap-4">
@@ -368,12 +368,38 @@ function SummaryContent() {
                             <ShieldCheck size={24} className="drop-shadow-sm" />
                         </div>
                         <div className="flex-1">
-                            <h3 className="text-blue-400 font-black text-lg mb-2 drop-shadow-sm">100% Aquatic Verified</h3>
-                            <p className="text-blue-200/80 text-sm leading-relaxed font-medium">
-                                This build is safe for Bettas. Proper filtration flow and heating included.
+                            <h3 className="text-blue-400 font-black text-lg mb-2 drop-shadow-sm">What You Built</h3>
+                            <p className="text-blue-200/80 text-sm leading-relaxed font-medium mb-3">
+                                A complete betta habitat with {allItems.length} verified components. This setup includes proper tank size, safe filtration flow, temperature control, and enrichment.
+                            </p>
+                            <h4 className="text-blue-300 font-bold text-sm mb-1">Why It's Safe</h4>
+                            <p className="text-blue-200/70 text-xs leading-relaxed">
+                                All components are research-backed and compatible. Filtration flow is safe for bettas, heating maintains 78-80°F, and tank size meets minimum requirements.
                             </p>
                         </div>
                     </div>
+                </div>
+
+                {/* What To Do Next */}
+                <div className="relative p-6 rounded-3xl bg-gradient-to-br from-slate-800/80 to-slate-900/80 border border-white/10 shadow-xl">
+                    <h3 className="text-white font-black text-lg mb-3 flex items-center gap-2">
+                        <ArrowRight size={20} className="text-blue-400" />
+                        What To Do Next
+                    </h3>
+                    <ol className="space-y-2 text-sm text-slate-300">
+                        <li className="flex gap-3">
+                            <span className="text-blue-400 font-bold">1.</span>
+                            <span>Purchase all items from the list below (click any item to view on Amazon)</span>
+                        </li>
+                        <li className="flex gap-3">
+                            <span className="text-blue-400 font-bold">2.</span>
+                            <span>Set up your tank and cycle it before adding your betta (this takes 4-6 weeks)</span>
+                        </li>
+                        <li className="flex gap-3">
+                            <span className="text-blue-400 font-bold">3.</span>
+                            <span>Read the care instructions below for detailed setup steps</span>
+                        </li>
+                    </ol>
                 </div>
 
                 {/* The List (Clickable) */}
