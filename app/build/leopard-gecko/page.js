@@ -334,7 +334,6 @@ export default function LeopardGeckoBuilder() {
   const [hideVariants, setHideVariants] = useState({}); // { baseName: { variant } }
   const [supplementIds, setSupplementIds] = useState([]);
   const [stateRestored, setStateRestored] = useState(false);
-  const [templateApplied, setTemplateApplied] = useState(false);
 
   // --- RESTORE STATE FROM URL PARAMETERS ---
   useEffect(() => {
@@ -442,9 +441,6 @@ export default function LeopardGeckoBuilder() {
     if (template.supplementIds) {
       setSupplementIds(template.supplementIds);
     }
-    
-    // Mark template as applied (makes experience level optional)
-    setTemplateApplied(true);
     
     // Scroll to top to show the applied template
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -676,21 +672,14 @@ export default function LeopardGeckoBuilder() {
   }), [experience, enclosureId, hasCompleteHeating, substrateIds, hideIds, supplementIds]);
 
   // Check if all required sections are completed
-  // If template is applied, experience level is optional
   const allRequirementsMet = useMemo(() => {
-    const baseRequirements = sectionCompletion.enclosure &&
-                             sectionCompletion.heating &&
-                             sectionCompletion.substrate &&
-                             sectionCompletion.hides &&
-                             sectionCompletion.supplements;
-    
-    // Experience is only required if no template has been applied
-    if (templateApplied) {
-      return baseRequirements;
-    }
-    
-    return sectionCompletion.experience && baseRequirements;
-  }, [sectionCompletion, templateApplied]);
+    return sectionCompletion.experience &&
+           sectionCompletion.enclosure &&
+           sectionCompletion.heating &&
+           sectionCompletion.substrate &&
+           sectionCompletion.hides &&
+           sectionCompletion.supplements;
+  }, [sectionCompletion]);
 
   // Determine if a section is locked (prerequisites not met)
   const isSectionLocked = useMemo(() => {
@@ -805,9 +794,8 @@ export default function LeopardGeckoBuilder() {
   function goToSummary() {
     if (!allRequirementsMet) {
       // Scroll to first incomplete section
-      // If template is applied, skip experience check
       const incompleteSections = [
-        ...(templateApplied ? [] : [{ id: 'experience', condition: !sectionCompletion.experience }]),
+        { id: 'experience', condition: !sectionCompletion.experience },
         { id: 'enclosure', condition: !sectionCompletion.enclosure },
         { id: 'heating', condition: !sectionCompletion.heating },
         { id: 'substrate', condition: !sectionCompletion.substrate },

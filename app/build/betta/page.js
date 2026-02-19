@@ -197,7 +197,6 @@ export default function BettaBuilder() {
   const [decorVariants, setDecorVariants] = useState({}); // For driftwood variants
   const [careIds, setCareIds] = useState([]);
   const [stateRestored, setStateRestored] = useState(false);
-  const [templateApplied, setTemplateApplied] = useState(false);
 
   // --- RESTORE STATE FROM URL PARAMETERS ---
   useEffect(() => {
@@ -243,6 +242,11 @@ export default function BettaBuilder() {
 
   // --- TEMPLATE APPLICATION ---
   const applyTemplate = (template) => {
+    // Set experience level (Budget = beginner, Premium = experienced)
+    if (template.experience) {
+      setExperience(template.experience);
+    }
+    
     // Set enclosure
     if (template.enclosureId) {
       setEnclosureId(template.enclosureId);
@@ -318,9 +322,6 @@ export default function BettaBuilder() {
     if (template.watercareIds) {
       setCareIds(template.watercareIds);
     }
-    
-    // Mark template as applied (makes experience level optional)
-    setTemplateApplied(true);
     
     // Scroll to top to show the applied template
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -446,20 +447,13 @@ export default function BettaBuilder() {
   }, [experience, enclosureId, filtrationId, heaterId, hasThermometer, substrateId, decorIds, careIds, selectedEnclosure]);
 
   // Check if all required sections are completed
-  // If template is applied, experience level is optional
   const allRequirementsMet = useMemo(() => {
-    const baseRequirements = sectionCompletion.enclosure &&
-                             sectionCompletion.filtration &&
-                             sectionCompletion.temperature &&
-                             sectionCompletion.substrate;
-    
-    // Experience is only required if no template has been applied
-    if (templateApplied) {
-      return baseRequirements;
-    }
-    
-    return sectionCompletion.experience && baseRequirements;
-  }, [sectionCompletion, templateApplied]);
+    return sectionCompletion.experience &&
+           sectionCompletion.enclosure &&
+           sectionCompletion.filtration &&
+           sectionCompletion.temperature &&
+           sectionCompletion.substrate;
+  }, [sectionCompletion]);
 
   // Determine if a section is locked (prerequisites not met)
   const isSectionLocked = useMemo(() => {
@@ -557,9 +551,8 @@ export default function BettaBuilder() {
   function goToSummary() {
     if (!allRequirementsMet) {
       // Scroll to first incomplete section
-      // If template is applied, skip experience check
       const incompleteSections = [
-        ...(templateApplied ? [] : [{ id: 'experience', condition: !sectionCompletion.experience }]),
+        { id: 'experience', condition: !sectionCompletion.experience },
         { id: 'enclosure', condition: !sectionCompletion.enclosure },
         { id: 'filtration', condition: !sectionCompletion.filtration },
         { id: 'temperature', condition: !sectionCompletion.temperature },

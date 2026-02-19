@@ -35,6 +35,7 @@
     "budget": {
       "name": "Budget Setup",
       "description": "Essential items for a safe betta habitat (~$100-150)",
+      "experience": "beginner",
       "enclosureId": "5g",
       "filtrationIds": ["sponge"],
       "heatingIds": ["50w", "thermometer"],
@@ -46,6 +47,7 @@
     "premium": {
       "name": "Premium Setup",
       "description": "Complete setup with live plants and optimal filtration (~$200-300)",
+      "experience": "experienced",
       "enclosureId": "10g",
       "filtrationIds": ["hob"],
       "heatingIds": ["100w", "thermometer"],
