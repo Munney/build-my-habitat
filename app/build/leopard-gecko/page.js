@@ -1314,11 +1314,11 @@ export default function LeopardGeckoBuilder() {
             </Section>
 
             {/* Mobile Generate Habitat Button - At bottom of page content */}
-            <div className="lg:hidden mt-8 mb-6">
+            <div className="lg:hidden mt-8 mb-6 relative z-10">
               <button
                 onClick={goToSummary}
                 disabled={!allRequirementsMet}
-                className={`w-full py-4 rounded-xl font-black text-lg flex items-center justify-center gap-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
+                className={`w-full py-4 rounded-xl font-black text-lg flex items-center justify-center gap-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 relative z-10 ${
                   !allRequirementsMet 
                       ? "bg-slate-800/50 text-slate-500 cursor-not-allowed border border-slate-700/50" 
                       : "bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white border-2 border-emerald-400/30 hover:border-emerald-300/50 hover:scale-[1.02] hover:shadow-xl hover:shadow-emerald-500/40 active:scale-[0.98] shadow-lg shadow-emerald-900/30"
@@ -2205,9 +2205,9 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
   
   return (
     <div
-      className={`group relative p-6 rounded-3xl border-2 transition-all duration-300 cursor-pointer overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
+      className={`group relative isolate p-6 rounded-3xl border-2 transition-all duration-300 cursor-pointer overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
         isActive
-          ? "border-emerald-500/80 bg-gradient-to-br from-emerald-500/15 via-emerald-500/10 to-slate-900/60 shadow-[0_0_40px_-5px_rgba(16,185,129,0.4)] shadow-emerald-500/20 scale-[1.02]"
+          ? "border-emerald-500/80 bg-gradient-to-br from-emerald-500/15 via-emerald-500/10 to-slate-900/60 shadow-[0_0_40px_-5px_rgba(16,185,129,0.4)] shadow-emerald-500/20 scale-[1.02] z-10"
           : showRequired
           ? "border-amber-500/60 bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-slate-900/60 hover:border-amber-500/80 hover:shadow-lg hover:shadow-amber-500/10"
           : "border-slate-700/60 bg-gradient-to-br from-slate-900/70 via-slate-900/50 to-slate-900/70 hover:border-emerald-500/40 hover:bg-gradient-to-br hover:from-slate-800/70 hover:via-slate-800/50 hover:to-slate-800/70 hover:shadow-lg hover:shadow-emerald-500/10"
@@ -2232,7 +2232,7 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
       }`} />
       
       <div className="flex items-start justify-between gap-3 mb-4">
-        <div className="flex items-start gap-4 flex-1">
+        <div className="flex items-start gap-4 flex-1 min-w-0">
           <div
             className={`mt-1 w-6 h-6 rounded-full flex items-center justify-center border-2 transition-all shadow-lg shrink-0 ${
               isActive 
@@ -2248,13 +2248,13 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
 
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-3">
-              <div className={`font-bold text-lg transition-colors flex-1 ${isActive ? "text-white drop-shadow-sm" : showRequired ? "text-amber-100 group-hover:text-white" : "text-slate-200 group-hover:text-white"}`}>
-                {baseLabel}
+              <div className={`font-bold text-lg transition-colors flex-1 min-w-0 ${isActive ? "text-white drop-shadow-sm" : showRequired ? "text-amber-100 group-hover:text-white" : "text-slate-200 group-hover:text-white"}`}>
+                <span className="truncate block">{baseLabel}</span>
                 {showRequired && (
-                  <span className="ml-2 text-xs font-semibold text-amber-400 uppercase tracking-wide">Required</span>
+                  <span className="ml-2 text-xs font-semibold text-amber-400 uppercase tracking-wide whitespace-nowrap">Required</span>
                 )}
                 {sublabel === "Advanced" && (
-                  <span className="ml-2 text-xs font-semibold text-purple-400 uppercase tracking-wide bg-purple-500/20 px-2 py-0.5 rounded-md border border-purple-500/30">Advanced</span>
+                  <span className="ml-2 text-xs font-semibold text-purple-400 uppercase tracking-wide bg-purple-500/20 px-2 py-0.5 rounded-md border border-purple-500/30 whitespace-nowrap">Advanced</span>
                 )}
               </div>
               {explanation && (
@@ -2274,10 +2274,10 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
           </div>
         </div>
 
-        <div className={`flex flex-col items-end shrink-0 ${isActive ? "text-emerald-400" : showRequired ? "text-amber-400" : "text-slate-400"}`}>
-          <span className="font-mono text-lg font-bold">{displayPrice}</span>
+        <div className={`flex flex-col items-end shrink-0 min-w-[80px] ${isActive ? "text-emerald-400" : showRequired ? "text-amber-400" : "text-slate-400"}`}>
+          <span className="font-mono text-lg font-bold whitespace-nowrap">{displayPrice}</span>
           {selectedVariantItem && displayPrice !== priceRange && (
-            <span className="text-xs text-slate-500 line-through mt-0.5">{priceRange}</span>
+            <span className="text-xs text-slate-500 line-through mt-0.5 whitespace-nowrap">{priceRange}</span>
           )}
         </div>
       </div>
@@ -2329,9 +2329,9 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
   return (
     <div
       onClick={onClick}
-      className={`group relative p-6 rounded-3xl border-2 cursor-pointer transition-all duration-300 overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
+      className={`group relative isolate p-6 rounded-3xl border-2 cursor-pointer transition-all duration-300 overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
         active
-          ? "border-emerald-500/80 bg-gradient-to-br from-emerald-500/15 via-emerald-500/10 to-slate-900/60 shadow-[0_0_40px_-5px_rgba(16,185,129,0.4)] shadow-emerald-500/20 scale-[1.02]"
+          ? "border-emerald-500/80 bg-gradient-to-br from-emerald-500/15 via-emerald-500/10 to-slate-900/60 shadow-[0_0_40px_-5px_rgba(16,185,129,0.4)] shadow-emerald-500/20 scale-[1.02] z-10"
           : showRequired
           ? "border-amber-500/60 bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-slate-900/60 hover:border-amber-500/80 hover:shadow-lg hover:shadow-amber-500/10"
           : "border-slate-700/60 bg-gradient-to-br from-slate-900/70 via-slate-900/50 to-slate-900/70 hover:border-emerald-500/40 hover:bg-gradient-to-br hover:from-slate-800/70 hover:via-slate-800/50 hover:to-slate-800/70 hover:shadow-lg hover:shadow-emerald-500/10"
@@ -2347,7 +2347,7 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
       }`} />
       
       <div className="flex items-start justify-between gap-4">
-        <div className="flex items-start gap-4 flex-1">
+        <div className="flex items-start gap-4 flex-1 min-w-0">
           <div
             className={`mt-1 w-6 h-6 rounded-full flex items-center justify-center border-2 transition-all shadow-lg shrink-0 ${
               active 
@@ -2363,13 +2363,13 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
 
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-3">
-              <div className={`font-bold text-lg transition-colors flex-1 ${active ? "text-white drop-shadow-sm" : showRequired ? "text-amber-100 group-hover:text-white" : "text-slate-200 group-hover:text-white"}`}>
-                {label}
+              <div className={`font-bold text-lg transition-colors flex-1 min-w-0 ${active ? "text-white drop-shadow-sm" : showRequired ? "text-amber-100 group-hover:text-white" : "text-slate-200 group-hover:text-white"}`}>
+                <span className="truncate block">{label}</span>
                 {showRequired && (
-                  <span className="ml-2 text-xs font-semibold text-amber-400 uppercase tracking-wide">Required</span>
+                  <span className="ml-2 text-xs font-semibold text-amber-400 uppercase tracking-wide whitespace-nowrap">Required</span>
                 )}
                 {sublabel === "Recommended" && (
-                  <span className="ml-2 text-xs font-semibold text-emerald-400 uppercase tracking-wide bg-emerald-500/20 px-2 py-0.5 rounded-md border border-emerald-500/30">Recommended</span>
+                  <span className="ml-2 text-xs font-semibold text-emerald-400 uppercase tracking-wide bg-emerald-500/20 px-2 py-0.5 rounded-md border border-emerald-500/30 whitespace-nowrap">Recommended</span>
                 )}
               </div>
               {explanation && (
@@ -2382,8 +2382,8 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
           </div>
         </div>
 
-        <div className={`flex flex-col items-end shrink-0 ${active ? "text-emerald-400" : showRequired ? "text-amber-400" : "text-slate-400"}`}>
-          <span className="font-mono text-lg font-bold">${(price || 0).toFixed(2)}</span>
+        <div className={`flex flex-col items-end shrink-0 min-w-[80px] ${active ? "text-emerald-400" : showRequired ? "text-amber-400" : "text-slate-400"}`}>
+          <span className="font-mono text-lg font-bold whitespace-nowrap">${(price || 0).toFixed(2)}</span>
         </div>
       </div>
     </div>
