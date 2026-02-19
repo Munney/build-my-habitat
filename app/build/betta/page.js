@@ -729,15 +729,15 @@ function BettaBuilderContent() {
                 {/* BEGINNER BUTTON */}
                 <button
                     onClick={() => setExperience("beginner")}
-                    className={`relative overflow-hidden p-5 rounded-2xl border transition-all duration-300 group text-left cursor-pointer ${
+                    className={`relative overflow-hidden p-4 sm:p-5 rounded-2xl border transition-all duration-300 group text-left cursor-pointer ${
                       experience === "beginner"
                         ? "border-blue-500 bg-blue-500/10 shadow-[0_0_20px_-5px_rgba(59,130,246,0.3)]"
                         : "border-slate-700/50 bg-slate-900/40 hover:border-blue-500/50 hover:bg-slate-800/60"
                     }`}
                   >
-                    <p className="font-bold text-lg text-white capitalize flex justify-between items-center gap-2">
-                        <span className="flex-1">Beginner</span>
-                        {experience === "beginner" ? <CheckCircle2 size={20} className="text-blue-400 shrink-0" /> : <ShieldCheck size={20} className="text-slate-500 shrink-0"/>}
+                    <p className="font-bold text-lg text-white capitalize flex justify-between items-center gap-1 sm:gap-2 min-w-0">
+                        <span className="flex-1 min-w-0">Beginner</span>
+                        {experience === "beginner" ? <CheckCircle2 size={20} className="text-blue-400 shrink-0 flex-shrink-0" /> : <ShieldCheck size={20} className="text-slate-500 shrink-0 flex-shrink-0"/>}
                     </p>
                     <p className="text-xs font-medium text-slate-400 mt-2 uppercase tracking-wider leading-relaxed">
                       Hides Bowls & Unsafe options. Focuses on success.
@@ -747,15 +747,15 @@ function BettaBuilderContent() {
                 {/* EXPERIENCED BUTTON */}
                 <button
                     onClick={() => setExperience("experienced")}
-                    className={`relative overflow-hidden p-5 rounded-2xl border transition-all duration-300 group text-left cursor-pointer ${
+                    className={`relative overflow-hidden p-4 sm:p-5 rounded-2xl border transition-all duration-300 group text-left cursor-pointer ${
                       experience === "experienced"
                         ? "border-blue-500 bg-blue-500/10 shadow-[0_0_20px_-5px_rgba(59,130,246,0.3)]"
                         : "border-slate-700/50 bg-slate-900/40 hover:border-blue-500/50 hover:bg-slate-800/60"
                     }`}
                   >
-                    <p className="font-bold text-lg text-white capitalize flex justify-between items-center gap-2">
-                        <span className="flex-1">Experienced</span>
-                        {experience === "experienced" ? <CheckCircle2 size={20} className="text-blue-400 shrink-0" /> : <Unlock size={20} className="text-slate-500 shrink-0"/>}
+                    <p className="font-bold text-lg text-white capitalize flex justify-between items-center gap-1 sm:gap-2 min-w-0">
+                        <span className="flex-1 min-w-0">Experienced</span>
+                        {experience === "experienced" ? <CheckCircle2 size={20} className="text-blue-400 shrink-0 flex-shrink-0" /> : <Unlock size={20} className="text-slate-500 shrink-0 flex-shrink-0"/>}
                     </p>
                     <p className="text-xs font-medium text-slate-400 mt-2 uppercase tracking-wider leading-relaxed">
                       Unlocks everything (even Bowls, for education).
