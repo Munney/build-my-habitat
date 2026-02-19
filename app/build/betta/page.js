@@ -2,7 +2,7 @@
 
 import { useMemo, useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { analytics } from "../../utils/analytics";
 import {
   ArrowLeft,
@@ -152,6 +152,7 @@ function groupVariants(products) {
 
 export default function BettaBuilder() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [activeSection, setActiveSection] = useState(null);
   const [visibleSections, setVisibleSections] = useState(new Set());
@@ -195,6 +196,49 @@ export default function BettaBuilder() {
   const [decorIds, setDecorIds] = useState([]);
   const [decorVariants, setDecorVariants] = useState({}); // For driftwood variants
   const [careIds, setCareIds] = useState([]);
+  const [stateRestored, setStateRestored] = useState(false);
+
+  // --- RESTORE STATE FROM URL PARAMETERS ---
+  useEffect(() => {
+    if (stateRestored) return; // Only restore once
+    
+    const exp = searchParams.get("exp");
+    const enclosure = searchParams.get("enclosure");
+    const filtration = searchParams.get("filtration");
+    const substrate = searchParams.get("substrate");
+    const heating = searchParams.get("heating");
+    const decor = searchParams.get("decor");
+    const care = searchParams.get("care");
+
+    if (exp || enclosure || filtration || substrate || heating || decor || care) {
+      // Restore state from URL parameters
+      if (exp) setExperience(exp);
+      if (enclosure) setEnclosureId(enclosure);
+      if (filtration) setFiltrationId(filtration);
+      if (substrate) setSubstrateId(substrate);
+      
+      // Parse heating (can include heater and thermometer)
+      if (heating) {
+        const heatingItems = heating.split(",");
+        const heater = heatingItems.find(id => id !== "thermometer");
+        const hasThermo = heatingItems.includes("thermometer");
+        if (heater) setHeaterId(heater);
+        setHasThermometer(hasThermo);
+      }
+      
+      // Parse decor (comma-separated)
+      if (decor) {
+        setDecorIds(decor.split(",").filter(Boolean));
+      }
+      
+      // Parse care (comma-separated)
+      if (care) {
+        setCareIds(care.split(",").filter(Boolean));
+      }
+      
+      setStateRestored(true);
+    }
+  }, [searchParams, stateRestored]);
 
   // --- TEMPLATE APPLICATION ---
   const applyTemplate = (template) => {
@@ -500,7 +544,25 @@ export default function BettaBuilder() {
   }, [selectedEnclosure, selectedFiltration, heaterId, hasThermometer, decorIds, selectedSubstrate]);
 
   function goToSummary() {
-    if (!allRequirementsMet) return;
+    if (!allRequirementsMet) {
+      // Scroll to first incomplete section
+      const incompleteSections = [
+        { id: 'experience', condition: !sectionCompletion.experience },
+        { id: 'enclosure', condition: !sectionCompletion.enclosure },
+        { id: 'filtration', condition: !sectionCompletion.filtration },
+        { id: 'temperature', condition: !sectionCompletion.temperature },
+        { id: 'substrate', condition: !sectionCompletion.substrate },
+      ];
+      
+      const firstIncomplete = incompleteSections.find(s => s.condition);
+      if (firstIncomplete) {
+        const section = sectionRefs.current[firstIncomplete.id];
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+      return;
+    }
     
     // Block if there are critical errors
     if (checks.criticalErrors.length > 0) {
@@ -1001,10 +1063,9 @@ export default function BettaBuilder() {
             <div className="lg:hidden mt-8 mb-6 relative z-10">
               <button
                 onClick={goToSummary}
-                disabled={!allRequirementsMet}
                 className={`w-full py-4 rounded-xl font-black text-lg flex items-center justify-center gap-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 relative z-10 ${
                   !allRequirementsMet 
-                      ? "bg-slate-800/50 text-slate-500 cursor-not-allowed border border-slate-700/50" 
+                      ? "bg-slate-800/50 text-slate-500 border border-slate-700/50 hover:bg-slate-700/50" 
                       : "bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white border-2 border-blue-400/30 hover:border-blue-300/50 hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/40 active:scale-[0.98] shadow-lg shadow-blue-900/30"
                 }`}
               >
@@ -1069,10 +1130,9 @@ export default function BettaBuilder() {
 
                 <button
                   onClick={goToSummary}
-                  disabled={!allRequirementsMet}
                   className={`w-full py-4 rounded-xl font-black text-lg flex items-center justify-center gap-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
                     !allRequirementsMet 
-                        ? "bg-slate-800/50 text-slate-500 cursor-not-allowed border border-slate-700/50" 
+                        ? "bg-slate-800/50 text-slate-500 border border-slate-700/50 hover:bg-slate-700/50" 
                         : "bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white border-2 border-blue-400/30 hover:border-blue-300/50 hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/40 active:scale-[0.98] shadow-lg shadow-blue-900/30"
                   }`}
                 >
@@ -1186,10 +1246,9 @@ export default function BettaBuilder() {
                   goToSummary();
                   setIsMobileSidebarOpen(false);
                 }}
-                disabled={!allRequirementsMet}
                 className={`w-full py-4 rounded-xl font-black text-lg flex items-center justify-center gap-2 transition-all duration-300 ${
                   !allRequirementsMet 
-                      ? "bg-slate-800/50 text-slate-500 cursor-not-allowed border border-slate-700/50" 
+                      ? "bg-slate-800/50 text-slate-500 border border-slate-700/50 hover:bg-slate-700/50" 
                       : "bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white border-2 border-blue-400/30 hover:border-blue-300/50 shadow-lg shadow-blue-900/30"
                 }`}
               >

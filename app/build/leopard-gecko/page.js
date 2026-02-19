@@ -2,7 +2,7 @@
 
 import { useMemo, useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { analytics } from "../../utils/analytics";
 import {
   ArrowLeft,
@@ -281,6 +281,7 @@ function sortVariantsByTankSize(variants) {
 
 export default function LeopardGeckoBuilder() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [activeSection, setActiveSection] = useState(null);
   const [visibleSections, setVisibleSections] = useState(new Set());
@@ -332,6 +333,31 @@ export default function LeopardGeckoBuilder() {
   const [hideIds, setHideIds] = useState([]);
   const [hideVariants, setHideVariants] = useState({}); // { baseName: { variant } }
   const [supplementIds, setSupplementIds] = useState([]);
+  const [stateRestored, setStateRestored] = useState(false);
+
+  // --- RESTORE STATE FROM URL PARAMETERS ---
+  useEffect(() => {
+    if (stateRestored) return; // Only restore once
+    
+    const exp = searchParams.get("exp");
+    const enclosure = searchParams.get("enclosure");
+    const substrate = searchParams.get("substrate");
+    const heating = searchParams.get("heating");
+    const hides = searchParams.get("hides");
+    const supplements = searchParams.get("supplements");
+
+    if (exp || enclosure || substrate || heating || hides || supplements) {
+      // Restore state from URL parameters
+      if (exp) setExperience(exp);
+      if (enclosure) setEnclosureId(enclosure);
+      if (substrate) setSubstrateIds(substrate.split(",").filter(Boolean));
+      if (heating) setHeatingIds(heating.split(",").filter(Boolean));
+      if (hides) setHideIds(hides.split(",").filter(Boolean));
+      if (supplements) setSupplementIds(supplements.split(",").filter(Boolean));
+      
+      setStateRestored(true);
+    }
+  }, [searchParams, stateRestored]);
 
   // --- TEMPLATE APPLICATION ---
   const applyTemplate = (template) => {
@@ -766,7 +792,26 @@ export default function LeopardGeckoBuilder() {
   }, [selectedEnclosure, heatingIds, heatingVariants, hideIds, substrateIds, substrateVariants]);
 
   function goToSummary() {
-    if (!allRequirementsMet) return;
+    if (!allRequirementsMet) {
+      // Scroll to first incomplete section
+      const incompleteSections = [
+        { id: 'experience', condition: !sectionCompletion.experience },
+        { id: 'enclosure', condition: !sectionCompletion.enclosure },
+        { id: 'heating', condition: !sectionCompletion.heating },
+        { id: 'substrate', condition: !sectionCompletion.substrate },
+        { id: 'hides', condition: !sectionCompletion.hides },
+        { id: 'supplements', condition: !sectionCompletion.supplements },
+      ];
+      
+      const firstIncomplete = incompleteSections.find(s => s.condition);
+      if (firstIncomplete) {
+        const section = sectionRefs.current[firstIncomplete.id];
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+      return;
+    }
     
     // Block if there are critical errors
     if (checks.criticalErrors.length > 0) {

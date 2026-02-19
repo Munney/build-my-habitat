@@ -285,7 +285,16 @@ function SummaryContent() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 print-receipt-only-hidden">
           <div>
             <button 
-              onClick={() => router.back()}
+              onClick={() => {
+                const params = new URLSearchParams();
+                if (searchParams.get("exp")) params.set("exp", searchParams.get("exp"));
+                if (searchParams.get("enclosure")) params.set("enclosure", searchParams.get("enclosure"));
+                if (searchParams.get("substrate")) params.set("substrate", searchParams.get("substrate"));
+                if (searchParams.get("heating")) params.set("heating", searchParams.get("heating"));
+                if (searchParams.get("hides")) params.set("hides", searchParams.get("hides"));
+                if (searchParams.get("supplements")) params.set("supplements", searchParams.get("supplements"));
+                router.push(`/build/leopard-gecko?${params.toString()}`);
+              }}
               className="flex items-center gap-2 text-slate-400 hover:text-emerald-400 transition-colors mb-4 text-xs font-bold uppercase tracking-wider"
             >
               <ArrowLeft size={16} /> Edit Configuration
