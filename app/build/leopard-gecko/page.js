@@ -799,7 +799,7 @@ export default function LeopardGeckoBuilder() {
 
   return (
     <>
-    <main className="relative min-h-screen px-6 pb-24 lg:pb-20">
+    <main className="relative min-h-screen pb-20 px-6">
       {/* Spacer for navbar */}
       <div className="h-28"></div>
       
@@ -1312,6 +1312,21 @@ export default function LeopardGeckoBuilder() {
                 ))}
               </div>
             </Section>
+
+            {/* Mobile Generate Habitat Button - At bottom of page content */}
+            <div className="lg:hidden mt-8 mb-6">
+              <button
+                onClick={goToSummary}
+                disabled={!allRequirementsMet}
+                className={`w-full py-4 rounded-xl font-black text-lg flex items-center justify-center gap-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
+                  !allRequirementsMet 
+                      ? "bg-slate-800/50 text-slate-500 cursor-not-allowed border border-slate-700/50" 
+                      : "bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white border-2 border-emerald-400/30 hover:border-emerald-300/50 hover:scale-[1.02] hover:shadow-xl hover:shadow-emerald-500/40 active:scale-[0.98] shadow-lg shadow-emerald-900/30"
+                }`}
+              >
+                Generate Habitat <ArrowRight size={20} className="drop-shadow-sm" />
+              </button>
+            </div>
           </div>
 
           <aside className="hidden lg:block lg:sticky lg:top-40 h-fit space-y-6">
@@ -1495,21 +1510,6 @@ export default function LeopardGeckoBuilder() {
             </div>
           </div>
         </div>
-      </div>
-      
-      {/* Fixed Generate Habitat Button for Mobile - Always Visible */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-[60] pointer-events-none">
-        <button
-          onClick={goToSummary}
-          disabled={!allRequirementsMet}
-          className={`w-full py-4 rounded-t-2xl font-black text-lg flex items-center justify-center gap-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 border-t-2 backdrop-blur-md pointer-events-auto ${
-            !allRequirementsMet 
-                ? "bg-slate-900/95 text-slate-500 cursor-not-allowed border-slate-700/50" 
-                : "bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white border-emerald-400/30 active:scale-[0.98] shadow-lg shadow-emerald-900/30"
-          }`}
-        >
-          Generate Habitat <ArrowRight size={20} className="drop-shadow-sm" />
-        </button>
       </div>
       
       {/* Scroll to Top Button */}
