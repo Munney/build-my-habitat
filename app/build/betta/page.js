@@ -736,8 +736,8 @@ function BettaBuilderContent() {
                     }`}
                   >
                     <p className="font-bold text-lg text-white capitalize flex justify-between items-center gap-2">
-                        Beginner
-                        {experience === "beginner" ? <CheckCircle2 size={20} className="text-blue-400" /> : <ShieldCheck size={20} className="text-slate-500"/>}
+                        <span className="flex-1">Beginner</span>
+                        {experience === "beginner" ? <CheckCircle2 size={20} className="text-blue-400 shrink-0" /> : <ShieldCheck size={20} className="text-slate-500 shrink-0"/>}
                     </p>
                     <p className="text-xs font-medium text-slate-400 mt-2 uppercase tracking-wider leading-relaxed">
                       Hides Bowls & Unsafe options. Focuses on success.
@@ -754,8 +754,8 @@ function BettaBuilderContent() {
                     }`}
                   >
                     <p className="font-bold text-lg text-white capitalize flex justify-between items-center gap-2">
-                        Experienced
-                        {experience === "experienced" ? <CheckCircle2 size={20} className="text-blue-400" /> : <Unlock size={20} className="text-slate-500"/>}
+                        <span className="flex-1">Experienced</span>
+                        {experience === "experienced" ? <CheckCircle2 size={20} className="text-blue-400 shrink-0" /> : <Unlock size={20} className="text-slate-500 shrink-0"/>}
                     </p>
                     <p className="text-xs font-medium text-slate-400 mt-2 uppercase tracking-wider leading-relaxed">
                       Unlocks everything (even Bowls, for education).

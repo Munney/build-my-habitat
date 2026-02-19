@@ -1,15 +1,6 @@
 {
   "enclosures": [
     {
-      "id": "bowl",
-      "label": "Glass Bowl (1 Gallon)",
-      "price": 14.99,
-      "size": 1,
-      "type": "unsafe",
-      "amazonSearchUrl": "https://www.amazon.com/s?k=Glass%20Bowl%20(1%20Gallon)%20aquarium&tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/s?k=Glass%20Bowl%20(1%20Gallon)%20aquarium&tag=habitatbuilde-20"
-    },
-    {
       "id": "5g",
       "label": "5 Gallon Portrait",
       "price": 59.99,

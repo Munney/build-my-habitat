@@ -24,7 +24,7 @@
           "variant": "18 qts"
         }
       },
-      "heatingIds": ["dhp_75w", "thermostat", "uvb_24"],
+      "heatingIds": ["halogen_75w", "thermostat", "uvb_24"],
       "heatingVariants": {},
       "hideIds": ["warmhide", "coolhide", "humidhide", "corkbark_cork_bark_flat_4_pcs", "branches_climbing_branches_4_pcs_14_16_"],
       "hideVariants": {},
