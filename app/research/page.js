@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
-import { ExternalLink, BookOpen } from "lucide-react";
+import Link from "next/link";
+import { ExternalLink, BookOpen, ArrowLeft } from "lucide-react";
 import { analytics, trackEvent } from "../utils/analytics";
 import Footer from "../components/Footer";
 
@@ -80,6 +81,17 @@ export default function ResearchPage() {
     <>
     <main className="relative min-h-screen py-20 px-4 sm:px-6">
       <div className="relative z-10 max-w-4xl mx-auto space-y-8 sm:space-y-12">
+        
+        {/* --- BACK TO HUB BUTTON --- */}
+        <div className="mb-8">
+          <Link 
+            href="/" 
+            className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors font-medium text-base group"
+          >
+            <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+            Back to Hub
+          </Link>
+        </div>
         
         {/* Header */}
         <div className="space-y-4 text-center md:text-left">
