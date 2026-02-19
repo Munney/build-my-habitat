@@ -1487,6 +1487,19 @@ export default function LeopardGeckoBuilder() {
         </div>
       </div>
       
+      {/* Fixed Generate Habitat Button for Mobile */}
+      <button
+        onClick={goToSummary}
+        disabled={allSelectedItems.length === 0}
+        className={`lg:hidden fixed bottom-6 left-6 right-20 z-40 py-4 rounded-xl font-black text-lg flex items-center justify-center gap-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
+          allSelectedItems.length === 0 
+              ? "bg-slate-800/50 text-slate-500 cursor-not-allowed border border-slate-700/50" 
+              : "bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white border-2 border-emerald-400/30 hover:border-emerald-300/50 active:scale-[0.98] shadow-lg shadow-emerald-900/30"
+        }`}
+      >
+        Generate Habitat <ArrowRight size={20} className="drop-shadow-sm" />
+      </button>
+      
       {/* Scroll to Top Button */}
       <ScrollToTop />
       
