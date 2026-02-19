@@ -639,11 +639,21 @@ export default function LeopardGeckoBuilder() {
   const sectionCompletion = useMemo(() => ({
     experience: !!experience,
     enclosure: !!enclosureId,
-    heating: heatingIds.length > 0,
+    heating: hasCompleteHeating, // Must have primary heat + thermostat
     substrate: substrateIds.length > 0,
     hides: hideIds.length > 0,
     supplements: supplementIds.length > 0,
-  }), [experience, enclosureId, heatingIds, substrateIds, hideIds, supplementIds]);
+  }), [experience, enclosureId, hasCompleteHeating, substrateIds, hideIds, supplementIds]);
+
+  // Check if all required sections are completed
+  const allRequirementsMet = useMemo(() => {
+    return sectionCompletion.experience &&
+           sectionCompletion.enclosure &&
+           sectionCompletion.heating &&
+           sectionCompletion.substrate &&
+           sectionCompletion.hides &&
+           sectionCompletion.supplements;
+  }, [sectionCompletion]);
 
   // Determine if a section is locked (prerequisites not met)
   const isSectionLocked = useMemo(() => {
@@ -756,7 +766,7 @@ export default function LeopardGeckoBuilder() {
   }, [selectedEnclosure, heatingIds, heatingVariants, hideIds, substrateIds, substrateVariants]);
 
   function goToSummary() {
-    if (allSelectedItems.length === 0) return;
+    if (!allRequirementsMet) return;
     
     // Block if there are critical errors
     if (checks.criticalErrors.length > 0) {
@@ -789,7 +799,7 @@ export default function LeopardGeckoBuilder() {
 
   return (
     <>
-    <main className="relative min-h-screen pb-20 px-6">
+    <main className="relative min-h-screen px-6 pb-24 lg:pb-20">
       {/* Spacer for navbar */}
       <div className="h-28"></div>
       
@@ -1357,9 +1367,9 @@ export default function LeopardGeckoBuilder() {
 
                 <button
                   onClick={goToSummary}
-                  disabled={allSelectedItems.length === 0}
+                  disabled={!allRequirementsMet}
                   className={`w-full py-4 rounded-xl font-black text-lg flex items-center justify-center gap-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
-                    allSelectedItems.length === 0 
+                    !allRequirementsMet 
                         ? "bg-slate-800/50 text-slate-500 cursor-not-allowed border border-slate-700/50" 
                         : "bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white border-2 border-emerald-400/30 hover:border-emerald-300/50 hover:scale-[1.02] hover:shadow-xl hover:shadow-emerald-500/40 active:scale-[0.98] shadow-lg shadow-emerald-900/30"
                   }`}
@@ -1473,9 +1483,9 @@ export default function LeopardGeckoBuilder() {
                   goToSummary();
                   setIsMobileSidebarOpen(false);
                 }}
-                disabled={allSelectedItems.length === 0}
+                disabled={!allRequirementsMet}
                 className={`w-full py-4 rounded-xl font-black text-lg flex items-center justify-center gap-2 transition-all duration-300 ${
-                  allSelectedItems.length === 0 
+                  !allRequirementsMet 
                       ? "bg-slate-800/50 text-slate-500 cursor-not-allowed border border-slate-700/50" 
                       : "bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white border-2 border-emerald-400/30 hover:border-emerald-300/50 shadow-lg shadow-emerald-900/30"
                 }`}
@@ -1490,11 +1500,11 @@ export default function LeopardGeckoBuilder() {
       {/* Fixed Generate Habitat Button for Mobile */}
       <button
         onClick={goToSummary}
-        disabled={allSelectedItems.length === 0}
-        className={`lg:hidden fixed bottom-6 left-6 right-20 z-40 py-4 rounded-xl font-black text-lg flex items-center justify-center gap-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
-          allSelectedItems.length === 0 
-              ? "bg-slate-800/50 text-slate-500 cursor-not-allowed border border-slate-700/50" 
-              : "bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white border-2 border-emerald-400/30 hover:border-emerald-300/50 active:scale-[0.98] shadow-lg shadow-emerald-900/30"
+        disabled={!allRequirementsMet}
+        className={`lg:hidden fixed bottom-0 left-0 right-0 z-40 py-4 rounded-t-2xl font-black text-lg flex items-center justify-center gap-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 border-t-2 ${
+          !allRequirementsMet 
+              ? "bg-slate-800/95 text-slate-500 cursor-not-allowed border-slate-700/50" 
+              : "bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white border-emerald-400/30 active:scale-[0.98] shadow-lg shadow-emerald-900/30"
         }`}
       >
         Generate Habitat <ArrowRight size={20} className="drop-shadow-sm" />

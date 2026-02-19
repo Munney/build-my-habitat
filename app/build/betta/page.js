@@ -397,6 +397,15 @@ export default function BettaBuilder() {
     };
   }, [experience, enclosureId, filtrationId, heaterId, hasThermometer, substrateId, decorIds, careIds, selectedEnclosure]);
 
+  // Check if all required sections are completed
+  const allRequirementsMet = useMemo(() => {
+    return sectionCompletion.experience &&
+           sectionCompletion.enclosure &&
+           sectionCompletion.filtration &&
+           sectionCompletion.temperature &&
+           sectionCompletion.substrate;
+  }, [sectionCompletion]);
+
   // Determine if a section is locked (prerequisites not met)
   const isSectionLocked = useMemo(() => {
     return {
@@ -491,7 +500,7 @@ export default function BettaBuilder() {
   }, [selectedEnclosure, selectedFiltration, heaterId, hasThermometer, decorIds, selectedSubstrate]);
 
   function goToSummary() {
-    if (allSelectedItems.length === 0) return;
+    if (!allRequirementsMet) return;
     
     // Block if there are critical errors
     if (checks.criticalErrors.length > 0) {
@@ -538,7 +547,7 @@ export default function BettaBuilder() {
 
   return (
     <>
-    <main className="relative min-h-screen pb-20 px-6">
+    <main className="relative min-h-screen px-6 pb-24 lg:pb-20">
       {/* Spacer for navbar */}
       <div className="h-28"></div>
       
@@ -1045,9 +1054,9 @@ export default function BettaBuilder() {
 
                 <button
                   onClick={goToSummary}
-                  disabled={allSelectedItems.length === 0}
+                  disabled={!allRequirementsMet}
                   className={`w-full py-4 rounded-xl font-black text-lg flex items-center justify-center gap-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
-                    allSelectedItems.length === 0 
+                    !allRequirementsMet 
                         ? "bg-slate-800/50 text-slate-500 cursor-not-allowed border border-slate-700/50" 
                         : "bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white border-2 border-blue-400/30 hover:border-blue-300/50 hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/40 active:scale-[0.98] shadow-lg shadow-blue-900/30"
                   }`}
@@ -1162,9 +1171,9 @@ export default function BettaBuilder() {
                   goToSummary();
                   setIsMobileSidebarOpen(false);
                 }}
-                disabled={allSelectedItems.length === 0}
+                disabled={!allRequirementsMet}
                 className={`w-full py-4 rounded-xl font-black text-lg flex items-center justify-center gap-2 transition-all duration-300 ${
-                  allSelectedItems.length === 0 
+                  !allRequirementsMet 
                       ? "bg-slate-800/50 text-slate-500 cursor-not-allowed border border-slate-700/50" 
                       : "bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white border-2 border-blue-400/30 hover:border-blue-300/50 shadow-lg shadow-blue-900/30"
                 }`}
@@ -1179,11 +1188,11 @@ export default function BettaBuilder() {
       {/* Fixed Generate Habitat Button for Mobile */}
       <button
         onClick={goToSummary}
-        disabled={allSelectedItems.length === 0}
-        className={`lg:hidden fixed bottom-6 left-6 right-20 z-40 py-4 rounded-xl font-black text-lg flex items-center justify-center gap-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
-          allSelectedItems.length === 0 
-              ? "bg-slate-800/50 text-slate-500 cursor-not-allowed border border-slate-700/50" 
-              : "bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white border-2 border-blue-400/30 hover:border-blue-300/50 active:scale-[0.98] shadow-lg shadow-blue-900/30"
+        disabled={!allRequirementsMet}
+        className={`lg:hidden fixed bottom-0 left-0 right-0 z-40 py-4 rounded-t-2xl font-black text-lg flex items-center justify-center gap-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 border-t-2 ${
+          !allRequirementsMet 
+              ? "bg-slate-800/95 text-slate-500 cursor-not-allowed border-slate-700/50" 
+              : "bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white border-blue-400/30 active:scale-[0.98] shadow-lg shadow-blue-900/30"
         }`}
       >
         Generate Habitat <ArrowRight size={20} className="drop-shadow-sm" />
