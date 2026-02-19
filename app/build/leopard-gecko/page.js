@@ -948,10 +948,10 @@ export default function LeopardGeckoBuilder() {
               sectionRef={(el) => { if (el) sectionRefs.current.enclosure = el; }}
             >
               <div 
-                className={`mb-4 overflow-hidden transition-all duration-500 ease-in-out ${
+                className={`mb-4 transition-all duration-500 ease-in-out ${
                   !enclosureId 
-                    ? 'max-h-20 opacity-100' 
-                    : 'max-h-0 opacity-0 mb-0'
+                    ? 'max-h-32 opacity-100 overflow-visible' 
+                    : 'max-h-0 opacity-0 mb-0 overflow-hidden'
                 }`}
                 role={!enclosureId ? "alert" : undefined}
               >
@@ -1105,10 +1105,10 @@ export default function LeopardGeckoBuilder() {
                   </div>
               )}
               <div 
-                className={`mb-4 overflow-hidden transition-all duration-500 ease-in-out ${
+                className={`mb-4 transition-all duration-500 ease-in-out ${
                   substrateIds.length === 0 && Object.keys(substrateVariants).length === 0
-                    ? 'max-h-20 opacity-100' 
-                    : 'max-h-0 opacity-0 mb-0'
+                    ? 'max-h-32 opacity-100 overflow-visible' 
+                    : 'max-h-0 opacity-0 mb-0 overflow-hidden'
                 }`}
                 role={substrateIds.length === 0 && Object.keys(substrateVariants).length === 0 ? "alert" : undefined}
               >

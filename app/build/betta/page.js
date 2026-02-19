@@ -713,10 +713,10 @@ export default function BettaBuilder() {
                   </div>
               )}
               <div 
-                className={`mb-4 overflow-hidden transition-all duration-500 ease-in-out ${
+                className={`mb-4 transition-all duration-500 ease-in-out ${
                   !enclosureId 
-                    ? 'max-h-20 opacity-100' 
-                    : 'max-h-0 opacity-0 mb-0'
+                    ? 'max-h-32 opacity-100 overflow-visible' 
+                    : 'max-h-0 opacity-0 mb-0 overflow-hidden'
                 }`}
                 role={!enclosureId ? "alert" : undefined}
               >
@@ -768,10 +768,10 @@ export default function BettaBuilder() {
               sectionRef={(el) => { if (el) sectionRefs.current.filtration = el; }}
             >
               <div 
-                className={`mb-4 overflow-hidden transition-all duration-500 ease-in-out ${
+                className={`mb-4 transition-all duration-500 ease-in-out ${
                   !filtrationId 
-                    ? 'max-h-20 opacity-100' 
-                    : 'max-h-0 opacity-0 mb-0'
+                    ? 'max-h-32 opacity-100 overflow-visible' 
+                    : 'max-h-0 opacity-0 mb-0 overflow-hidden'
                 }`}
                 role={!filtrationId ? "alert" : undefined}
               >
@@ -905,10 +905,10 @@ export default function BettaBuilder() {
               sectionRef={(el) => { if (el) sectionRefs.current.substrate = el; }}
             >
               <div 
-                className={`mb-4 overflow-hidden transition-all duration-500 ease-in-out ${
+                className={`mb-4 transition-all duration-500 ease-in-out ${
                   !substrateId 
-                    ? 'max-h-20 opacity-100' 
-                    : 'max-h-0 opacity-0 mb-0'
+                    ? 'max-h-32 opacity-100 overflow-visible' 
+                    : 'max-h-0 opacity-0 mb-0 overflow-hidden'
                 }`}
                 role={!substrateId ? "alert" : undefined}
               >
