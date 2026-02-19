@@ -463,23 +463,14 @@ function SummaryContent() {
                     </div>
                 </div>
 
-                {/* Care Instructions */}
-                <CareInstructions species="betta" />
-            </div>
-
-            {/* RIGHT: CHECKOUT PANEL */}
-            <div className="lg:sticky lg:top-28 h-fit space-y-6">
+                {/* Buy All on Amazon Button */}
                 <div className="p-8 rounded-3xl bg-gradient-to-br from-slate-900 to-slate-950 border border-white/10 shadow-2xl text-center relative overflow-hidden group">
-                    
-                    {/* Background Glow */}
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-blue-500/5 blur-3xl rounded-full group-hover:bg-blue-500/10 transition-all duration-700 pointer-events-none" />
-
                     <p className="text-slate-400 text-sm font-bold uppercase tracking-widest mb-2 relative z-10">Est. Total Cost</p>
                     <div className="text-6xl font-black text-white tracking-tighter mb-8 relative z-10 flex justify-center items-start gap-1">
                         <span className="text-2xl mt-2 text-blue-500">$</span>
                         {total}
                     </div>
-
                     <a 
                         href={amazonCartUrl}
                         target="_blank"
@@ -489,12 +480,17 @@ function SummaryContent() {
                     >
                         Buy All on Amazon <ArrowRight size={20} className="drop-shadow-sm" />
                     </a>
-                    
                     <p className="text-xs text-slate-500 mt-4 relative z-10 px-4 leading-relaxed">
                         *Clicking this will auto-fill your Amazon Cart with all selected items.
                     </p>
                 </div>
 
+                {/* Care Instructions */}
+                <CareInstructions species="betta" />
+            </div>
+
+            {/* RIGHT: CHECKOUT PANEL */}
+            <div className="lg:sticky lg:top-28 h-fit space-y-6">
                  <div className="p-6 rounded-2xl bg-white/5 border border-white/5 backdrop-blur-md">
                     <h4 className="font-bold text-white mb-2 text-sm uppercase tracking-wide">Next Steps</h4>
                     <ul className="space-y-3 text-sm text-slate-300 font-medium">
