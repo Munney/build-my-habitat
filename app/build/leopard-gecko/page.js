@@ -2249,7 +2249,7 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
           <div className="flex-1 min-w-0">
             <div className="flex items-start gap-3">
               <div className={`font-bold text-lg transition-colors flex-1 min-w-0 ${isActive ? "text-white drop-shadow-sm" : showRequired ? "text-amber-100 group-hover:text-white" : "text-slate-200 group-hover:text-white"}`}>
-                <div className="break-words" style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}>{baseLabel}</div>
+                <div style={{ wordBreak: 'normal', overflowWrap: 'normal' }}>{baseLabel}</div>
                 {showRequired && (
                   <span className="ml-0 mt-1 inline-block text-xs font-semibold text-amber-400 uppercase tracking-wide whitespace-nowrap">Required</span>
                 )}
@@ -2366,7 +2366,7 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
           <div className="flex-1 min-w-0">
             <div className="flex items-start gap-3">
               <div className={`font-bold text-lg transition-colors flex-1 min-w-0 ${active ? "text-white drop-shadow-sm" : showRequired ? "text-amber-100 group-hover:text-white" : "text-slate-200 group-hover:text-white"}`}>
-                <div className="break-words" style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}>{label}</div>
+                <div style={{ wordBreak: 'normal', overflowWrap: 'normal' }}>{label}</div>
                 {showRequired && (
                   <span className="ml-0 mt-1 inline-block text-xs font-semibold text-amber-400 uppercase tracking-wide whitespace-nowrap">Required</span>
                 )}
