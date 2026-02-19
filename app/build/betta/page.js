@@ -1514,15 +1514,17 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
           </div>
 
           <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-3">
+            <div className="flex items-start gap-3">
               <div className={`font-bold text-lg transition-colors flex-1 min-w-0 ${active ? "text-white drop-shadow-sm" : showRequired ? "text-amber-100 group-hover:text-white" : "text-slate-200 group-hover:text-white"}`}>
-                <span className="truncate block">{label}</span>
+                <span className="block break-words">{label}</span>
                 {showRequired && (
-                  <span className="ml-2 text-xs font-semibold text-amber-400 uppercase tracking-wide whitespace-nowrap">Required</span>
+                  <span className="ml-0 mt-1 inline-block text-xs font-semibold text-amber-400 uppercase tracking-wide whitespace-nowrap">Required</span>
                 )}
               </div>
               {explanation && (
-                <ProductTooltip explanation={explanation} />
+                <div className="shrink-0 mt-0.5">
+                  <ProductTooltip explanation={explanation} />
+                </div>
               )}
             </div>
             {sublabel && (
@@ -1780,9 +1782,9 @@ function VariantCard({ baseLabel, priceRange, colors, sizes, variants, isActive,
           </div>
 
           <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-3">
-              <div className={`font-bold text-lg transition-colors flex-1 ${isActive ? "text-white drop-shadow-sm" : "text-slate-200 group-hover:text-white"}`}>
-                {baseLabel}
+            <div className="flex items-start gap-3">
+              <div className={`font-bold text-lg transition-colors flex-1 min-w-0 ${isActive ? "text-white drop-shadow-sm" : "text-slate-200 group-hover:text-white"}`}>
+                <span className="block break-words">{baseLabel}</span>
               </div>
               {(() => {
                 // Get explanation - try specific variant ID first, then base type
@@ -1795,7 +1797,11 @@ function VariantCard({ baseLabel, priceRange, colors, sizes, variants, isActive,
                   : baseType && productExplanations[baseType]
                   ? productExplanations[baseType]
                   : null;
-                return explanation ? <ProductTooltip explanation={explanation} /> : null;
+                return explanation ? (
+                  <div className="shrink-0 mt-0.5">
+                    <ProductTooltip explanation={explanation} />
+                  </div>
+                ) : null;
               })()}
             </div>
             {selectedVariant && (
