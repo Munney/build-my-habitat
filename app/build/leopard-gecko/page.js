@@ -2231,7 +2231,7 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
           : "from-transparent via-slate-700 to-transparent opacity-0 group-hover:opacity-100 group-hover:from-emerald-500/50 group-hover:via-emerald-400/50 group-hover:to-emerald-500/50"
       }`} />
       
-      <div className="flex items-start justify-between gap-3 mb-4">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-3 mb-4">
         <div className="flex items-start gap-4 flex-1 min-w-0">
           <div
             className={`mt-1 w-6 h-6 rounded-full flex items-center justify-center border-2 transition-all shadow-lg shrink-0 ${
@@ -2246,10 +2246,10 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
             {showRequired && <AlertCircle size={14} className="text-amber-400 drop-shadow-sm" />}
           </div>
 
-          <div className="flex-1 min-w-0 overflow-hidden">
+          <div className="flex-1 min-w-0">
             <div className="flex items-start gap-3">
               <div className={`font-bold text-lg transition-colors flex-1 min-w-0 ${isActive ? "text-white drop-shadow-sm" : showRequired ? "text-amber-100 group-hover:text-white" : "text-slate-200 group-hover:text-white"}`}>
-                <div className="break-words hyphens-auto">{baseLabel}</div>
+                <div className="break-words" style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}>{baseLabel}</div>
                 {showRequired && (
                   <span className="ml-0 mt-1 inline-block text-xs font-semibold text-amber-400 uppercase tracking-wide whitespace-nowrap">Required</span>
                 )}
@@ -2276,7 +2276,7 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
           </div>
         </div>
 
-        <div className={`flex flex-col items-end shrink-0 min-w-[60px] sm:min-w-[80px] ${isActive ? "text-emerald-400" : showRequired ? "text-amber-400" : "text-slate-400"}`}>
+        <div className={`flex flex-col items-start sm:items-end shrink-0 sm:min-w-[80px] ${isActive ? "text-emerald-400" : showRequired ? "text-amber-400" : "text-slate-400"}`}>
           <span className="font-mono text-base sm:text-lg font-bold whitespace-nowrap">{displayPrice}</span>
           {selectedVariantItem && displayPrice !== priceRange && (
             <span className="text-xs text-slate-500 line-through mt-0.5 whitespace-nowrap">{priceRange}</span>
@@ -2348,7 +2348,7 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
           : "from-transparent via-slate-700 to-transparent opacity-0 group-hover:opacity-100 group-hover:from-emerald-500/50 group-hover:via-emerald-400/50 group-hover:to-emerald-500/50"
       }`} />
       
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
         <div className="flex items-start gap-4 flex-1 min-w-0">
           <div
             className={`mt-1 w-6 h-6 rounded-full flex items-center justify-center border-2 transition-all shadow-lg shrink-0 ${
@@ -2363,10 +2363,10 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
             {showRequired && <AlertCircle size={14} className="text-amber-400 drop-shadow-sm" />}
           </div>
 
-          <div className="flex-1 min-w-0 overflow-hidden">
+          <div className="flex-1 min-w-0">
             <div className="flex items-start gap-3">
               <div className={`font-bold text-lg transition-colors flex-1 min-w-0 ${active ? "text-white drop-shadow-sm" : showRequired ? "text-amber-100 group-hover:text-white" : "text-slate-200 group-hover:text-white"}`}>
-                <div className="break-words hyphens-auto">{label}</div>
+                <div className="break-words" style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}>{label}</div>
                 {showRequired && (
                   <span className="ml-0 mt-1 inline-block text-xs font-semibold text-amber-400 uppercase tracking-wide whitespace-nowrap">Required</span>
                 )}
@@ -2386,7 +2386,7 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
           </div>
         </div>
 
-        <div className={`flex flex-col items-end shrink-0 min-w-[60px] sm:min-w-[80px] ${active ? "text-emerald-400" : showRequired ? "text-amber-400" : "text-slate-400"}`}>
+        <div className={`flex flex-col items-start sm:items-end shrink-0 sm:min-w-[80px] ${active ? "text-emerald-400" : showRequired ? "text-amber-400" : "text-slate-400"}`}>
           <span className="font-mono text-base sm:text-lg font-bold whitespace-nowrap">${(price || 0).toFixed(2)}</span>
         </div>
       </div>
