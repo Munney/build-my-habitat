@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useEffect, useRef } from "react";
+import { useMemo, useState, useEffect, useRef, Suspense } from "react";
 import { createPortal } from "react-dom";
 import { useRouter, useSearchParams } from "next/navigation";
 import { analytics } from "../../utils/analytics";
@@ -150,7 +150,7 @@ function groupVariants(products) {
   return { groups: validGroups, standalone: finalStandalone };
 }
 
-export default function BettaBuilder() {
+function BettaBuilderContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
@@ -1289,6 +1289,18 @@ export default function BettaBuilder() {
     </main>
     <Footer variant="minimal" />
   </>
+  );
+}
+
+export default function BettaBuilder() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+        <div className="text-white text-lg">Loading...</div>
+      </div>
+    }>
+      <BettaBuilderContent />
+    </Suspense>
   );
 }
 
