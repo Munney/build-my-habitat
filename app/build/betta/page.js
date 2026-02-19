@@ -1062,7 +1062,9 @@ export default function BettaBuilder() {
             {/* Mobile Generate Habitat Button - At bottom of page content */}
             <div className="lg:hidden mt-8 mb-6 relative z-10">
               <button
+                type="button"
                 onClick={goToSummary}
+                style={{ cursor: 'pointer' }}
                 className={`w-full py-4 rounded-xl font-black text-lg flex items-center justify-center gap-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 relative z-10 ${
                   !allRequirementsMet 
                       ? "bg-slate-800/50 text-slate-500 border border-slate-700/50 hover:bg-slate-700/50" 
@@ -1129,7 +1131,9 @@ export default function BettaBuilder() {
                 </div>
 
                 <button
+                  type="button"
                   onClick={goToSummary}
+                  style={{ cursor: 'pointer' }}
                   className={`w-full py-4 rounded-xl font-black text-lg flex items-center justify-center gap-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
                     !allRequirementsMet 
                         ? "bg-slate-800/50 text-slate-500 border border-slate-700/50 hover:bg-slate-700/50" 
@@ -1242,10 +1246,12 @@ export default function BettaBuilder() {
               </div>
 
               <button
+                type="button"
                 onClick={() => {
                   goToSummary();
                   setIsMobileSidebarOpen(false);
                 }}
+                style={{ cursor: 'pointer' }}
                 className={`w-full py-4 rounded-xl font-black text-lg flex items-center justify-center gap-2 transition-all duration-300 ${
                   !allRequirementsMet 
                       ? "bg-slate-800/50 text-slate-500 border border-slate-700/50 hover:bg-slate-700/50" 
