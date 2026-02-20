@@ -972,9 +972,9 @@ function LeopardGeckoBuilderContent() {
                         : "border-slate-700/50 bg-slate-900/40 hover:border-emerald-500/50 hover:bg-slate-800/60"
                     }`}
                   >
-                    <p className="font-bold text-sm sm:text-lg text-white capitalize flex items-center justify-between min-w-0 w-full gap-3">
-                        <span className="whitespace-nowrap min-w-0 pr-3">Experienced</span>
-                        <span className="shrink-0">{experience === "experienced" ? <CheckCircle2 size={18} className="text-emerald-400 sm:w-5 sm:h-5" /> : <Unlock size={18} className="text-slate-500 sm:w-5 sm:h-5"/>}</span>
+                    <p className="font-bold text-base sm:text-lg text-white capitalize flex items-center justify-between min-w-0 w-full gap-4">
+                        <span className="whitespace-nowrap min-w-0 pr-4">Experienced</span>
+                        <span className="shrink-0">{experience === "experienced" ? <CheckCircle2 size={16} className="text-emerald-400 sm:w-5 sm:h-5" /> : <Unlock size={16} className="text-slate-500 sm:w-5 sm:h-5"/>}</span>
                     </p>
                     <p className="text-xs font-medium text-slate-400 mt-2 uppercase tracking-wider leading-relaxed">
                       Unlocks full database. Includes advanced loose substrates.
