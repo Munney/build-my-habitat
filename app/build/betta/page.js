@@ -835,14 +835,14 @@ function BettaBuilderContent() {
               <div 
                 className={`mb-4 transition-all duration-500 ease-in-out ${
                   !filtrationId 
-                    ? 'max-h-32 opacity-100 overflow-visible' 
+                    ? 'max-h-40 opacity-100 overflow-visible' 
                     : 'max-h-0 opacity-0 mb-0 overflow-hidden'
                 }`}
                 role={!filtrationId ? "alert" : undefined}
               >
                 <div className="p-4 bg-amber-500/20 border-2 border-amber-500/70 rounded-xl flex items-center gap-3 shadow-lg shadow-amber-500/20">
                   <AlertCircle size={20} className="text-amber-400 shrink-0 flex-shrink-0" />
-                  <p className="text-amber-100 font-medium text-base flex-1">One filter selection is required.</p>
+                  <p className="text-amber-100 font-medium text-base flex-1 break-words">One filter selection is required.</p>
                   <WhyRequiredToggle 
                     explanation="Filters process toxic ammonia from waste. Without filtration, ammonia builds up and can kill your betta."
                   />
@@ -888,30 +888,33 @@ function BettaBuilderContent() {
               sectionRef={(el) => { if (el) sectionRefs.current.temperature = el; }}
             >
               <div 
-                className={`mb-4 overflow-hidden transition-all duration-500 ease-in-out ${
-                  !heaterId 
-                    ? 'max-h-20 opacity-100' 
-                    : 'max-h-0 opacity-0 mb-0'
+                className={`mb-4 transition-all duration-500 ease-in-out ${
+                  !heaterId || !hasThermometer
+                    ? 'max-h-40 opacity-100 overflow-visible' 
+                    : 'max-h-0 opacity-0 mb-0 overflow-hidden'
                 }`}
-                role={!heaterId ? "alert" : undefined}
+                role={(!heaterId || !hasThermometer) ? "alert" : undefined}
               >
                 <div className="p-4 bg-amber-500/20 border-2 border-amber-500/70 rounded-xl flex items-center gap-3 shadow-lg shadow-amber-500/20">
                   <AlertCircle size={20} className="text-amber-400 shrink-0 flex-shrink-0" />
-                  <p className="text-amber-100 font-medium text-base flex-1">A heater (50W or 100W) is required.</p>
+                  <p className="text-amber-100 font-medium text-base flex-1 break-words">
+                    {!heaterId && !hasThermometer 
+                      ? "A heater (50W or 100W) and a thermometer are required."
+                      : !heaterId 
+                      ? "A heater (50W or 100W) is required."
+                      : "A thermometer is required to monitor temperature."
+                    }
+                  </p>
                   <WhyRequiredToggle 
-                    explanation="Bettas need 78-80°F water. Room temperature is too cold, causing stress and weakened immune systems."
+                    explanation={!heaterId && !hasThermometer
+                      ? "Bettas need 78-80°F water. A heater maintains temperature and a thermometer lets you monitor it. Room temperature is too cold, causing stress and weakened immune systems."
+                      : !heaterId
+                      ? "Bettas need 78-80°F water. Room temperature is too cold, causing stress and weakened immune systems."
+                      : "You need a thermometer to monitor temperature. Too cold or too hot causes stress and health issues."
+                    }
                   />
                 </div>
               </div>
-              {/* Thermometer requirement note */}
-              {!hasThermometer && (
-                <div className="mb-4 p-3 bg-amber-500/10 border border-amber-500/20 text-amber-200 text-xs rounded-xl flex items-center gap-2">
-                  <AlertCircle size={16} /> Thermometer is required to monitor temperature.
-                  <WhyRequiredToggle 
-                    explanation="You need a thermometer to monitor temperature. Too cold or too hot causes stress and health issues."
-                  />
-                </div>
-              )}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {HEATING.map((h) => {
                   const isHeater = h.id === "50w" || h.id === "100w";
