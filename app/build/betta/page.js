@@ -735,9 +735,9 @@ function BettaBuilderContent() {
                         : "border-slate-700/50 bg-slate-900/40 hover:border-blue-500/50 hover:bg-slate-800/60"
                     }`}
                   >
-                    <p className="font-bold text-lg text-white capitalize flex items-center justify-between min-w-0 w-full">
-                        <span className="whitespace-nowrap min-w-0">Beginner</span>
-                        <span className="shrink-0 ml-2">{experience === "beginner" ? <CheckCircle2 size={20} className="text-blue-400" /> : <ShieldCheck size={20} className="text-slate-500"/>}</span>
+                    <p className="font-bold text-base sm:text-lg text-white capitalize flex items-center justify-between min-w-0 w-full gap-2">
+                        <span className="whitespace-nowrap min-w-0 pr-2">Beginner</span>
+                        <span className="shrink-0">{experience === "beginner" ? <CheckCircle2 size={18} className="text-blue-400 sm:w-5 sm:h-5" /> : <ShieldCheck size={18} className="text-slate-500 sm:w-5 sm:h-5"/>}</span>
                     </p>
                     <p className="text-xs font-medium text-slate-400 mt-2 uppercase tracking-wider leading-relaxed">
                       Hides Bowls & Unsafe options. Focuses on success.
@@ -753,9 +753,9 @@ function BettaBuilderContent() {
                         : "border-slate-700/50 bg-slate-900/40 hover:border-blue-500/50 hover:bg-slate-800/60"
                     }`}
                   >
-                    <p className="font-bold text-lg text-white capitalize flex items-center justify-between min-w-0 w-full">
-                        <span className="whitespace-nowrap min-w-0">Experienced</span>
-                        <span className="shrink-0 ml-2">{experience === "experienced" ? <CheckCircle2 size={20} className="text-blue-400" /> : <Unlock size={20} className="text-slate-500"/>}</span>
+                    <p className="font-bold text-base sm:text-lg text-white capitalize flex items-center justify-between min-w-0 w-full gap-2">
+                        <span className="whitespace-nowrap min-w-0 pr-2">Experienced</span>
+                        <span className="shrink-0">{experience === "experienced" ? <CheckCircle2 size={18} className="text-blue-400 sm:w-5 sm:h-5" /> : <Unlock size={18} className="text-slate-500 sm:w-5 sm:h-5"/>}</span>
                     </p>
                     <p className="text-xs font-medium text-slate-400 mt-2 uppercase tracking-wider leading-relaxed">
                       Unlocks everything (even Bowls, for education).
