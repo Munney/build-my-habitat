@@ -2263,8 +2263,6 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
       className={`group relative isolate p-6 rounded-3xl border-2 transition-all duration-300 cursor-pointer overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
         isActive
           ? "border-emerald-500/80 bg-gradient-to-br from-emerald-500/15 via-emerald-500/10 to-slate-900/60 shadow-[0_0_40px_-5px_rgba(16,185,129,0.4)] shadow-emerald-500/20 scale-[1.02] z-10"
-          : showRequired
-          ? "border-amber-500/60 bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-slate-900/60 hover:border-amber-500/80 hover:shadow-lg hover:shadow-amber-500/10"
           : "border-slate-700/60 bg-gradient-to-br from-slate-900/70 via-slate-900/50 to-slate-900/70 hover:border-emerald-500/40 hover:bg-gradient-to-br hover:from-slate-800/70 hover:via-slate-800/50 hover:to-slate-800/70 hover:shadow-lg hover:shadow-emerald-500/10"
       }`}
       onClick={onSelect}
@@ -2277,12 +2275,10 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
         }
       }}
     >
-      {/* Premium accent line */}
+      {/* Premium accent line - no orange for required */}
       <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r transition-all duration-300 ${
         isActive 
           ? "from-emerald-400 via-cyan-400 to-emerald-500 opacity-100" 
-          : showRequired
-          ? "from-amber-400 via-amber-300 to-amber-400 opacity-100"
           : "from-transparent via-slate-700 to-transparent opacity-0 group-hover:opacity-100 group-hover:from-emerald-500/50 group-hover:via-emerald-400/50 group-hover:to-emerald-500/50"
       }`} />
       
@@ -2292,21 +2288,19 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
             className={`mt-1 w-6 h-6 rounded-full flex items-center justify-center border-2 transition-all shadow-lg shrink-0 ${
               isActive 
                 ? "bg-gradient-to-br from-emerald-400 to-emerald-600 border-emerald-400 shadow-emerald-500/50" 
-                : showRequired
-                ? "bg-gradient-to-br from-amber-500/30 to-amber-600/30 border-amber-500/60 shadow-amber-500/30"
                 : "bg-gradient-to-br from-slate-700 to-slate-800 border-slate-600 group-hover:border-emerald-500/50 group-hover:shadow-emerald-500/20"
             }`}
           >
             {isActive && <CheckCircle2 size={16} className="text-white drop-shadow-sm" />}
-            {showRequired && <AlertCircle size={14} className="text-amber-400 drop-shadow-sm" />}
+            {showRequired && <AlertCircle size={14} className="text-slate-400 drop-shadow-sm" />}
           </div>
 
           <div className="flex-1 min-w-0">
             <div className="flex items-start gap-3">
-              <div className={`font-bold text-lg transition-colors flex-1 min-w-0 ${isActive ? "text-white drop-shadow-sm" : showRequired ? "text-amber-100 group-hover:text-white" : "text-slate-200 group-hover:text-white"}`}>
+              <div className={`font-bold text-lg transition-colors flex-1 min-w-0 ${isActive ? "text-white drop-shadow-sm" : "text-slate-200 group-hover:text-white"}`}>
                 <div style={{ wordBreak: 'normal', overflowWrap: 'normal' }}>{baseLabel}</div>
                 {showRequired && (
-                  <span className="ml-0 mt-1 inline-block text-xs font-semibold text-amber-400 uppercase tracking-wide whitespace-nowrap">Required</span>
+                  <span className="ml-0 mt-1 inline-block text-xs font-semibold text-slate-400 uppercase tracking-wide whitespace-nowrap">Required</span>
                 )}
                 {sublabel === "Advanced" && (
                   <span className="ml-0 mt-1 inline-block text-xs font-semibold text-purple-400 uppercase tracking-wide bg-purple-500/20 px-2 py-0.5 rounded-md border border-purple-500/30 whitespace-nowrap">Advanced</span>
@@ -2331,7 +2325,7 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
           </div>
         </div>
 
-        <div className={`flex flex-col items-start sm:items-end shrink-0 sm:min-w-[80px] ${isActive ? "text-emerald-400" : showRequired ? "text-amber-400" : "text-slate-400"}`}>
+        <div className={`flex flex-col items-start sm:items-end shrink-0 sm:min-w-[80px] ${isActive ? "text-emerald-400" : "text-slate-400"}`}>
           <span className="font-mono text-base sm:text-lg font-bold whitespace-nowrap">{displayPrice}</span>
           {selectedVariantItem && displayPrice !== priceRange && (
             <span className="text-xs text-slate-500 line-through mt-0.5 whitespace-nowrap">{priceRange}</span>
@@ -2359,8 +2353,6 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
             className={`w-full bg-slate-900 border-2 rounded-xl px-4 py-2.5 text-sm font-medium text-slate-100 transition-all duration-200 ${
               isActive
                 ? "border-emerald-500/50 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-500/30"
-                : showRequired
-                ? "border-amber-500/50 focus:border-amber-400 focus:ring-2 focus:ring-amber-500/30"
                 : "border-slate-600/50 hover:border-slate-500 focus:border-emerald-500/50 focus:ring-2 focus:ring-emerald-500/20"
             } focus:outline-none cursor-pointer`}
             style={{ colorScheme: 'dark' }}
@@ -2389,17 +2381,13 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
       className={`group relative isolate p-6 rounded-3xl border-2 cursor-pointer transition-all duration-300 overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
         active
           ? "border-emerald-500/80 bg-gradient-to-br from-emerald-500/15 via-emerald-500/10 to-slate-900/60 shadow-[0_0_40px_-5px_rgba(16,185,129,0.4)] shadow-emerald-500/20 scale-[1.02] z-10"
-          : showRequired
-          ? "border-amber-500/60 bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-slate-900/60 hover:border-amber-500/80 hover:shadow-lg hover:shadow-amber-500/10"
           : "border-slate-700/60 bg-gradient-to-br from-slate-900/70 via-slate-900/50 to-slate-900/70 hover:border-emerald-500/40 hover:bg-gradient-to-br hover:from-slate-800/70 hover:via-slate-800/50 hover:to-slate-800/70 hover:shadow-lg hover:shadow-emerald-500/10"
       }`}
     >
-      {/* Premium accent line */}
+      {/* Premium accent line - no orange for required */}
       <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r transition-all duration-300 ${
         active 
           ? "from-emerald-400 via-cyan-400 to-emerald-500 opacity-100" 
-          : showRequired
-          ? "from-amber-400 via-amber-300 to-amber-400 opacity-100"
           : "from-transparent via-slate-700 to-transparent opacity-0 group-hover:opacity-100 group-hover:from-emerald-500/50 group-hover:via-emerald-400/50 group-hover:to-emerald-500/50"
       }`} />
       
@@ -2409,21 +2397,19 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
             className={`mt-1 w-6 h-6 rounded-full flex items-center justify-center border-2 transition-all shadow-lg shrink-0 ${
               active 
                 ? "bg-gradient-to-br from-emerald-400 to-emerald-600 border-emerald-400 shadow-emerald-500/50" 
-                : showRequired
-                ? "bg-gradient-to-br from-amber-500/30 to-amber-600/30 border-amber-500/60 shadow-amber-500/30"
                 : "bg-gradient-to-br from-slate-700 to-slate-800 border-slate-600 group-hover:border-emerald-500/50 group-hover:shadow-emerald-500/20"
             }`}
           >
             {active && <CheckCircle2 size={16} className="text-white drop-shadow-sm" />}
-            {showRequired && <AlertCircle size={14} className="text-amber-400 drop-shadow-sm" />}
+            {showRequired && <AlertCircle size={14} className="text-slate-400 drop-shadow-sm" />}
           </div>
 
           <div className="flex-1 min-w-0">
             <div className="flex items-start gap-3">
-              <div className={`font-bold text-lg transition-colors flex-1 min-w-0 ${active ? "text-white drop-shadow-sm" : showRequired ? "text-amber-100 group-hover:text-white" : "text-slate-200 group-hover:text-white"}`}>
+              <div className={`font-bold text-lg transition-colors flex-1 min-w-0 ${active ? "text-white drop-shadow-sm" : "text-slate-200 group-hover:text-white"}`}>
                 <div style={{ wordBreak: 'normal', overflowWrap: 'normal' }}>{label}</div>
                 {showRequired && (
-                  <span className="ml-0 mt-1 inline-block text-xs font-semibold text-amber-400 uppercase tracking-wide whitespace-nowrap">Required</span>
+                  <span className="ml-0 mt-1 inline-block text-xs font-semibold text-slate-400 uppercase tracking-wide whitespace-nowrap">Required</span>
                 )}
                 {sublabel === "Recommended" && (
                   <span className="ml-0 mt-1 inline-block text-xs font-semibold text-emerald-400 uppercase tracking-wide bg-emerald-500/20 px-2 py-0.5 rounded-md border border-emerald-500/30 whitespace-nowrap">Recommended</span>
@@ -2441,7 +2427,7 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
           </div>
         </div>
 
-        <div className={`flex flex-col items-start sm:items-end shrink-0 sm:min-w-[80px] ${active ? "text-emerald-400" : showRequired ? "text-amber-400" : "text-slate-400"}`}>
+        <div className={`flex flex-col items-start sm:items-end shrink-0 sm:min-w-[80px] ${active ? "text-emerald-400" : "text-slate-400"}`}>
           <span className="font-mono text-base sm:text-lg font-bold whitespace-nowrap">${(price || 0).toFixed(2)}</span>
         </div>
       </div>
