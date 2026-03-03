@@ -22,7 +22,8 @@ import {
   ChevronDown,
   AlertCircle,
   Menu,
-  X
+  X,
+  RotateCcw
 } from "lucide-react";
 // 👇 Verify this path matches your folder structure
 import config from "../../../data/betta.json";
@@ -598,6 +599,19 @@ function BettaBuilderContent() {
     router.push(`/summary/betta?${params.toString()}`);
   }
 
+  const resetBuild = () => {
+    setExperience(null);
+    setEnclosureId(null);
+    setFiltrationId(null);
+    setSubstrateId(null);
+    setSubstrateVariants({});
+    setHeaterId(null);
+    setHasThermometer(false);
+    setDecorIds([]);
+    setDecorVariants({});
+    setCareIds([]);
+  };
+
   const scrollToSection = (sectionId) => {
     const section = sectionRefs.current[sectionId];
     if (section) {
@@ -1064,8 +1078,8 @@ function BettaBuilderContent() {
               </div>
             </Section>
 
-            {/* Mobile Generate Habitat Button - At bottom of page content */}
-            <div className="lg:hidden mt-8 mb-6 relative z-10">
+            {/* Mobile Generate Habitat + Reset - At bottom of page content */}
+            <div className="lg:hidden mt-8 mb-6 relative z-10 space-y-3">
               <button
                 type="button"
                 onClick={goToSummary}
@@ -1077,6 +1091,13 @@ function BettaBuilderContent() {
                 }`}
               >
                 Generate Habitat <ArrowRight size={20} className="drop-shadow-sm" />
+              </button>
+              <button
+                type="button"
+                onClick={resetBuild}
+                className="w-full py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 text-slate-400 hover:text-slate-200 border border-slate-600 hover:border-slate-500 bg-slate-800/50 hover:bg-slate-700/50 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+              >
+                <RotateCcw size={18} /> Reset build
               </button>
             </div>
 
@@ -1146,6 +1167,13 @@ function BettaBuilderContent() {
                   }`}
                 >
                   Generate Habitat <ArrowRight size={20} className="drop-shadow-sm" />
+                </button>
+                <button
+                  type="button"
+                  onClick={resetBuild}
+                  className="w-full py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 text-slate-400 hover:text-slate-200 border border-slate-600 hover:border-slate-500 bg-slate-800/30 hover:bg-slate-700/50 transition-all duration-200 mt-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+                >
+                  <RotateCcw size={18} /> Reset build
                 </button>
               </div>
             </div>

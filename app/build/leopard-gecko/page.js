@@ -22,7 +22,8 @@ import {
   AlertCircle,
   Menu,
   X,
-  Sun
+  Sun,
+  RotateCcw
 } from "lucide-react";
 import config from "../../../data/leopard-gecko.json";
 import ProductTooltip from "../../components/ProductTooltip";
@@ -444,6 +445,18 @@ function LeopardGeckoBuilderContent() {
     
     // Scroll to top to show the applied template
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const resetBuild = () => {
+    setExperience(null);
+    setEnclosureId(null);
+    setSubstrateIds([]);
+    setSubstrateVariants({});
+    setHeatingIds([]);
+    setHeatingVariants({});
+    setHideIds([]);
+    setHideVariants({});
+    setSupplementIds([]);
   };
 
   // --- FILTERING LOGIC ---
@@ -1356,8 +1369,8 @@ function LeopardGeckoBuilderContent() {
               </div>
             </Section>
 
-            {/* Mobile Generate Habitat Button - At bottom of page content */}
-            <div className="lg:hidden mt-8 mb-6 relative z-10">
+            {/* Mobile Generate Habitat + Reset - At bottom of page content */}
+            <div className="lg:hidden mt-8 mb-6 relative z-10 space-y-3">
               <button
                 onClick={goToSummary}
                 disabled={!allRequirementsMet}
@@ -1368,6 +1381,13 @@ function LeopardGeckoBuilderContent() {
                 }`}
               >
                 Generate Habitat <ArrowRight size={20} className="drop-shadow-sm" />
+              </button>
+              <button
+                type="button"
+                onClick={resetBuild}
+                className="w-full py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 text-slate-400 hover:text-slate-200 border border-slate-600 hover:border-slate-500 bg-slate-800/50 hover:bg-slate-700/50 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+              >
+                <RotateCcw size={18} /> Reset build
               </button>
             </div>
           </div>
@@ -1433,6 +1453,13 @@ function LeopardGeckoBuilderContent() {
                   }`}
                 >
                   Generate Habitat <ArrowRight size={20} className="drop-shadow-sm" />
+                </button>
+                <button
+                  type="button"
+                  onClick={resetBuild}
+                  className="w-full py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 text-slate-400 hover:text-slate-200 border border-slate-600 hover:border-slate-500 bg-slate-800/30 hover:bg-slate-700/50 transition-all duration-200 mt-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+                >
+                  <RotateCcw size={18} /> Reset build
                 </button>
               </div>
             </div>
