@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'Leopard Gecko Not Eating? Causes & Solutions 2025',
+  title: 'Leopard Gecko Not Eating? Causes & Solutions 2026',
   description: 'Why is my leopard gecko not eating? Complete guide to causes and solutions. Learn about temperature issues, stress, illness, shedding, and how to get your gecko eating again.',
   keywords: 'leopard gecko not eating, leopard gecko not eating causes, why is my leopard gecko not eating, leopard gecko stopped eating, leopard gecko not eating solutions, leopard gecko not eating stress, leopard gecko not eating temperature',
   openGraph: {

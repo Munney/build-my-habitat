@@ -69,7 +69,7 @@ export default function GeckoSubstratePage() {
             Complete Guide
           </div>
           <h1 className="text-5xl md:text-6xl font-black text-white mb-6 drop-shadow-lg leading-tight">
-            Leopard Gecko Substrate Guide 2025
+            Leopard Gecko Substrate Guide 2026
           </h1>
           <p className="text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto">
             Learn which substrates are safe for leopard geckos and which are dangerous. Complete guide to choosing the right substrate to prevent impaction.

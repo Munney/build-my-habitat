@@ -446,10 +446,9 @@ function BettaBuilderContent() {
     };
   }, [experience, enclosureId, filtrationId, heaterId, hasThermometer, substrateId, decorIds, careIds, selectedEnclosure]);
 
-  // Check if all required sections are completed
+  // Check if all required sections are completed (keeper level is not required)
   const allRequirementsMet = useMemo(() => {
-    return sectionCompletion.experience &&
-           sectionCompletion.enclosure &&
+    return sectionCompletion.enclosure &&
            sectionCompletion.filtration &&
            sectionCompletion.temperature &&
            sectionCompletion.substrate;
@@ -459,7 +458,7 @@ function BettaBuilderContent() {
   const isSectionLocked = useMemo(() => {
     return {
       experience: false, // Always available
-      enclosure: !experience, // Needs experience level
+      enclosure: false, // Keeper level not required; tank can be selected anytime
       filtration: !sectionCompletion.enclosure, // Needs tank selected
       temperature: !sectionCompletion.filtration, // Needs filter selected
       substrate: !sectionCompletion.temperature, // Needs heater/thermometer
@@ -921,8 +920,8 @@ function BettaBuilderContent() {
                   const isThermometer = h.id === "thermometer";
                   const isActive = isHeater ? heaterId === h.id : (isThermometer ? hasThermometer : false);
                   
-                  // Only thermometer is required (not heaters)
-                  const isRequired = isThermometer && !hasThermometer;
+                  // Do not show orange required highlight on thermometer (or heaters)
+                  const isRequired = false;
                   
                   // Recommended badges
                   const isRecommended = h.id === "50w"; // 50W is recommended for most tanks

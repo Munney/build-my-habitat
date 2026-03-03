@@ -75,7 +75,7 @@ export default function BettaTankSizePage() {
             Complete Guide
           </div>
           <h1 className="text-5xl md:text-6xl font-black text-white mb-6 drop-shadow-lg leading-tight">
-            Betta Fish Tank Size Guide 2025
+            Betta Fish Tank Size Guide 2026
           </h1>
           <p className="text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto">
             Learn why betta fish need at least 5 gallons, why bowls are dangerous, and what size tank is best for your betta's health and happiness.

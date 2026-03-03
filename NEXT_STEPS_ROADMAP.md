@@ -127,7 +127,7 @@ Based on demand and competition:
 - These rank well and drive traffic
 
 #### **Product Reviews:**
-- "Best Leopard Gecko Tanks 2025"
+- "Best Leopard Gecko Tanks 2026"
 - "Best Betta Fish Heaters"
 - "Top 10 Safe Substrates"
 - High commercial intent keywords

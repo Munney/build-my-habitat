@@ -72,7 +72,7 @@ export default function BettaHeaterPage() {
             Complete Guide
           </div>
           <h1 className="text-5xl md:text-6xl font-black text-white mb-6 drop-shadow-lg leading-tight">
-            Betta Fish Heater Guide 2025
+            Betta Fish Heater Guide 2026
           </h1>
           <p className="text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto">
             Learn why betta fish need heaters, what temperature to maintain, and how to choose and set up the right heater for your betta tank.

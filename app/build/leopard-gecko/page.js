@@ -993,14 +993,14 @@ function LeopardGeckoBuilderContent() {
               <div 
                 className={`mb-4 transition-all duration-500 ease-in-out ${
                   !enclosureId 
-                    ? 'max-h-40 opacity-100 overflow-visible' 
+                    ? 'min-h-[4.5rem] max-h-64 opacity-100 overflow-visible' 
                     : 'max-h-0 opacity-0 mb-0 overflow-hidden'
                 }`}
                 role={!enclosureId ? "alert" : undefined}
               >
-                <div className="p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
+                <div className="p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3 flex-wrap sm:flex-nowrap">
                   <AlertCircle size={20} className="text-amber-400 shrink-0" />
-                  <p className="text-amber-100 font-medium flex-1 break-words">One enclosure selection is required.</p>
+                  <p className="text-amber-100 font-medium flex-1 break-words min-w-0">One enclosure selection is required.</p>
                   <WhyRequiredToggle 
                     explanation="Geckos under 20 gallons show stress and can't maintain proper temperature gradients. Minimum size ensures space for hides and natural behaviors."
                   />
@@ -1150,14 +1150,14 @@ function LeopardGeckoBuilderContent() {
               <div 
                 className={`mb-4 transition-all duration-500 ease-in-out ${
                   substrateIds.length === 0 && Object.keys(substrateVariants).length === 0
-                    ? 'max-h-40 opacity-100 overflow-visible' 
+                    ? 'min-h-[4.5rem] max-h-64 opacity-100 overflow-visible' 
                     : 'max-h-0 opacity-0 mb-0 overflow-hidden'
                 }`}
                 role={substrateIds.length === 0 && Object.keys(substrateVariants).length === 0 ? "alert" : undefined}
               >
-                <div className="p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
+                <div className="p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3 flex-wrap sm:flex-nowrap">
                   <AlertCircle size={20} className="text-amber-400 shrink-0" />
-                  <p className="text-amber-100 font-medium flex-1 break-words">At least one substrate selection is required.</p>
+                  <p className="text-amber-100 font-medium flex-1 break-words min-w-0">At least one substrate selection is required.</p>
                   <WhyRequiredToggle 
                     explanation="Substrate provides traction, maintains humidity, and supports natural behaviors. Without it, geckos can develop stress and health issues."
                   />

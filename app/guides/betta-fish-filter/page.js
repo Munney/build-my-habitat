@@ -69,7 +69,7 @@ export default function BettaFilterPage() {
             Complete Guide
           </div>
           <h1 className="text-5xl md:text-6xl font-black text-white mb-6 drop-shadow-lg leading-tight">
-            Betta Fish Filter Guide 2025
+            Betta Fish Filter Guide 2026
           </h1>
           <p className="text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto">
             Learn why betta fish need filters, which filters are best (sponge filters), and how to set up low-flow filtration that won't stress your betta.

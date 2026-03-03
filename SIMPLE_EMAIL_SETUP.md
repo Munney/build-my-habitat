@@ -24,8 +24,8 @@ Format:
     "email": "user@example.com",
     "source": "popup",
     "leadMagnet": "Complete Setup Checklist",
-    "timestamp": "2025-01-15T10:30:00.000Z",
-    "date": "1/15/2025"
+    "timestamp": "2026-01-15T10:30:00.000Z",
+    "date": "1/15/2026"
   }
 ]
 ```

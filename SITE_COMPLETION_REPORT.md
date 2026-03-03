@@ -57,8 +57,8 @@
 - ✅ Mobile-first responsive
 
 ### 📚 **Content (Complete)**
-- ✅ Complete Leopard Gecko Setup Guide (2025)
-- ✅ Complete Betta Fish Setup Guide (2025)
+- ✅ Complete Leopard Gecko Setup Guide (2026)
+- ✅ Complete Betta Fish Setup Guide (2026)
 - ✅ FAQ sections on guide pages
 - ✅ Research articles page
 - ✅ Care sheets page
