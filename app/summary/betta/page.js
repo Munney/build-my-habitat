@@ -2,11 +2,11 @@
 
 import React, { useMemo, Suspense, useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { 
-  CheckCircle2, 
-  Share2, 
-  Printer, 
-  ArrowLeft, 
+import {
+  CheckCircle2,
+  Share2,
+  Printer,
+  ArrowLeft,
   ShieldCheck,
   ExternalLink,
   ArrowRight,
@@ -15,114 +15,42 @@ import {
   Check,
   Bookmark,
   BookmarkCheck,
-  Download
+  Download,
+  ShoppingCart,
+  HelpCircle,
 } from "lucide-react";
 import config from "../../../data/betta.json";
 import { analytics, trackEvent } from "../../utils/analytics";
 import { buildStorage } from "../../utils/buildStorage";
+import { getAsinFromUrl, buildAmazonCartUrl, getStableConfigId } from "../../utils/amazonCart";
 import { EmailCaptureInline, EmailCapturePopup, ExitIntentTracker } from "../../components/EmailCapture";
 import { PremiumPDFExport } from "../../components/PremiumPDFExport";
 import { SocialShare } from "../../components/SocialShare";
 import { CareInstructions } from "../../components/CareInstructions";
 
-// Print styles - Simple receipt format
-if (typeof window !== 'undefined') {
-  const style = document.createElement('style');
-  style.textContent = `
-    /* Hide print-only content on screen */
-    .print-receipt-only {
-      display: none !important;
-    }
-    .print-receipt-only-hidden {
-      display: block;
-    }
-    @media print {
-      @page {
-        size: letter;
-        margin: 0.5in;
-      }
-      * {
-        color: black !important;
-        background: white !important;
-        box-shadow: none !important;
-        border: none !important;
-        border-radius: 0 !important;
-      }
-      body {
-        background: white !important;
-        font-size: 11pt !important;
-        font-family: Arial, sans-serif !important;
-        line-height: 1.4 !important;
-      }
-      nav, footer, .no-print, button, a[href^="http"], img, svg, .bg-gradient, .backdrop-blur {
-        display: none !important;
-      }
-      main {
-        padding: 0 !important;
-        margin: 0 !important;
-        max-width: 100% !important;
-      }
-      .print-receipt {
-        display: block !important;
-      }
-      .print-receipt-header {
-        text-align: center;
-        margin-bottom: 1em;
-        border-bottom: 2px solid black;
-        padding-bottom: 0.5em;
-      }
-      .print-receipt-header h1 {
-        font-size: 16pt !important;
-        font-weight: bold !important;
-        margin: 0 0 0.3em 0 !important;
-      }
-      .print-receipt-items {
-        margin: 1em 0;
-      }
-      .print-receipt-item {
-        display: flex;
-        justify-content: space-between;
-        padding: 0.3em 0;
-        border-bottom: 1px solid #ddd;
-        font-size: 11pt !important;
-      }
-      .print-receipt-item-name {
-        flex: 1;
-      }
-      .print-receipt-item-price {
-        font-weight: bold;
-        margin-left: 1em;
-      }
-      .print-receipt-total {
-        margin-top: 1em;
-        padding-top: 0.5em;
-        border-top: 2px solid black;
-        display: flex;
-        justify-content: space-between;
-        font-size: 14pt !important;
-        font-weight: bold !important;
-      }
-      /* Show receipt, hide everything else */
-      .print-receipt-only {
-        display: block !important;
-      }
-      .print-receipt-only-hidden {
-        display: none !important;
-      }
-    }
-  `;
-  document.head.appendChild(style);
-}
-
-// 👇 REPLACE THIS WITH YOUR ACTUAL AMAZON ASSOCIATE TAG
 const AFFILIATE_TAG = "habitatbuilde-20";
 
-function getAsinFromUrl(url) {
-  if (!url) return null;
-  const regex = /(?:dp|gp\/product)\/([A-Z0-9]{10})/;
-  const match = url.match(regex);
-  return match ? match[1] : null;
-}
+const PRINT_STYLES_BETTA = `
+  .print-receipt-only { display: none !important; }
+  .print-receipt-only-hidden { display: block; }
+  @media print {
+    @page { size: letter; margin: 0.5in; }
+    * { color: black !important; background: white !important; box-shadow: none !important; border: none !important; border-radius: 0 !important; }
+    body { background: white !important; font-size: 11pt !important; font-family: Arial, sans-serif !important; line-height: 1.4 !important; }
+    nav, footer, .no-print, button, a[href^="http"], img, svg, .bg-gradient, .backdrop-blur { display: none !important; }
+    main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; }
+    .print-receipt { display: block !important; }
+    .print-receipt-header { text-align: center; margin-bottom: 1em; border-bottom: 2px solid black; padding-bottom: 0.5em; }
+    .print-receipt-header h1 { font-size: 16pt !important; font-weight: bold !important; margin: 0 0 0.3em 0 !important; }
+    .print-receipt-items { margin: 1em 0; }
+    .print-receipt-item { display: flex; justify-content: space-between; padding: 0.3em 0; border-bottom: 1px solid #ddd; font-size: 11pt !important; }
+    .print-receipt-item-name { flex: 1; }
+    .print-receipt-item-price { font-weight: bold; margin-left: 1em; }
+    .print-receipt-total { margin-top: 1em; padding-top: 0.5em; border-top: 2px solid black; display: flex; justify-content: space-between; font-size: 14pt !important; font-weight: bold !important; }
+    .print-receipt-only { display: block !important; }
+    .print-receipt-only-hidden { display: none !important; }
+  }
+`;
 
 export default function BettaSummary() {
   return (
@@ -150,6 +78,18 @@ function SummaryContent() {
   const [showNameDialog, setShowNameDialog] = useState(false);
   const [buildName, setBuildName] = useState("");
   const [showEmailPopup, setShowEmailPopup] = useState(false);
+
+  const configId = useMemo(() => getStableConfigId(), []);
+
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    if (document.getElementById("print-styles-betta")) return;
+    const style = document.createElement("style");
+    style.id = "print-styles-betta";
+    style.textContent = PRINT_STYLES_BETTA;
+    document.head.appendChild(style);
+    return () => style.remove();
+  }, []);
 
   // --- 1. REHYDRATE DATA ---
   const selections = useMemo(() => {
@@ -181,12 +121,12 @@ function SummaryContent() {
     ...selections.care
   ].filter(Boolean);
 
-  // 👇 FIX: Total Price Calculation with toFixed(2)
   const total = allItems.reduce((acc, item) => acc + (item.price || 0), 0).toFixed(2);
+  const totalNumber = useMemo(() => Number(total), [total]);
 
   // Track summary view and check if build is saved
   useEffect(() => {
-    analytics.trackSummaryView("betta", parseFloat(total), allItems.length);
+    analytics.trackSummaryView("betta", totalNumber, allItems.length);
     
     // Check if this build is already saved
     const builds = buildStorage.getAllBuilds();
@@ -196,39 +136,35 @@ function SummaryContent() {
       setBuildSaved(true);
       setBuildName(savedBuild.name || `Betta Build - $${total}`);
     }
-  }, [total, allItems.length]);
+  }, [totalNumber, allItems.length]);
 
-  // --- 2. BUILD AMAZON CART URL ---
-  const amazonCartUrl = useMemo(() => {
-    const baseUrl = "https://www.amazon.com/gp/aws/cart/add.html";
-    const params = new URLSearchParams();
-    
-    params.append("AssociateTag", AFFILIATE_TAG);
+  const amazonCartUrl = useMemo(() => buildAmazonCartUrl(allItems, AFFILIATE_TAG), [allItems]);
 
-    // Deduplicate items by ASIN to prevent adding duplicates
-    const seenAsins = new Set();
-    const uniqueItems = allItems.filter((item) => {
-        const asin = item.asin || getAsinFromUrl(item.defaultProductUrl);
-        if (asin && !seenAsins.has(asin)) {
-            seenAsins.add(asin);
-            return true;
-        }
-        return false;
-    });
+  // Required-only items: tank, filter, heater, thermometer, substrate, conditioner, test kit
+  const requiredItems = useMemo(() => {
+    const heating = selections.heating || [];
+    const care = selections.care || [];
+    const careRequired = (Array.isArray(care) ? care : []).filter(
+      (c) => c && (c.id === "conditioner" || c.id === "testkit")
+    );
+    return [
+      selections.enclosure,
+      selections.filtration,
+      ...heating,
+      selections.substrate,
+      ...careRequired
+    ].filter(Boolean);
+  }, [selections.enclosure, selections.filtration, selections.heating, selections.substrate, selections.care]);
 
-    let index = 1;
-    uniqueItems.forEach((item) => {
-        const asin = item.asin || getAsinFromUrl(item.defaultProductUrl);
-        if (asin) {
-            params.append(`ASIN.${index}`, asin);
-            params.append(`Quantity.${index}`, "1");
-            index++;
-        }
-    });
+  // Only include required items that have an ASIN (so cart URL works)
+  const requiredItemsWithAsin = useMemo(() => {
+    return requiredItems.filter((item) => item.asin || getAsinFromUrl(item.defaultProductUrl));
+  }, [requiredItems]);
 
-    return `${baseUrl}?${params.toString()}`;
-  }, [allItems]);
+  const amazonCartUrlRequired = useMemo(() => buildAmazonCartUrl(requiredItemsWithAsin, AFFILIATE_TAG), [requiredItemsWithAsin]);
 
+  const requiredTotal = requiredItemsWithAsin.reduce((acc, item) => acc + (item.price || 0), 0).toFixed(2);
+  const requiredTotalNumber = Number(requiredTotal);
 
   const handleSaveClick = () => {
     // Set default name
@@ -237,7 +173,7 @@ function SummaryContent() {
   };
 
   const handleSaveBuild = () => {
-    const buildData = buildStorage.createBuildData("betta", selections, total, allItems);
+    const buildData = buildStorage.createBuildData("betta", selections, total, allItems, configId);
     buildData.shareUrl = window.location.href;
     buildData.name = buildName.trim() || `Betta Build - $${total}`;
     
@@ -257,7 +193,7 @@ function SummaryContent() {
         <div className="print-receipt-only print-receipt" style={{ display: 'none' }}>
           <div className="print-receipt-header">
             <h1>{buildName || `Final Betta Build`}</h1>
-            <p>Verified configuration ID: #{Math.floor(Math.random() * 99999)}</p>
+            <p>Verified configuration ID: #{configId}</p>
           </div>
           <div className="print-receipt-items">
             {allItems.map((item, i) => (
@@ -298,7 +234,7 @@ function SummaryContent() {
             </h1>
             
             <p className="text-slate-300 mt-2 font-medium">
-              Verified configuration ID: <span className="font-mono text-blue-400">#{Math.floor(Math.random() * 99999)}</span>
+              Verified configuration ID: <span className="font-mono text-blue-400">#{configId}</span>
             </p>
           </div>
 
@@ -399,15 +335,15 @@ function SummaryContent() {
                     <ol className="space-y-2 text-sm text-slate-300">
                         <li className="flex gap-3">
                             <span className="text-blue-400 font-bold">1.</span>
-                            <span>Purchase all items from the list below (click any item to view on Amazon)</span>
+                            <span>Add essentials to cart</span>
                         </li>
                         <li className="flex gap-3">
                             <span className="text-blue-400 font-bold">2.</span>
-                            <span>Set up your tank and cycle it before adding your betta (this takes 4-6 weeks)</span>
+                            <span>Cycle tank 2–4 weeks, then test water</span>
                         </li>
                         <li className="flex gap-3">
                             <span className="text-blue-400 font-bold">3.</span>
-                            <span>Read the care instructions below for detailed setup steps</span>
+                            <span>Add decor & heater, then acclimate your betta</span>
                         </li>
                     </ol>
                 </div>
@@ -422,19 +358,29 @@ function SummaryContent() {
                     
                     <div className="divide-y divide-white/5">
                         {allItems.length === 0 ? (
-                            <div className="p-10 text-center text-slate-500 italic">No items selected.</div>
+                            <div className="p-10 text-center">
+                              <p className="text-slate-500 font-medium mb-4">No items in this build yet.</p>
+                              <a
+                                href="/build/betta"
+                                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold transition"
+                              >
+                                Start builder <ArrowRight size={16} />
+                              </a>
+                            </div>
                         ) : (
                             allItems.map((item, i) => {
-                                const productLink = (item.asin || getAsinFromUrl(item.defaultProductUrl))
-                                    ? `https://www.amazon.com/dp/${item.asin || getAsinFromUrl(item.defaultProductUrl)}?tag=${AFFILIATE_TAG}` 
-                                    : "#";
-
+                                const asin = item.asin || getAsinFromUrl(item.defaultProductUrl);
+                                const productLink = asin
+                                    ? `https://www.amazon.com/dp/${asin}?tag=${AFFILIATE_TAG}`
+                                    : (item.defaultProductUrl ? (item.defaultProductUrl.includes("?") ? `${item.defaultProductUrl}&tag=${AFFILIATE_TAG}` : `${item.defaultProductUrl}?tag=${AFFILIATE_TAG}`) : "#");
+                                const isViewAlternatives = !asin;
                                 return (
-                                    <a 
-                                      key={i} 
+                                    <a
+                                      key={i}
                                       href={productLink}
                                       target="_blank"
                                       rel="noopener noreferrer"
+                                      onClick={() => analytics.trackAmazonItemClick("betta", item.id, asin || undefined, item.price, item.type || item.category)}
                                       className="p-5 flex items-center justify-between group hover:bg-gradient-to-r hover:from-blue-500/10 hover:to-transparent transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded-lg print-item"
                                     >
                                         <div className="flex items-center gap-4">
@@ -446,11 +392,9 @@ function SummaryContent() {
                                                     {item.label}
                                                     <ExternalLink size={14} className="opacity-0 group-hover:opacity-60 transition-opacity text-blue-400" />
                                                 </p>
-                                                {item.type && (
-                                                    <span className="text-[10px] uppercase tracking-wider font-bold text-slate-400 bg-slate-800/50 border border-slate-700/50 px-2 py-1 rounded-md mt-1.5 inline-block">
-                                                        {item.type}
+                                                <span className="text-[10px] uppercase tracking-wider font-bold text-slate-400 bg-slate-800/50 border border-slate-700/50 px-2 py-1 rounded-md mt-1.5 inline-block">
+                                                        {isViewAlternatives ? "View alternatives" : (item.type || "Essential")}
                                                     </span>
-                                                )}
                                             </div>
                                         </div>
                                         <div className="font-mono font-black text-blue-400 text-lg group-hover:text-blue-300 transition-colors">
@@ -463,25 +407,47 @@ function SummaryContent() {
                     </div>
                 </div>
 
-                {/* Buy All on Amazon Button */}
-                <div className="p-8 rounded-3xl bg-gradient-to-br from-slate-900 to-slate-950 border border-white/10 shadow-2xl text-center relative overflow-hidden group">
+                {/* Amazon CTAs: Required Items + Full Build */}
+                <div className="p-8 rounded-3xl bg-gradient-to-br from-slate-900 to-slate-950 border border-white/10 shadow-2xl text-center relative overflow-hidden group space-y-6">
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-blue-500/5 blur-3xl rounded-full group-hover:bg-blue-500/10 transition-all duration-700 pointer-events-none" />
                     <p className="text-slate-400 text-sm font-bold uppercase tracking-widest mb-2 relative z-10">Est. Total Cost</p>
-                    <div className="text-6xl font-black text-white tracking-tighter mb-8 relative z-10 flex justify-center items-start gap-1">
+                    <div className="text-6xl font-black text-white tracking-tighter mb-6 relative z-10 flex justify-center items-start gap-1">
                         <span className="text-2xl mt-2 text-blue-500">$</span>
                         {total}
                     </div>
-                    <a 
+
+                    <div className="flex flex-col gap-3 relative z-10">
+                      {requiredItemsWithAsin.length > 0 && (
+                        <>
+                          <a
+                            href={amazonCartUrlRequired}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => analytics.trackAmazonCartClick("betta", requiredTotalNumber, requiredItemsWithAsin.length)}
+                            className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold px-6 shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 transition hover:scale-[1.02] active:scale-[0.98]"
+                          >
+                            <ShoppingCart size={18} /> Buy Required Essentials (recommended)
+                          </a>
+                          <p className="text-xs text-slate-400">Most people start with essentials first.</p>
+                          <p className="text-xs text-slate-500 flex items-center justify-center gap-1">
+                            <span title="Tank, filter, heater, thermometer, substrate, conditioner, and test kit are the minimum for a safe cycled tank." className="inline-flex items-center gap-1 cursor-help border-b border-dotted border-slate-500">
+                              <HelpCircle size={12} /> Why required?
+                            </span>
+                          </p>
+                        </>
+                      )}
+                      <a
                         href={amazonCartUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        onClick={() => analytics.trackAmazonCartClick("betta", total, allItems.length)}
-                        className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-black text-lg border-2 border-blue-400/30 hover:border-blue-300/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/40 active:scale-[0.98] shadow-lg shadow-blue-900/30 relative z-10 flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
-                    >
-                        Buy All on Amazon <ArrowRight size={20} className="drop-shadow-sm" />
-                    </a>
-                    <p className="text-xs text-slate-500 mt-4 relative z-10 px-4 leading-relaxed">
-                        *Clicking this will auto-fill your Amazon Cart with all selected items.
+                        onClick={() => analytics.trackAmazonCartClick("betta", totalNumber, allItems.length)}
+                        className="flex items-center justify-center gap-2 w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-black text-lg border-2 border-blue-400/30 hover:border-blue-300/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/40 active:scale-[0.98] shadow-lg shadow-blue-900/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+                      >
+                        <ShoppingCart size={20} className="drop-shadow-sm" /> Open in Amazon Cart — Full Build
+                      </a>
+                    </div>
+                    <p className="text-xs text-slate-500 relative z-10 px-4 leading-relaxed">
+                        *Clicking opens Amazon and adds items to your cart. Required = tank, filter, heater, thermometer, substrate, conditioner, test kit.
                     </p>
                 </div>
 

@@ -39,6 +39,11 @@ export function SetupTemplates({ species, onApplyTemplate }) {
                 backgroundColor: isBudget ? "rgba(34, 197, 94, 0.1)" : "rgba(251, 191, 36, 0.1)",
               }}
             >
+              {isBudget && (
+                <div className="absolute top-3 right-3 px-2 py-1 text-xs font-bold rounded-lg bg-emerald-500/15 text-emerald-300 border border-emerald-400/20">
+                  Most beginners start here
+                </div>
+              )}
               <div className="flex items-start justify-between gap-3 mb-2">
                 <div className="flex items-center gap-2">
                   {isBudget ? (

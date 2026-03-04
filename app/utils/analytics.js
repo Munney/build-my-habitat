@@ -97,6 +97,16 @@ export const analytics = {
     });
   },
 
+  trackAmazonItemClick: (species, itemId, asin, price, category) => {
+    trackEvent("amazon_item_click", {
+      species,
+      item_id: itemId,
+      asin: asin || undefined,
+      price: price != null ? Number(price) : undefined,
+      category: category || undefined,
+    });
+  },
+
   // Guide/Content events
   trackGuideView: (guideType) => {
     trackEvent("guide_view", { guide_type: guideType });

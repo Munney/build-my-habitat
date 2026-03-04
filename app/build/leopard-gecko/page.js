@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useEffect, useRef, Suspense } from "react";
+import { useMemo, useState, useEffect, useRef, useCallback, Suspense } from "react";
 import { createPortal } from "react-dom";
 import { useRouter, useSearchParams } from "next/navigation";
 import { analytics } from "../../utils/analytics";
@@ -23,7 +23,10 @@ import {
   Menu,
   X,
   Sun,
-  RotateCcw
+  RotateCcw,
+  ChevronDown,
+  Copy,
+  Check
 } from "lucide-react";
 import config from "../../../data/leopard-gecko.json";
 import ProductTooltip from "../../components/ProductTooltip";
@@ -31,6 +34,8 @@ import ScrollToTop from "../../components/ScrollToTop";
 import { AIHabitatAssistant } from "../../components/AIHabitatAssistant";
 import { SetupTemplates } from "../../components/SetupTemplates";
 import Footer from "../../components/Footer";
+import { Section } from "../../components/builder/Section";
+import { useBuilderToasts } from "../../hooks/useBuilderToasts";
 
 // Data Imports
 const ENCLOSURES = config.enclosures || [];
@@ -335,6 +340,23 @@ function LeopardGeckoBuilderContent() {
   const [hideVariants, setHideVariants] = useState({}); // { baseName: { variant } }
   const [supplementIds, setSupplementIds] = useState([]);
   const [stateRestored, setStateRestored] = useState(false);
+  const [copyLinkSuccess, setCopyLinkSuccess] = useState(false);
+
+  // Rebuild variant state from restored IDs so shared URLs show correct selected variant in UI
+  const rebuildVariantsFromIds = useCallback((ids, products) => {
+    const { groups } = groupVariants(products);
+    const variantMap = {};
+    for (const id of ids) {
+      for (const group of groups) {
+        const v = group.variants.find(x => x.id === id);
+        if (v) {
+          variantMap[group.baseName] = { variant: v.variant, id: v.id };
+          break;
+        }
+      }
+    }
+    return variantMap;
+  }, []);
 
   // --- RESTORE STATE FROM URL PARAMETERS ---
   useEffect(() => {
@@ -348,17 +370,34 @@ function LeopardGeckoBuilderContent() {
     const supplements = searchParams.get("supplements");
 
     if (exp || enclosure || substrate || heating || hides || supplements) {
-      // Restore state from URL parameters
       if (exp) setExperience(exp);
       if (enclosure) setEnclosureId(enclosure);
-      if (substrate) setSubstrateIds(substrate.split(",").filter(Boolean));
-      if (heating) setHeatingIds(heating.split(",").filter(Boolean));
-      if (hides) setHideIds(hides.split(",").filter(Boolean));
+
+      const substrateIdList = substrate ? substrate.split(",").filter(Boolean) : [];
+      setSubstrateIds(substrateIdList);
+      setSubstrateVariants(rebuildVariantsFromIds(substrateIdList, SUBSTRATES));
+
+      let heatingIdList = heating ? heating.split(",").filter(Boolean) : [];
+      // Enforce only ONE primary heat (Halogen XOR DHP) on restore
+      const hasHalogen = heatingIdList.some(id => id.startsWith("halogen_"));
+      const hasDHP = heatingIdList.some(id => id.startsWith("dhp_"));
+      if (hasHalogen && hasDHP) {
+        heatingIdList = hasHalogen
+          ? heatingIdList.filter(id => !id.startsWith("dhp_"))
+          : heatingIdList.filter(id => !id.startsWith("halogen_"));
+      }
+      setHeatingIds(heatingIdList);
+      setHeatingVariants(rebuildVariantsFromIds(heatingIdList, HEATING));
+
+      const hideIdList = hides ? hides.split(",").filter(Boolean) : [];
+      setHideIds(hideIdList);
+      setHideVariants(rebuildVariantsFromIds(hideIdList, HIDES));
+
       if (supplements) setSupplementIds(supplements.split(",").filter(Boolean));
       
       setStateRestored(true);
     }
-  }, [searchParams, stateRestored]);
+  }, [searchParams, stateRestored, rebuildVariantsFromIds]);
 
   // --- TEMPLATE APPLICATION ---
   const applyTemplate = (template) => {
@@ -457,18 +496,37 @@ function LeopardGeckoBuilderContent() {
     setHideIds([]);
     setHideVariants({});
     setSupplementIds([]);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const copyBuildLink = () => {
+    const params = new URLSearchParams({
+      exp: experience || "beginner",
+      enclosure: enclosureId || "",
+      substrate: substrateIds.join(","),
+      heating: heatingIds.join(","),
+      hides: hideIds.join(","),
+      supplements: supplementIds.join(","),
+    });
+    const url = typeof window !== "undefined" ? `${window.location.origin}/build/leopard-gecko?${params.toString()}` : "";
+    if (url && typeof navigator !== "undefined" && navigator.clipboard) {
+      navigator.clipboard.writeText(url).then(() => {
+        setCopyLinkSuccess(true);
+        setTimeout(() => setCopyLinkSuccess(false), 2500);
+      });
+    }
   };
 
   // --- FILTERING LOGIC ---
   const filteredSubstrates = useMemo(() => {
-    // Always block calcium sand - it's dangerous for all users (causes impaction)
     const safeSubstrates = SUBSTRATES.filter(s => {
-      const name = s.label.toLowerCase();
-      const id = s.id.toLowerCase();
-      // Block calcium sand completely (dangerous for everyone)
-      if (name.includes("calcium sand") || id.includes("calcium") && id.includes("sand")) {
-        return false;
-      }
+      const n = s.label.toLowerCase();
+      const sid = s.id.toLowerCase();
+      const isCalciumSand =
+        (n.includes("calcium") && n.includes("sand")) ||
+        (sid.includes("calcium") && sid.includes("sand")) ||
+        sid.startsWith("sand_reptile_sand_calcium");
+      if (isCalciumSand) return false;
       return true;
     });
     
@@ -587,10 +645,14 @@ function LeopardGeckoBuilderContent() {
     return [...direct, ...variantItems];
   }, [hideIds, hideVariants]);
   
-  // Filter supplements based on UVB selection
+  // UVB detection: from selected IDs or from variant map (for URL restore / edge cases)
   const hasUVB = useMemo(() => {
-    return heatingIds.some(id => id.startsWith("uvb_"));
-  }, [heatingIds]);
+    if (heatingIds.some(id => id.startsWith("uvb_"))) return true;
+    const variantIds = Object.values(heatingVariants).map(v => v.id);
+    if (variantIds.some(id => id && id.startsWith("uvb_"))) return true;
+    if (Object.keys(heatingVariants).some(baseName => baseName.includes("UVB"))) return true;
+    return false;
+  }, [heatingIds, heatingVariants]);
   
   // Auto-adjust supplements when UVB selection changes
   useEffect(() => {
@@ -684,6 +746,19 @@ function LeopardGeckoBuilderContent() {
     supplements: supplementIds.length > 0,
   }), [experience, enclosureId, hasCompleteHeating, substrateIds, hideIds, supplementIds]);
 
+  const { toast, setToast, progressPulse } = useBuilderToasts({
+    sectionCompletion,
+    progress,
+    labelMap: {
+      experience: "Keeper level set",
+      enclosure: "Enclosure selected",
+      heating: "Heating & control ready",
+      substrate: "Substrate chosen",
+      hides: "Hides added",
+      supplements: "Supplements added",
+    },
+  });
+
   // Check if all required sections are completed
   const allRequirementsMet = useMemo(() => {
     return sectionCompletion.experience &&
@@ -695,6 +770,7 @@ function LeopardGeckoBuilderContent() {
   }, [sectionCompletion]);
 
   // Determine if a section is locked (prerequisites not met)
+  const hasAllThreeHides = hideIds.includes("warmhide") && hideIds.includes("coolhide") && hideIds.includes("humidhide");
   const isSectionLocked = useMemo(() => {
     return {
       experience: false, // Always available
@@ -702,9 +778,9 @@ function LeopardGeckoBuilderContent() {
       heating: !sectionCompletion.enclosure, // Needs enclosure selected
       substrate: !hasCompleteHeating, // Needs ALL required heating items (primary heat + thermostat)
       hides: !sectionCompletion.substrate, // Needs substrate selected
-      supplements: !sectionCompletion.substrate, // Needs substrate selected
+      supplements: !sectionCompletion.substrate || !hasAllThreeHides, // Needs substrate + all 3 required hides
     };
-  }, [experience, sectionCompletion, hasCompleteHeating]);
+  }, [experience, sectionCompletion, hasCompleteHeating, hasAllThreeHides]);
 
   // Section navigation data
   const sections = [
@@ -726,6 +802,10 @@ function LeopardGeckoBuilderContent() {
         top: offsetPosition,
         behavior: 'smooth'
       });
+      setTimeout(() => {
+        section.setAttribute("tabIndex", "-1");
+        section.focus({ preventScroll: true });
+      }, 400);
     }
   };
 
@@ -865,15 +945,31 @@ function LeopardGeckoBuilderContent() {
       <div className="sticky top-[112px] z-40 mb-8 -mt-28 bg-slate-900/90 backdrop-blur-md border-b border-white/10 rounded-b-2xl overflow-hidden">
         <div className="h-1 bg-slate-800/50 relative">
           <div 
-            className="h-full bg-gradient-to-r from-emerald-500 via-cyan-400 to-emerald-500 transition-all duration-700 ease-out shadow-lg shadow-emerald-500/30"
+            className={`h-full bg-gradient-to-r from-emerald-500 via-cyan-400 to-emerald-500 transition-all duration-700 ease-out ${progressPulse ? "shadow-[0_0_20px_2px_rgba(16,185,129,0.5)] shadow-emerald-500/50" : "shadow-lg shadow-emerald-500/30"}`}
             style={{ width: `${progress}%` }}
           />
         </div>
-        <div className="px-6 py-3 flex items-center justify-between">
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Build Progress</span>
-          <span className="text-sm font-black text-emerald-400">{progress}%</span>
+        <div className="px-6 py-3 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Build Progress</span>
+            <span className="text-sm font-black text-emerald-400">{progress}%</span>
+          </div>
+          <div className="text-right">
+            <div className="text-xs text-slate-400 uppercase">Estimated Cost</div>
+            <div className="text-lg font-bold text-white">${totalPrice.toFixed(2)}</div>
+          </div>
         </div>
       </div>
+
+      {/* Section complete toast */}
+      {toast && (
+        <div className="fixed bottom-24 right-6 z-[100]">
+          <div className="rounded-2xl bg-slate-900/95 border border-white/10 shadow-2xl px-4 py-3 backdrop-blur-md">
+            <div className="text-xs font-black text-emerald-400 uppercase tracking-wider">✅ {toast.title}</div>
+            <div className="text-sm font-semibold text-white">{toast.msg}</div>
+          </div>
+        </div>
+      )}
 
       {/* Sticky Section Quick-Nav (Desktop) */}
       <div className="hidden lg:block fixed right-8 top-1/2 -translate-y-1/2 z-30">
@@ -914,37 +1010,80 @@ function LeopardGeckoBuilderContent() {
         {isMobileSidebarOpen ? <X size={24} /> : <ShoppingCart size={24} />}
       </button>
 
-      <div className="relative z-10 max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-            <div>
-                <button
-                    onClick={() => router.push("/")}
-                    className="flex items-center gap-2 text-slate-400 hover:text-emerald-400 transition-colors mb-4 text-base font-medium group"
-                >
-                    <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" /> Back to Hub
-                </button>
-                <h1 className="text-4xl md:text-5xl font-black tracking-tight text-white drop-shadow-lg">
-                    Leopard Gecko <span className="text-emerald-500">Configurator</span>
-                </h1>
-                <p className="text-slate-300 mt-2 max-w-2xl text-lg font-medium">
-                    Design a precision habitat. We'll track compatibility as you build.
-                </p>
-            </div>
+      <div className="relative z-10 max-w-5xl mx-auto">
+        {/* Hero — centered, compact (match betta style) */}
+        <div className="mb-12">
+          <button
+            onClick={() => router.push("/")}
+            className="flex items-center gap-2 text-slate-400 hover:text-emerald-400 transition-colors mb-4 text-sm font-medium group"
+          >
+            <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> Back to Hub
+          </button>
+          <h1 className="text-3xl md:text-4xl font-black tracking-tight text-white drop-shadow-lg mb-2">
+            Leopard Gecko <span className="text-emerald-500">Configurator</span>
+          </h1>
+          <p className="text-slate-400 text-sm mb-6 max-w-2xl">
+            Choose safe parts, then generate a complete shopping list.
+          </p>
 
-            {/* Progress Radial (Desktop) */}
-            <div className="hidden md:flex items-center gap-4 card-warm p-4 rounded-2xl">
-                <div className="text-right">
-                    <p className="text-[10px] uppercase font-bold text-slate-400 tracking-widest">Build Status</p>
-                    <p className="text-xl font-black text-white">{progress}% Ready</p>
+          <div className="mx-auto max-w-3xl">
+            <div className="rounded-2xl border border-slate-700/50 bg-slate-900/50 backdrop-blur-sm p-6 sm:p-7">
+              <div className="space-y-4">
+                <h2 className="text-xl md:text-2xl font-black text-white">
+                  Leopard Gecko Habitat Builder
+                </h2>
+                <p className="text-slate-300 leading-relaxed">
+                  We'll enforce the non-negotiables so your gecko stays healthy.
+                </p>
+
+                <ul className="grid gap-2 text-sm text-slate-200">
+                  <li className="flex gap-3">
+                    <CheckCircle2 size={18} className="text-emerald-400 mt-0.5 shrink-0" />
+                    <span><span className="font-bold text-white">20+ gallon enclosure</span> (minimum for adults)</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <CheckCircle2 size={18} className="text-emerald-400 mt-0.5 shrink-0" />
+                    <span><span className="font-bold text-white">Thermostat + heat source</span> (halogen, DHP, or heat mat)</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <CheckCircle2 size={18} className="text-emerald-400 mt-0.5 shrink-0" />
+                    <span><span className="font-bold text-white">3 hides</span> (warm, cool, humid)</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <CheckCircle2 size={18} className="text-emerald-400 mt-0.5 shrink-0" />
+                    <span><span className="font-bold text-white">Safe substrate</span> (no calcium sand)</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <CheckCircle2 size={18} className="text-emerald-400 mt-0.5 shrink-0" />
+                    <span><span className="font-bold text-white">Calcium + multivitamin</span> (D3 or no-D3 based on UVB)</span>
+                  </li>
+                </ul>
+
+                <div className="flex flex-wrap gap-3 pt-4 items-center">
+                  <button
+                    onClick={() => scrollToSection("experience")}
+                    className="px-6 py-3 rounded-2xl font-black text-sm bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white border border-emerald-400/30 shadow-lg shadow-emerald-500/30 transition"
+                    aria-label="Start builder, go to keeper level section"
+                  >
+                    Start Builder →
+                  </button>
+                  <details className="group rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
+                    <summary className="cursor-pointer list-none text-sm font-semibold text-slate-200 flex items-center gap-2">
+                      Why these rules?
+                      <ChevronDown size={16} className="text-slate-400 transition-transform group-open:rotate-180" />
+                    </summary>
+                    <div className="pt-3 text-sm text-slate-300 space-y-2 leading-relaxed max-w-xl">
+                      <p><b>20+ gallons</b> allows proper thermal gradient and space for hides.</p>
+                      <p><b>Thermostat</b> prevents burns and overheating; required for any heat source.</p>
+                      <p><b>3 hides</b> (warm, cool, humid) support thermoregulation and shedding.</p>
+                      <p><b>Safe substrate</b> avoids impaction; calcium sand is excluded.</p>
+                      <p><b>Supplements</b>—calcium with or without D3 depending on UVB—support bone health.</p>
+                    </div>
+                  </details>
                 </div>
-                <div className="relative w-12 h-12 flex items-center justify-center rounded-full border-4 border-slate-700">
-                    <div 
-                        className="absolute inset-0 rounded-full border-4 border-emerald-500 transition-all duration-700 ease-out"
-                        style={{ clipPath: `inset(${100 - progress}% 0 0 0)` }}
-                    />
-                    <Target size={20} className={`transition-colors duration-500 ${progress === 100 ? "text-emerald-400" : "text-slate-500"}`} />
-                </div>
+              </div>
             </div>
+          </div>
         </div>
 
         <div className="grid gap-8 lg:grid-cols-[1fr,360px] xl:grid-cols-[1fr,400px]">
@@ -959,6 +1098,11 @@ function LeopardGeckoBuilderContent() {
               sectionId="experience"
               isCompleted={sectionCompletion.experience}
               sectionRef={(el) => { if (el) sectionRefs.current.experience = el; }}
+              nextSectionId="enclosure"
+              nextSectionTitle="Enclosure Size"
+              isSectionLocked={isSectionLocked}
+              scrollToSection={scrollToSection}
+              theme="emerald"
             >
               <div className="grid grid-cols-2 gap-4">
                 <button
@@ -1002,6 +1146,11 @@ function LeopardGeckoBuilderContent() {
               isCompleted={sectionCompletion.enclosure}
               isLocked={isSectionLocked.enclosure}
               sectionRef={(el) => { if (el) sectionRefs.current.enclosure = el; }}
+              nextSectionId="heating"
+              nextSectionTitle="Heating & Control"
+              isSectionLocked={isSectionLocked}
+              scrollToSection={scrollToSection}
+              theme="emerald"
             >
               <div 
                 className={`mb-4 transition-all duration-500 ease-in-out ${
@@ -1026,21 +1175,29 @@ function LeopardGeckoBuilderContent() {
                   
                   return (
                     <div key={e.id} className={isBelowMinimum ? "opacity-70" : ""}>
-                      <SelectionCard
+<SelectionCard
                         active={enclosureId === e.id}
                         label={e.label}
                         price={e.price}
-                        onClick={() => setEnclosureId(enclosureId === e.id ? null : e.id)}
+                        onClick={() => {
+                          if (enclosureId === e.id) {
+                            setEnclosureId(null);
+                          } else {
+                            setEnclosureId(e.id);
+                            setToast({ title: "Added to build", msg: `+ $${(e.price || 0).toFixed(2)} added` });
+                          }
+                        }}
                         type="checkbox"
                         productId={e.id}
                         isRequired={false}
                         asin={e.asin}
                         product={e}
+                        badge={e.badge}
                         sublabel={
-                          isRecommended 
-                            ? "Recommended" 
-                            : isBelowMinimum 
-                            ? "Below recommended minimum for adults" 
+                          isRecommended
+                            ? undefined
+                            : isBelowMinimum
+                            ? "Below recommended minimum for adults"
                             : undefined
                         }
                       />
@@ -1058,6 +1215,11 @@ function LeopardGeckoBuilderContent() {
               isCompleted={sectionCompletion.heating}
               isLocked={isSectionLocked.heating}
               sectionRef={(el) => { if (el) sectionRefs.current.heating = el; }}
+              nextSectionId="substrate"
+              nextSectionTitle="Floor & Substrate"
+              isSectionLocked={isSectionLocked}
+              scrollToSection={scrollToSection}
+              theme="emerald"
             >
               <p className="text-sm text-slate-300 mb-4 font-medium">
                 Select ONE primary heat source. The builder ensures compatibility.
@@ -1109,35 +1271,54 @@ function LeopardGeckoBuilderContent() {
                 selectedIds={heatingIds}
                 selectedVariants={heatingVariants}
                 selectedEnclosureSize={selectedEnclosure?.size}
-                onToggle={(id) => setHeatingIds((ids) => toggle(ids, id))}
+                onToggle={(id) => {
+                  const willAdd = !heatingIds.includes(id);
+                  setHeatingIds((ids) => toggle(ids, id));
+                  if (willAdd) {
+                    const item = HEATING.find((x) => x.id === id);
+                    if (item) setToast({ title: "Added to build", msg: `+ $${(item.price || 0).toFixed(2)} added` });
+                  }
+                }}
                 onVariantToggle={(baseName, variant, variantId) => {
                   setHeatingVariants(prev => {
                     const current = prev[baseName];
-                    // Toggle: if same variant is selected, deselect it
                     if (current && current.variant === variant) {
                       const newVariants = { ...prev };
                       delete newVariants[baseName];
-                      // Also remove the variant ID from heatingIds
                       setHeatingIds(ids => ids.filter(id => id !== variantId));
                       return newVariants;
                     }
-                    // Otherwise, select the new variant
-                    // Remove old variant IDs from this group
                     const { groups } = groupVariants(HEATING);
                     const group = groups.find(g => g.baseName === baseName);
-                    if (group) {
-                      const oldIds = group.variants.map(v => v.id);
-                      setHeatingIds(ids => {
-                        const filtered = ids.filter(id => !oldIds.includes(id));
-                        return [...filtered, variantId];
+                    const isHalogen = baseName.includes("Halogen") || baseName.includes("Flood Lamp");
+                    const isDHP = baseName.includes("Deep Heat") || baseName.includes("DHP");
+                    setHeatingIds(ids => {
+                      let next = ids.filter(id => id !== variantId);
+                      if (group) {
+                        const oldIds = group.variants.map(v => v.id);
+                        next = next.filter(id => !oldIds.includes(id));
+                        next = [...next, variantId];
+                      }
+                      if (isHalogen) {
+                        next = next.filter(id => !id.startsWith("dhp_"));
+                      } else if (isDHP) {
+                        next = next.filter(id => !id.startsWith("halogen_"));
+                      }
+                      return next;
+                    });
+                    const variantItem = group?.variants.find((v) => v.id === variantId);
+                    if (variantItem) setToast({ title: "Added to build", msg: `+ $${(variantItem.price || 0).toFixed(2)} added` });
+                    let newVariants = { ...prev, [baseName]: { variant, id: variantId } };
+                    if (isHalogen) {
+                      Object.keys(newVariants).forEach(k => {
+                        if (k.includes("Deep Heat") || k.includes("DHP")) delete newVariants[k];
                       });
-                    } else {
-                      setHeatingIds(ids => [...ids, variantId]);
+                    } else if (isDHP) {
+                      Object.keys(newVariants).forEach(k => {
+                        if (k.includes("Halogen") || k.includes("Flood Lamp")) delete newVariants[k];
+                      });
                     }
-                    return {
-                      ...prev,
-                      [baseName]: { variant, id: variantId }
-                    };
+                    return newVariants;
                   });
                 }}
               />
@@ -1151,6 +1332,11 @@ function LeopardGeckoBuilderContent() {
               isCompleted={sectionCompletion.substrate}
               isLocked={isSectionLocked.substrate}
               sectionRef={(el) => { if (el) sectionRefs.current.substrate = el; }}
+              nextSectionId="hides"
+              nextSectionTitle="Hides & Enrichment"
+              isSectionLocked={isSectionLocked}
+              scrollToSection={scrollToSection}
+              theme="emerald"
             >
               <p className="text-sm text-slate-300 mb-4 font-medium">
                 Select one primary substrate. The builder prevents unsafe combinations.
@@ -1181,28 +1367,33 @@ function LeopardGeckoBuilderContent() {
                 selectedIds={substrateIds}
                 selectedVariants={substrateVariants}
                 selectedEnclosureSize={selectedEnclosure?.size}
-                onToggle={(id) => setSubstrateIds((ids) => toggle(ids, id))}
+                onToggle={(id) => {
+                  const willAdd = !substrateIds.includes(id);
+                  setSubstrateIds((ids) => toggle(ids, id));
+                  if (willAdd) {
+                    const item = filteredSubstrates.find((s) => s.id === id);
+                    if (item) setToast({ title: "Added to build", msg: `+ $${(item.price || 0).toFixed(2)} added` });
+                  }
+                }}
                 onVariantToggle={(baseName, variant, variantId) => {
                   setSubstrateVariants(prev => {
                     const current = prev[baseName];
-                    // Toggle: if same variant is selected, deselect it
                     if (current && current.variant === variant) {
                       const newVariants = { ...prev };
                       delete newVariants[baseName];
-                      // Also remove the variant ID from substrateIds
                       setSubstrateIds(ids => ids.filter(id => id !== variantId));
                       return newVariants;
                     }
-                    // Otherwise, select the new variant
-                    // Remove old variant IDs from this group
                     const { groups } = groupVariants(SUBSTRATES);
                     const group = groups.find(g => g.baseName === baseName);
                     if (group) {
                       const oldIds = group.variants.map(v => v.id);
+                      const variantItem = group.variants.find((v) => v.id === variantId);
                       setSubstrateIds(ids => {
                         const filtered = ids.filter(id => !oldIds.includes(id));
                         return [...filtered, variantId];
                       });
+                      if (variantItem) setToast({ title: "Added to build", msg: `+ $${(variantItem.price || 0).toFixed(2)} added` });
                     } else {
                       setSubstrateIds(ids => [...ids, variantId]);
                     }
@@ -1223,6 +1414,11 @@ function LeopardGeckoBuilderContent() {
               isCompleted={sectionCompletion.hides}
               isLocked={isSectionLocked.hides}
               sectionRef={(el) => { if (el) sectionRefs.current.hides = el; }}
+              nextSectionId="supplements"
+              nextSectionTitle="Feeding"
+              isSectionLocked={isSectionLocked}
+              scrollToSection={scrollToSection}
+              theme="emerald"
             >
               {/* Check for missing required hides */}
               {(() => {
@@ -1284,7 +1480,14 @@ function LeopardGeckoBuilderContent() {
                 hides={HIDES}
                 selectedIds={hideIds}
                 selectedVariants={hideVariants}
-                onToggle={(id) => setHideIds((ids) => toggle(ids, id))}
+                onToggle={(id) => {
+                const willAdd = !hideIds.includes(id);
+                setHideIds((ids) => toggle(ids, id));
+                if (willAdd) {
+                  const item = HIDES.find((h) => h.id === id);
+                  if (item) setToast({ title: "Added to build", msg: `+ $${(item.price || 0).toFixed(2)} added` });
+                }
+              }}
                 onVariantToggle={(baseName, variant, variantId) => {
                   setHideVariants(prev => {
                     const current = prev[baseName];
@@ -1306,6 +1509,8 @@ function LeopardGeckoBuilderContent() {
                         const filtered = ids.filter(id => !oldIds.includes(id));
                         return [...filtered, variantId];
                       });
+                      const variantItem = group.variants.find((v) => v.id === variantId);
+                      if (variantItem) setToast({ title: "Added to build", msg: `+ $${(variantItem.price || 0).toFixed(2)} added` });
                     } else {
                       setHideIds(ids => [...ids, variantId]);
                     }
@@ -1326,6 +1531,9 @@ function LeopardGeckoBuilderContent() {
               isCompleted={sectionCompletion.supplements}
               isLocked={isSectionLocked.supplements}
               sectionRef={(el) => { if (el) sectionRefs.current.supplements = el; }}
+              isSectionLocked={isSectionLocked}
+              scrollToSection={scrollToSection}
+              theme="emerald"
             >
               <p className="text-sm text-slate-300 mb-4 font-medium">
                 The builder ensures correct combinations based on your lighting setup.
@@ -1359,11 +1567,16 @@ function LeopardGeckoBuilderContent() {
                     active={supplementIds.includes(s.id)}
                     label={s.label}
                     price={s.price}
-                    onClick={() => setSupplementIds((ids) => toggle(ids, s.id))}
+                    onClick={() => {
+                      const willAdd = !supplementIds.includes(s.id);
+                      setSupplementIds((ids) => toggle(ids, s.id));
+                      if (willAdd) setToast({ title: "Added to build", msg: `+ $${(s.price || 0).toFixed(2)} added` });
+                    }}
                     type="checkbox"
                     productId={s.id}
                     asin={s.asin}
                     product={s}
+                    badge={s.badge}
                   />
                 ))}
               </div>
@@ -1371,6 +1584,19 @@ function LeopardGeckoBuilderContent() {
 
             {/* Mobile Generate Habitat + Reset - At bottom of page content */}
             <div className="lg:hidden mt-8 mb-6 relative z-10 space-y-3">
+              {progress >= 50 && (
+                <div className="px-4 py-3 rounded-xl bg-slate-800/50 border border-slate-600 text-slate-200 text-sm">
+                  <p className="font-medium mb-2">Save your progress</p>
+                  <button
+                    type="button"
+                    onClick={copyBuildLink}
+                    className="w-full flex items-center justify-center gap-2 py-2 rounded-lg bg-slate-700/50 hover:bg-slate-600/50 text-white text-xs font-bold border border-slate-600 transition"
+                  >
+                    {copyLinkSuccess ? <Check size={14} /> : <Copy size={14} />}
+                    {copyLinkSuccess ? "Copied!" : "Copy link"}
+                  </button>
+                </div>
+              )}
               <button
                 onClick={goToSummary}
                 disabled={!allRequirementsMet}
@@ -1442,6 +1668,20 @@ function LeopardGeckoBuilderContent() {
                     <span className="text-3xl font-black text-white tracking-tight">${totalPrice.toFixed(2)}</span>
                   </div>
                 </div>
+
+                {progress >= 50 && (
+                  <div className="mb-4 px-4 py-3 rounded-xl bg-slate-800/50 border border-slate-600 text-slate-200 text-sm">
+                    <p className="font-medium mb-2">Save your progress</p>
+                    <button
+                      type="button"
+                      onClick={copyBuildLink}
+                      className="w-full flex items-center justify-center gap-2 py-2 rounded-lg bg-slate-700/50 hover:bg-slate-600/50 text-white text-xs font-bold border border-slate-600 transition"
+                    >
+                      {copyLinkSuccess ? <Check size={14} /> : <Copy size={14} />}
+                      {copyLinkSuccess ? "Copied!" : "Copy link"}
+                    </button>
+                  </div>
+                )}
 
                 <button
                   onClick={goToSummary}
@@ -1613,69 +1853,6 @@ export default function LeopardGeckoBuilder() {
       <LeopardGeckoBuilderContent />
     </Suspense>
   );
-}
-
-/* ---------- UI COMPONENTS ---------- */
-
-function Section({ title, icon, description, children, sectionId, isCompleted, sectionRef, isLocked = false }) {
-    return (
-        <section 
-          id={sectionId}
-          ref={sectionRef}
-          className={`relative bg-gradient-to-br from-slate-900/80 via-slate-900/60 to-slate-900/80 backdrop-blur-md p-8 rounded-3xl border-2 shadow-xl overflow-hidden transition-all duration-500 ${
-            isCompleted ? 'border-emerald-500/50' : isLocked ? 'border-white/5 opacity-40' : 'border-white/10'
-          }`}
-        >
-            {/* Subtle background gradient */}
-            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-transparent pointer-events-none" />
-            
-            {/* Completion indicator */}
-            {isCompleted && (
-              <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center border-2 border-emerald-400/50 shadow-lg shadow-emerald-500/30 z-10">
-                <CheckCircle2 size={16} className="text-white" />
-              </div>
-            )}
-            
-            {/* Locked overlay */}
-            {isLocked && (
-              <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm rounded-3xl flex items-center justify-center z-20 pointer-events-none">
-                <div className="text-center p-6">
-                  <AlertCircle size={32} className="text-slate-500 mx-auto mb-3" />
-                  <p className="text-slate-400 font-medium text-sm">Complete previous sections to unlock</p>
-                </div>
-              </div>
-            )}
-            
-            <div className="relative mb-6">
-                <h2 className="text-2xl font-black text-white mb-3 flex items-center gap-4">
-                    <div className={`p-3 bg-gradient-to-br rounded-xl border-2 shadow-lg transition-all duration-300 ${
-                      isCompleted 
-                        ? 'from-emerald-500/20 to-emerald-600/20 border-emerald-500/30 shadow-emerald-500/10' 
-                        : isLocked
-                        ? 'from-slate-700/20 to-slate-800/20 border-slate-700/30'
-                        : 'from-emerald-500/20 to-emerald-600/20 border-emerald-500/30 shadow-emerald-500/10'
-                    }`}>
-                        <div className={isCompleted ? "text-emerald-400" : isLocked ? "text-slate-500" : "text-emerald-400"}>
-                            {icon}
-                        </div>
-                    </div>
-                    <span className={`bg-gradient-to-r bg-clip-text text-transparent drop-shadow-sm ${
-                      isLocked ? 'from-slate-500 to-slate-600' : 'from-white to-slate-200'
-                    }`}>
-                        {title}
-                    </span>
-                </h2>
-                {description && (
-                    <p className={`text-sm ml-[68px] leading-relaxed font-medium ${
-                      isLocked ? 'text-slate-500' : 'text-slate-300'
-                    }`}>{description}</p>
-                )}
-            </div>
-            <div className={`relative ${isLocked ? 'pointer-events-none' : ''}`}>
-                {children}
-            </div>
-        </section>
-    );
 }
 
 function WhyRequiredToggle({ explanation }) {
@@ -1925,6 +2102,7 @@ function HeatingSection({ heating, selectedIds, selectedVariants, onToggle, onVa
             isRequired={isRequired}
             asin={h.asin}
             product={h}
+            badge={h.badge}
           />
         );
       })}
@@ -2071,6 +2249,7 @@ function SubstrateSection({ substrates, selectedIds, selectedVariants, onToggle,
             productId={s.id}
             asin={s.asin}
             product={s}
+            badge={s.badge}
           />
         );
       })}
@@ -2163,6 +2342,7 @@ function HidesSection({ hides, selectedIds, selectedVariants, onToggle, onVarian
             isRequired={isRequired}
             asin={h.asin}
             product={h}
+            badge={h.badge}
           />
         );
       })}
@@ -2319,7 +2499,7 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
             }`}
           >
             {isActive && <CheckCircle2 size={16} className="text-white drop-shadow-sm" />}
-            {showRequired && <AlertCircle size={14} className="text-slate-400 drop-shadow-sm" />}
+            {showRequired && <AlertTriangle size={14} className="text-amber-400 drop-shadow-sm shrink-0" />}
           </div>
 
           <div className="flex-1 min-w-0">
@@ -2327,10 +2507,10 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
               <div className={`font-bold text-lg transition-colors flex-1 min-w-0 ${isActive ? "text-white drop-shadow-sm" : "text-slate-200 group-hover:text-white"}`}>
                 <div style={{ wordBreak: 'normal', overflowWrap: 'normal' }}>{baseLabel}</div>
                 {showRequired && (
-                  <span className="ml-0 mt-1 inline-block text-xs font-semibold text-slate-400 uppercase tracking-wide whitespace-nowrap">Required</span>
+                  <span className="ml-0 mt-1 inline-flex items-center gap-1 text-xs font-semibold text-amber-100 uppercase tracking-wide bg-amber-500/30 border border-amber-500/50 rounded-full px-2 py-0.5 whitespace-nowrap">Required (Safety)</span>
                 )}
                 {sublabel === "Advanced" && (
-                  <span className="ml-0 mt-1 inline-block text-xs font-semibold text-purple-400 uppercase tracking-wide bg-purple-500/20 px-2 py-0.5 rounded-md border border-purple-500/30 whitespace-nowrap">Advanced</span>
+                  <span className="ml-0 mt-1 inline-block text-xs font-semibold text-purple-400 uppercase tracking-wide bg-purple-500/20 px-2 py-0.5 rounded-full border border-purple-500/30 whitespace-nowrap">Advanced</span>
                 )}
               </div>
               {explanation && (
@@ -2397,7 +2577,7 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
   );
 }
 
-function SelectionCard({ active, label, sublabel, price, onClick, type, productId, isRequired = false, asin = null, product = null }) {
+function SelectionCard({ active, label, sublabel, price, onClick, type, productId, isRequired = false, asin = null, product = null, badge }) {
   const explanation = productId ? productExplanations[productId] : null;
   // Only show required indicator if not selected
   const showRequired = isRequired && !active;
@@ -2418,6 +2598,14 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
           : "from-transparent via-slate-700 to-transparent opacity-0 group-hover:opacity-100 group-hover:from-emerald-500/50 group-hover:via-emerald-400/50 group-hover:to-emerald-500/50"
       }`} />
       
+      {badge && (
+        <div className="mb-3">
+          <span className="inline-block px-2 py-1 text-xs font-bold rounded-lg bg-emerald-500/15 text-emerald-300 border border-emerald-400/20">
+            {badge}
+          </span>
+        </div>
+      )}
+
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
         <div className="flex items-start gap-4 flex-1 min-w-0">
           <div
@@ -2428,7 +2616,7 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
             }`}
           >
             {active && <CheckCircle2 size={16} className="text-white drop-shadow-sm" />}
-            {showRequired && <AlertCircle size={14} className="text-slate-400 drop-shadow-sm" />}
+            {showRequired && <AlertTriangle size={14} className="text-amber-400 drop-shadow-sm shrink-0" />}
           </div>
 
           <div className="flex-1 min-w-0">
@@ -2436,10 +2624,10 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
               <div className={`font-bold text-lg transition-colors flex-1 min-w-0 ${active ? "text-white drop-shadow-sm" : "text-slate-200 group-hover:text-white"}`}>
                 <div style={{ wordBreak: 'normal', overflowWrap: 'normal' }}>{label}</div>
                 {showRequired && (
-                  <span className="ml-0 mt-1 inline-block text-xs font-semibold text-slate-400 uppercase tracking-wide whitespace-nowrap">Required</span>
+                  <span className="ml-0 mt-1 inline-flex items-center gap-1 text-xs font-semibold text-amber-100 uppercase tracking-wide bg-amber-500/30 border border-amber-500/50 rounded-full px-2 py-0.5 whitespace-nowrap">Required (Safety)</span>
                 )}
                 {sublabel === "Recommended" && (
-                  <span className="ml-0 mt-1 inline-block text-xs font-semibold text-emerald-400 uppercase tracking-wide bg-emerald-500/20 px-2 py-0.5 rounded-md border border-emerald-500/30 whitespace-nowrap">Recommended</span>
+                  <span className="ml-0 mt-1 inline-block text-xs font-semibold text-emerald-400 uppercase tracking-wide bg-emerald-500/20 px-2 py-0.5 rounded-full border border-emerald-500/30 whitespace-nowrap">Recommended</span>
                 )}
               </div>
               {explanation && (

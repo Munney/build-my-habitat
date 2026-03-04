@@ -4,6 +4,7 @@
       "id": "20g",
       "label": "20 Gallon Long",
       "price": 155.98,
+      "badge": "Recommended",
       "size": 20,
       "amazonSearchUrl": "https://www.amazon.com/s?k=20%20Gallon%20Long%20reptile&tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/dp/B0D3KPYCQ9?tag=habitatbuilde-20",
@@ -14,6 +15,7 @@
       "id": "40g",
       "label": "40 Gallon Breeder",
       "price": 259,
+      "badge": "Best Value",
       "size": 40,
       "amazonSearchUrl": "https://www.amazon.com/s?k=40%20Gallon%20Breeder%20reptile&tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/dp/B09QKHHXSH?tag=habitatbuilde-20",
@@ -53,6 +55,7 @@
       "id": "heatmat_10_20",
       "label": "Under Tank Heater (Mat) (10-20 gallon)",
       "price": 15.99,
+      "badge": "Beginner Pick",
       "asin": "B08C98KNWR",
       "amazonUrl": "https://www.amazon.com/dp/B08C98KNWR?tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/dp/B08C98KNWR?tag=habitatbuilde-20"
@@ -117,6 +120,7 @@
       "id": "thermostat",
       "label": "Digital Thermostat and Heat Mat Controller",
       "price": 20.99,
+      "badge": "Recommended",
       "asin": "B01I15S6OM",
       "amazonUrl": "https://www.amazon.com/dp/B01I15S6OM?tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/dp/B01I15S6OM?tag=habitatbuilde-20"
@@ -151,12 +155,14 @@
       "id": "papertowel",
       "label": "Paper Towels",
       "price": 0,
-      "type": "solid"
+      "type": "solid",
+      "badge": "Beginner Pick"
     },
     {
       "id": "slate",
       "label": "Slate Tile / Stone",
       "price": 15,
+      "badge": "Recommended",
       "type": "solid",
       "amazonSearchUrl": "https://www.amazon.com/s?k=Slate%20Tile%20%2F%20Stone%20reptile&tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/s?k=Slate%20Tile%20%2F%20Stone%20reptile&tag=habitatbuilde-20"
@@ -377,6 +383,7 @@
       "id": "calcium_d3",
       "label": "Calcium + D3",
       "price": 3.99,
+      "badge": "Beginner Pick",
       "amazonSearchUrl": "https://www.amazon.com/s?k=Calcium%20%2B%20D3%20reptile&tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/dp/B0002DHPEO?tag=habitatbuilde-20",
       "asin": "B0002DHPEO",
@@ -386,6 +393,7 @@
       "id": "multivitamin",
       "label": "Reptile Multivitamin",
       "price": 15.57,
+      "badge": "Recommended",
       "amazonSearchUrl": "https://www.amazon.com/s?k=Reptile%20Multivitamin%20reptile&tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/dp/B0D6CT1Q5Q?tag=habitatbuilde-20",
       "asin": "B0D6CT1Q5Q",

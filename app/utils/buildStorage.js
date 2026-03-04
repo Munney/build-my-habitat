@@ -88,13 +88,14 @@ export const buildStorage = {
     return `/summary/${species}?${params.toString()}`;
   },
 
-  // Create build data from summary page
-  createBuildData: (species, selections, totalPrice, allItems) => {
+  // Create build data from summary page (configId optional, for stable print/saved build)
+  createBuildData: (species, selections, totalPrice, allItems, configId) => {
     return {
       species,
       selections,
       totalPrice: parseFloat(totalPrice),
       itemCount: allItems.length,
+      configId: configId != null ? configId : undefined,
       items: allItems.map(item => ({
         id: item.id,
         label: item.label,

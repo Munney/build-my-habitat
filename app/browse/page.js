@@ -11,6 +11,31 @@ import geckoData from "../../data/leopard-gecko.json";
 // 👇 REPLACE WITH YOUR AMAZON TAG
 const AFFILIATE_TAG = "habitatbuilde-20";
 
+// Ensure URL has affiliate tag (append or replace existing tag param)
+function withAffiliateTag(url) {
+  if (!url) return null;
+  try {
+    const u = new URL(url);
+    u.searchParams.set("tag", AFFILIATE_TAG);
+    return u.toString();
+  } catch {
+    return url;
+  }
+}
+
+// Build direct Amazon product link with affiliate tag (prefer ASIN for consistency)
+function getProductLink(item) {
+  if (item.asin) {
+    return `https://www.amazon.com/dp/${item.asin}?tag=${AFFILIATE_TAG}`;
+  }
+  const direct = item.defaultProductUrl || item.amazonUrl || item.url;
+  if (direct && (direct.includes("/dp/") || direct.includes("/gp/product/"))) {
+    return withAffiliateTag(direct);
+  }
+  const query = encodeURIComponent(`${item.label} ${item.species === "Betta" ? "aquarium" : "reptile"}`);
+  return `https://www.amazon.com/s?k=${query}&tag=${AFFILIATE_TAG}`;
+}
+
 // List of removed product IDs by species that should not appear in browse page
 // Keep this updated when products are removed from the builders
 const REMOVED_PRODUCT_IDS = {
@@ -48,16 +73,8 @@ export default function BrowsePage() {
           return;
         }
 
-        // Link Logic: Prefer direct URL, then ASIN, then Search
-        let link = item.url || item.defaultProductUrl || null;
-        if (!link) {
-            if (item.asin) {
-                link = `https://www.amazon.com/dp/${item.asin}?tag=${AFFILIATE_TAG}`;
-            } else {
-                const query = encodeURIComponent(`${item.label} ${species === "Betta" ? "aquarium" : "reptile"}`);
-                link = `https://www.amazon.com/s?k=${query}&tag=${AFFILIATE_TAG}`;
-            }
-        }
+        // Direct Amazon link with affiliate tag (ASIN → dp link, else direct URL with tag, else search)
+        const link = getProductLink({ ...item, species });
 
         products.push({
           ...item,
@@ -387,7 +404,13 @@ export default function BrowsePage() {
                     : "bg-emerald-600 hover:bg-emerald-500 shadow-emerald-900/20";
 
                 return (
-                <div key={`${item.species}-${item.id}-${i}`} className="group flex flex-col justify-between p-5 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-all duration-300 shadow-lg hover:-translate-y-1">
+                <a
+                  key={`${item.species}-${item.id}-${i}`}
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex flex-col justify-between p-5 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-all duration-300 shadow-lg hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+                >
                     <div>
                         <div className="flex items-center justify-between mb-3">
                             <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md border ${badgeClass}`}>{item.category}</span>
@@ -397,10 +420,10 @@ export default function BrowsePage() {
                         <p className="text-xs text-slate-400 font-medium">{item.species}</p>
                     </div>
 
-                    <a href={item.url} target="_blank" rel="noopener noreferrer" className={`mt-5 flex items-center justify-center gap-2 w-full py-3 rounded-xl text-white text-xs font-bold transition-all shadow-lg ${buttonClass}`}>
+                    <span className={`mt-5 flex items-center justify-center gap-2 w-full py-3 rounded-xl text-white text-xs font-bold transition-all shadow-lg ${buttonClass}`}>
                         View Product <ArrowUpRight size={14} />
-                    </a>
-                </div>
+                    </span>
+                </a>
                 );
             })
           )}

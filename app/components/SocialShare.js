@@ -1,11 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Share2, Facebook, Twitter, Copy, Check, Link2, MessageCircle } from "lucide-react";
 
 export function SocialShare({ buildName, total, species, shareUrl }) {
   const [linkCopied, setLinkCopied] = useState(false);
   const [showShareMenu, setShowShareMenu] = useState(false);
+  const [hasNativeShare, setHasNativeShare] = useState(false);
+
+  useEffect(() => {
+    setHasNativeShare(typeof navigator !== "undefined" && !!navigator.share);
+  }, []);
 
   const handleCopyLink = async () => {
     try {
@@ -89,8 +94,7 @@ export function SocialShare({ buildName, total, species, shareUrl }) {
     }
   };
 
-  if (navigator.share) {
-    // Native share (mobile)
+  if (hasNativeShare) {
     return (
       <button
         onClick={handleNativeShare}
@@ -102,7 +106,7 @@ export function SocialShare({ buildName, total, species, shareUrl }) {
     );
   }
 
-  // Desktop share menu
+  // Desktop share menu (or initial render before navigator is known)
   return (
     <div className="relative">
       <button

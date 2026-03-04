@@ -23,7 +23,9 @@ import {
   AlertCircle,
   Menu,
   X,
-  RotateCcw
+  RotateCcw,
+  Copy,
+  Check
 } from "lucide-react";
 // 👇 Verify this path matches your folder structure
 import config from "../../../data/betta.json";
@@ -32,6 +34,8 @@ import ScrollToTop from "../../components/ScrollToTop";
 import { AIHabitatAssistant } from "../../components/AIHabitatAssistant";
 import { SetupTemplates } from "../../components/SetupTemplates";
 import Footer from "../../components/Footer";
+import { Section } from "../../components/builder/Section";
+import { useBuilderToasts } from "../../hooks/useBuilderToasts";
 
 // Data Imports
 const ENCLOSURES = config.enclosures || [];
@@ -198,6 +202,7 @@ function BettaBuilderContent() {
   const [decorVariants, setDecorVariants] = useState({}); // For driftwood variants
   const [careIds, setCareIds] = useState([]);
   const [stateRestored, setStateRestored] = useState(false);
+  const [copyLinkSuccess, setCopyLinkSuccess] = useState(false);
 
   // --- RESTORE STATE FROM URL PARAMETERS ---
   useEffect(() => {
@@ -218,12 +223,13 @@ function BettaBuilderContent() {
       if (filtration) setFiltrationId(filtration);
       if (substrate) setSubstrateId(substrate);
       
-      // Parse heating (can include heater and thermometer)
+      // Parse heating: only 50w or 100w as heater (strict, match template logic)
       if (heating) {
-        const heatingItems = heating.split(",");
-        const heater = heatingItems.find(id => id !== "thermometer");
+        const heatingItems = heating.split(",").filter(Boolean);
+        const heater = heatingItems.find(id => id === "50w" || id === "100w");
         const hasThermo = heatingItems.includes("thermometer");
         if (heater) setHeaterId(heater);
+        else setHeaterId(null);
         setHasThermometer(hasThermo);
       }
       
@@ -237,6 +243,33 @@ function BettaBuilderContent() {
         setCareIds(care.split(",").filter(Boolean));
       }
       
+      // Rebuild variant UI state from restored IDs so shared URLs show correct dropdowns
+      if (substrate) {
+        const { groups } = groupVariants(SUBSTRATES);
+        for (const group of groups) {
+          const v = group.variants.find(x => x.id === substrate);
+          if (v) {
+            setSubstrateVariants({ [group.baseName]: { color: v.color ?? null, size: v.size } });
+            break;
+          }
+        }
+      }
+      if (decor) {
+        const decorIdList = decor.split(",").filter(Boolean);
+        const { groups } = groupVariants(DECOR);
+        const next = {};
+        for (const id of decorIdList) {
+          for (const group of groups) {
+            const v = group.variants.find(x => x.id === id);
+            if (v) {
+              next[group.baseName] = { color: v.color ?? null, size: v.size };
+              break;
+            }
+          }
+        }
+        setDecorVariants(next);
+      }
+
       setStateRestored(true);
     }
   }, [searchParams, stateRestored]);
@@ -447,6 +480,20 @@ function BettaBuilderContent() {
     };
   }, [experience, enclosureId, filtrationId, heaterId, hasThermometer, substrateId, decorIds, careIds, selectedEnclosure]);
 
+  const { toast, setToast, progressPulse } = useBuilderToasts({
+    sectionCompletion,
+    progress,
+    labelMap: {
+      experience: "Keeper level set",
+      enclosure: "Tank size locked in",
+      filtration: "Filtration selected",
+      temperature: "Temp system ready",
+      substrate: "Substrate chosen",
+      decor: "Decor added",
+      watercare: "Water prep added",
+    },
+  });
+
   // Check if all required sections are completed (keeper level is not required)
   const allRequirementsMet = useMemo(() => {
     return sectionCompletion.enclosure &&
@@ -610,6 +657,26 @@ function BettaBuilderContent() {
     setDecorIds([]);
     setDecorVariants({});
     setCareIds([]);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const copyBuildLink = () => {
+    const params = new URLSearchParams({
+      exp: experience || "beginner",
+      enclosure: enclosureId || "",
+      filtration: filtrationId || "",
+      substrate: substrateId || "",
+      heating: heaterId ? (hasThermometer ? `${heaterId},thermometer` : heaterId) : (hasThermometer ? "thermometer" : ""),
+      decor: decorIds.join(","),
+      care: careIds.join(","),
+    });
+    const url = typeof window !== "undefined" ? `${window.location.origin}/build/betta?${params.toString()}` : "";
+    if (url && typeof navigator !== "undefined" && navigator.clipboard) {
+      navigator.clipboard.writeText(url).then(() => {
+        setCopyLinkSuccess(true);
+        setTimeout(() => setCopyLinkSuccess(false), 2500);
+      });
+    }
   };
 
   const scrollToSection = (sectionId) => {
@@ -622,6 +689,11 @@ function BettaBuilderContent() {
         top: offsetPosition,
         behavior: 'smooth'
       });
+      // Move focus to section for keyboard/screen reader users
+      setTimeout(() => {
+        section.setAttribute("tabIndex", "-1");
+        section.focus({ preventScroll: true });
+      }, 400);
     }
   };
 
@@ -635,13 +707,19 @@ function BettaBuilderContent() {
       <div className="sticky top-[112px] z-40 mb-8 -mt-28 bg-slate-900/90 backdrop-blur-md border-b border-white/10 rounded-b-2xl overflow-hidden">
         <div className="h-1 bg-slate-800/50 relative">
           <div 
-            className="h-full bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-500 transition-all duration-700 ease-out shadow-lg shadow-blue-500/30"
+            className={`h-full bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-500 transition-all duration-700 ease-out ${progressPulse ? "shadow-[0_0_20px_2px_rgba(59,130,246,0.5)] shadow-blue-500/50" : "shadow-lg shadow-blue-500/30"}`}
             style={{ width: `${progress}%` }}
           />
         </div>
-        <div className="px-6 py-3 flex items-center justify-between">
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Build Progress</span>
-          <span className="text-sm font-black text-blue-400">{progress}%</span>
+        <div className="px-6 py-3 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Build Progress</span>
+            <span className="text-sm font-black text-blue-400">{progress}%</span>
+          </div>
+          <div className="text-right">
+            <div className="text-xs text-slate-400 uppercase">Estimated Cost</div>
+            <div className="text-lg font-bold text-white">${totalPrice.toFixed(2)}</div>
+          </div>
         </div>
       </div>
 
@@ -676,6 +754,16 @@ function BettaBuilderContent() {
         </div>
       </div>
 
+      {/* Section complete toast */}
+      {toast && (
+        <div className="fixed bottom-24 right-6 z-[100]">
+          <div className="rounded-2xl bg-slate-900/95 border border-white/10 shadow-2xl px-4 py-3 backdrop-blur-md">
+            <div className="text-xs font-black text-emerald-400 uppercase tracking-wider">✅ {toast.title}</div>
+            <div className="text-sm font-semibold text-white">{toast.msg}</div>
+          </div>
+        </div>
+      )}
+
       {/* Mobile Sidebar Toggle */}
       <button
         onClick={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)}
@@ -685,39 +773,76 @@ function BettaBuilderContent() {
       </button>
       
       {/* --- CONTENT CONTAINER --- */}
-      <div className="relative z-10 max-w-7xl mx-auto">
+      <div className="relative z-10 max-w-5xl mx-auto">
         
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-            <div>
-                <button
-                    onClick={() => router.push("/")}
-                    className="flex items-center gap-2 text-slate-400 hover:text-blue-400 transition-colors mb-4 text-base font-medium group"
-                >
-                    <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" /> Back to Hub
-                </button>
-                <h1 className="text-4xl md:text-5xl font-black tracking-tight text-white drop-shadow-lg">
-                    Betta Fish <span className="text-blue-500">Configurator</span>
-                </h1>
-                <p className="text-slate-300 mt-2 max-w-2xl text-lg font-medium">
-                    Design a betta paradise. We'll ensure flow and temp are safe.
-                </p>
-            </div>
+        {/* Hero — centered, compact */}
+        <div className="mb-12">
+          <button
+            onClick={() => router.push("/")}
+            className="flex items-center gap-2 text-slate-400 hover:text-blue-400 transition-colors mb-4 text-sm font-medium group"
+          >
+            <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> Back to Hub
+          </button>
+          <h1 className="text-3xl md:text-4xl font-black tracking-tight text-white drop-shadow-lg mb-2">
+            Betta Fish <span className="text-blue-500">Configurator</span>
+          </h1>
+          <p className="text-slate-400 text-sm mb-6 max-w-2xl">
+            Choose safe parts, then generate a complete shopping list.
+          </p>
 
-            {/* Progress Radial (Desktop) */}
-            <div className="hidden md:flex items-center gap-4 card-warm p-4 rounded-2xl">
-                <div className="text-right">
-                    <p className="text-[10px] uppercase font-bold text-slate-400 tracking-widest">Build Status</p>
-                    <p className="text-xl font-black text-white">{progress}% Ready</p>
+          <div className="mx-auto max-w-3xl">
+            <div className="rounded-2xl border border-slate-700/50 bg-slate-900/50 backdrop-blur-sm p-6 sm:p-7">
+              <div className="space-y-4">
+                <h2 className="text-xl md:text-2xl font-black text-white">
+                  Betta Fish Tank Setup Builder
+                </h2>
+                <p className="text-slate-300 leading-relaxed">
+                  We'll enforce the non-negotiables so your betta stays healthy.
+                </p>
+
+                <ul className="grid gap-2 text-sm text-slate-200">
+                  <li className="flex gap-3">
+                    <CheckCircle2 size={18} className="text-emerald-400 mt-0.5 shrink-0" />
+                    <span><span className="font-bold text-white">5+ gallon tank</span> (no bowls)</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <CheckCircle2 size={18} className="text-emerald-400 mt-0.5 shrink-0" />
+                    <span><span className="font-bold text-white">Low-flow filter</span> (sponge recommended)</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <CheckCircle2 size={18} className="text-emerald-400 mt-0.5 shrink-0" />
+                    <span><span className="font-bold text-white">Heater + thermometer</span> (78–80°F)</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <CheckCircle2 size={18} className="text-emerald-400 mt-0.5 shrink-0" />
+                    <span><span className="font-bold text-white">Water prep</span> (conditioner + testing)</span>
+                  </li>
+                </ul>
+
+                <div className="flex flex-wrap gap-3 pt-4 items-center">
+                  <button
+                    onClick={() => scrollToSection("experience")}
+                    className="px-6 py-3 rounded-2xl font-black text-sm bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white border border-blue-400/30 shadow-lg shadow-blue-500/30 transition"
+                    aria-label="Start builder, go to keeper level section"
+                  >
+                    Start Builder →
+                  </button>
+                  <details className="group rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
+                    <summary className="cursor-pointer list-none text-sm font-semibold text-slate-200 flex items-center gap-2">
+                      Why these rules?
+                      <ChevronDown size={16} className="text-slate-400 transition-transform group-open:rotate-180" />
+                    </summary>
+                    <div className="pt-3 text-sm text-slate-300 space-y-2 leading-relaxed max-w-xl">
+                      <p><b>5+ gallons</b> keeps parameters stable and reduces stress.</p>
+                      <p><b>Low flow</b> prevents fin damage and constant swimming against current.</p>
+                      <p><b>Heat + thermometer</b> maintains immunity at tropical temps.</p>
+                      <p><b>Water prep</b> prevents chlorine harm and ammonia spikes.</p>
+                    </div>
+                  </details>
                 </div>
-                <div className="relative w-12 h-12 flex items-center justify-center rounded-full border-4 border-slate-700">
-                    <div 
-                        className="absolute inset-0 rounded-full border-4 border-blue-500 transition-all duration-700 ease-out"
-                        style={{ clipPath: `inset(${100 - progress}% 0 0 0)` }}
-                    />
-                    <Target size={20} className={`transition-colors duration-500 ${progress === 100 ? "text-blue-400" : "text-slate-500"}`} />
-                </div>
+              </div>
             </div>
+          </div>
         </div>
 
         <div className="grid gap-8 lg:grid-cols-[1fr,360px] xl:grid-cols-[1fr,400px]">
@@ -736,6 +861,11 @@ function BettaBuilderContent() {
               sectionId="experience"
               isCompleted={sectionCompletion.experience}
               sectionRef={(el) => { if (el) sectionRefs.current.experience = el; }}
+              nextSectionId="enclosure"
+              nextSectionTitle="Tank Size"
+              isSectionLocked={isSectionLocked}
+              scrollToSection={scrollToSection}
+              theme="blue"
             >
               <div className="grid grid-cols-2 gap-4">
                 
@@ -769,7 +899,7 @@ function BettaBuilderContent() {
                         Experienced
                     </p>
                     <p className="text-xs font-medium text-slate-400 mt-2 uppercase tracking-wider leading-relaxed">
-                      Unlocks everything (even Bowls, for education).
+                      Unlocks all tank sizes and options. Full database access.
                     </p>
                 </button>
 
@@ -784,6 +914,11 @@ function BettaBuilderContent() {
               sectionId="enclosure"
               isCompleted={sectionCompletion.enclosure}
               sectionRef={(el) => { if (el) sectionRefs.current.enclosure = el; }}
+              nextSectionId="filtration"
+              nextSectionTitle="Filtration"
+              isSectionLocked={isSectionLocked}
+              scrollToSection={scrollToSection}
+              theme="blue"
             >
               {!experience && (
                   <div className="mb-4 p-3 bg-blue-500/10 border border-blue-500/20 text-blue-200 text-xs rounded-xl flex items-center gap-2">
@@ -812,23 +947,31 @@ function BettaBuilderContent() {
                   const isBestForBeginners = e.id === "5g" || e.id === "10g";
                   
                   return (
-                    <SelectionCard
+<SelectionCard
                       key={e.id}
                       active={enclosureId === e.id}
                       label={e.label}
                       price={e.price}
                       sublabel={
-                        isRecommended 
-                          ? "Recommended for most bettas" 
-                          : isBestForBeginners 
-                          ? "Best for beginners" 
+                        isRecommended
+                          ? "Recommended for most bettas"
+                          : isBestForBeginners
+                          ? "Best for beginners"
                           : e.size + " Gallons"
                       }
-                      onClick={() => setEnclosureId(enclosureId === e.id ? null : e.id)}
+                      onClick={() => {
+                        if (enclosureId === e.id) {
+                          setEnclosureId(null);
+                        } else {
+                          setEnclosureId(e.id);
+                          setToast({ title: "Added to build", msg: `+ $${(e.price || 0).toFixed(2)} added` });
+                        }
+                      }}
                       type="radio"
                       colorClass="blue"
                       productId={e.id}
                       isRequired={false}
+                      badge={e.badge}
                     />
                   );
                 })}
@@ -844,6 +987,11 @@ function BettaBuilderContent() {
               isCompleted={sectionCompletion.filtration}
               isLocked={isSectionLocked.filtration}
               sectionRef={(el) => { if (el) sectionRefs.current.filtration = el; }}
+              nextSectionId="temperature"
+              nextSectionTitle="Temperature"
+              isSectionLocked={isSectionLocked}
+              scrollToSection={scrollToSection}
+              theme="blue"
             >
               <div 
                 className={`mb-4 transition-all duration-500 ease-in-out ${
@@ -867,23 +1015,31 @@ function BettaBuilderContent() {
                   const isBestForBeginners = f.id === "sponge";
                   
                   return (
-                    <SelectionCard
+<SelectionCard
                       key={f.id}
                       active={filtrationId === f.id}
                       label={f.label}
                       price={f.price}
                       sublabel={
-                        isRecommended 
-                          ? "Recommended for most bettas" 
-                          : isBestForBeginners 
-                          ? "Best for beginners" 
+                        isRecommended
+                          ? "Recommended for most bettas"
+                          : isBestForBeginners
+                          ? "Best for beginners"
                           : `Flow: ${f.flow}`
                       }
-                      onClick={() => setFiltrationId(filtrationId === f.id ? null : f.id)}
+                      onClick={() => {
+                        if (filtrationId === f.id) {
+                          setFiltrationId(null);
+                        } else {
+                          setFiltrationId(f.id);
+                          setToast({ title: "Added to build", msg: `+ $${(f.price || 0).toFixed(2)} added` });
+                        }
+                      }}
                       type="radio"
                       colorClass="blue"
                       productId={f.id}
                       isRequired={false}
+                      badge={f.badge}
                     />
                   );
                 })}
@@ -899,6 +1055,11 @@ function BettaBuilderContent() {
               isCompleted={sectionCompletion.temperature}
               isLocked={isSectionLocked.temperature}
               sectionRef={(el) => { if (el) sectionRefs.current.temperature = el; }}
+              nextSectionId="substrate"
+              nextSectionTitle="Substrate"
+              isSectionLocked={isSectionLocked}
+              scrollToSection={scrollToSection}
+              theme="blue"
             >
               <div 
                 className={`mb-4 transition-all duration-500 ease-in-out ${
@@ -942,33 +1103,39 @@ function BettaBuilderContent() {
                   const isBestForBeginners = h.id === "50w";
                   
                   return (
-                    <SelectionCard
+<SelectionCard
                       key={h.id}
                       active={isActive}
                       label={h.label}
                       price={h.price}
                       sublabel={
-                        isThermometer 
-                          ? undefined 
-                          : isRecommended 
-                          ? "Recommended for most tanks" 
-                          : isBestForBeginners 
-                          ? "Best for beginners" 
+                        isThermometer
+                          ? undefined
+                          : isRecommended
+                          ? "Recommended for most tanks"
+                          : isBestForBeginners
+                          ? "Best for beginners"
                           : undefined
                       }
                       onClick={() => {
                         if (isHeater) {
-                          // Single selection for heaters - toggle if same, otherwise select new one
-                          setHeaterId(heaterId === h.id ? null : h.id);
+                          if (heaterId === h.id) {
+                            setHeaterId(null);
+                          } else {
+                            setHeaterId(h.id);
+                            setToast({ title: "Added to build", msg: `+ $${(h.price || 0).toFixed(2)} added` });
+                          }
                         } else if (isThermometer) {
-                          // Toggle thermometer
-                          setHasThermometer(!hasThermometer);
+                          const next = !hasThermometer;
+                          setHasThermometer(next);
+                          if (next) setToast({ title: "Added to build", msg: `+ $${(h.price || 0).toFixed(2)} added` });
                         }
                       }}
                       type={isHeater ? "radio" : "checkbox"}
                       colorClass="blue"
                       productId={h.id}
                       isRequired={isRequired}
+                      badge={h.badge}
                     />
                   );
                 })}
@@ -984,6 +1151,11 @@ function BettaBuilderContent() {
               isCompleted={sectionCompletion.substrate}
               isLocked={isSectionLocked.substrate}
               sectionRef={(el) => { if (el) sectionRefs.current.substrate = el; }}
+              nextSectionId="decor"
+              nextSectionTitle="Plants & Decor"
+              isSectionLocked={isSectionLocked}
+              scrollToSection={scrollToSection}
+              theme="blue"
             >
               <div 
                 className={`mb-4 transition-all duration-500 ease-in-out ${
@@ -1003,12 +1175,15 @@ function BettaBuilderContent() {
                 selectedId={substrateId}
                 selectedVariants={substrateVariants}
                 onSelect={(id) => {
-                  // Toggle behavior: if same ID, deselect (set to null)
+                  const isDeselect = substrateId === id;
                   setSubstrateId(substrateId === id ? null : id);
+                  if (!isDeselect && id) {
+                    const item = SUBSTRATES.find((s) => s.id === id);
+                    if (item != null) setToast({ title: "Added to build", msg: `+ $${(item.price || 0).toFixed(2)} added` });
+                  }
                 }}
                 onVariantSelect={(baseName, color, size, variantId) => {
                   if (variantId === null) {
-                    // Deselect
                     setSubstrateVariants(prev => {
                       const newVariants = { ...prev };
                       delete newVariants[baseName];
@@ -1016,12 +1191,13 @@ function BettaBuilderContent() {
                     });
                     setSubstrateId(null);
                   } else {
-                    // Select variant
                     setSubstrateVariants(prev => ({
                       ...prev,
                       [baseName]: { color, size }
                     }));
                     setSubstrateId(variantId);
+                    const item = SUBSTRATES.find((s) => s.id === variantId);
+                    if (item != null) setToast({ title: "Added to build", msg: `+ $${(item.price || 0).toFixed(2)} added` });
                   }
                 }}
               />
@@ -1036,18 +1212,48 @@ function BettaBuilderContent() {
               isCompleted={sectionCompletion.decor}
               isLocked={isSectionLocked.decor}
               sectionRef={(el) => { if (el) sectionRefs.current.decor = el; }}
+              nextSectionId="watercare"
+              nextSectionTitle="Water Prep"
+              isSectionLocked={isSectionLocked}
+              scrollToSection={scrollToSection}
+              theme="blue"
             >
               <DecorSection
                 decor={filteredDecor}
                 selectedIds={decorIds}
                 selectedVariants={decorVariants}
-                onToggle={(id) => setDecorIds((ids) => toggle(ids, id))}
+                onToggle={(id) => {
+                  const willAdd = !decorIds.includes(id);
+                  setDecorIds((ids) => toggle(ids, id));
+                  if (willAdd) {
+                    let item = filteredDecor.find((d) => d.id === id);
+                    if (!item) {
+                      const { groups } = groupVariants(filteredDecor);
+                      for (const gr of groups) {
+                        const v = gr.variants.find((x) => x.id === id);
+                        if (v) { item = v; break; }
+                      }
+                    }
+                    if (item) setToast({ title: "Added to build", msg: `+ $${(item.price || 0).toFixed(2)} added` });
+                  }
+                }}
                 onVariantToggle={(baseName, color, size, variantId) => {
                   setDecorVariants(prev => ({
                     ...prev,
                     [baseName]: { color, size }
                   }));
+                  const willAdd = variantId != null && !decorIds.includes(variantId);
                   setDecorIds((ids) => toggle(ids, variantId));
+                  if (willAdd && variantId != null) {
+                    const { groups } = groupVariants(filteredDecor);
+                    for (const gr of groups) {
+                      const v = gr.variants.find((x) => x.id === variantId);
+                      if (v) {
+                        setToast({ title: "Added to build", msg: `+ $${(v.price || 0).toFixed(2)} added` });
+                        break;
+                      }
+                    }
+                  }
                 }}
               />
             </Section>
@@ -1061,6 +1267,9 @@ function BettaBuilderContent() {
                isCompleted={sectionCompletion.watercare}
                isLocked={isSectionLocked.watercare}
                sectionRef={(el) => { if (el) sectionRefs.current.watercare = el; }}
+               isSectionLocked={isSectionLocked}
+               scrollToSection={scrollToSection}
+              theme="blue"
              >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {WATERCARE.map((w) => (
@@ -1069,10 +1278,15 @@ function BettaBuilderContent() {
                     active={careIds.includes(w.id)}
                     label={w.label}
                     price={w.price}
-                    onClick={() => setCareIds((ids) => toggle(ids, w.id))}
+                    onClick={() => {
+                    const willAdd = !careIds.includes(w.id);
+                    setCareIds((ids) => toggle(ids, w.id));
+                    if (willAdd) setToast({ title: "Added to build", msg: `+ $${(w.price || 0).toFixed(2)} added` });
+                  }}
                     type="checkbox"
                     colorClass="blue"
                     productId={w.id}
+                    badge={w.badge}
                   />
                 ))}
               </div>
@@ -1080,6 +1294,24 @@ function BettaBuilderContent() {
 
             {/* Mobile Generate Habitat + Reset - At bottom of page content */}
             <div className="lg:hidden mt-8 mb-6 relative z-10 space-y-3">
+              {progress >= 50 && (
+                <div className="px-4 py-3 rounded-xl bg-slate-800/50 border border-slate-600 text-slate-200 text-sm">
+                  <p className="font-medium mb-2">Save your progress</p>
+                  <button
+                    type="button"
+                    onClick={copyBuildLink}
+                    className="w-full flex items-center justify-center gap-2 py-2 rounded-lg bg-slate-700/50 hover:bg-slate-600/50 text-white text-xs font-bold border border-slate-600 transition"
+                  >
+                    {copyLinkSuccess ? <Check size={14} /> : <Copy size={14} />}
+                    {copyLinkSuccess ? "Copied!" : "Copy link"}
+                  </button>
+                </div>
+              )}
+              {progress >= 70 && !allRequirementsMet && (
+                <div className="px-4 py-3 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-200 text-sm font-medium">
+                  You're close — generate your shopping list next.
+                </div>
+              )}
               <button
                 type="button"
                 onClick={goToSummary}
@@ -1151,10 +1383,28 @@ function BettaBuilderContent() {
                 <div className="border-t border-white/10 pt-4 mb-6">
                   <div className="flex justify-between items-end">
                     <span className="text-slate-400 text-sm font-bold uppercase tracking-wider">Estimate</span>
-                    {/* 👇 FIX: Total price */}
                     <span className="text-3xl font-black text-white tracking-tight">${totalPrice.toFixed(2)}</span>
                   </div>
                 </div>
+
+                {progress >= 50 && (
+                  <div className="mb-4 px-4 py-3 rounded-xl bg-slate-800/50 border border-slate-600 text-slate-200 text-sm">
+                    <p className="font-medium mb-2">Save your progress</p>
+                    <button
+                      type="button"
+                      onClick={copyBuildLink}
+                      className="w-full flex items-center justify-center gap-2 py-2 rounded-lg bg-slate-700/50 hover:bg-slate-600/50 text-white text-xs font-bold border border-slate-600 transition"
+                    >
+                      {copyLinkSuccess ? <Check size={14} /> : <Copy size={14} />}
+                      {copyLinkSuccess ? "Copied!" : "Copy link"}
+                    </button>
+                  </div>
+                )}
+                {progress >= 70 && !allRequirementsMet && (
+                  <div className="mb-4 px-4 py-3 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-200 text-sm font-medium">
+                    You're close — generate your shopping list next.
+                  </div>
+                )}
 
                 <button
                   type="button"
@@ -1473,69 +1723,6 @@ function WhyUnsafeToggle({ explanation }) {
   );
 }
 
-/* ---------- UI COMPONENTS (Adapted for Blue Theme) ---------- */
-
-function Section({ title, icon, description, children, sectionId, isCompleted, sectionRef, isLocked = false }) {
-    return (
-        <section 
-          id={sectionId}
-          ref={sectionRef}
-          className={`relative bg-gradient-to-br from-slate-900/80 via-slate-900/60 to-slate-900/80 backdrop-blur-md p-8 rounded-3xl border-2 shadow-xl overflow-hidden transition-all duration-500 ${
-            isCompleted ? 'border-blue-500/50' : isLocked ? 'border-white/5 opacity-40' : 'border-white/10'
-          }`}
-        >
-            {/* Subtle background gradient */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-transparent pointer-events-none" />
-            
-            {/* Completion indicator */}
-            {isCompleted && (
-              <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center border-2 border-emerald-400/50 shadow-lg shadow-emerald-500/30 z-10">
-                <CheckCircle2 size={16} className="text-white" />
-              </div>
-            )}
-            
-            {/* Locked overlay */}
-            {isLocked && (
-              <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm rounded-3xl flex items-center justify-center z-20 pointer-events-none">
-                <div className="text-center p-6">
-                  <AlertCircle size={32} className="text-slate-500 mx-auto mb-3" />
-                  <p className="text-slate-400 font-medium text-sm">Complete previous sections to unlock</p>
-                </div>
-              </div>
-            )}
-            
-            <div className="relative mb-6">
-                <h2 className="text-2xl font-black text-white mb-3 flex items-center gap-4">
-                    <div className={`p-3 bg-gradient-to-br rounded-xl border-2 shadow-lg transition-all duration-300 ${
-                      isCompleted 
-                        ? 'from-emerald-500/20 to-emerald-600/20 border-emerald-500/30 shadow-emerald-500/10' 
-                        : isLocked
-                        ? 'from-slate-700/20 to-slate-800/20 border-slate-700/30'
-                        : 'from-blue-500/20 to-blue-600/20 border-blue-500/30 shadow-blue-500/10'
-                    }`}>
-                        <div className={isCompleted ? "text-emerald-400" : isLocked ? "text-slate-500" : "text-blue-400"}>
-                            {icon}
-                        </div>
-                    </div>
-                    <span className={`bg-gradient-to-r bg-clip-text text-transparent drop-shadow-sm ${
-                      isLocked ? 'from-slate-500 to-slate-600' : 'from-white to-slate-200'
-                    }`}>
-                        {title}
-                    </span>
-                </h2>
-                {description && (
-                    <p className={`text-sm ml-[68px] leading-relaxed font-medium ${
-                      isLocked ? 'text-slate-500' : 'text-slate-300'
-                    }`}>{description}</p>
-                )}
-            </div>
-            <div className={`relative ${isLocked ? 'pointer-events-none' : ''}`}>
-                {children}
-            </div>
-        </section>
-    );
-}
-
 // Product explanations mapping - covers all products including variants
 const productExplanations = {
   // Enclosures
@@ -1583,11 +1770,11 @@ const productExplanations = {
   "bacteria": "Beneficial bacteria starter helps establish the nitrogen cycle faster. Not required but helpful for new tanks.",
 };
 
-function SelectionCard({ active, label, sublabel, price, onClick, type, productId, isRequired = false }) {
+function SelectionCard({ active, label, sublabel, price, onClick, type, productId, isRequired = false, badge }) {
   const explanation = productId ? productExplanations[productId] : null;
   // Only show required indicator if not selected
   const showRequired = isRequired && !active;
-  
+
   return (
     <div
       onClick={onClick}
@@ -1608,6 +1795,14 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
           : "from-transparent via-slate-700 to-transparent opacity-0 group-hover:opacity-100 group-hover:from-blue-500/50 group-hover:via-blue-400/50 group-hover:to-blue-500/50"
       }`} />
       
+      {badge && (
+        <div className="mb-3">
+          <span className="inline-block px-2 py-1 text-xs font-bold rounded-lg bg-emerald-500/15 text-emerald-300 border border-emerald-400/20">
+            {badge}
+          </span>
+        </div>
+      )}
+
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
         <div className="flex items-start gap-4 flex-1 min-w-0">
           <div
@@ -1669,6 +1864,7 @@ function SubstrateSection({ substrates, selectedId, selectedVariants, onSelect, 
           colorClass="blue"
           productId={s.id}
           isRequired={false}
+          badge={s.badge}
         />
       ))}
       
@@ -1757,6 +1953,7 @@ function DecorSection({ decor, selectedIds, selectedVariants, onToggle, onVarian
           type="checkbox"
           colorClass="blue"
           productId={d.id}
+          badge={d.badge}
         />
       ))}
       
