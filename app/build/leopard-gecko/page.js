@@ -433,9 +433,10 @@ function LeopardGeckoBuilderContent() {
       setSubstrateVariants(template.substrateVariants);
     }
     
-    // Set heating
+    // Set heating (IDs and variants so Halogen/DHP/UVB variant groups show as selected)
     if (template.heatingIds) {
       setHeatingIds(template.heatingIds);
+      setHeatingVariants(rebuildVariantsFromIds(template.heatingIds, HEATING));
     }
     if (template.heatingVariants) {
       // Find variant product IDs and add them to heatingIds
