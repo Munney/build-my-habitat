@@ -933,9 +933,9 @@ function BettaBuilderContent() {
                 }`}
                 role={!enclosureId ? "alert" : undefined}
               >
-                <div className="p-4 bg-amber-500/20 border-2 border-amber-500/70 rounded-xl flex items-center gap-3 shadow-lg shadow-amber-500/20">
+                <div className="p-4 bg-amber-500/20 border-2 border-amber-500/70 rounded-xl flex items-center gap-3 flex-wrap shadow-lg shadow-amber-500/20">
                   <AlertCircle size={20} className="text-amber-400 shrink-0 flex-shrink-0" />
-                  <p className="text-amber-100 font-medium text-base flex-1">One tank selection is required.</p>
+                  <p className="text-amber-100 font-medium text-base flex-1 min-w-0 break-normal">One tank selection is required.</p>
                   <WhyRequiredToggle 
                     explanation="Bettas under 5 gallons show stress and have shorter lifespans. Proper tank size is essential for health."
                   />
@@ -1001,9 +1001,9 @@ function BettaBuilderContent() {
                 }`}
                 role={!filtrationId ? "alert" : undefined}
               >
-                <div className="p-4 bg-amber-500/20 border-2 border-amber-500/70 rounded-xl flex items-center gap-3 shadow-lg shadow-amber-500/20">
+                <div className="p-4 bg-amber-500/20 border-2 border-amber-500/70 rounded-xl flex items-center gap-3 flex-wrap shadow-lg shadow-amber-500/20">
                   <AlertCircle size={20} className="text-amber-400 shrink-0 flex-shrink-0" />
-                  <p className="text-amber-100 font-medium text-base flex-1 break-words">One filter selection is required.</p>
+                  <p className="text-amber-100 font-medium text-base flex-1 min-w-0 break-normal">One filter selection is required.</p>
                   <WhyRequiredToggle 
                     explanation="Filters process toxic ammonia from waste. Without filtration, ammonia builds up and can kill your betta."
                   />
@@ -1165,9 +1165,9 @@ function BettaBuilderContent() {
                 }`}
                 role={!substrateId ? "alert" : undefined}
               >
-                <div className="p-4 bg-amber-500/20 border-2 border-amber-500/70 rounded-xl flex items-center gap-3 shadow-lg shadow-amber-500/20">
+                <div className="p-4 bg-amber-500/20 border-2 border-amber-500/70 rounded-xl flex items-center gap-3 flex-wrap shadow-lg shadow-amber-500/20">
                   <AlertCircle size={20} className="text-amber-400 shrink-0 flex-shrink-0" />
-                  <p className="text-amber-100 font-medium text-base flex-1">At least one substrate selection is required.</p>
+                  <p className="text-amber-100 font-medium text-base flex-1 min-w-0 break-normal">At least one substrate selection is required.</p>
                 </div>
               </div>
               <SubstrateSection

@@ -1160,9 +1160,9 @@ function LeopardGeckoBuilderContent() {
                 }`}
                 role={!enclosureId ? "alert" : undefined}
               >
-                <div className="p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3 flex-wrap sm:flex-nowrap">
+                <div className="p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3 flex-wrap">
                   <AlertCircle size={20} className="text-amber-400 shrink-0" />
-                  <p className="text-amber-100 font-medium flex-1 break-words min-w-0">One enclosure selection is required.</p>
+                  <p className="text-amber-100 font-medium flex-1 min-w-0 break-normal">One enclosure selection is required.</p>
                   <WhyRequiredToggle 
                     explanation="Geckos under 20 gallons show stress and can't maintain proper temperature gradients. Minimum size ensures space for hides and natural behaviors."
                   />
@@ -1354,9 +1354,9 @@ function LeopardGeckoBuilderContent() {
                 }`}
                 role={substrateIds.length === 0 && Object.keys(substrateVariants).length === 0 ? "alert" : undefined}
               >
-                <div className="p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3 flex-wrap sm:flex-nowrap">
+                <div className="p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3 flex-wrap">
                   <AlertCircle size={20} className="text-amber-400 shrink-0" />
-                  <p className="text-amber-100 font-medium flex-1 break-words min-w-0">At least one substrate selection is required.</p>
+                  <p className="text-amber-100 font-medium flex-1 min-w-0 break-normal">At least one substrate selection is required.</p>
                   <WhyRequiredToggle 
                     explanation="Substrate provides traction, maintains humidity, and supports natural behaviors. Without it, geckos can develop stress and health issues."
                   />

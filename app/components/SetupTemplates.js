@@ -40,16 +40,18 @@ export function SetupTemplates({ species, onApplyTemplate }) {
               }}
             >
               {isBudget && (
-                <div className="absolute top-3 right-3 px-2 py-1 text-xs font-bold rounded-lg bg-emerald-500/15 text-emerald-300 border border-emerald-400/20">
-                  Most beginners start here
+                <div className="flex flex-wrap items-center gap-2 mb-3">
+                  <span className="inline-block px-2 py-1 text-xs font-bold rounded-lg bg-emerald-500/15 text-emerald-300 border border-emerald-400/20 whitespace-nowrap shrink-0">
+                    Most beginners start here
+                  </span>
                 </div>
               )}
               <div className="flex items-start justify-between gap-3 mb-2">
                 <div className="flex items-center gap-2">
                   {isBudget ? (
-                    <DollarSign size={20} className="text-green-400" />
+                    <DollarSign size={20} className="text-green-400 shrink-0" />
                   ) : (
-                    <Crown size={20} className="text-amber-400" />
+                    <Crown size={20} className="text-amber-400 shrink-0" />
                   )}
                   <h3 className="font-bold text-lg text-white">{template.name}</h3>
                 </div>
