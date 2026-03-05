@@ -438,8 +438,8 @@ function LeopardGeckoBuilderContent() {
       setHeatingIds(template.heatingIds);
       setHeatingVariants(rebuildVariantsFromIds(template.heatingIds, HEATING));
     }
-    if (template.heatingVariants) {
-      // Find variant product IDs and add them to heatingIds
+    if (template.heatingVariants && Object.keys(template.heatingVariants).length > 0) {
+      // Find variant product IDs and add them to heatingIds (only when template explicitly provides variant choices)
       const variantIds = [];
       Object.entries(template.heatingVariants).forEach(([baseName, selection]) => {
         const { groups } = groupVariants(HEATING);
