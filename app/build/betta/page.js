@@ -1795,18 +1795,21 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
           : "from-transparent via-slate-700 to-transparent opacity-0 group-hover:opacity-100 group-hover:from-blue-500/50 group-hover:via-blue-400/50 group-hover:to-blue-500/50"
       }`} />
       
-      {badge && (
-        <div className="mb-3">
-          <span className="inline-block px-2 py-1 text-xs font-bold rounded-lg bg-emerald-500/15 text-emerald-300 border border-emerald-400/20">
+      <div className="flex flex-wrap items-center gap-2 mb-3 min-h-0 shrink-0">
+        {badge && (
+          <span className="inline-block px-2 py-1 text-xs font-bold rounded-lg bg-emerald-500/15 text-emerald-300 border border-emerald-400/20 whitespace-nowrap shrink-0">
             {badge}
           </span>
-        </div>
-      )}
+        )}
+        {showRequired && (
+          <span className="inline-block text-xs font-semibold text-amber-400 uppercase tracking-wide whitespace-nowrap shrink-0">Required</span>
+        )}
+      </div>
 
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
         <div className="flex items-start gap-4 flex-1 min-w-0">
           <div
-            className={`mt-1 w-6 h-6 rounded-full flex items-center justify-center border-2 transition-all shadow-lg shrink-0 ${
+            className={`mt-0.5 w-6 h-6 rounded-full flex items-center justify-center border-2 transition-all shadow-lg shrink-0 ${
               active 
                 ? "bg-gradient-to-br from-blue-400 to-blue-600 border-blue-400 shadow-blue-500/50" 
                 : showRequired
@@ -1822,9 +1825,6 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
             <div className="flex items-start gap-3">
               <div className={`font-bold text-lg transition-colors flex-1 min-w-0 ${active ? "text-white drop-shadow-sm" : showRequired ? "text-amber-100 group-hover:text-white" : "text-slate-200 group-hover:text-white"}`}>
                 <div style={{ wordBreak: 'normal', overflowWrap: 'normal' }}>{label}</div>
-                {showRequired && (
-                  <span className="ml-0 mt-1 inline-block text-xs font-semibold text-amber-400 uppercase tracking-wide whitespace-nowrap">Required</span>
-                )}
               </div>
               {explanation && (
                 <div className="shrink-0 mt-0.5 flex-shrink-0">

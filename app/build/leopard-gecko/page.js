@@ -2598,18 +2598,24 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
           : "from-transparent via-slate-700 to-transparent opacity-0 group-hover:opacity-100 group-hover:from-emerald-500/50 group-hover:via-emerald-400/50 group-hover:to-emerald-500/50"
       }`} />
       
-      {badge && (
-        <div className="mb-3">
-          <span className="inline-block px-2 py-1 text-xs font-bold rounded-lg bg-emerald-500/15 text-emerald-300 border border-emerald-400/20">
+      <div className="flex flex-wrap items-center gap-2 mb-3 min-h-0 shrink-0">
+        {badge && (
+          <span className="inline-block px-2 py-1 text-xs font-bold rounded-lg bg-emerald-500/15 text-emerald-300 border border-emerald-400/20 whitespace-nowrap shrink-0">
             {badge}
           </span>
-        </div>
-      )}
+        )}
+        {showRequired && (
+          <span className="inline-flex items-center gap-1 text-xs font-semibold text-amber-100 uppercase tracking-wide bg-amber-500/30 border border-amber-500/50 rounded-full px-2 py-0.5 whitespace-nowrap shrink-0">Required (Safety)</span>
+        )}
+        {sublabel === "Recommended" && (
+          <span className="inline-block text-xs font-semibold text-emerald-400 uppercase tracking-wide bg-emerald-500/20 px-2 py-0.5 rounded-full border border-emerald-500/30 whitespace-nowrap shrink-0">Recommended</span>
+        )}
+      </div>
 
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
         <div className="flex items-start gap-4 flex-1 min-w-0">
           <div
-            className={`mt-1 w-6 h-6 rounded-full flex items-center justify-center border-2 transition-all shadow-lg shrink-0 ${
+            className={`mt-0.5 w-6 h-6 rounded-full flex items-center justify-center border-2 transition-all shadow-lg shrink-0 ${
               active 
                 ? "bg-gradient-to-br from-emerald-400 to-emerald-600 border-emerald-400 shadow-emerald-500/50" 
                 : "bg-gradient-to-br from-slate-700 to-slate-800 border-slate-600 group-hover:border-emerald-500/50 group-hover:shadow-emerald-500/20"
@@ -2623,12 +2629,6 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
             <div className="flex items-start gap-3">
               <div className={`font-bold text-lg transition-colors flex-1 min-w-0 ${active ? "text-white drop-shadow-sm" : "text-slate-200 group-hover:text-white"}`}>
                 <div style={{ wordBreak: 'normal', overflowWrap: 'normal' }}>{label}</div>
-                {showRequired && (
-                  <span className="ml-0 mt-1 inline-flex items-center gap-1 text-xs font-semibold text-amber-100 uppercase tracking-wide bg-amber-500/30 border border-amber-500/50 rounded-full px-2 py-0.5 whitespace-nowrap">Required (Safety)</span>
-                )}
-                {sublabel === "Recommended" && (
-                  <span className="ml-0 mt-1 inline-block text-xs font-semibold text-emerald-400 uppercase tracking-wide bg-emerald-500/20 px-2 py-0.5 rounded-full border border-emerald-500/30 whitespace-nowrap">Recommended</span>
-                )}
               </div>
               {explanation && (
                 <div className="shrink-0 mt-0.5 flex-shrink-0">
