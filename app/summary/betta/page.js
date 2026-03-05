@@ -17,7 +17,6 @@ import {
   BookmarkCheck,
   Download,
   ShoppingCart,
-  HelpCircle,
 } from "lucide-react";
 import config from "../../../data/betta.json";
 import { analytics, trackEvent } from "../../utils/analytics";
@@ -417,37 +416,22 @@ function SummaryContent() {
                     </div>
 
                     <div className="flex flex-col gap-3 relative z-10">
-                      {requiredItemsWithAsin.length > 0 && (
-                        <>
-                          <a
-                            href={amazonCartUrlRequired}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={() => analytics.trackAmazonCartClick("betta", requiredTotalNumber, requiredItemsWithAsin.length)}
-                            className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold px-6 shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 transition hover:scale-[1.02] active:scale-[0.98]"
-                          >
-                            <ShoppingCart size={18} /> Buy Required Essentials (recommended)
-                          </a>
-                          <p className="text-xs text-slate-400">Most people start with essentials first.</p>
-                          <p className="text-xs text-slate-500 flex items-center justify-center gap-1">
-                            <span title="Tank, filter, heater, thermometer, substrate, conditioner, and test kit are the minimum for a safe cycled tank." className="inline-flex items-center gap-1 cursor-help border-b border-dotted border-slate-500">
-                              <HelpCircle size={12} /> Why required?
-                            </span>
-                          </p>
-                        </>
-                      )}
                       <a
                         href={amazonCartUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={() => analytics.trackAmazonCartClick("betta", totalNumber, allItems.length)}
-                        className="flex items-center justify-center gap-2 w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-black text-lg border-2 border-blue-400/30 hover:border-blue-300/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/40 active:scale-[0.98] shadow-lg shadow-blue-900/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+                        className="flex items-center justify-center gap-3 w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-black text-lg border-2 border-blue-400/30 hover:border-blue-300/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/40 active:scale-[0.98] shadow-lg shadow-blue-900/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
                       >
-                        <ShoppingCart size={20} className="drop-shadow-sm" /> Open in Amazon Cart — Full Build
+                        <ShoppingCart size={20} className="drop-shadow-sm shrink-0" />
+                        <span className="text-center leading-tight">
+                          <span className="block">Open in Amazon Cart</span>
+                          <span className="block text-base font-bold opacity-95">— Full Build</span>
+                        </span>
                       </a>
                     </div>
                     <p className="text-xs text-slate-500 relative z-10 px-4 leading-relaxed">
-                        *Clicking opens Amazon and adds items to your cart. Required = tank, filter, heater, thermometer, substrate, conditioner, test kit.
+                        *Clicking opens Amazon and adds items to your cart.
                     </p>
                 </div>
 

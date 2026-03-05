@@ -1433,9 +1433,9 @@ function LeopardGeckoBuilderContent() {
                 if (missingHides.length > 0 && hideIds.length > 0) {
                   // Only show if some hides are selected but required ones are missing
                   return (
-                    <div className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
+                    <div className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3 flex-wrap">
                       <AlertCircle size={20} className="text-amber-400 shrink-0" />
-                      <p className="text-amber-100 font-medium flex-1">
+                      <p className="text-amber-100 font-medium flex-1 min-w-[14rem] break-normal">
                         {missingHides.length === 3
                           ? "Warm hide, cool hide, and humid hide are required."
                           : missingHides.length === 2
@@ -1464,9 +1464,9 @@ function LeopardGeckoBuilderContent() {
                 } else if (hideIds.length === 0) {
                   // Show when no hides are selected at all
                   return (
-                    <div className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3">
+                    <div className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl flex items-center gap-3 flex-wrap">
                       <AlertCircle size={20} className="text-amber-400 shrink-0" />
-                      <p className="text-amber-100 font-medium flex-1">Warm hide, cool hide, and humid hide are required.</p>
+                      <p className="text-amber-100 font-medium flex-1 min-w-[14rem] break-normal">Warm hide, cool hide, and humid hide are required.</p>
                       <WhyRequiredToggle 
                         explanation="Geckos need warm hide for thermoregulation, cool hide to escape heat, and humid hide for proper shedding. Without all three, they can develop health issues."
                       />
