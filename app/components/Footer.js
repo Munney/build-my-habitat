@@ -8,7 +8,7 @@ export default function Footer({ variant = "full" }) {
       <footer className="w-full border-t border-white/10 bg-[#020617]/80 backdrop-blur-md text-slate-400 text-sm">
         <div className="max-w-7xl mx-auto px-6 py-8">
           <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 text-xs">
-            <span>&copy; {new Date().getFullYear()} HabitatBuilder</span>
+            <span>&copy; {new Date().getFullYear()} BuildMyHabitat</span>
             <span className="hidden md:inline">•</span>
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <span className="hidden md:inline">•</span>
@@ -28,7 +28,7 @@ export default function Footer({ variant = "full" }) {
         
         {/* Brand Column */}
         <div className="space-y-4">
-          <h3 className="text-lg font-black text-white tracking-tight">HabitatBuilder</h3>
+          <h3 className="text-lg font-black text-white tracking-tight">BuildMyHabitat</h3>
           <p className="leading-relaxed opacity-80">
             Helping keepers design safe, enriching environments for their animals using modern husbandry standards.
           </p>
@@ -72,7 +72,7 @@ export default function Footer({ variant = "full" }) {
       
       {/* Copyright Bar */}
       <div className="border-t border-white/5 py-6 text-center text-xs opacity-60">
-        &copy; {new Date().getFullYear()} HabitatBuilder. Not professional veterinary advice.
+        &copy; {new Date().getFullYear()} BuildMyHabitat. Not professional veterinary advice.
       </div>
     </footer>
   );

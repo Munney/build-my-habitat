@@ -20,8 +20,8 @@ export default function FAQPage() {
       category: "General",
       questions: [
         {
-          q: "Is HabitatBuilder free to use?",
-          a: "Yes! HabitatBuilder is completely free to use. We don't charge any fees. We earn a small commission when you purchase products through our Amazon affiliate links, but this doesn't cost you anything extra."
+          q: "Is BuildMyHabitat free to use?",
+          a: "Yes! BuildMyHabitat is completely free to use. We don't charge any fees. We earn a small commission when you purchase products through our Amazon affiliate links, but this doesn't cost you anything extra."
         },
         {
           q: "How accurate are the prices?",
@@ -162,7 +162,7 @@ export default function FAQPage() {
             </h1>
           </div>
           <p className="text-xl text-slate-300 max-w-2xl mx-auto">
-            Everything you need to know about using HabitatBuilder and building safe habitats.
+            Everything you need to know about using BuildMyHabitat and building safe habitats.
           </p>
         </div>
 

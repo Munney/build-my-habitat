@@ -7,7 +7,7 @@ export default function AboutPage() {
     <main className="min-h-screen pt-32 pb-20 px-6 relative z-10">
       <div className="max-w-4xl mx-auto text-center mb-16">
         <h1 className="text-5xl font-black text-white mb-6 drop-shadow-lg">
-          The HabitatBuilder <span className="text-emerald-400">Standard</span>
+          The BuildMyHabitat <span className="text-emerald-400">Standard</span>
         </h1>
         <p className="text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto">
           We don't just sell parts. We enforce <span className="text-white font-bold">veterinary standards</span> to ensure your pet thrives, not just survives.
@@ -45,7 +45,7 @@ export default function AboutPage() {
             Affiliate Disclosure
           </h3>
           <p className="text-slate-300 leading-relaxed">
-            HabitatBuilder uses Amazon affiliate links. When you purchase products through our links, we earn a small commission at no extra cost to you. This helps us keep the site free and maintain our research-backed recommendations. We only recommend products we've verified as safe and appropriate for your pets.
+            BuildMyHabitat uses Amazon affiliate links. When you purchase products through our links, we earn a small commission at no extra cost to you. This helps us keep the site free and maintain our research-backed recommendations. We only recommend products we've verified as safe and appropriate for your pets.
           </p>
         </div>
       </div>

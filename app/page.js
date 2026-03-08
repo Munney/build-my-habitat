@@ -34,7 +34,7 @@ export default function Home() {
       <HowToSchema 
         steps={howToSteps}
         name="How to Build a Safe Pet Habitat"
-        description="Learn how to use HabitatBuilder to create a safe, research-backed habitat for your pet in three simple steps."
+        description="Learn how to use BuildMyHabitat to create a safe, research-backed habitat for your pet in three simple steps."
       />
       
       {/* Exit Intent Tracker */}

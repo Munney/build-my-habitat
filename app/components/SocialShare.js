@@ -36,7 +36,7 @@ export function SocialShare({ buildName, total, species, shareUrl }) {
       try {
         await navigator.share({
           title: `My ${species === "betta" ? "Betta Fish" : "Leopard Gecko"} Habitat Build - $${total}`,
-          text: `Check out my safe ${species === "betta" ? "betta fish" : "leopard gecko"} setup! Built with HabitatBuilder.`,
+          text: `Check out my safe ${species === "betta" ? "betta fish" : "leopard gecko"} setup! Built with BuildMyHabitat.`,
           url: shareUrl || window.location.href,
         });
 
@@ -67,7 +67,7 @@ export function SocialShare({ buildName, total, species, shareUrl }) {
   };
 
   const shareToTwitter = () => {
-    const text = encodeURIComponent(`Check out my ${species === "betta" ? "betta fish" : "leopard gecko"} setup! Built with HabitatBuilder - $${total}`);
+    const text = encodeURIComponent(`Check out my ${species === "betta" ? "betta fish" : "leopard gecko"} setup! Built with BuildMyHabitat - $${total}`);
     const url = encodeURIComponent(shareUrl || window.location.href);
     window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, "_blank", "width=600,height=400");
 

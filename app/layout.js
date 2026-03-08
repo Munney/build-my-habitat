@@ -20,12 +20,12 @@ const sourceSerif = Source_Serif_4({
 export const metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.buildmyhabitat.com'),
   title: {
-    template: '%s | HabitatBuilder',
-    default: 'Leopard Gecko & Betta Fish Setup Builder | HabitatBuilder',
+    template: '%s | BuildMyHabitat',
+    default: 'Leopard Gecko & Betta Fish Setup Builder | BuildMyHabitat',
   },
   description: 'Build safe, vet-approved habitats for Leopard Geckos and Betta Fish. Free compatibility checker, complete setup guides, and verified product lists. Start your 40-gallon gecko or 5+ gallon betta setup today.',
   keywords: 'leopard gecko setup, betta fish tank setup, leopard gecko habitat, betta fish care, leopard gecko tank setup, betta fish setup, reptile habitat builder, aquarium setup, leopard gecko enclosure, betta fish tank size, leopard gecko heating, betta fish heater, leopard gecko substrate, betta fish filter, safe pet enclosures, research-backed pet care',
-  authors: [{ name: 'HabitatBuilder' }],
+  authors: [{ name: 'BuildMyHabitat' }],
   icons: {
     icon: [
       { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
@@ -35,23 +35,23 @@ export const metadata = {
     apple: '/apple-touch-icon.png',
   },
   openGraph: {
-    title: 'HabitatBuilder - Smart Reptile & Aquarium Setup Configurator',
+    title: 'BuildMyHabitat - Smart Reptile & Aquarium Setup Configurator',
     description: 'Build safe, complete, and species-appropriate habitats with research-backed recommendations. Get your verified shopping list in minutes.',
     url: 'https://www.buildmyhabitat.com',
-    siteName: 'HabitatBuilder',
+    siteName: 'BuildMyHabitat',
     type: 'website',
     images: [
       {
         url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.buildmyhabitat.com'}/opengraph-image`,
         width: 1200,
         height: 630,
-        alt: 'HabitatBuilder - Build Safe Pet Habitats',
+        alt: 'BuildMyHabitat - Build Safe Pet Habitats',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'HabitatBuilder - Smart Pet Habitat Configurator',
+    title: 'BuildMyHabitat - Smart Pet Habitat Configurator',
     description: 'Build safe, research-backed habitats for your pets.',
   },
   robots: {
@@ -75,7 +75,7 @@ export default function RootLayout({ children }) {
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "HabitatBuilder",
+    "name": "BuildMyHabitat",
     "url": "https://www.buildmyhabitat.com",
     "logo": "https://www.buildmyhabitat.com/og-image.jpg",
     "description": "Build safe, research-backed habitats for your pets with our smart configurator",
@@ -85,7 +85,7 @@ export default function RootLayout({ children }) {
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "HabitatBuilder",
+    "name": "BuildMyHabitat",
     "url": "https://www.buildmyhabitat.com",
     "potentialAction": {
       "@type": "SearchAction",

@@ -34,7 +34,7 @@ export default function Navbar() {
           href="/"
           className="select-none py-2 pr-4 text-3xl md:text-4xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 hover:opacity-80 transition-opacity whitespace-nowrap"
         >
-          HabitatBuilder
+          BuildMyHabitat
         </Link>
 
         {/* DESKTOP LINKS */}

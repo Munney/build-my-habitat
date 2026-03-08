@@ -163,26 +163,26 @@ export function CareInstructions({ species }) {
           </h2>
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-3 care-details-print">
           {care.sections.map((section, idx) => (
-            <div key={idx} className="bg-slate-900/40 rounded-xl p-4 border border-white/5">
-              <div className="flex items-center gap-2 mb-3">
-                <div className={`${colors.text} opacity-80`}>
+            <details key={idx} className="bg-slate-900/40 rounded-xl border border-white/5 overflow-hidden group">
+              <summary className="flex items-center gap-2 p-4 cursor-pointer list-none font-bold text-white text-sm uppercase tracking-wide hover:bg-white/5 transition-colors [&::-webkit-details-marker]:hidden">
+                <div className={`${colors.text} opacity-80 shrink-0`}>
                   {section.icon}
                 </div>
-                <h3 className="font-bold text-white text-sm uppercase tracking-wide">
-                  {section.title}
-                </h3>
+                <span>{section.title}</span>
+              </summary>
+              <div className="care-section-body px-4 pb-4 pt-0 ml-7">
+                <ul className="space-y-2">
+                  {section.items.map((item, itemIdx) => (
+                    <li key={itemIdx} className="text-sm text-slate-300 leading-relaxed flex gap-2">
+                      <span className={`${colors.text} shrink-0 -mt-0.5`}>•</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <ul className="space-y-2 ml-7">
-                {section.items.map((item, itemIdx) => (
-                  <li key={itemIdx} className="text-sm text-slate-300 leading-relaxed flex gap-2">
-                    <span className={`${colors.text} shrink-0 -mt-0.5`}>•</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            </details>
           ))}
         </div>
       </div>

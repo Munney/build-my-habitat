@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useMemo, Suspense, useEffect, useState } from "react";
+import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 import {
   CheckCircle2,
   Share2,
   Printer,
   ArrowLeft,
-  ShieldCheck,
   ExternalLink,
   ArrowRight,
   Sun,
@@ -15,15 +15,17 @@ import {
   Check,
   Bookmark,
   BookmarkCheck,
-  Download,
   ShoppingCart,
+  ChevronDown,
+  XCircle,
 } from "lucide-react";
 import config from "../../../data/leopard-gecko.json";
 import { analytics, trackEvent } from "../../utils/analytics";
 import { buildStorage } from "../../utils/buildStorage";
-import { getAsinFromUrl, buildAmazonCartUrl, getStableConfigId } from "../../utils/amazonCart";
+import { getAsinFromUrl, buildAmazonCartUrl, getConfigIdFromSearchParams } from "../../utils/amazonCart";
+import { encodeParamsToSlug } from "../../utils/ratePayload";
+import { calculateGeckoHabitatScore } from "../../utils/habitatScore";
 import { EmailCaptureInline, EmailCapturePopup, ExitIntentTracker } from "../../components/EmailCapture";
-import { PremiumPDFExport } from "../../components/PremiumPDFExport";
 import { SocialShare } from "../../components/SocialShare";
 import { CareInstructions } from "../../components/CareInstructions";
 import SeoSchemaItemList from "../../components/SeoSchemaItemList";
@@ -36,6 +38,8 @@ const PRINT_STYLES_GECKO = `
   @media print {
     .print-receipt-only { display: block !important; }
     .print-receipt-only-hidden { display: none !important; }
+    .care-details-print details .care-section-body { display: block !important; }
+    .care-details-print details summary { display: list-item !important; }
     @page { size: letter; margin: 0.5in; }
     * { color: black !important; background: white !important; box-shadow: none !important; }
     body { background: white !important; font-size: 10pt !important; line-height: 1.2 !important; }
@@ -88,7 +92,14 @@ function SummaryContent() {
   const [buildName, setBuildName] = useState("");
   const [showEmailPopup, setShowEmailPopup] = useState(false);
 
-  const configId = useMemo(() => getStableConfigId(), []);
+  const configId = useMemo(() => getConfigIdFromSearchParams(searchParams), [searchParams]);
+
+  const ratePageUrl = useMemo(() => {
+    const params = {};
+    searchParams.forEach((value, key) => { params[key] = value; });
+    const slug = encodeParamsToSlug(params);
+    return slug ? `/rate/leopard-gecko/${slug}` : null;
+  }, [searchParams]);
 
   useEffect(() => {
     if (typeof document === "undefined") return;
@@ -126,8 +137,32 @@ function SummaryContent() {
     ...selections.supplements
   ].filter(Boolean);
 
+  const getCategoryBadge = (item, index) => {
+    let idx = 0;
+    if (index === idx++) return "Essentials";
+    if (index === idx++) return "Substrate";
+    const heatingCount = (selections.heating || []).length;
+    if (index < idx + heatingCount) return "Lighting & Heat";
+    idx += heatingCount;
+    const hidesCount = (selections.hides || []).length;
+    if (index < idx + hidesCount) return "Decor";
+    return "Supplements";
+  };
+
+  const enclosureSize = selections.enclosure?.size ?? (selections.enclosure?.label?.match(/\d+/)?.[0] || 40);
+  const getGeckoItemSubline = (item) => {
+    if (!item?.id) return null;
+    if (item.id === "thermostat") return "Required — prevents overheating";
+    if (item.id?.startsWith("halogen") || item.id?.startsWith("dhp")) return "Primary daytime heat source";
+    if (item.id === "humidhide") return "Required for healthy shedding";
+    if (item.id?.startsWith("uvb")) return "Supports natural vitamin D3 synthesis";
+    if (item.id === "multivitamin") return "Helps prevent nutritional deficiencies";
+    return null;
+  };
+
   const total = allItems.reduce((acc, item) => acc + (item.price || 0), 0).toFixed(2);
   const totalNumber = useMemo(() => Number(total), [total]);
+  const habitatScoreResult = useMemo(() => calculateGeckoHabitatScore(selections), [selections]);
 
   // Track summary view and check if build is saved
   useEffect(() => {
@@ -258,7 +293,15 @@ function SummaryContent() {
             </p>
           </div>
 
-          <div className="flex gap-3 no-print">
+          <div className="flex flex-wrap gap-3 items-center no-print">
+             {ratePageUrl && (
+               <Link
+                 href={ratePageUrl}
+                 className="flex items-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-slate-200 hover:text-white hover:bg-white/10 transition-colors text-sm font-bold"
+               >
+                 <Share2 size={18} /> Rate & share score
+               </Link>
+             )}
              <SocialShare 
                buildName={buildName || "Leopard Gecko Build"}
                total={parseFloat(total)}
@@ -290,12 +333,140 @@ function SummaryContent() {
           </div>
         </div>
 
-        {/* Email Capture Inline */}
-        <div className="mb-8 print-receipt-only-hidden">
-          <EmailCaptureInline 
-            onSuccess={(email) => {
-              console.log("Email captured:", email);
-            }}
+        {/* 1. Your Habitat Includes — first so users understand what they're buying */}
+        <div className="mb-6 p-5 rounded-2xl bg-slate-900/60 border border-white/10 print-receipt-only-hidden">
+          <h3 className="text-sm font-bold text-white uppercase tracking-wide mb-3">Your Habitat Includes</h3>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {[
+              selections.enclosure ? `${enclosureSize} gallon enclosure` : "Enclosure",
+              "Primary heat source + thermostat",
+              "UVB lighting",
+              "Safe substrate",
+              "3 essential hides",
+              "Supplements for proper nutrition",
+            ].map((label, i) => (
+              <li key={i} className="flex items-center gap-2 text-sm text-slate-200">
+                <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
+                {label}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* 2. Price + Buy — CTA block with anchoring and friction reduction */}
+        <div className="mb-6 p-6 rounded-3xl bg-gradient-to-br from-slate-900 to-slate-950 border border-white/10 shadow-2xl text-center relative overflow-hidden print-receipt-only-hidden">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-emerald-500/5 blur-3xl rounded-full pointer-events-none" />
+          <p className="text-slate-300 text-sm mb-3 relative z-10">Everything you need — already selected, verified, and compatible.</p>
+          <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-1 relative z-10">Complete Habitat Setup</p>
+          <div className="relative z-10">
+            <div className="flex justify-center items-end gap-1">
+              <span className="text-xl text-emerald-500 font-black">$</span>
+              <span className="text-5xl font-black text-white tracking-tighter leading-none">{total}</span>
+            </div>
+            <p className="text-sm font-bold text-slate-300 mt-2 leading-snug">
+              Total for a full {enclosureSize} gallon enclosure
+            </p>
+          </div>
+          <div className="mb-4 mt-3 relative z-10" />
+          <a
+            href={amazonCartUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => analytics.trackAmazonCartClick("leopard-gecko", totalNumber, allItems.length)}
+            className="relative z-10 flex items-center justify-center gap-2 w-full py-4 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-black text-lg border-2 border-emerald-400/30 hover:border-emerald-300/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-emerald-500/40 active:scale-[0.98] shadow-lg shadow-emerald-900/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+          >
+            <ShoppingCart size={20} className="drop-shadow-sm shrink-0" />
+            Open Complete Gecko Setup Cart on Amazon →
+          </a>
+          <p className="text-xs text-slate-400 mt-2 relative z-10">Opens a pre-filled Amazon cart with all recommended items.</p>
+          <p className="text-xs text-slate-400 relative z-10">Items will open directly in an Amazon cart ready to checkout</p>
+          <div className="h-1 relative z-10" />
+
+          {/* Price anchoring — above score to frame price before evaluation */}
+          <p className="text-xs text-slate-500 mt-6 max-w-lg mx-auto relative z-10">
+            Typical leopard gecko starter setups often cost $550–$700 when purchased separately.
+          </p>
+          <p className="text-xs text-slate-500 mb-2 max-w-lg mx-auto relative z-10">
+            This builder selects compatible equipment to avoid wasted purchases and unsafe combinations.
+          </p>
+
+          {/* Habitat Safety Score — real score */}
+          <div className="mt-6 relative z-10 max-w-md mx-auto px-5 py-4 rounded-2xl bg-emerald-500/15 border border-emerald-400/40 shadow-lg shadow-emerald-900/20 text-center">
+            <p className="text-[11px] uppercase tracking-[0.2em] font-black text-emerald-200 mb-2">
+              HABITAT SAFETY SCORE
+            </p>
+            <div className="flex items-baseline justify-center gap-2">
+              <span className="text-4xl font-black text-white tracking-tight">{habitatScoreResult.score}</span>
+              <span className="text-slate-300 font-bold text-lg">/ {habitatScoreResult.maxScore}</span>
+            </div>
+            <p className="text-xs font-black uppercase tracking-widest text-emerald-300 mt-1">
+              {habitatScoreResult.label}
+            </p>
+
+            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-left text-xs">
+              {[
+                { key: "enclosure", label: "Enclosure size" },
+                { key: "heating", label: "Heating + thermostat" },
+                { key: "substrate", label: "Substrate" },
+                { key: "hides", label: "Essential hides" },
+                { key: "supplements", label: "Supplements" },
+                { key: "beginnerSafe", label: "Beginner-safe equipment", alwaysPass: true },
+              ].map((row) => {
+                const passed = row.alwaysPass ?? !!habitatScoreResult.checks.find((c) => c.key === row.key)?.passed;
+                return (
+                  <div key={row.key} className="flex items-center gap-2 text-slate-200">
+                    <CheckCircle2 size={16} className={passed ? "text-emerald-400 shrink-0" : "text-amber-400 shrink-0"} />
+                    <span className={passed ? "font-bold" : "font-bold text-amber-100"}>{row.label}</span>
+                  </div>
+                );
+              })}
+            </div>
+
+            <details className="mt-3 text-left group">
+              <summary className="text-xs text-slate-500 cursor-pointer list-none flex items-center justify-center gap-1 [&::-webkit-details-marker]:hidden">
+                Why this score? <ChevronDown size={12} className="group-open:rotate-180 transition-transform" />
+              </summary>
+              <div className="mt-2 p-3 rounded-lg bg-slate-900/60 text-xs text-slate-400 space-y-1.5">
+                {habitatScoreResult.checks.map((c) => (
+                  <p key={c.key}>{c.message}</p>
+                ))}
+                {habitatScoreResult.missingEssentials?.length > 0 && (
+                  <p className="text-amber-400/90 mt-2">Add: {habitatScoreResult.missingEssentials.join(", ")}</p>
+                )}
+                {habitatScoreResult.warnings?.length > 0 && (
+                  <p className="text-slate-500 mt-2">Notes: {habitatScoreResult.warnings.join(" ")}</p>
+                )}
+              </div>
+            </details>
+          </div>
+
+          {/* Micro trust signals */}
+          <div className="mt-4 flex flex-wrap justify-center gap-x-6 gap-y-2 text-left relative z-10">
+            {["Research-backed recommendations", "Safe temperature gradient", "Proper enclosure size", "Compatible heating equipment", "Essential hides included"].map((line, i) => (
+              <div key={i} className="flex items-center gap-2 text-xs text-slate-400">
+                <CheckCircle2 size={14} className="text-emerald-500 shrink-0" />
+                <span>{line}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Mistakes Avoided */}
+          <div className="mt-6 relative z-10 p-4 rounded-2xl bg-slate-800/50 border border-white/10 text-left max-w-md mx-auto">
+            <h4 className="text-sm font-bold text-white mb-2">Mistakes This Build Prevents</h4>
+            <ul className="space-y-1.5 text-xs text-slate-400">
+              <li className="flex items-center gap-2"><XCircle size={14} className="text-red-400/80 shrink-0" /> Undersized enclosures ($80–$150 wasted)</li>
+              <li className="flex items-center gap-2"><XCircle size={14} className="text-red-400/80 shrink-0" /> Missing thermostat ($20–$40 correction)</li>
+              <li className="flex items-center gap-2"><XCircle size={14} className="text-red-400/80 shrink-0" /> Unsafe substrate choices ($20+ replacement)</li>
+              <li className="flex items-center gap-2"><XCircle size={14} className="text-red-400/80 shrink-0" /> Incomplete hide setup ($30–$60 correction)</li>
+            </ul>
+            <p className="text-xs font-bold text-emerald-400/90 mt-2">Estimated mistake savings: $100+</p>
+          </div>
+        </div>
+
+        {/* 3. Email PDF — after price/CTA */} 
+        <div className="mb-6 print-receipt-only-hidden">
+          <EmailCaptureInline
+            onSuccess={(email) => {}}
             leadMagnet="Leopard Gecko Setup Checklist"
           />
         </div>
@@ -321,52 +492,12 @@ function SummaryContent() {
           />
         )}
 
-        <div className="grid lg:grid-cols-[1fr,380px] gap-8 print-receipt-only-hidden">
+        <div className="grid gap-8 print-receipt-only-hidden">
             <div className="space-y-6">
-                {/* Status Card - What You Built */}
-                <div className="relative p-6 rounded-3xl bg-gradient-to-br from-emerald-500/15 via-emerald-500/10 to-slate-900/60 border-2 border-emerald-500/30 shadow-xl overflow-hidden">
-                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-500 opacity-100" />
-                    <div className="relative flex items-start gap-4">
-                        <div className="p-3 bg-gradient-to-br from-emerald-500 to-emerald-600 text-white rounded-xl shadow-lg shadow-emerald-500/30 border-2 border-emerald-400/30">
-                            <ShieldCheck size={24} className="drop-shadow-sm" />
-                        </div>
-                        <div className="flex-1">
-                            <h3 className="text-emerald-400 font-black text-lg mb-2 drop-shadow-sm">What You Built</h3>
-                            <p className="text-emerald-200/80 text-sm leading-relaxed font-medium mb-3">
-                                A complete leopard gecko habitat with {allItems.length} verified components. This setup includes proper enclosure size, safe heating with temperature control, appropriate substrate, essential hides, and proper supplementation.
-                            </p>
-                            <h4 className="text-emerald-300 font-bold text-sm mb-1">Why It's Safe</h4>
-                            <p className="text-emerald-200/70 text-xs leading-relaxed">
-                                All components are research-backed and compatible. Enclosure size meets minimum requirements, heating provides proper temperature gradient, substrate is safe for your experience level, and supplementation matches your lighting setup.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                {/* What To Do Next */}
-                <div className="relative p-6 rounded-3xl bg-gradient-to-br from-slate-800/80 to-slate-900/80 border border-white/10 shadow-xl">
-                    <h3 className="text-white font-black text-lg mb-3 flex items-center gap-2">
-                        <ArrowRight size={20} className="text-emerald-400" />
-                        What To Do Next
-                    </h3>
-                    <ol className="space-y-2 text-sm text-slate-300">
-                        <li className="flex gap-3">
-                            <span className="text-emerald-400 font-bold">1.</span>
-                            <span>Add essentials to cart</span>
-                        </li>
-                        <li className="flex gap-3">
-                            <span className="text-emerald-400 font-bold">2.</span>
-                            <span>Set temps & test gradient</span>
-                        </li>
-                        <li className="flex gap-3">
-                            <span className="text-emerald-400 font-bold">3.</span>
-                            <span>Place hides + let enclosure stabilize 24–48h</span>
-                        </li>
-                    </ol>
-                </div>
-
-                {/* Recommended bundles */}
-                <div className="flex flex-wrap gap-2">
+                {/* Quick Purchase Options — optional bundles */}
+                <div className="space-y-2">
+                  <p className="text-xs font-bold text-slate-400 uppercase tracking-wide">Quick Purchase Options</p>
+                  <div className="flex flex-wrap gap-2">
                   {bundleCartUrls.essentials && (
                     <a href={bundleCartUrls.essentials} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-200 text-sm font-bold hover:bg-amber-500/30 transition" onClick={() => analytics.trackAmazonCartClick("leopard-gecko", requiredTotalNumber, requiredItemsWithAsin.length)}>
                       Essentials Bundle (required)
@@ -382,6 +513,7 @@ function SummaryContent() {
                       Hide Trio Bundle
                     </a>
                   )}
+                  </div>
                 </div>
 
                 <div className="bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
@@ -419,7 +551,8 @@ function SummaryContent() {
                                         <div className="w-10 h-10 rounded-full bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center text-emerald-400 font-black text-sm border-2 border-slate-700/50 group-hover:border-emerald-500/50 group-hover:bg-gradient-to-br group-hover:from-emerald-500/20 group-hover:to-emerald-600/20 transition-all duration-300 shadow-sm">{i + 1}</div>
                                         <div>
                                             <p className="font-bold text-slate-200 group-hover:text-white transition-colors flex items-center gap-2 text-base">{item.label} <ExternalLink size={14} className="opacity-0 group-hover:opacity-60 transition-opacity text-emerald-400" /></p>
-                                            <span className="text-[10px] uppercase tracking-wider font-bold text-slate-400 bg-slate-800/50 border border-slate-700/50 px-2 py-1 rounded-md mt-1.5 inline-block">{isViewAlternatives ? "View alternatives" : (item.type || "Essential")}</span>
+                                            {getGeckoItemSubline(item) && <p className="text-xs text-slate-500 mt-0.5">{getGeckoItemSubline(item)}</p>}
+                                            <span className="text-[10px] uppercase tracking-wider font-bold text-slate-400 bg-slate-800/50 border border-slate-700/50 px-2 py-1 rounded-md mt-1.5 inline-block">{isViewAlternatives ? "View alternatives" : getCategoryBadge(item, i)}</span>
                                         </div>
                                     </div>
                                     <div className="font-mono font-black text-emerald-400 text-lg group-hover:text-emerald-300 transition-colors">
@@ -432,62 +565,8 @@ function SummaryContent() {
                     </div>
                 </div>
 
-                {/* Cart-first conversion panel */}
-                <div className="p-8 rounded-3xl bg-gradient-to-br from-slate-900 to-slate-950 border border-white/10 shadow-2xl text-center relative overflow-hidden group space-y-6">
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-emerald-500/5 blur-3xl rounded-full pointer-events-none" />
-                    <p className="text-slate-400 text-sm font-bold uppercase tracking-widest mb-2 relative z-10">Est. Total Cost</p>
-                    <div className="text-6xl font-black text-white tracking-tighter mb-6 relative z-10 flex justify-center items-start gap-1">
-                        <span className="text-2xl mt-2 text-emerald-500">$</span>{total}
-                    </div>
-
-                    <div className="flex flex-col gap-3 relative z-10">
-                      <a
-                        href={amazonCartUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => analytics.trackAmazonCartClick("leopard-gecko", totalNumber, allItems.length)}
-                        className="flex items-center justify-center gap-3 w-full py-4 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-black text-lg border-2 border-emerald-400/30 hover:border-emerald-300/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-emerald-500/40 active:scale-[0.98] shadow-lg shadow-emerald-900/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
-                      >
-                        <ShoppingCart size={20} className="drop-shadow-sm shrink-0" />
-                        <span className="text-center leading-tight">
-                          <span className="block">Open in Amazon Cart</span>
-                          <span className="block text-base font-bold opacity-95">— Full Build</span>
-                        </span>
-                      </a>
-                    </div>
-                    <p className="text-xs text-slate-500 relative z-10 px-4">*Clicking opens Amazon and adds items to your cart.</p>
-                </div>
-
                 {/* Care Instructions */}
                 <CareInstructions species="leopard-gecko" />
-            </div>
-
-            <div className="lg:sticky lg:top-28 h-fit space-y-6">
-              
-              {/* Premium PDF Export in Sidebar */}
-              <div className="bg-gradient-to-br from-emerald-500/10 to-blue-500/10 border border-emerald-500/20 rounded-2xl p-6 mb-6">
-                <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                  <Download size={20} className="text-emerald-400" />
-                  Export Your Build
-                </h3>
-                <PremiumPDFExport
-                  buildName={buildName || "Leopard Gecko Build"}
-                  items={allItems}
-                  total={parseFloat(total)}
-                  species="leopard-gecko"
-                />
-                <p className="text-xs text-slate-400 mt-3 text-center">
-                  Professional PDF with setup instructions
-                </p>
-              </div>
-              
-                <div className="p-6 rounded-2xl bg-white/5 border border-white/5 backdrop-blur-md">
-                    <h4 className="font-bold text-white mb-2 text-sm uppercase tracking-wide">Setup Tips</h4>
-                    <ul className="space-y-3 text-sm text-slate-300 font-medium">
-                        <li className="flex gap-2"><CheckCircle2 size={16} className="text-emerald-500 shrink-0" /> Place 3 hides: Hot, Cool, and Moist.</li>
-                        <li className="flex gap-2"><CheckCircle2 size={16} className="text-emerald-500 shrink-0" /> Connect your heat source to a thermostat.</li>
-                    </ul>
-                </div>
             </div>
         </div>
       </div>

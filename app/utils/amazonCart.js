@@ -52,7 +52,29 @@ export function buildAmazonCartUrl(items, affiliateTag) {
 }
 
 /**
- * Stable config ID for the session (use in useMemo(() => Math.floor(Math.random() * 99999), []).
+ * Deterministic config ID from URL search params so server and client render the same value (avoids hydration mismatch).
+ * Returns 10000–99999.
+ */
+function hashStringToId(str) {
+  let h = 0;
+  for (let i = 0; i < str.length; i++) {
+    h = (h << 5) - h + str.charCodeAt(i);
+    h = h & h;
+  }
+  return (Math.abs(h) % 90000) + 10000;
+}
+
+export function getConfigIdFromSearchParams(searchParams) {
+  if (!searchParams || typeof searchParams.forEach !== "function") return 10000;
+  const entries = [];
+  searchParams.forEach((value, key) => entries.push([key, value]));
+  entries.sort((a, b) => a[0].localeCompare(b[0]));
+  const str = entries.map(([k, v]) => `${k}=${v}`).join("&");
+  return hashStringToId(str);
+}
+
+/**
+ * @deprecated Use getConfigIdFromSearchParams(searchParams) for SSR-safe config IDs.
  */
 export function getStableConfigId() {
   return Math.floor(Math.random() * 99999);

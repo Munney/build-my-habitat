@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'Common Pet Habitat Mistakes | What NOT to Do | HabitatBuilder',
+  title: 'Common Pet Habitat Mistakes | What NOT to Do | BuildMyHabitat',
   description: 'Avoid dangerous pet habitat mistakes. Learn why heat rocks, small tanks, calcium sand, and bowls are dangerous for Leopard Geckos and Betta Fish. Safety warnings and solutions.',
   keywords: 'pet habitat mistakes, leopard gecko mistakes, betta fish mistakes, dangerous pet products, heat rock dangers, small tank problems, calcium sand dangers, betta fish bowl dangers',
   openGraph: {

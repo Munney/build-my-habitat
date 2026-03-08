@@ -100,7 +100,7 @@ export default function ResearchPage() {
             <span>Research & <span className="text-slate-300">Evidence</span></span>
           </h1>
           <p className="text-slate-200 text-base sm:text-lg max-w-2xl leading-relaxed drop-shadow-md font-medium px-2 sm:px-0">
-            We don't just guess. Every product recommended on HabitatBuilder is backed by modern husbandry standards and vet-approved research.
+            We don't just guess. Every product recommended on BuildMyHabitat is backed by modern husbandry standards and vet-approved research.
           </p>
         </div>
 

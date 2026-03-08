@@ -8,7 +8,7 @@ export function AIHabitatAssistant({ currentBuild = null, species = null }) {
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      content: "Hi! I'm your Habitat Assistant from HabitatBuilder. I provide research-backed, science-based advice to help your pet thrive.\n\nI can help with:\n• Setup questions (heating, substrate, sizing)\n• Troubleshooting your current build\n• Safety concerns and best practices\n• Care requirements specific to your species\n\nWhat would you like to know?",
+      content: "Hi! I'm your Habitat Assistant from BuildMyHabitat. I provide research-backed, science-based advice to help your pet thrive.\n\nI can help with:\n• Setup questions (heating, substrate, sizing)\n• Troubleshooting your current build\n• Safety concerns and best practices\n• Care requirements specific to your species\n\nWhat would you like to know?",
     },
   ]);
   const [input, setInput] = useState("");

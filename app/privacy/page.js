@@ -42,7 +42,7 @@ export default function PrivacyPage() {
                 Information We Collect
               </h2>
               <p className="mb-4">
-                HabitatBuilder is designed to be privacy-friendly. We collect minimal information:
+                BuildMyHabitat is designed to be privacy-friendly. We collect minimal information:
               </p>
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li><strong>Build Data:</strong> Your habitat configurations are stored locally in your browser. We don't send this data to our servers unless you explicitly share a build via URL.</li>
@@ -87,7 +87,7 @@ export default function PrivacyPage() {
                 Affiliate Links
               </h2>
               <p className="mb-4">
-                HabitatBuilder uses Amazon affiliate links. When you click on a product link and make a purchase, we earn a small commission at no extra cost to you. This helps us keep the site free.
+                BuildMyHabitat uses Amazon affiliate links. When you click on a product link and make a purchase, we earn a small commission at no extra cost to you. This helps us keep the site free.
               </p>
               <p>
                 Amazon may use cookies to track that you came from our site. This is standard affiliate marketing practice and is covered by Amazon's privacy policy.
@@ -119,7 +119,7 @@ export default function PrivacyPage() {
                 Children's Privacy
               </h2>
               <p>
-                HabitatBuilder does not knowingly collect personal information from children under 13. Because we do not collect personal data or require accounts, this risk is minimal.
+                BuildMyHabitat does not knowingly collect personal information from children under 13. Because we do not collect personal data or require accounts, this risk is minimal.
               </p>
             </section>
 

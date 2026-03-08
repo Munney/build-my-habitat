@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 
 export const runtime = 'edge';
-export const alt = 'HabitatBuilder - Build Safe Pet Habitats';
+export const alt = 'BuildMyHabitat - Build Safe Pet Habitats';
 export const size = {
   width: 1200,
   height: 630,
@@ -61,7 +61,7 @@ export default async function Image() {
               letterSpacing: '-0.02em',
             }}
           >
-            HabitatBuilder
+            BuildMyHabitat
           </div>
           
           {/* Tagline */}

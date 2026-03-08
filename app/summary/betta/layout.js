@@ -3,7 +3,7 @@ export const metadata = {
   description: 'A verified shopping list for your custom Betta aquarium setup. Includes safety checks for heater wattage, filter flow, and tank size.',
   openGraph: {
     title: 'My Custom Betta Habitat Build',
-    description: 'I just designed a vet-approved aquarium setup on HabitatBuilder. Check out my parts list!',
+    description: 'I just designed a vet-approved aquarium setup on BuildMyHabitat. Check out my parts list!',
     images: ['/betta.jpg'], // Uses the blue betta image for the preview card
   },
 };

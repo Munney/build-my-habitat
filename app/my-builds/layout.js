@@ -3,7 +3,7 @@ export const metadata = {
   description: 'View and manage your saved habitat configurations. Access your custom Betta and Leopard Gecko builds anytime.',
   openGraph: {
     title: 'My Saved Habitat Builds',
-    description: 'Manage your saved pet habitat configurations on HabitatBuilder.',
+    description: 'Manage your saved pet habitat configurations on BuildMyHabitat.',
   },
 };
 
