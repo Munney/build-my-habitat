@@ -183,47 +183,6 @@ function SummaryContent() {
     [allItems]
   );
 
-  // Required items: enclosure, substrate, heating, required hides (by required: true in JSON or warm/cool/humid IDs), supplements
-  const requiredHideIds = useMemo(() => {
-    const fromConfig = (config.hides || []).filter((h) => h.required === true).map((h) => h.id);
-    if (fromConfig.length) return fromConfig;
-    return ["warmhide", "coolhide", "humidhide"];
-  }, []);
-  const requiredItems = useMemo(() => {
-    const hidesRequired = (selections.hides || []).filter(
-      (h) => h && requiredHideIds.includes(h.id)
-    );
-    return [
-      selections.enclosure,
-      selections.substrate,
-      ...(selections.heating || []),
-      ...hidesRequired,
-      ...(selections.supplements || []),
-    ].filter(Boolean);
-  }, [selections.enclosure, selections.substrate, selections.heating, selections.hides, selections.supplements, requiredHideIds]);
-
-  // Only include required items that have an ASIN (so cart URL works)
-  const requiredItemsWithAsin = useMemo(() => {
-    return requiredItems.filter((item) => item.asin || getAsinFromUrl(item.defaultProductUrl));
-  }, [requiredItems]);
-
-  const amazonCartUrlRequired = useMemo(
-    () => buildAmazonCartUrl(requiredItemsWithAsin, AFFILIATE_TAG),
-    [requiredItemsWithAsin]
-  );
-
-  const requiredTotal = requiredItemsWithAsin.reduce((acc, item) => acc + (item.price || 0), 0).toFixed(2);
-  const requiredTotalNumber = Number(requiredTotal);
-
-  const bundleCartUrls = useMemo(() => {
-    const hideTrio = (selections.hides || []).filter((h) => h && requiredHideIds.includes(h.id));
-    return {
-      essentials: requiredItemsWithAsin.length > 0 ? buildAmazonCartUrl(requiredItemsWithAsin, AFFILIATE_TAG) : null,
-      heatingThermostat: (selections.heating || []).length > 0 ? buildAmazonCartUrl(selections.heating, AFFILIATE_TAG) : null,
-      hideTrio: hideTrio.length > 0 ? buildAmazonCartUrl(hideTrio, AFFILIATE_TAG) : null,
-    };
-  }, [requiredItemsWithAsin, selections.heating, selections.hides, requiredHideIds]);
-
   const handleSaveClick = () => {
     // Set default name
     setBuildName(`Leopard Gecko Build - $${total}`);
@@ -494,28 +453,6 @@ function SummaryContent() {
 
         <div className="grid gap-8 print-receipt-only-hidden">
             <div className="space-y-6">
-                {/* Quick Purchase Options — optional bundles */}
-                <div className="space-y-2">
-                  <p className="text-xs font-bold text-slate-400 uppercase tracking-wide">Quick Purchase Options</p>
-                  <div className="flex flex-wrap gap-2">
-                  {bundleCartUrls.essentials && (
-                    <a href={bundleCartUrls.essentials} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-200 text-sm font-bold hover:bg-amber-500/30 transition" onClick={() => analytics.trackAmazonCartClick("leopard-gecko", requiredTotalNumber, requiredItemsWithAsin.length)}>
-                      Essentials Bundle (required)
-                    </a>
-                  )}
-                  {bundleCartUrls.heatingThermostat && (
-                    <a href={bundleCartUrls.heatingThermostat} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-700/50 border border-slate-600 text-slate-200 text-sm font-bold hover:bg-slate-600/50 transition" onClick={() => analytics.trackAmazonCartClick("leopard-gecko", (selections.heating || []).reduce((a, i) => a + (i.price || 0), 0), (selections.heating || []).length)}>
-                      Heating + Thermostat Bundle
-                    </a>
-                  )}
-                  {bundleCartUrls.hideTrio && (
-                    <a href={bundleCartUrls.hideTrio} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-700/50 border border-slate-600 text-slate-200 text-sm font-bold hover:bg-slate-600/50 transition" onClick={() => analytics.trackAmazonCartClick("leopard-gecko", (selections.hides || []).filter((h) => h && requiredHideIds.includes(h.id)).reduce((a, i) => a + (i.price || 0), 0), 3)}>
-                      Hide Trio Bundle
-                    </a>
-                  )}
-                  </div>
-                </div>
-
                 <div className="bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
                     <div className="p-6 border-b border-white/5 bg-white/5">
                         <h2 className="font-bold text-white flex items-center gap-2"><Sun size={18} className="text-emerald-400"/> Habitat Components</h2>
