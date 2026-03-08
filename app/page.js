@@ -463,7 +463,7 @@ function SpeciesCard({
         </p>
         
         <div className={`w-full py-4 rounded-xl font-bold text-white flex items-center justify-center gap-2 transition-all shadow-lg ${buttonColor}`}>
-          Start {title} setup <ArrowRight size={20} />
+          Start {title} Setup <ArrowRight size={20} />
         </div>
       </div>
     </Link>
