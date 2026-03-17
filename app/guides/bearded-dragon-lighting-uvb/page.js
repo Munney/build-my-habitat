@@ -5,6 +5,7 @@ import Link from "next/link";
 import {
   Sun,
   Flame,
+  ShieldAlert,
   ArrowRight,
   ArrowLeft,
   CheckCircle2,

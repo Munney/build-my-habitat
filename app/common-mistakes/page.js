@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { 
   AlertTriangle, 
@@ -11,7 +12,15 @@ import {
 } from "lucide-react";
 import { analytics } from "../utils/analytics";
 
+const SPECIES_TABS = [
+  { key: "Leopard Gecko", label: "Leopard Gecko", icon: "🦎", color: "emerald" },
+  { key: "Betta Fish", label: "Betta Fish", icon: "🐟", color: "blue" },
+  { key: "Bearded Dragon", label: "Bearded Dragon", icon: "🦎", color: "emerald" },
+];
+
 export default function CommonMistakesPage() {
+  const [selectedSpecies, setSelectedSpecies] = useState("Leopard Gecko");
+
   const mistakes = [
     {
       category: "Leopard Gecko",
@@ -123,6 +132,57 @@ export default function CommonMistakesPage() {
           link: "/build/betta"
         }
       ]
+    },
+    {
+      category: "Bearded Dragon",
+      color: "emerald",
+      items: [
+        {
+          mistake: "40- or 75-Gallon Tanks",
+          severity: "CRITICAL",
+          description: "40- and 75-gallon tanks are too small for adult bearded dragons. They don't allow a proper hot-to-cool gradient, adequate UVB coverage, or enough space for hides and enrichment.",
+          why: "Bearded dragons need to thermoregulate by moving between a hot basking zone and a cool side. A 40-gallon (36\" x 18\" x 18\") or narrow 75-gallon cannot provide this. Older care sheets that recommended these sizes are outdated.",
+          solution: "Minimum 4×2×2 ft (48\" × 24\" × 24\"), roughly 120 gallons, for one adult. Larger is better for welfare.",
+          research: "Current reptile welfare standards and expert consensus require 4×2×2 as the minimum for bearded dragons. Smaller enclosures are linked to stress and poor thermoregulation.",
+          link: "/build/bearded-dragon"
+        },
+        {
+          mistake: "No UVB or Coil-Only UVB",
+          severity: "CRITICAL",
+          description: "Bearded dragons need UVB to make vitamin D3 and absorb calcium. Without adequate UVB, they develop metabolic bone disease (MBD)—weak bones, deformities, fractures, and death.",
+          why: "Coil and compact UVB bulbs produce a narrow, uneven beam and often don't deliver enough UVB over the basking zone. No UVB means total reliance on diet-based D3, which is fragile and easy to over- or under-dose.",
+          solution: "Use a T5 high-output 10.0 or 12% linear tube over roughly half the enclosure. Mount inside or over open mesh so the basking area gets adequate UVB. Replace per manufacturer schedule (usually every 6–12 months).",
+          research: "MBD from inadequate UVB is one of the most common serious conditions in captive bearded dragons. T5 linear tubes are the established standard for consistent, safe UVB delivery.",
+          link: "/build/bearded-dragon"
+        },
+        {
+          mistake: "No Thermostat on Heat Lamp",
+          severity: "CRITICAL",
+          description: "Unregulated heat lamps can exceed 120°F+ at the basking spot, causing burns, dehydration, or death. Every heat source must be controlled by a thermostat.",
+          why: "Bearded dragons thermoregulate by resting on a hot surface. Without a thermostat, bulb output can spike with room temperature changes or as the bulb ages, turning the basking zone into a burn risk.",
+          solution: "Plug the heat lamp into a thermostat and place the probe to read the basking zone. Set the thermostat so the surface temp stays 100–108°F. Verify with an infrared temp gun.",
+          research: "Unregulated heating is a leading cause of reptile burns and heat stress in captivity. Thermostats are non-negotiable for any heat source.",
+          link: "/build/bearded-dragon"
+        },
+        {
+          mistake: "Measuring Air Temp Instead of Basking Surface",
+          severity: "HIGH",
+          description: "The number that matters is the surface temperature where the dragon sits (100–108°F), not the air temperature a few inches away. Stick-on or digital air thermometers miss the real basking temp.",
+          why: "Bearded dragons absorb heat by lying on a hot surface. Air temp can be much lower than surface temp. If you only measure air, the basking spot may be too cold (poor digestion) or too hot (burns).",
+          solution: "Use an infrared temp gun aimed at the spot where the dragon sits. Adjust lamp height or wattage until the surface is 100–108°F. Use a digital thermometer for cool-side air (mid-70s to low 80s °F).",
+          research: "Reptile thermoregulation research shows that surface (contact) temperature, not ambient air, drives basking behavior and digestion. Temp guns are the correct tool for basking zones.",
+          link: "/build/bearded-dragon"
+        },
+        {
+          mistake: "Calcium Sand or Reptile Carpet",
+          severity: "HIGH",
+          description: "Calcium sand encourages dragons to eat the substrate, leading to impaction and calcium overload. Reptile carpet snags claws and teeth and harbors bacteria; it's difficult to sanitize.",
+          why: "Calcium sand is marketed for reptiles but is dangerous when ingested. Reptile carpet fibers catch claws and can cause broken toes or mouth injuries. Both are still sold in pet stores despite known risks.",
+          solution: "Use paper towel or slate tile for a simple, safe setup, or a 50/50 mix of organic topsoil and washed playsand for a naturalistic enclosure. Avoid calcium sand, reptile carpet, walnut shell, and wood chips.",
+          research: "Impaction from calcium sand and injuries from reptile carpet are well-documented in veterinary and husbandry literature. Safe alternatives are widely recommended.",
+          link: "/build/bearded-dragon"
+        }
+      ]
     }
   ];
 
@@ -174,16 +234,38 @@ export default function CommonMistakesPage() {
           </div>
         </div>
 
-        {/* Mistakes by Category */}
-        {mistakes.map((category, catIndex) => (
-          <div key={catIndex} className="mb-16">
-            <h2 className={`text-3xl font-black text-${category.color}-400 mb-8 flex items-center gap-3`}>
-              <span>{category.category === "Leopard Gecko" ? "🦎" : "🐟"}</span>
-              {category.category}
-            </h2>
+        {/* Species Tabs */}
+        <div className="flex flex-wrap gap-3 justify-center mb-10">
+          {SPECIES_TABS.map((tab) => {
+            const isActive = selectedSpecies === tab.key;
+            const isBetta = tab.key === "Betta Fish";
+            return (
+              <button
+                key={tab.key}
+                onClick={() => setSelectedSpecies(tab.key)}
+                className={`px-5 py-3 rounded-xl font-bold transition-all flex items-center gap-2 ${
+                  isActive
+                    ? isBetta
+                      ? "bg-blue-600 text-white shadow-lg shadow-blue-900/20"
+                      : "bg-emerald-600 text-white shadow-lg shadow-emerald-900/20"
+                    : "bg-white/5 text-slate-300 hover:bg-white/10 border border-white/10"
+                }`}
+              >
+                <span>{tab.icon}</span>
+                {tab.label}
+              </button>
+            );
+          })}
+        </div>
 
-            <div className="space-y-6">
-              {category.items.map((item, itemIndex) => (
+        {/* Mistakes for Selected Species */}
+        {(() => {
+          const category = mistakes.find((c) => c.category === selectedSpecies);
+          if (!category) return null;
+          return (
+            <div className="mb-16">
+              <div className="space-y-6">
+                {category.items.map((item, itemIndex) => (
                 <div 
                   key={itemIndex}
                   className="bg-slate-900/60 backdrop-blur-xl border border-white/10 rounded-2xl p-6 md:p-8 hover:border-white/20 transition-all"
@@ -238,9 +320,9 @@ export default function CommonMistakesPage() {
                     href={item.link}
                     onClick={() => analytics.trackNavClick("builder")}
                     className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-white transition-all shadow-lg ${
-                      category.color === "emerald"
-                        ? "bg-emerald-600 hover:bg-emerald-500"
-                        : "bg-blue-600 hover:bg-blue-500"
+                      category.color === "blue"
+                        ? "bg-blue-600 hover:bg-blue-500"
+                        : "bg-emerald-600 hover:bg-emerald-500"
                     }`}
                   >
                     Build Safe {category.category} Setup
@@ -248,9 +330,10 @@ export default function CommonMistakesPage() {
                   </Link>
                 </div>
               ))}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })()}
 
         {/* Footer CTA */}
         <div className="mt-16 p-8 rounded-2xl bg-gradient-to-r from-emerald-500/10 to-blue-500/10 border border-emerald-500/20 text-center">

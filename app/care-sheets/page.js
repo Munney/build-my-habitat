@@ -134,6 +134,60 @@ export default function CareSheetsPage() {
         "Check all equipment",
         "Full water parameter test"
       ]
+    },
+    "bearded-dragon": {
+      name: "Bearded Dragon",
+      scientificName: "Pogona vitticeps",
+      color: "emerald",
+      icon: "🦎",
+      stats: {
+        temperature: {
+          basking: "100-108°F (38-42°C)",
+          cool: "75-80°F (24-27°C)",
+          night: "65-75°F (18-24°C)"
+        },
+        humidity: "30-40%",
+        enclosure: {
+          minimum: "4×2×2 ft / 120 gal (48\" × 24\" × 24\")",
+          recommended: "4×2×2 ft or larger",
+          note: "40- and 75-gallon tanks are outdated and too small for proper gradient and UVB"
+        },
+        lifespan: "10-15 years",
+        diet: "Insects (dubia, crickets, BSFL) + leafy greens; calcium + multivitamin. Babies more insects; adults more greens."
+      },
+      essentials: [
+        "Thermostat (REQUIRED - prevents burns)",
+        "Basking bulb (halogen or incandescent) for 100-108°F surface temp",
+        "T5 UVB 10.0 or 12% over ~50% of enclosure length",
+        "Safe substrate (paper towel, tile, or 50/50 topsoil/playsand—no calcium sand)",
+        "At least 2 hides (warm + cool)",
+        "Basking platform, branches, water bowl",
+        "Calcium (with or without D3 per UVB); multivitamin weekly",
+        "Infrared temp gun (measure basking surface, not just air)"
+      ],
+      warnings: [
+        "40- or 75-gallon tanks are too small—cannot provide proper gradient or UVB coverage",
+        "No UVB or coil-only UVB leads to metabolic bone disease (MBD)",
+        "No thermostat = risk of burns and overheating",
+        "Calcium sand causes impaction; reptile carpet snags claws and harbors bacteria",
+        "Measure basking surface temp with a temp gun (100-108°F), not just air temp"
+      ],
+      daily: [
+        "Check basking surface temp (temp gun) and cool side",
+        "Ensure UVB and heat are on 10-12 hours",
+        "Offer greens; insects per age schedule",
+        "Spot clean; ensure water bowl is full"
+      ],
+      weekly: [
+        "Dust insects with calcium/multivitamin per schedule",
+        "Deep clean water bowl",
+        "Check thermostat and bulbs are working"
+      ],
+      monthly: [
+        "Replace UVB bulb per manufacturer (typically every 6-12 months)",
+        "Full substrate change or deep clean if solid",
+        "Inspect hides and decor for damage"
+      ]
     }
   };
 
@@ -187,6 +241,16 @@ export default function CareSheetsPage() {
           >
             🐟 Betta Fish
           </button>
+          <button
+            onClick={() => setSelectedSpecies("bearded-dragon")}
+            className={`px-6 py-3 rounded-xl font-bold transition-all ${
+              selectedSpecies === "bearded-dragon"
+                ? "bg-emerald-600 text-white shadow-lg shadow-emerald-900/20"
+                : "bg-white/5 text-slate-300 hover:bg-white/10 border border-white/10"
+            }`}
+          >
+            🦎 Bearded Dragon
+          </button>
         </div>
 
         {/* Care Sheet Content */}
@@ -208,7 +272,7 @@ export default function CareSheetsPage() {
                 <Thermometer className={`text-${currentData.color}-400`} size={24} />
                 <h3 className="text-lg font-bold text-white">Temperature</h3>
               </div>
-              {selectedSpecies === "leopard-gecko" ? (
+              {selectedSpecies !== "betta" ? (
                 <ul className="space-y-2 text-slate-300">
                   <li><span className="font-bold">Basking:</span> {currentData.stats.temperature.basking}</li>
                   <li><span className="font-bold">Cool Side:</span> {currentData.stats.temperature.cool}</li>
@@ -222,7 +286,7 @@ export default function CareSheetsPage() {
               )}
             </div>
 
-            {selectedSpecies === "leopard-gecko" ? (
+            {selectedSpecies !== "betta" ? (
               <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
                 <div className="flex items-center gap-3 mb-4">
                   <Droplets className="text-emerald-400" size={24} />
@@ -354,9 +418,9 @@ export default function CareSheetsPage() {
             <Link
               href={`/build/${selectedSpecies}`}
               className={`px-6 py-3 rounded-xl font-bold text-white transition-all shadow-lg ${
-                selectedSpecies === "leopard-gecko"
-                  ? "bg-emerald-600 hover:bg-emerald-500"
-                  : "bg-blue-600 hover:bg-blue-500"
+                selectedSpecies === "betta"
+                  ? "bg-blue-600 hover:bg-blue-500"
+                  : "bg-emerald-600 hover:bg-emerald-500"
               }`}
             >
               Build {currentData.name} Habitat
