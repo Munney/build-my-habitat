@@ -399,7 +399,7 @@ export default function Home() {
             <h2 className="text-2xl font-bold text-white mb-2">Coming Soon</h2>
             <p className="text-slate-400">More species builders in development</p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             <div className="p-4 rounded-xl bg-slate-900/40 border border-slate-700/50 backdrop-blur-sm text-center opacity-60">
               <div className="text-3xl mb-2">🐍</div>
               <p className="text-sm font-semibold text-slate-300">Ball Python</p>
@@ -411,10 +411,6 @@ export default function Home() {
             <div className="p-4 rounded-xl bg-slate-900/40 border border-slate-700/50 backdrop-blur-sm text-center opacity-60">
               <div className="text-3xl mb-2">🐢</div>
               <p className="text-sm font-semibold text-slate-300">Red-Eared Slider</p>
-            </div>
-            <div className="p-4 rounded-xl bg-slate-900/40 border border-slate-700/50 backdrop-blur-sm text-center opacity-60">
-              <div className="text-3xl mb-2">🦂</div>
-              <p className="text-sm font-semibold text-slate-300">Bearded Dragon</p>
             </div>
           </div>
         </div>
