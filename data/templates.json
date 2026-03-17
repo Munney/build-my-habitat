@@ -31,6 +31,34 @@
       "supplementIds": ["calcium_no_d3", "multivitamin"]
     }
   },
+  "bearded-dragon": {
+    "budget": {
+      "name": "Budget Setup",
+      "description": "Essential items for a safe bearded dragon habitat — 120 gal equivalent, UVB, basking + thermostat (~$350–450)",
+      "experience": "beginner",
+      "enclosureId": "pvc4x2",
+      "substrateIds": ["papertowel"],
+      "heatingIds": ["halogen_100w", "thermostat"],
+      "lightingIds": ["uvb_t5_34"],
+      "hideIds": ["warmhide", "coolhide"],
+      "decorIds": ["basking_platform"],
+      "supplementIds": ["calcium_no_d3", "multivitamin"],
+      "feedingIds": ["salad_bowl", "water_bowl"]
+    },
+    "premium": {
+      "name": "Premium Setup",
+      "description": "Ideal setup with 4×2×2, 50/50 topsoil/sand or slate tile, T5 UVB, basking platform, climbing decor, and supplements (~$550–700)",
+      "experience": "experienced",
+      "enclosureId": "pvc4x2",
+      "substrateIds": ["topsoil_sand_mix"],
+      "heatingIds": ["halogen_100w", "thermostat"],
+      "lightingIds": ["uvb_t5_34"],
+      "hideIds": ["warmhide", "coolhide", "rock_cave"],
+      "decorIds": ["basking_platform", "branches", "cork_round"],
+      "supplementIds": ["calcium_no_d3", "multivitamin"],
+      "feedingIds": ["salad_bowl", "feeder_dish", "water_bowl"]
+    }
+  },
   "betta": {
     "budget": {
       "name": "Budget Setup",

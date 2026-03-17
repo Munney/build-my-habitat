@@ -1,0 +1,387 @@
+{
+  "enclosures": [
+    {
+      "id": "pvc4x2",
+      "label": "4×2×2 ft PVC (120 gallon equivalent)",
+      "price": 343.85,
+      "badge": "Minimum Recommended",
+      "size": 120,
+      "amazonSearchUrl": "https://www.amazon.com/s?k=4x2x2+reptile+enclosure+PVC&tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0BQP7S859?tag=habitatbuilde-20",
+      "asin": "B0BQP7S859",
+      "amazonUrl": "https://www.amazon.com/dp/B0BQP7S859?tag=habitatbuilde-20"
+    },
+    {
+      "id": "pvc4x2x2_premium",
+      "label": "4×2×2 ft PVC Front-Opening (120 gal)",
+      "price": 343.85,
+      "badge": "Best Value",
+      "size": 120,
+      "amazonSearchUrl": "https://www.amazon.com/s?k=4x2x2+front+opening+reptile+enclosure&tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0BQP7S859?tag=habitatbuilde-20",
+      "asin": "B0BQP7S859",
+      "amazonUrl": "https://www.amazon.com/dp/B0BQP7S859?tag=habitatbuilde-20"
+    },
+    {
+      "id": "85g",
+      "label": "85 Gallon Reptile Tank",
+      "price": 322.76,
+      "size": 85,
+      "asin": "B0CBBS1H92",
+      "amazonUrl": "https://www.amazon.com/dp/B0CBBS1H92?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0CBBS1H92?tag=habitatbuilde-20"
+    },
+    {
+      "id": "120g_glass",
+      "label": "120 Gallon Glass Tank 48×24×24",
+      "price": 439.99,
+      "size": 120,
+      "asin": "B07W5346Z2",
+      "amazonUrl": "https://www.amazon.com/dp/B07W5346Z2?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B07W5346Z2?tag=habitatbuilde-20"
+    }
+  ],
+  "heating": [
+    {
+      "id": "halogen_100w",
+      "label": "Halogen Flood Lamp 100W (Basking) 120 gal",
+      "price": 15.99,
+      "badge": "Recommended",
+      "asin": "B0B55TLWFD",
+      "amazonUrl": "https://www.amazon.com/dp/B0B55TLWFD?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0B55TLWFD?tag=habitatbuilde-20"
+    },
+    {
+      "id": "halogen_150w",
+      "label": "Halogen Flood Lamp 150W (Large Enclosure)",
+      "price": 21.99,
+      "asin": "B0BXKJD8Q5",
+      "amazonUrl": "https://www.amazon.com/dp/B0BXKJD8Q5?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0BXKJD8Q5?tag=habitatbuilde-20"
+    },
+    {
+      "id": "che_100w",
+      "label": "Ceramic Heat Emitter 100W (No Light)",
+      "price": 16.99,
+      "asin": "B096TS3YN3",
+      "amazonUrl": "https://www.amazon.com/dp/B096TS3YN3?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B096TS3YN3?tag=habitatbuilde-20"
+    },
+    {
+      "id": "thermostat",
+      "label": "Digital Thermostat (Required)",
+      "price": 20.99,
+      "badge": "Required",
+      "asin": "B01I15S6OM",
+      "amazonUrl": "https://www.amazon.com/dp/B01I15S6OM?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B01I15S6OM?tag=habitatbuilde-20"
+    }
+  ],
+  "lighting": [
+    {
+      "id": "uvb_t5_22",
+      "label": "T5 UVB 10.0 Tube 22\" (≈50% enclosure)",
+      "price": 37.99,
+      "badge": "Required",
+      "asin": "B0C5MQ7MSJ",
+      "amazonUrl": "https://www.amazon.com/dp/B0C5MQ7MSJ?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0C5MQ7MSJ?tag=habitatbuilde-20"
+    },
+    {
+      "id": "uvb_t5_34",
+      "label": "T5 UVB 10.0 Tube 34\" (4×2×2)",
+      "price": 46.99,
+      "badge": "Best for 4×2×2",
+      "asin": "B0C2V8XP8P",
+      "amazonUrl": "https://www.amazon.com/dp/B0C2V8XP8P?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0C2V8XP8P?tag=habitatbuilde-20"
+    },
+    {
+      "id": "uvb_t5_46",
+      "label": "T5 UVB 10.0 Tube 46\" (Full length)",
+      "price": 69.99,
+      "asin": "B0C7MTKC5S",
+      "amazonUrl": "https://www.amazon.com/dp/B0C7MTKC5S?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0C7MTKC5S?tag=habitatbuilde-20"
+    }
+  ],
+  "substrates": [
+    {
+      "id": "papertowel",
+      "label": "Paper Towels",
+      "price": 0,
+      "type": "solid",
+      "badge": "Beginner Pick"
+    },
+    {
+      "id": "slate_tile",
+      "label": "Slate Tile / Stone",
+      "price": 14.99,
+      "type": "solid",
+      "badge": "Recommended",
+      "asin": "B0CKY39TSP",
+      "amazonUrl": "https://www.amazon.com/dp/B0CKY39TSP?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0CKY39TSP?tag=habitatbuilde-20"
+    },
+    {
+      "id": "shelf_liner",
+      "label": "Shelf Liner (Non-adhesive)",
+      "price": 22.99,
+      "type": "solid",
+      "asin": "B0CSKPDP3G",
+      "amazonUrl": "https://www.amazon.com/dp/B0CSKPDP3G?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0CSKPDP3G?tag=habitatbuilde-20"
+    },
+    {
+      "id": "topsoil_sand_mix",
+      "label": "50/50 Topsoil + Play Sand Mix",
+      "price": 69.25,
+      "type": "loose",
+      "bundle": [
+        {
+          "label": "Zoo Med ReptoSoil 24 Quart",
+          "price": 36.26,
+          "asin": "B01M7RZFYI",
+          "amazonUrl": "https://www.amazon.com/dp/B01M7RZFYI?tag=habitatbuilde-20",
+          "defaultProductUrl": "https://www.amazon.com/dp/B01M7RZFYI?tag=habitatbuilde-20"
+        },
+        {
+          "label": "Quikrete Play Sand 50 lbs",
+          "price": 32.99,
+          "asin": "B0896YDW45",
+          "amazonUrl": "https://www.amazon.com/dp/B0896YDW45?tag=habitatbuilde-20",
+          "defaultProductUrl": "https://www.amazon.com/dp/B0896YDW45?tag=habitatbuilde-20"
+        }
+      ]
+    },
+    {
+      "id": "bioactive_beardie",
+      "label": "BioActive Arid Substrate",
+      "price": 59.95,
+      "type": "loose",
+      "asin": "B07Z5CJ573",
+      "amazonUrl": "https://www.amazon.com/dp/B07Z5CJ573?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B07Z5CJ573?tag=habitatbuilde-20"
+    },
+    {
+      "id": "reptile_carpet",
+      "label": "Reptile Carpet (Large)",
+      "price": 11.99,
+      "type": "solid",
+      "asin": "B08R67K8LS",
+      "amazonUrl": "https://www.amazon.com/dp/B08R67K8LS?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B08R67K8LS?tag=habitatbuilde-20"
+    }
+  ],
+  "hides": [
+    {
+      "id": "warmhide",
+      "label": "Standard (40–75 gal)",
+      "variantGroup": "Warm Hide (Cave)",
+      "variant": "Standard",
+      "price": 18.99,
+      "badge": "Warm side",
+      "asin": "B008YDHDD2",
+      "amazonUrl": "https://www.amazon.com/dp/B008YDHDD2?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B008YDHDD2?tag=habitatbuilde-20"
+    },
+    {
+      "id": "warmhide_large",
+      "label": "Large (120 gal / 4×2×2)",
+      "variantGroup": "Warm Hide (Cave)",
+      "variant": "Large",
+      "price": 24.99,
+      "asin": "B008YDHDD2",
+      "amazonUrl": "https://www.amazon.com/dp/B008YDHDD2?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B008YDHDD2?tag=habitatbuilde-20"
+    },
+    {
+      "id": "coolhide",
+      "label": "Standard (Rock style)",
+      "variantGroup": "Cool Hide",
+      "variant": "Standard",
+      "price": 19.49,
+      "badge": "Cool side",
+      "asin": "B0DK6D4CWJ",
+      "amazonUrl": "https://www.amazon.com/dp/B0DK6D4CWJ?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0DK6D4CWJ?tag=habitatbuilde-20"
+    },
+    {
+      "id": "coolhide_large",
+      "label": "Large (120 gal / 4×2×2)",
+      "variantGroup": "Cool Hide",
+      "variant": "Large",
+      "price": 26.99,
+      "asin": "B0DK6D4CWJ",
+      "amazonUrl": "https://www.amazon.com/dp/B0DK6D4CWJ?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0DK6D4CWJ?tag=habitatbuilde-20"
+    },
+    {
+      "id": "rock_cave",
+      "label": "Large",
+      "variantGroup": "Rock Cave Hide",
+      "variant": "Large",
+      "price": 27.99,
+      "asin": "B0BM64QN5J",
+      "amazonUrl": "https://www.amazon.com/dp/B0BM64QN5J?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0BM64QN5J?tag=habitatbuilde-20"
+    },
+    {
+      "id": "rock_cave_medium",
+      "label": "Medium",
+      "variantGroup": "Rock Cave Hide",
+      "variant": "Medium",
+      "price": 21.99,
+      "asin": "B0BM64QN5J",
+      "amazonUrl": "https://www.amazon.com/dp/B0BM64QN5J?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0BM64QN5J?tag=habitatbuilde-20"
+    }
+  ],
+  "decor": [
+    {
+      "id": "basking_platform",
+      "label": "Standard (48 in tank)",
+      "variantGroup": "Basking Platform / Ramp",
+      "variant": "Standard",
+      "price": 39.99,
+      "badge": "Recommended",
+      "asin": "B0D4Q7BZ9C",
+      "amazonUrl": "https://www.amazon.com/dp/B0D4Q7BZ9C?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0D4Q7BZ9C?tag=habitatbuilde-20"
+    },
+    {
+      "id": "basking_platform_large",
+      "label": "Large (120 gal / 4×2×2)",
+      "variantGroup": "Basking Platform / Ramp",
+      "variant": "Large",
+      "price": 49.99,
+      "asin": "B0D4Q7BZ9C",
+      "amazonUrl": "https://www.amazon.com/dp/B0D4Q7BZ9C?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0D4Q7BZ9C?tag=habitatbuilde-20"
+    },
+    {
+      "id": "branches",
+      "label": "14–16 in (4 pcs)",
+      "variantGroup": "Climbing Branches",
+      "variant": "14-16 in",
+      "price": 19.99,
+      "asin": "B0CLY5WZ4S",
+      "amazonUrl": "https://www.amazon.com/dp/B0CLY5WZ4S?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0CLY5WZ4S?tag=habitatbuilde-20"
+    },
+    {
+      "id": "branches_large",
+      "label": "18–20 in (4 pcs)",
+      "variantGroup": "Climbing Branches",
+      "variant": "18-20 in",
+      "price": 24.99,
+      "asin": "B0CLY5WZ4S",
+      "amazonUrl": "https://www.amazon.com/dp/B0CLY5WZ4S?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0CLY5WZ4S?tag=habitatbuilde-20"
+    },
+    {
+      "id": "cork_round",
+      "label": "Round / Tube",
+      "variantGroup": "Cork Bark",
+      "variant": "Round",
+      "price": 13.59,
+      "asin": "B0DSP8ZPKP",
+      "amazonUrl": "https://www.amazon.com/dp/B0DSP8ZPKP?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0DSP8ZPKP?tag=habitatbuilde-20"
+    },
+    {
+      "id": "cork_flat",
+      "label": "Flat (4 pcs)",
+      "variantGroup": "Cork Bark",
+      "variant": "Flat",
+      "price": 14.99,
+      "asin": "B0DSP8ZPKP",
+      "amazonUrl": "https://www.amazon.com/dp/B0DSP8ZPKP?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0DSP8ZPKP?tag=habitatbuilde-20"
+    },
+    {
+      "id": "fake_plants",
+      "label": "5-Piece Set",
+      "variantGroup": "Reptile-Safe Fake Plants",
+      "variant": "5-Piece",
+      "price": 9.99,
+      "asin": "B094J5G9DJ",
+      "amazonUrl": "https://www.amazon.com/dp/B094J5G9DJ?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B094J5G9DJ?tag=habitatbuilde-20"
+    },
+    {
+      "id": "fake_plants_10",
+      "label": "10-Piece Set",
+      "variantGroup": "Reptile-Safe Fake Plants",
+      "variant": "10-Piece",
+      "price": 14.99,
+      "asin": "B094J5G9DJ",
+      "amazonUrl": "https://www.amazon.com/dp/B094J5G9DJ?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B094J5G9DJ?tag=habitatbuilde-20"
+    },
+    {
+      "id": "fake_plants_vines",
+      "label": "Hanging Vines",
+      "variantGroup": "Reptile-Safe Fake Plants",
+      "variant": "Vines",
+      "price": 12.99,
+      "asin": "B094J5G9DJ",
+      "amazonUrl": "https://www.amazon.com/dp/B094J5G9DJ?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B094J5G9DJ?tag=habitatbuilde-20"
+    }
+  ],
+  "supplements": [
+    {
+      "id": "calcium_no_d3",
+      "label": "Calcium (No D3) — with UVB",
+      "price": 5.99,
+      "badge": "With UVB",
+      "asin": "B001OROQ8U",
+      "amazonUrl": "https://www.amazon.com/dp/B001OROQ8U?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B001OROQ8U?tag=habitatbuilde-20"
+    },
+    {
+      "id": "calcium_d3",
+      "label": "Calcium + D3 — no UVB only",
+      "price": 3.99,
+      "asin": "B0002DHPEO",
+      "amazonUrl": "https://www.amazon.com/dp/B0002DHPEO?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0002DHPEO?tag=habitatbuilde-20"
+    },
+    {
+      "id": "multivitamin",
+      "label": "Reptile Multivitamin",
+      "price": 15.57,
+      "badge": "Recommended",
+      "asin": "B0D6CT1Q5Q",
+      "amazonUrl": "https://www.amazon.com/dp/B0D6CT1Q5Q?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0D6CT1Q5Q?tag=habitatbuilde-20"
+    }
+  ],
+  "feeding": [
+    {
+      "id": "salad_bowl",
+      "label": "Salad / Veggie Dish",
+      "price": 4.39,
+      "asin": "B0009YD68K",
+      "amazonUrl": "https://www.amazon.com/dp/B0009YD68K?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0009YD68K?tag=habitatbuilde-20"
+    },
+    {
+      "id": "feeder_dish",
+      "label": "Feeder Insect Dish (Escape-Proof)",
+      "price": 13.99,
+      "asin": "B07VRQ369N",
+      "amazonUrl": "https://www.amazon.com/dp/B07VRQ369N?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B07VRQ369N?tag=habitatbuilde-20"
+    },
+    {
+      "id": "water_bowl",
+      "label": "Water Bowl (Shallow)",
+      "price": 18.69,
+      "asin": "B00167XQLG",
+      "amazonUrl": "https://www.amazon.com/dp/B00167XQLG?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B00167XQLG?tag=habitatbuilde-20"
+    }
+  ]
+}

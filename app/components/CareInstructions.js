@@ -64,6 +64,64 @@ export function CareInstructions({ species }) {
         }
       ]
     },
+    "bearded-dragon": {
+      title: "When You Get Your Bearded Dragon",
+      icon: <Heart size={24} className="text-emerald-400" />,
+      color: "emerald",
+      sections: [
+        {
+          title: "Acclimation Period",
+          icon: <Calendar size={18} />,
+          items: [
+            "Give your dragon 5–7 days to settle before handling",
+            "Keep handling minimal the first week",
+            "Ensure basking (95–105°F) and cool side (75–80°F) are correct before bringing them home",
+            "UVB and heat should be on 10–12 hours per day",
+          ]
+        },
+        {
+          title: "Temperature & UVB",
+          icon: <Thermometer size={18} />,
+          items: [
+            "Basking surface: 95–105°F (use a thermostat)",
+            "Cool side: 75–80°F",
+            "Night: 70–75°F (no basking light at night)",
+            "T5 UVB 10–12% covering ~50% of enclosure; replace every 6–12 months",
+            "Always use a thermostat with your heat source",
+          ]
+        },
+        {
+          title: "Feeding Schedule",
+          icon: <Utensils size={18} />,
+          items: [
+            "Juveniles: 80% insects, 20% greens; feed insects 2–3x daily",
+            "Adults: 20% insects, 80% greens; feed insects every 1–2 days",
+            "Dust insects with calcium (no D3 if using UVB) 5x/week; multivitamin 2x/week",
+            "Staple greens: collard, mustard, dandelion, turnip greens; avoid spinach/lettuce as staples",
+          ]
+        },
+        {
+          title: "Humidity & Hydration",
+          icon: <Droplet size={18} />,
+          items: [
+            "Humidity 20–40%; avoid prolonged high humidity",
+            "Provide a shallow water bowl; many dragons get hydration from greens and baths",
+            "Optional: shallow bath 1–2x per week for hydration and shedding",
+          ]
+        },
+        {
+          title: "Important Reminders",
+          icon: <AlertCircle size={18} />,
+          items: [
+            "UVB is required — without it they develop metabolic bone disease",
+            "Never use heat without a thermostat",
+            "Minimum enclosure: 4×2×2 ft (120 gallon equivalent)",
+            "At least 2 hides (warm and cool side)",
+            "Provide a basking platform so they can get within proper range of heat and UVB",
+          ]
+        }
+      ]
+    },
     "betta": {
       title: "When You Get Your Betta Fish",
       icon: <Heart size={24} className="text-blue-400" />,

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Hammer, BookOpen, Package, Info, Menu, X, Bookmark } from "lucide-react";
+import { Home, BookOpen, Package, Info, Menu, X, Bookmark } from "lucide-react";
 import { useState } from "react";
 
 export default function Navbar() {
@@ -18,7 +18,7 @@ export default function Navbar() {
   };
 
   const navLinks = [
-    { name: "Builder", href: "/", icon: <Hammer size={20} /> },
+    { name: "Home", href: "/", icon: <Home size={20} /> },
     { name: "Research", href: "/research", icon: <BookOpen size={20} /> },
     { name: "Browse Parts", href: "/browse", icon: <Package size={20} /> },
     { name: "My Builds", href: "/my-builds", icon: <Bookmark size={20} /> },
@@ -27,12 +27,12 @@ export default function Navbar() {
 
   return (
     <nav className="fixed inset-x-0 top-0 z-50 h-28 w-full border-b border-white/10 bg-[#020617]/80 backdrop-blur-md">
-      <div className="mx-auto flex h-full w-full items-center justify-between px-8 md:px-12 lg:px-16">
+      <div className="mx-auto flex h-full w-full items-center justify-between gap-3 px-4 sm:px-8 md:px-12 lg:px-16 min-w-0">
         
         {/* LOGO (Restored your large styling) */}
         <Link
           href="/"
-          className="select-none py-2 pr-4 text-3xl md:text-4xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 hover:opacity-80 transition-opacity whitespace-nowrap"
+          className="select-none py-2 pr-2 sm:pr-4 text-2xl sm:text-3xl md:text-4xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 hover:opacity-80 transition-opacity truncate min-w-0"
         >
           BuildMyHabitat
         </Link>

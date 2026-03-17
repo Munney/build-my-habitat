@@ -127,7 +127,7 @@ export default function Home() {
         </div>
 
         {/* --- BUILDER CARDS GRID --- */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mb-16">
           
           {/* LEOPARD GECKO BUILDER */}
           <SpeciesCard 
@@ -151,6 +151,18 @@ export default function Home() {
             borderColor="group-hover:border-blue-500/50"
             glowColor="group-hover:shadow-[0_0_40px_-10px_rgba(59,130,246,0.3)]"
             titleColor="text-blue-400"
+          />
+
+          {/* BEARDED DRAGON BUILDER */}
+          <SpeciesCard 
+            href="/build/bearded-dragon"
+            title="Bearded Dragon"
+            description="Build a complete enclosure with proper UVB lighting, safe heating, and enriching decor."
+            imageSrc="/bearded_dragon.jpg"
+            buttonColor="bg-emerald-700 hover:bg-emerald-600"
+            borderColor="group-hover:border-emerald-500/50"
+            glowColor="group-hover:shadow-[0_0_40px_-10px_rgba(16,185,129,0.35)]"
+            titleColor="text-emerald-300"
           />
 
         </div>
@@ -183,7 +195,7 @@ export default function Home() {
             <h2 className="text-3xl font-black text-white mb-3">Complete Setup Guides</h2>
             <p className="text-slate-400">Step-by-step guides with everything you need to know</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <Link
               href="/guides/leopard-gecko-setup"
               onClick={() => analytics.trackNavClick("guide-leopard-gecko")}
@@ -209,6 +221,19 @@ export default function Home() {
                   <p className="text-sm text-slate-300">Tank size, heater, filter, cycling, and all essentials</p>
                 </div>
                 <ArrowUpRight className="text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity" size={24} />
+              </div>
+            </Link>
+            <Link
+              href="/guides/bearded-dragon-care"
+              onClick={() => analytics.trackNavClick("guide-bearded-dragon")}
+              className="group p-6 rounded-2xl bg-gradient-to-r from-emerald-500/10 to-emerald-600/10 border border-emerald-500/20 hover:border-emerald-500/40 transition-all duration-300 hover:-translate-y-1"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-1">Complete Bearded Dragon Care Guide</h3>
+                  <p className="text-sm text-slate-300">4×2×2 enclosure, UVB, heating, substrate, and feeding</p>
+                </div>
+                <ArrowUpRight className="text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity" size={24} />
               </div>
             </Link>
           </div>
@@ -272,6 +297,22 @@ export default function Home() {
                 <h4 className="text-lg font-semibold text-slate-200 mb-1">Leopard Gecko Substrate</h4>
                 <p className="text-sm text-slate-400">Safe vs dangerous options</p>
               </Link>
+              <Link
+                href="/guides/bearded-dragon-tank-setup"
+                onClick={() => analytics.trackNavClick("guide-bearded-dragon-tank")}
+                className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all"
+              >
+                <h4 className="text-lg font-semibold text-slate-200 mb-1">Bearded Dragon Tank Setup</h4>
+                <p className="text-sm text-slate-400">4×2×2 layout and hot/cool sides</p>
+              </Link>
+              <Link
+                href="/guides/bearded-dragon-lighting-uvb"
+                onClick={() => analytics.trackNavClick("guide-bearded-dragon-uvb")}
+                className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all"
+              >
+                <h4 className="text-lg font-semibold text-slate-200 mb-1">Bearded Dragon UVB & Lighting</h4>
+                <p className="text-sm text-slate-400">T5 UVB and basking setup</p>
+              </Link>
             </div>
           </div>
 
@@ -294,6 +335,14 @@ export default function Home() {
               >
                 <h4 className="text-lg font-semibold text-slate-200 mb-1">Common Mistakes</h4>
                 <p className="text-sm text-slate-400">Learn what NOT to do</p>
+              </Link>
+              <Link
+                href="/guides/bearded-dragon-mistakes"
+                onClick={() => analytics.trackNavClick("guide-bearded-dragon-mistakes")}
+                className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all"
+              >
+                <h4 className="text-lg font-semibold text-slate-200 mb-1">Bearded Dragon Mistakes</h4>
+                <p className="text-sm text-slate-400">Bad setups and how to fix them</p>
               </Link>
             </div>
           </div>
@@ -434,7 +483,12 @@ function SpeciesCard({
   glowColor,
   titleColor
 }) {
-  const species = title.toLowerCase().includes("betta") ? "betta" : "leopard-gecko";
+  const lower = title.toLowerCase();
+  const species = lower.includes("betta")
+    ? "betta"
+    : lower.includes("bearded")
+      ? "bearded-dragon"
+      : "leopard-gecko";
   
   return (
     <Link 

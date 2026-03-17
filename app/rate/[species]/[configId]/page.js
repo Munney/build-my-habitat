@@ -6,11 +6,13 @@ import { useParams } from "next/navigation";
 import { CheckCircle2, ArrowLeft, AlertCircle, Share2 } from "lucide-react";
 import bettaConfig from "../../../../data/betta.json";
 import leopardGeckoConfig from "../../../../data/leopard-gecko.json";
+import beardedDragonConfig from "../../../../data/bearded-dragon.json";
 import { decodeSlugToParams } from "../../../utils/ratePayload";
 import { getConfigIdFromSearchParams } from "../../../utils/amazonCart";
 import {
   calculateBettaHabitatScore,
   calculateGeckoHabitatScore,
+  calculateBeardedDragonHabitatScore,
 } from "../../../utils/habitatScore";
 
 const SPECIES_CONFIG = {
@@ -19,6 +21,12 @@ const SPECIES_CONFIG = {
     config: leopardGeckoConfig,
     scoreFn: calculateGeckoHabitatScore,
     name: "Leopard Gecko",
+    accent: "emerald",
+  },
+  "bearded-dragon": {
+    config: beardedDragonConfig,
+    scoreFn: calculateBeardedDragonHabitatScore,
+    name: "Bearded Dragon",
     accent: "emerald",
   },
 };
@@ -51,6 +59,18 @@ function buildSelectionsFromParams(species, params) {
     const hides = get("hides", config.hides);
     const supplements = get("supplements", config.supplements);
     return { enclosure, substrate, heating, hides, supplements };
+  }
+
+  if (species === "bearded-dragon") {
+    const enclosure = config.enclosures?.find((e) => e.id === params.enclosure);
+    const substrate = config.substrates?.find((s) => s.id === params.substrate);
+    const heating = get("heating", config.heating);
+    const lighting = get("lighting", config.lighting);
+    const hides = get("hides", config.hides);
+    const decor = get("decor", config.decor);
+    const supplements = get("supplements", config.supplements);
+    const feeding = get("feeding", config.feeding);
+    return { enclosure, substrate, heating, lighting, hides, decor, supplements, feeding };
   }
 
   return null;
@@ -97,6 +117,37 @@ function getBuildSummaryItems(species, selections) {
     ];
     return items.filter(Boolean);
   }
+  if (species === "bearded-dragon") {
+    const items = [
+      selections.enclosure?.label && { label: "Enclosure", value: selections.enclosure.label },
+      selections.substrate?.label && { label: "Substrate", value: selections.substrate.label },
+      selections.heating?.length && {
+        label: "Heating",
+        value: selections.heating.map((h) => h?.label).filter(Boolean).join(", "),
+      },
+      selections.lighting?.length && {
+        label: "UVB",
+        value: selections.lighting.map((l) => l?.label).filter(Boolean).join(", "),
+      },
+      selections.hides?.length && {
+        label: "Hides",
+        value: selections.hides.map((h) => h?.label).filter(Boolean).join(", "),
+      },
+      selections.decor?.length && {
+        label: "Decor",
+        value: selections.decor.map((d) => d?.label).filter(Boolean).join(", "),
+      },
+      selections.supplements?.length && {
+        label: "Supplements",
+        value: selections.supplements.map((s) => s?.label).filter(Boolean).join(", "),
+      },
+      selections.feeding?.length && {
+        label: "Feeding",
+        value: selections.feeding.map((f) => f?.label).filter(Boolean).join(", "),
+      },
+    ];
+    return items.filter(Boolean);
+  }
   return [];
 }
 
@@ -116,6 +167,17 @@ function getChecklistKeys(species) {
       { key: "heating", label: "Temperature control" },
       { key: "substrate", label: "Substrate" },
       { key: "hides", label: "Essential hides" },
+      { key: "supplements", label: "Supplements" },
+    ];
+  }
+  if (species === "bearded-dragon") {
+    return [
+      { key: "enclosure", label: "Enclosure size" },
+      { key: "uvb", label: "UVB lighting" },
+      { key: "heating", label: "Basking + thermostat" },
+      { key: "substrate", label: "Substrate" },
+      { key: "hides", label: "2+ hides" },
+      { key: "enrichment", label: "Enrichment" },
       { key: "supplements", label: "Supplements" },
     ];
   }

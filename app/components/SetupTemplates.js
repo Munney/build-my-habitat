@@ -17,7 +17,7 @@ export function SetupTemplates({ species, onApplyTemplate }) {
   };
 
   return (
-    <div className="mb-8 p-6 bg-gradient-to-br from-slate-900/80 to-slate-800/60 backdrop-blur-md rounded-2xl border border-white/10 shadow-xl">
+    <div className="mb-8 p-4 sm:p-6 bg-gradient-to-br from-slate-900/80 to-slate-800/60 backdrop-blur-md rounded-2xl border border-white/10 shadow-xl">
       <div className="flex items-center gap-3 mb-4">
         <Sparkles size={24} className="text-emerald-400" />
         <h2 className="text-xl font-bold text-white">Quick Start Templates</h2>

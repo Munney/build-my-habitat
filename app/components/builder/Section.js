@@ -53,7 +53,7 @@ export function Section({
       id={sectionId}
       ref={sectionRef}
       tabIndex={-1}
-      className={`relative bg-gradient-to-br from-slate-900/80 via-slate-900/60 to-slate-900/80 backdrop-blur-md p-8 rounded-3xl border-2 shadow-xl overflow-hidden transition-all duration-500 ${
+      className={`relative bg-gradient-to-br from-slate-900/80 via-slate-900/60 to-slate-900/80 backdrop-blur-md p-4 sm:p-6 md:p-8 rounded-3xl border-2 shadow-xl overflow-hidden transition-all duration-500 ${
         isCompleted ? t.border : isLocked ? t.borderLocked : t.borderDefault
       }`}
     >
@@ -75,9 +75,9 @@ export function Section({
       )}
 
       <div className="relative mb-6">
-        <h2 className="text-2xl font-black text-white mb-3 flex items-center gap-4">
+        <h2 className="text-xl sm:text-2xl font-black text-white mb-2 sm:mb-3 flex flex-wrap items-center gap-3 sm:gap-4">
           <div
-            className={`p-3 bg-gradient-to-br rounded-xl border-2 shadow-lg transition-all duration-300 ${
+            className={`p-2.5 sm:p-3 bg-gradient-to-br rounded-xl border-2 shadow-lg transition-all duration-300 shrink-0 ${
               isCompleted ? t.iconCompleted : isLocked ? t.iconLocked : t.iconDefault
             }`}
           >
@@ -90,7 +90,7 @@ export function Section({
             </div>
           </div>
           <span
-            className={`bg-gradient-to-r bg-clip-text text-transparent drop-shadow-sm ${
+            className={`bg-gradient-to-r bg-clip-text text-transparent drop-shadow-sm min-w-0 ${
               isLocked ? "from-slate-500 to-slate-600" : "from-white to-slate-200"
             }`}
           >
@@ -99,7 +99,7 @@ export function Section({
         </h2>
         {description && (
           <p
-            className={`text-sm ml-[68px] leading-relaxed font-medium ${
+            className={`text-sm mt-1 sm:mt-0 sm:ml-[52px] leading-relaxed font-medium ${
               isLocked ? "text-slate-500" : "text-slate-300"
             }`}
           >
@@ -116,7 +116,7 @@ export function Section({
             <button
               type="button"
               onClick={() => scrollToSection(nextSectionId)}
-              className={`px-4 py-2 rounded-xl text-sm font-bold ${t.button} transition flex items-center gap-2`}
+              className={`min-h-[44px] px-4 py-2.5 rounded-xl text-sm font-bold ${t.button} transition flex items-center gap-2 touch-manipulation`}
               aria-label={nextSectionTitle ? `Next step: ${nextSectionTitle}` : "Go to next section"}
             >
               {nextSectionTitle ? `Next Step → ${nextSectionTitle}` : "Next Step"}{" "}

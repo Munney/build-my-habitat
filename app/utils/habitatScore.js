@@ -283,11 +283,161 @@ export function calculateGeckoHabitatScore(selections) {
 }
 
 /**
+ * Bearded Dragon: 100 pts — Enclosure 18, UVB 22, Basking+thermostat 22, Substrate 10, Hides 13, Enrichment 10, Supplements 5
+ * Minimum 120 gallon equivalent; UVB required; basking heat + thermostat required; 2+ hides; proper substrate.
+ */
+export function calculateBeardedDragonHabitatScore(selections) {
+  const checks = [];
+  const warnings = [];
+  const missingEssentials = [];
+  let score = 0;
+
+  const enclosure = selections?.enclosure;
+  const enclosureSize =
+    enclosure?.size ??
+    (enclosure?.label ? parseInt(enclosure.label.match(/\d+/)?.[0], 10) : 0);
+
+  // Enclosure: 18 pts — 120+ full, 75+ partial, below fail
+  const encMax = 18;
+  let encPoints = 0;
+  let encMessage;
+  if (enclosureSize >= 120) {
+    encPoints = 18;
+    encMessage = `You received full points for enclosure size (${enclosureSize} gallon equivalent). Bearded dragons need 4×2×2 ft minimum.`;
+  } else if (enclosureSize >= 75) {
+    encPoints = 8;
+    encMessage = "A 4×2×2 ft (120 gallon equivalent) enclosure is the minimum for an adult bearded dragon.";
+    missingEssentials.push("Larger enclosure (120 gal / 4×2×2 ft minimum)");
+  } else if (enclosureSize > 0) {
+    encPoints = 0;
+    encMessage = "Select at least a 120 gallon equivalent (4×2×2 ft) enclosure for a bearded dragon.";
+    missingEssentials.push("Larger enclosure (120 gal minimum)");
+  } else {
+    encMessage = "Select an enclosure to get started.";
+    missingEssentials.push("Enclosure");
+  }
+  score += encPoints;
+  checks.push({ key: "enclosure", label: "Enclosure size", passed: encPoints >= 18, points: encPoints, maxPoints: encMax, message: encMessage });
+
+  // UVB: 22 pts — required; 0 if missing
+  const lighting = selections?.lighting || [];
+  const hasUvb = lighting.some((l) => l && (l.id?.startsWith("uvb_t5") || l.id?.startsWith("uvb")));
+  const uvbMax = 22;
+  const uvbPoints = hasUvb ? 22 : 0;
+  const uvbMessage = hasUvb
+    ? "T5 UVB lighting selected. Essential for calcium metabolism and preventing metabolic bone disease."
+    : "UVB is required for bearded dragons. Without it they develop metabolic bone disease. Add a T5 UVB 10–12% tube covering ~50% of the enclosure.";
+  if (!hasUvb) missingEssentials.push("UVB lighting (T5 10–12%)");
+  score += uvbPoints;
+  checks.push({ key: "uvb", label: "UVB lighting", passed: hasUvb, points: uvbPoints, maxPoints: uvbMax, message: uvbMessage });
+
+  // Basking + thermostat: 22 pts
+  const heating = selections?.heating || [];
+  const hasThermostat = heating.some((h) => h && h.id === "thermostat");
+  const hasBasking = heating.some((h) => h && (h.id?.startsWith("halogen") || h.id?.startsWith("che_")));
+  const heatMax = 22;
+  let heatPoints = 0;
+  let heatMessage;
+  if (hasBasking && hasThermostat) {
+    heatPoints = 22;
+    heatMessage = "Basking heat source and thermostat selected for safe temperature control (95–105°F basking).";
+  } else if (hasBasking) {
+    heatPoints = 0;
+    heatMessage = "A thermostat is required. Unregulated heat causes burns and overheating.";
+    missingEssentials.push("Thermostat");
+  } else if (hasThermostat) {
+    heatPoints = 5;
+    heatMessage = "Add a basking heat source (halogen or CHE) with your thermostat.";
+    missingEssentials.push("Basking heat source");
+  } else {
+    heatMessage = "Add a basking heat source and thermostat for proper temperature gradient.";
+    missingEssentials.push("Basking heat source", "Thermostat");
+  }
+  score += heatPoints;
+  checks.push({ key: "heating", label: "Basking + thermostat", passed: heatPoints >= 22, points: heatPoints, maxPoints: heatMax, message: heatMessage });
+
+  // Substrate: 10 pts — safe full, risky low
+  const sub = selections?.substrate;
+  const subMax = 10;
+  let subPoints = 0;
+  let subMessage;
+  if (sub) {
+    const id = (sub.id || "").toLowerCase();
+    const risky = id.includes("calcium") && id.includes("sand") && !id.includes("mix");
+    if (risky) {
+      subPoints = 3;
+      subMessage = "Loose calcium sand alone is unsafe (impaction risk). Use tile, paper towel, or a proper topsoil/sand mix.";
+      warnings.push("Substrate may pose impaction risk.");
+    } else {
+      subPoints = 10;
+      subMessage = "Safe substrate selected.";
+    }
+  } else {
+    subMessage = "Select a safe substrate (e.g. tile, paper towel, shelf liner, or 50/50 mix).";
+    missingEssentials.push("Substrate");
+  }
+  score += subPoints;
+  checks.push({ key: "substrate", label: "Substrate", passed: subPoints >= 10, points: subPoints, maxPoints: subMax, message: subMessage });
+
+  // Hides: 13 pts — 2+ full, 1 partial, 0 fail
+  const hides = selections?.hides || [];
+  const hideCount = hides.length;
+  const hideMax = 13;
+  let hidePoints = hideCount >= 2 ? 13 : hideCount === 1 ? 6 : 0;
+  let hideMessage;
+  if (hideCount >= 2) hideMessage = "At least 2 hides selected for thermoregulation and security.";
+  else if (hideCount === 1) {
+    hideMessage = "Add at least one more hide (warm and cool side recommended).";
+    missingEssentials.push("Second hide");
+  } else {
+    hideMessage = "Add at least 2 hides (warm and cool side).";
+    missingEssentials.push("2+ hides");
+  }
+  score += hidePoints;
+  checks.push({ key: "hides", label: "Hides (2+)", passed: hideCount >= 2, points: hidePoints, maxPoints: hideMax, message: hideMessage });
+
+  // Enrichment: 10 pts — basking platform and/or decor
+  const decor = selections?.decor || [];
+  const hasBaskingPlatform = decor.some((d) => d && (d.id === "basking_platform" || d.label?.toLowerCase().includes("basking")));
+  const enrichPoints = hasBaskingPlatform && decor.length >= 1 ? 10 : decor.length >= 1 ? 6 : 0;
+  const enrichMessage = hasBaskingPlatform
+    ? "Basking platform and enrichment selected."
+    : decor.length >= 1
+      ? "Consider adding a basking platform so your dragon can get within proper range of the heat/UVB."
+      : "Add climbing decor and a basking platform for enrichment.";
+  if (decor.length === 0) warnings.push("Climbing decor and basking platform recommended.");
+  score += enrichPoints;
+  checks.push({ key: "enrichment", label: "Enrichment", passed: enrichPoints >= 6, points: enrichPoints, maxPoints: 10, message: enrichMessage });
+
+  // Supplements: 5 pts
+  const supps = selections?.supplements || [];
+  const hasCalcium = supps.some((s) => s && (s.id === "calcium_d3" || s.id === "calcium_no_d3"));
+  const hasMulti = supps.some((s) => s && s.id === "multivitamin");
+  const suppMax = 5;
+  let suppPoints = hasCalcium && hasMulti ? 5 : hasCalcium || hasMulti ? 2 : 0;
+  const suppMessage = hasCalcium && hasMulti ? "Calcium and multivitamin selected." : hasCalcium || hasMulti ? "Add both calcium and multivitamin." : "Add calcium and multivitamin supplements.";
+  if (!hasCalcium) missingEssentials.push("Calcium supplement");
+  if (!hasMulti) missingEssentials.push("Multivitamin");
+  score += suppPoints;
+  checks.push({ key: "supplements", label: "Supplements", passed: suppPoints >= 5, points: suppPoints, maxPoints: suppMax, message: suppMessage });
+
+  return {
+    score: Math.min(score, MAX_SCORE),
+    maxScore: MAX_SCORE,
+    label: getScoreLabel(score),
+    checks,
+    warnings,
+    missingEssentials: [...new Set(missingEssentials)],
+  };
+}
+
+/**
  * Shared wrapper: returns score result for the given species.
  */
 export function calculateHabitatScore(species, selections) {
   if (species === "betta") return calculateBettaHabitatScore(selections);
   if (species === "leopard-gecko") return calculateGeckoHabitatScore(selections);
+  if (species === "bearded-dragon") return calculateBeardedDragonHabitatScore(selections);
   return {
     score: 0,
     maxScore: MAX_SCORE,

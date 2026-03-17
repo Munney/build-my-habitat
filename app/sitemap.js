@@ -21,6 +21,18 @@ export default async function sitemap() {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/build/bearded-dragon`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/summary/bearded-dragon`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/browse`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
@@ -70,6 +82,42 @@ export default async function sitemap() {
     },
     {
       url: `${baseUrl}/guides/leopard-gecko-substrate`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/guides/bearded-dragon-care`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/guides/bearded-dragon-tank-setup`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/guides/bearded-dragon-feeding`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/guides/bearded-dragon-lighting-uvb`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/guides/bearded-dragon-substrate`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/guides/bearded-dragon-mistakes`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.7,

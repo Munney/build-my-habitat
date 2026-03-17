@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import bettaConfig from "../../../../data/betta.json";
 import leopardConfig from "../../../../data/leopard-gecko.json";
+import beardedDragonConfig from "../../../../data/bearded-dragon.json";
 
 const SPECIES_CONFIG = {
   betta: {
@@ -25,6 +26,20 @@ const SPECIES_CONFIG = {
       substrate: { key: "substrates", label: "Substrate", buildPath: "/build/leopard-gecko", buildParam: "substrate" },
       hides: { key: "hides", label: "Hides", buildPath: "/build/leopard-gecko", buildParam: "hides" },
       supplements: { key: "supplements", label: "Supplements", buildPath: "/build/leopard-gecko", buildParam: "supplements" },
+    },
+  },
+  "bearded-dragon": {
+    label: "Bearded dragon",
+    config: beardedDragonConfig,
+    categories: {
+      enclosure: { key: "enclosures", label: "Enclosure", buildPath: "/build/bearded-dragon", buildParam: "enclosure" },
+      heating: { key: "heating", label: "Heating", buildPath: "/build/bearded-dragon", buildParam: "heating" },
+      lighting: { key: "lighting", label: "UVB Lighting", buildPath: "/build/bearded-dragon", buildParam: "lighting" },
+      substrate: { key: "substrates", label: "Substrate", buildPath: "/build/bearded-dragon", buildParam: "substrate" },
+      hides: { key: "hides", label: "Hides", buildPath: "/build/bearded-dragon", buildParam: "hides" },
+      decor: { key: "decor", label: "Decor", buildPath: "/build/bearded-dragon", buildParam: "decor" },
+      supplements: { key: "supplements", label: "Supplements", buildPath: "/build/bearded-dragon", buildParam: "supplements" },
+      feeding: { key: "feeding", label: "Feeding", buildPath: "/build/bearded-dragon", buildParam: "feeding" },
     },
   },
 };
