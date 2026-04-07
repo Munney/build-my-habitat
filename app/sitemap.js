@@ -81,6 +81,12 @@ export default async function sitemap() {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/guides/betta-tank-cycling`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/guides/betta-fish-filter`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
@@ -106,6 +112,12 @@ export default async function sitemap() {
     },
     {
       url: `${baseUrl}/guides/leopard-gecko-sand-safe`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/guides/leopard-gecko-heating-guide`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.7,
@@ -142,6 +154,18 @@ export default async function sitemap() {
     },
     {
       url: `${baseUrl}/guides/bearded-dragon-mistakes`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/guides/bearded-dragon-basking-temp`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/guides/bearded-dragon-uvb-distance`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.7,

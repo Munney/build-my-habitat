@@ -272,78 +272,83 @@ export default function Home() {
           {/* While You Build */}
           <div className="mb-8">
             <h3 className="text-sm font-bold text-slate-300 uppercase tracking-wider mb-4">While You Build</h3>
+
+            <h4 className="text-base font-semibold text-white mb-1">Leopard Gecko Setup Help</h4>
+            <p className="text-sm text-slate-400 mb-3">Substrate, heating, and enclosure setup for leopard geckos.</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+              <Link href="/guides/leopard-gecko-setup" onClick={() => analytics.trackNavClick("guide-leopard-gecko")} className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all">
+                <h5 className="text-lg font-semibold text-slate-200 mb-1">Leopard Gecko Setup Guide</h5>
+                <p className="text-sm text-slate-400">Complete enclosure and care setup</p>
+              </Link>
+              <Link href="/guides/leopard-gecko-substrate" onClick={() => analytics.trackNavClick("guide-gecko-substrate")} className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all">
+                <h5 className="text-lg font-semibold text-slate-200 mb-1">Leopard Gecko Substrate Guide</h5>
+                <p className="text-sm text-slate-400">Safe vs dangerous substrate options</p>
+              </Link>
+              <Link href="/guides/leopard-gecko-substrate-mix" onClick={() => analytics.trackNavClick("guide-leopard-substrate-mix")} className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all">
+                <h5 className="text-lg font-semibold text-slate-200 mb-1">Leopard Gecko Substrate Mix</h5>
+                <p className="text-sm text-slate-400">Topsoil and playsand blend rules</p>
+              </Link>
+              <Link href="/guides/leopard-gecko-sand-safe" onClick={() => analytics.trackNavClick("guide-leopard-sand-safe")} className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all">
+                <h5 className="text-lg font-semibold text-slate-200 mb-1">Leopard Gecko Sand Safety Guide</h5>
+                <p className="text-sm text-slate-400">Impaction myths and safe use</p>
+              </Link>
+              <Link href="/guides/leopard-gecko-heating-guide" onClick={() => analytics.trackNavClick("guide-leopard-heating-guide")} className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all">
+                <h5 className="text-lg font-semibold text-slate-200 mb-1">Leopard Gecko Heating Guide</h5>
+                <p className="text-sm text-slate-400">Warm hide targets and gradient setup</p>
+              </Link>
+            </div>
+
+            <h4 className="text-base font-semibold text-white mb-1">Betta Fish Setup Help</h4>
+            <p className="text-sm text-slate-400 mb-3">Heating, tank size, and water stability for betta fish.</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+              <Link href="/guides/betta-setup" onClick={() => analytics.trackNavClick("guide-betta")} className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all">
+                <h5 className="text-lg font-semibold text-slate-200 mb-1">Betta Fish Setup Guide</h5>
+                <p className="text-sm text-slate-400">Complete tank setup essentials</p>
+              </Link>
+              <Link href="/guides/betta-fish-tank-size" onClick={() => analytics.trackNavClick("guide-betta-tank-size")} className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all">
+                <h5 className="text-lg font-semibold text-slate-200 mb-1">Betta Fish Tank Size Guide</h5>
+                <p className="text-sm text-slate-400">Why 5+ gallons matters</p>
+              </Link>
+              <Link href="/guides/betta-heater-size" onClick={() => analytics.trackNavClick("guide-betta-heater-size")} className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all">
+                <h5 className="text-lg font-semibold text-slate-200 mb-1">Betta Fish Heater Size Guide</h5>
+                <p className="text-sm text-slate-400">Wattage by tank volume</p>
+              </Link>
+              <Link href="/guides/betta-temperature-guide" onClick={() => analytics.trackNavClick("guide-betta-temperature-guide")} className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all">
+                <h5 className="text-lg font-semibold text-slate-200 mb-1">Betta Fish Temperature Guide</h5>
+                <p className="text-sm text-slate-400">Stable 78-80°F rules</p>
+              </Link>
+              <Link href="/guides/betta-tank-cycling" onClick={() => analytics.trackNavClick("guide-betta-tank-cycling")} className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all">
+                <h5 className="text-lg font-semibold text-slate-200 mb-1">Betta Fish Tank Cycling Guide</h5>
+                <p className="text-sm text-slate-400">Nitrogen cycle and safe stocking timing</p>
+              </Link>
+            </div>
+
+            <h4 className="text-base font-semibold text-white mb-1">Bearded Dragon Setup Help</h4>
+            <p className="text-sm text-slate-400 mb-3">Lighting, heating, and full habitat setup for bearded dragons.</p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-              <Link
-                href="/guides/betta-fish-heater"
-                onClick={() => analytics.trackNavClick("guide-betta-heater")}
-                className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all"
-              >
-                <h4 className="text-lg font-semibold text-slate-200 mb-1">Betta Heater Guide</h4>
-                <p className="text-sm text-slate-400">Temperature requirements</p>
+              <Link href="/guides/bearded-dragon-care" onClick={() => analytics.trackNavClick("guide-bearded-dragon")} className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all">
+                <h5 className="text-lg font-semibold text-slate-200 mb-1">Bearded Dragon Care Guide</h5>
+                <p className="text-sm text-slate-400">Core care standards and essentials</p>
               </Link>
-              <Link
-                href="/guides/betta-fish-filter"
-                onClick={() => analytics.trackNavClick("guide-betta-filter")}
-                className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all"
-              >
-                <h4 className="text-lg font-semibold text-slate-200 mb-1">Betta Filter Guide</h4>
-                <p className="text-sm text-slate-400">Low-flow filtration options</p>
+              <Link href="/guides/bearded-dragon-tank-setup" onClick={() => analytics.trackNavClick("guide-bearded-dragon-tank")} className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all">
+                <h5 className="text-lg font-semibold text-slate-200 mb-1">Bearded Dragon Tank Setup Guide</h5>
+                <p className="text-sm text-slate-400">4x2x2 layout and gradient design</p>
               </Link>
-              <Link
-                href="/guides/leopard-gecko-substrate"
-                onClick={() => analytics.trackNavClick("guide-gecko-substrate")}
-                className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all"
-              >
-                <h4 className="text-lg font-semibold text-slate-200 mb-1">Leopard Gecko Substrate</h4>
-                <p className="text-sm text-slate-400">Safe vs dangerous options</p>
+              <Link href="/guides/bearded-dragon-lighting-uvb" onClick={() => analytics.trackNavClick("guide-bearded-dragon-uvb")} className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all">
+                <h5 className="text-lg font-semibold text-slate-200 mb-1">Bearded Dragon Lighting & UVB Guide</h5>
+                <p className="text-sm text-slate-400">T5 UVB and basking lighting rules</p>
               </Link>
-              <Link
-                href="/guides/bearded-dragon-tank-setup"
-                onClick={() => analytics.trackNavClick("guide-bearded-dragon-tank")}
-                className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all"
-              >
-                <h4 className="text-lg font-semibold text-slate-200 mb-1">Bearded Dragon Tank Setup</h4>
-                <p className="text-sm text-slate-400">4×2×2 layout and hot/cool sides</p>
+              <Link href="/guides/bearded-dragon-feeding" onClick={() => analytics.trackNavClick("guide-bearded-feeding")} className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all">
+                <h5 className="text-lg font-semibold text-slate-200 mb-1">Bearded Dragon Feeding Guide</h5>
+                <p className="text-sm text-slate-400">Diet, insects, greens, and feeding schedules</p>
               </Link>
-              <Link
-                href="/guides/bearded-dragon-lighting-uvb"
-                onClick={() => analytics.trackNavClick("guide-bearded-dragon-uvb")}
-                className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all"
-              >
-                <h4 className="text-lg font-semibold text-slate-200 mb-1">Bearded Dragon UVB & Lighting</h4>
-                <p className="text-sm text-slate-400">T5 UVB and basking setup</p>
+              <Link href="/guides/bearded-dragon-basking-temp" onClick={() => analytics.trackNavClick("guide-bearded-dragon-basking-temp")} className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all">
+                <h5 className="text-lg font-semibold text-slate-200 mb-1">Bearded Dragon Basking Temperature Guide</h5>
+                <p className="text-sm text-slate-400">105-110°F surface temp and measurement</p>
               </Link>
-              <Link
-                href="/guides/leopard-gecko-substrate-mix"
-                onClick={() => analytics.trackNavClick("guide-leopard-substrate-mix")}
-                className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all"
-              >
-                <h4 className="text-lg font-semibold text-slate-200 mb-1">Leopard Gecko Substrate Mix</h4>
-                <p className="text-sm text-slate-400">Safe topsoil and playsand mix for natural digging</p>
-              </Link>
-              <Link
-                href="/guides/leopard-gecko-sand-safe"
-                onClick={() => analytics.trackNavClick("guide-leopard-sand-safe")}
-                className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all"
-              >
-                <h4 className="text-lg font-semibold text-slate-200 mb-1">Is Sand Safe for Leopard Geckos?</h4>
-                <p className="text-sm text-slate-400">What actually causes impaction and what’s safe</p>
-              </Link>
-              <Link
-                href="/guides/betta-heater-size"
-                onClick={() => analytics.trackNavClick("guide-betta-heater-size")}
-                className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all"
-              >
-                <h4 className="text-lg font-semibold text-slate-200 mb-1">Betta Heater Size Guide</h4>
-                <p className="text-sm text-slate-400">Choose the right watt heater for your tank</p>
-              </Link>
-              <Link
-                href="/guides/betta-temperature-guide"
-                onClick={() => analytics.trackNavClick("guide-betta-temperature-guide")}
-                className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all"
-              >
-                <h4 className="text-lg font-semibold text-slate-200 mb-1">Betta Temperature Guide</h4>
-                <p className="text-sm text-slate-400">Ideal temperature range and stability rules</p>
+              <Link href="/guides/bearded-dragon-uvb-distance" onClick={() => analytics.trackNavClick("guide-bearded-dragon-uvb-distance")} className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all">
+                <h5 className="text-lg font-semibold text-slate-200 mb-1">Bearded Dragon UVB Distance Guide</h5>
+                <p className="text-sm text-slate-400">Placement ranges and screen-top impact</p>
               </Link>
             </div>
           </div>

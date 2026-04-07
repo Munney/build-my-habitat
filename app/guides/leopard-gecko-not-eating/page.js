@@ -231,9 +231,9 @@ export default function GeckoNotEatingPage() {
               <h3 className="text-sm font-bold text-white mb-1">Complete Setup Guide</h3>
               <p className="text-xs text-slate-400">Full guide</p>
             </Link>
-            <Link href="/care-sheets" className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 hover:border-emerald-500/40 transition-all text-center">
-              <h3 className="text-sm font-bold text-white mb-1">Care Sheets</h3>
-              <p className="text-xs text-slate-400">Quick reference</p>
+            <Link href="/guides/leopard-gecko-substrate" className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 hover:border-emerald-500/40 transition-all text-center">
+              <h3 className="text-sm font-bold text-white mb-1">Substrate Guide</h3>
+              <p className="text-xs text-slate-400">Safe substrate choices</p>
             </Link>
           </div>
         </div>
