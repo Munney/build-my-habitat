@@ -7,6 +7,7 @@ import Footer from "../components/Footer";
 // These imports will work now that your folder structure is fixed!
 import bettaData from "../../data/betta.json";
 import geckoData from "../../data/leopard-gecko.json";
+import beardedDragonData from "../../data/bearded-dragon.json";
 
 // 👇 REPLACE WITH YOUR AMAZON TAG
 const AFFILIATE_TAG = "habitatbuilde-20";
@@ -46,6 +47,9 @@ const REMOVED_PRODUCT_IDS = {
   "Betta": [
     // Add removed product IDs for bettas here as needed
   ],
+  "Bearded Dragon": [
+    // Add removed product IDs for bearded dragons here as needed
+  ],
 };
 
 export default function BrowsePage() {
@@ -61,6 +65,7 @@ export default function BrowsePage() {
 
   const allProducts = useMemo(() => {
     const products = [];
+    const seenProductKeys = new Set();
     
     // Helper to add items safely
     const add = (list, species, categoryLabel) => {
@@ -75,6 +80,16 @@ export default function BrowsePage() {
 
         // Direct Amazon link with affiliate tag (ASIN → dp link, else direct URL with tag, else search)
         const link = getProductLink({ ...item, species });
+        const dedupeKey = (item.asin || link || item.label || item.id || "")
+          .toString()
+          .trim()
+          .toLowerCase();
+        if (dedupeKey && seenProductKeys.has(dedupeKey)) {
+          return;
+        }
+        if (dedupeKey) {
+          seenProductKeys.add(dedupeKey);
+        }
 
         products.push({
           ...item,
@@ -103,6 +118,18 @@ export default function BrowsePage() {
         add(geckoData.substrates,  "Gecko", "Substrate");
         add(geckoData.hides,       "Gecko", "Hides");
         add(geckoData.supplements, "Gecko", "Supplements");
+    }
+
+    // --- LOAD BEARDED DRAGON DATA ---
+    if (beardedDragonData) {
+        add(beardedDragonData.enclosures,  "Bearded Dragon", "Enclosure");
+        add(beardedDragonData.heating,     "Bearded Dragon", "Heating");
+        add(beardedDragonData.lighting,    "Bearded Dragon", "Lighting");
+        add(beardedDragonData.substrates,  "Bearded Dragon", "Substrate");
+        add(beardedDragonData.hides,       "Bearded Dragon", "Hides");
+        add(beardedDragonData.decor,       "Bearded Dragon", "Decor");
+        add(beardedDragonData.supplements, "Bearded Dragon", "Supplements");
+        add(beardedDragonData.feeding,     "Bearded Dragon", "Feeding");
     }
 
     return products;
@@ -294,6 +321,16 @@ export default function BrowsePage() {
                 }`}
               >
                 BETTA
+              </button>
+              <button
+                onClick={() => setFilter("bearded dragon")}
+                className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${
+                  filter === "bearded dragon"
+                    ? "bg-orange-600 text-white"
+                    : "text-slate-300 hover:text-orange-400"
+                }`}
+              >
+                BEARDED
               </button>
             </div>
 
