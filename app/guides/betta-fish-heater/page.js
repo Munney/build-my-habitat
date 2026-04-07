@@ -251,6 +251,14 @@ export default function BettaHeaterPage() {
               <h3 className="text-sm font-bold text-white mb-1">Tank Size Guide</h3>
               <p className="text-xs text-slate-400">Tank requirements</p>
             </Link>
+            <Link href="/guides/betta-heater-size" className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20 hover:border-blue-500/40 transition-all text-center">
+              <h3 className="text-sm font-bold text-white mb-1">Heater Wattage Guide</h3>
+              <p className="text-xs text-slate-400">Size your heater</p>
+            </Link>
+            <Link href="/guides/betta-temperature-guide" className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20 hover:border-blue-500/40 transition-all text-center">
+              <h3 className="text-sm font-bold text-white mb-1">Temperature Guide</h3>
+              <p className="text-xs text-slate-400">Range and stability</p>
+            </Link>
           </div>
         </div>
 

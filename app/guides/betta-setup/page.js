@@ -291,6 +291,20 @@ export default function BettaGuidePage() {
               <h3 className="text-sm font-bold text-white mb-1">Common Mistakes</h3>
               <p className="text-xs text-slate-400">Avoid dangers</p>
             </Link>
+            <Link
+              href="/guides/betta-heater-size"
+              className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20 hover:border-blue-500/40 transition-all text-center"
+            >
+              <h3 className="text-sm font-bold text-white mb-1">Heater Size Guide</h3>
+              <p className="text-xs text-slate-400">Watts by tank volume</p>
+            </Link>
+            <Link
+              href="/guides/betta-temperature-guide"
+              className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20 hover:border-blue-500/40 transition-all text-center"
+            >
+              <h3 className="text-sm font-bold text-white mb-1">Temperature Guide</h3>
+              <p className="text-xs text-slate-400">Stable 78–80°F</p>
+            </Link>
           </div>
         </div>
 

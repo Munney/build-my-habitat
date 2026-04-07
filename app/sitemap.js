@@ -69,6 +69,18 @@ export default async function sitemap() {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/guides/betta-heater-size`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/guides/betta-temperature-guide`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/guides/betta-fish-filter`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
@@ -82,6 +94,18 @@ export default async function sitemap() {
     },
     {
       url: `${baseUrl}/guides/leopard-gecko-substrate`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/guides/leopard-gecko-substrate-mix`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/guides/leopard-gecko-sand-safe`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.7,

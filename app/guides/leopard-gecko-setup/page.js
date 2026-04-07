@@ -290,6 +290,20 @@ export default function LeopardGeckoGuidePage() {
               <h3 className="text-sm font-bold text-white mb-1">Common Mistakes</h3>
               <p className="text-xs text-slate-400">Avoid dangers</p>
             </Link>
+            <Link
+              href="/guides/leopard-gecko-substrate-mix"
+              className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 hover:border-emerald-500/40 transition-all text-center"
+            >
+              <h3 className="text-sm font-bold text-white mb-1">Substrate Mix Guide</h3>
+              <p className="text-xs text-slate-400">Naturalistic floor options</p>
+            </Link>
+            <Link
+              href="/guides/leopard-gecko-sand-safe"
+              className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 hover:border-emerald-500/40 transition-all text-center"
+            >
+              <h3 className="text-sm font-bold text-white mb-1">Is Sand Safe?</h3>
+              <p className="text-xs text-slate-400">Sand and impaction</p>
+            </Link>
           </div>
         </div>
 

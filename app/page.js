@@ -313,6 +313,38 @@ export default function Home() {
                 <h4 className="text-lg font-semibold text-slate-200 mb-1">Bearded Dragon UVB & Lighting</h4>
                 <p className="text-sm text-slate-400">T5 UVB and basking setup</p>
               </Link>
+              <Link
+                href="/guides/leopard-gecko-substrate-mix"
+                onClick={() => analytics.trackNavClick("guide-leopard-substrate-mix")}
+                className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all"
+              >
+                <h4 className="text-lg font-semibold text-slate-200 mb-1">Leopard Gecko Substrate Mix</h4>
+                <p className="text-sm text-slate-400">Safe topsoil and playsand mix for natural digging</p>
+              </Link>
+              <Link
+                href="/guides/leopard-gecko-sand-safe"
+                onClick={() => analytics.trackNavClick("guide-leopard-sand-safe")}
+                className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all"
+              >
+                <h4 className="text-lg font-semibold text-slate-200 mb-1">Is Sand Safe for Leopard Geckos?</h4>
+                <p className="text-sm text-slate-400">What actually causes impaction and what’s safe</p>
+              </Link>
+              <Link
+                href="/guides/betta-heater-size"
+                onClick={() => analytics.trackNavClick("guide-betta-heater-size")}
+                className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all"
+              >
+                <h4 className="text-lg font-semibold text-slate-200 mb-1">Betta Heater Size Guide</h4>
+                <p className="text-sm text-slate-400">Choose the right watt heater for your tank</p>
+              </Link>
+              <Link
+                href="/guides/betta-temperature-guide"
+                onClick={() => analytics.trackNavClick("guide-betta-temperature-guide")}
+                className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all"
+              >
+                <h4 className="text-lg font-semibold text-slate-200 mb-1">Betta Temperature Guide</h4>
+                <p className="text-sm text-slate-400">Ideal temperature range and stability rules</p>
+              </Link>
             </div>
           </div>
 
