@@ -17,24 +17,24 @@ import { FAQSchema } from "../../components/StructuredData";
 export default function BettaHeaterSizePage() {
   const faqs = [
     {
-      question: "How many watts for a 5-gallon betta tank?",
+      question: "What heater wattage for a 5 gallon betta tank?",
       answer:
-        "Use roughly 25–50W for a typical 5-gallon glass tank in a normal room. Small tanks lose heat quickly; undersized heaters run flat out and swing temperature. Verify with a separate thermometer—not the heater’s display alone.",
+        "For a heater for 5 gallon betta tank setups, use roughly 25–50W adjustable submersible heater in a typical room. Small tanks lose heat fast; undersized units run constantly and swing betta tank temperature. Confirm with a separate thermometer—not the heater display alone.",
     },
     {
       question: "Is a preset 78°F heater good enough for a betta?",
       answer:
-        "Adjustable heaters are more reliable. Preset models often drift and are hard to verify. Pair an adjustable submersible heater with a glass or digital thermometer and tune to a stable 78–80°F.",
+        "Adjustable heaters are more reliable for betta heater wattage control. Preset models often drift. Pair an adjustable heater with a thermometer and tune to a stable 78–80°F.",
     },
     {
-      question: "Can I use a tiny 10W heater in a 10-gallon betta tank?",
+      question: "Can I use a 10W heater in a 10-gallon betta tank?",
       answer:
-        "Usually no. A 10W heater is typically too weak for 10 gallons in average homes. Aim closer to 50–75W for 10 gallons so the heater cycles normally instead of struggling at maximum output.",
+        "Usually no. Ten watts is typically too weak for that tank size; betta heater size should land closer to 50–75W for 10 gallons so the unit cycles instead of maxing out.",
     },
     {
       question: "Where should I place the heater in a betta tank?",
       answer:
-        "Fully submerge per manufacturer instructions, usually vertically or at an angle with flow across it (near filter output) for even heat. Leave swimming space and betta resting spots away from the hottest micro-pocket; confirm tank-wide temp with your thermometer.",
+        "Fully submerge per instructions, often vertical or angled with flow across it (e.g. near filter output). Always measure temperature on the opposite side of the tank from the heater to confirm full-tank stability. Leave swimming space away from the hottest pocket.",
     },
   ];
 
@@ -55,7 +55,7 @@ export default function BettaHeaterSizePage() {
               Betta Heater Size Guide
             </h1>
             <p className="text-xl text-slate-300 max-w-2xl mx-auto mb-6">
-              Match heater wattage to tank volume so your betta gets stable 78–80°F water—not constant overdrive or cold swings.
+              The correct betta heater size depends on tank volume—using the right wattage keeps water at a stable 78–80°F instead of cold swings or overheating.
             </p>
             <Link
               href="/build/betta"
@@ -65,15 +65,46 @@ export default function BettaHeaterSizePage() {
             </Link>
           </div>
 
-          <GuideSection Icon={Thermometer} iconColor="#38bdf8" title="Why Heater Size Matters">
+          <div className="mb-8 p-6 sm:p-8 rounded-3xl border-2 border-sky-500/35 bg-sky-500/[0.07] shadow-lg">
+            <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+              <Zap className="text-sky-400 shrink-0" size={24} />
+              Quick Answer
+            </h2>
+            <ul className="space-y-2.5 text-slate-300 text-sm sm:text-base">
+              <li className="flex flex-wrap gap-x-2 gap-y-1">
+                <span className="text-sky-400 font-bold shrink-0">5 gallon tank →</span>
+                <span>25–50W heater</span>
+              </li>
+              <li className="flex flex-wrap gap-x-2 gap-y-1">
+                <span className="text-sky-400 font-bold shrink-0">10 gallon tank →</span>
+                <span>50–75W heater</span>
+              </li>
+              <li className="flex flex-wrap gap-x-2 gap-y-1">
+                <span className="text-sky-400 font-bold shrink-0">Ideal temperature →</span>
+                <span>78–80°F</span>
+              </li>
+              <li className="flex flex-wrap gap-x-2 gap-y-1">
+                <span className="text-sky-400 font-bold shrink-0">Always use →</span>
+                <span>adjustable heater + thermometer</span>
+              </li>
+            </ul>
+          </div>
+
+          <GuideSection Icon={Thermometer} iconColor="#38bdf8" title="Why Betta Heater Size Matters">
             <p className="text-slate-300 mb-4">
-              Bettas need <strong>tropical stability</strong>. An undersized heater stays on too long, wears out faster, and still loses the battle against room drafts. An appropriately sized heater cycles on and off, smoothing temperature instead of chasing it. Tank shape, lid type, and room temp all matter—when in doubt, choose the middle of the recommended watt range for your volume, then verify with a thermometer.
+              <strong>Betta heater size</strong> (the right heater wattage for your tank volume) is what lets a submersible unit cycle instead of running flat out. Undersized heaters wear out faster, struggle against drafts, and still fail to hold tropical water. Oversizing slightly within the recommended range is usually safer than guessing low—then confirm with a thermometer.
+            </p>
+            <p className="text-slate-300 mb-0">
+              Most room-temperature tanks are too cold for bettas without a heater—especially overnight. Tank size and heater wattage have to work together; skipping either is how “room temp” tanks stay in the danger zone.
             </p>
           </GuideSection>
 
-          <GuideSection Icon={Zap} iconColor="#60a5fa" title="Heater Sizing Chart (Gallons → Watts)">
+          <GuideSection Icon={Zap} iconColor="#60a5fa" title="Betta Heater Wattage by Tank Size">
+            <p className="text-slate-300 mb-3">
+              Use this quick heater sizing chart:
+            </p>
             <p className="text-slate-300 mb-4">
-              Use this as a starting point for <strong>adjustable submersible</strong> heaters in typical indoor rooms. Adjust up if your home runs cold or the tank has a tight lid; adjust down only if you measure overheating.
+              These ranges are a starting point for <strong>adjustable submersible</strong> heaters in typical indoor rooms. Match heater wattage to <strong>tank size</strong>, then adjust if your home runs very cold or the tank has an open top. Verify with a thermometer at both ends of the tank.
             </p>
             <div className="rounded-2xl border border-slate-700 bg-slate-900/50 overflow-hidden text-sm text-slate-300">
               <table className="w-full text-left">
@@ -104,29 +135,54 @@ export default function BettaHeaterSizePage() {
               </table>
             </div>
             <p className="text-slate-400 text-sm mt-4 mb-0">
-              Rule of thumb used across the hobby: about <strong>3–5 watts per gallon</strong> for small aquariums; verify empirically.
+              Practical rule: about <strong>3–5 watts per gallon</strong> for small aquariums—always confirm with your actual betta tank temperature.
             </p>
           </GuideSection>
 
-          <GuideSection Icon={AlertTriangle} iconColor="#f87171" title="Common Mistakes">
-            <p className="text-slate-300 mb-0">
-              <strong>Too small a heater</strong> for the volume—cold water and stressed fish. <strong>Preset-only heaters</strong> with no fine control or calibration. <strong>Trusting the heater dial</strong> without a separate thermometer. <strong>Placement in stagnant corners</strong> where the sensor reads warm while the rest of the tank lags. Fix all of these before blaming “sick fish.”
+          <GuideSection Icon={AlertTriangle} iconColor="#f87171" title="Common Betta Heater Mistakes">
+            <p className="text-slate-300 mb-3">
+              Avoid these common betta heater mistakes:
             </p>
+            <ul className="space-y-2 text-slate-300 text-sm sm:text-base list-disc list-inside marker:text-orange-400/90 mb-0">
+              <li>
+                <strong>Heater wattage</strong> far too low for tank size—cold water and stressed fish
+              </li>
+              <li>
+                <strong>Preset-only heaters</strong> with no reliable way to tune or verify
+              </li>
+              <li>
+                <strong>Trusting the dial</strong> without a separate thermometer
+              </li>
+              <li>
+                <strong>Placement</strong> where only one corner reads warm while the rest of the tank stays cool
+              </li>
+            </ul>
           </GuideSection>
 
-          <GuideSection Icon={Thermometer} iconColor="#22d3ee" title="Ideal Temperature Range">
+          <GuideSection Icon={Thermometer} iconColor="#22d3ee" title="Ideal Temperature After You Size the Heater">
             <p className="text-slate-300 mb-4">
-              Target <strong>78–80°F (25.5–27°C)</strong> measured in the lower half of the water column away from the heater’s immediate plume. Brief small swings during a heater cycle are normal; chronic readings below 75°F are not safe for long-term betta health.
+              Target <strong>78–80°F (25.5–27°C)</strong> in the water column away from the heater’s plume. Once betta heater size and heater wattage are matched to tank size, fine-tune the dial and wait for stability. For the full range and stability rules, see our{" "}
+              <Link href="/guides/betta-temperature-guide" className="text-sky-400 hover:text-sky-300">
+                Betta Fish Temperature Guide
+              </Link>
+              .
             </p>
           </GuideSection>
 
           <GuideSection Icon={CheckCircle2} iconColor="#34d399" title="Placement Tips">
+            <p className="text-slate-300 mb-4">
+              Install <strong>fully underwater</strong> per the manufacturer. Angle toward gentle flow from your filter outlet so heat spreads. Keep a clear betta rest zone at the surface. Always measure temperature on the opposite side of the tank from the heater to confirm full-tank stability. Recheck after HVAC or seasonal changes.
+            </p>
             <p className="text-slate-300 mb-0">
-              Install <strong>fully underwater</strong> per the manufacturer. Angle toward gentle flow from your filter outlet so heat distributes. Keep a clear betta rest zone at the surface. Recheck temperature after room HVAC changes (winter heat, summer AC). For full care context, read our{" "}
+              For a full betta tank heater guide on types and setup, read our{" "}
+              <Link href="/guides/betta-fish-heater" className="text-sky-400 hover:text-sky-300">
+                Betta Fish Heater Guide
+              </Link>
+              {" "}and{" "}
               <Link href="/guides/betta-setup" className="text-sky-400 hover:text-sky-300">
                 Complete Betta Fish Setup Guide
-              </Link>{" "}
-              and{" "}
+              </Link>
+              . Tank volume context:{" "}
               <Link href="/guides/betta-fish-tank-size" className="text-sky-400 hover:text-sky-300">
                 Betta Fish Tank Size Guide
               </Link>
@@ -163,7 +219,7 @@ export default function BettaHeaterSizePage() {
           <div className="mt-16 text-center p-8 rounded-3xl bg-blue-500/10 border border-blue-500/30">
             <h2 className="text-2xl font-black text-white mb-4">Right-size heating on your shopping list</h2>
             <p className="text-slate-300 max-w-xl mx-auto mb-6">
-              BuildMyHabitat’s Betta builder pairs tank volume with compatible heaters and supporting gear—so you are not guessing watts against anonymous product pages.
+              BuildMyHabitat selects the correct heater wattage based on your tank size and pairs it with filtration and setup rules—so you don’t risk unstable temperatures or mismatched equipment.
             </p>
             <Link
               href="/build/betta"

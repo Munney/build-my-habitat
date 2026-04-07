@@ -1,13 +1,13 @@
 export const metadata = {
-  title: 'Leopard Gecko Substrate Mix Guide | Safe 50/50 Mix & Setup',
+  title: 'Leopard Gecko Substrate Mix Guide | Safe Topsoil & Playsand 50/50',
   description:
-    'How to mix safe leopard gecko substrate: 50/50 organic topsoil and playsand, depth, husbandry context for impaction, and when to use solid substrate instead.',
+    'Leopard gecko substrate mix: safe 50/50 topsoil and playsand, substrate depth, leopard gecko substrate safe options, and when beginners should use tile or paper towel.',
   keywords:
-    'leopard gecko substrate mix, 50/50 topsoil sand leopard gecko, safe loose substrate leopard gecko, leopard gecko bioactive substrate depth, leopard gecko playsand mix',
+    'leopard gecko substrate mix, leopard gecko substrate safe, topsoil playsand mix leopard gecko, 50/50 topsoil playsand leopard gecko, safe loose substrate leopard gecko',
   openGraph: {
-    title: 'Leopard Gecko Substrate Mix Guide',
+    title: 'Leopard Gecko Substrate Mix | Topsoil & Playsand Guide',
     description:
-      'Safe 50/50 topsoil and playsand mix, depth, and when beginners should use tile or paper towel instead.',
+      'Safe topsoil and playsand mix for leopard geckos: depth, beginner vs natural setup, and impaction facts.',
     images: ['/gecko.jpg'],
   },
 };

@@ -19,22 +19,22 @@ export default function BettaTemperatureGuidePage() {
     {
       question: "What temperature should betta fish water be?",
       answer:
-        "Keep bettas at 78–80°F (25.5–27°C) year-round. That is the standard tropical range for Betta splendens in home aquaria. Readings below 75°F increase stress and disease risk; sustained highs above 82°F can also cause problems.",
+        "Ideal betta fish temperature is 78–80°F (25.5–27°C) year-round. That is the standard tropical range for Betta splendens. Betta tank temperature below 75°F increases stress and disease risk; sustained readings above 82°F can also cause problems. Use a heater and thermometer to verify—not room temperature alone.",
     },
     {
-      question: "Is a stable 77°F okay for a betta?",
+      question: "What happens if betta water is too cold?",
       answer:
-        "Slightly below ideal can work if truly stable and the fish eats and behaves normally, but 78–80°F remains the target. If you see lethargy, clamped fins, or loss of appetite, raise into range and rule out illness.",
+        "When betta water is too cold, you often see lethargy, clamped fins, loss of appetite, and higher risk of illness. Cold water slows metabolism and weakens the immune system. If you suspect betta water too cold, measure with a thermometer, add or upgrade a properly sized heater, and see our Betta Heater Size Guide for wattage by tank volume.",
     },
     {
       question: "Why does my betta tank feel cold when the room is warm?",
       answer:
-        "Water temperature almost always lags and runs cooler than air—often by several degrees. A thermometer in the tank is the only reliable check. Room thermostats do not measure aquarium water.",
+        "Betta tank temperature almost always runs cooler than air—often by several degrees. Water loses heat to glass, evaporation, and overnight room drops. A thermometer inside the tank is the only reliable check. Room thermostats do not measure aquarium water.",
     },
     {
       question: "Do bettas need a heater in summer?",
       answer:
-        "Usually yes. Nights and AC drop tank temperature even when daytime air feels hot. A properly sized heater prevents slow drifts that stress the immune system.",
+        "Usually yes. Nights and air conditioning still pull betta tank temperature down even when daytime air feels hot. A properly sized heater with a stable setting keeps ideal betta fish temperature through seasonal swings.",
     },
   ];
 
@@ -55,7 +55,7 @@ export default function BettaTemperatureGuidePage() {
               Betta Fish Temperature Guide
             </h1>
             <p className="text-xl text-slate-300 max-w-2xl mx-auto mb-6">
-              Ideal range, why stability beats chasing a single digit, and how to spot when water is wrong.
+              The ideal betta fish temperature range, why stable water matters more than chasing one exact number, and how to tell when your tank is too cold or too warm.
             </p>
             <Link
               href="/build/betta"
@@ -65,37 +65,105 @@ export default function BettaTemperatureGuidePage() {
             </Link>
           </div>
 
-          <GuideSection Icon={Thermometer} iconColor="#38bdf8" title="Ideal Temperature Range">
+          <div className="mb-8 p-6 sm:p-8 rounded-3xl border-2 border-sky-500/35 bg-sky-500/[0.07] shadow-lg">
+            <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+              <Thermometer className="text-sky-400 shrink-0" size={24} />
+              Quick Answer
+            </h2>
+            <ul className="space-y-2.5 text-slate-300 text-sm sm:text-base">
+              <li className="flex gap-2">
+                <span className="text-sky-400 font-bold shrink-0">Ideal betta temperature:</span>
+                <span>78–80°F</span>
+              </li>
+              <li className="flex gap-2">
+                <span className="text-sky-400 font-bold shrink-0">Safe short-term range:</span>
+                <span>76–82°F</span>
+              </li>
+              <li className="flex gap-2">
+                <span className="text-sky-400 font-bold shrink-0">Most common mistake:</span>
+                <span>No heater or undersized heater</span>
+              </li>
+              <li className="flex gap-2">
+                <span className="text-sky-400 font-bold shrink-0">Best setup:</span>
+                <span>Adjustable heater + separate thermometer</span>
+              </li>
+            </ul>
+          </div>
+
+          <GuideSection Icon={Thermometer} iconColor="#38bdf8" title="Ideal Betta Fish Temperature Range">
             <p className="text-slate-300 mb-4">
-              Aim for <strong>78–80°F (25.5–27°C)</strong> in the main body of the tank. That range supports digestion, immune function, and normal activity for domestic bettas. Measure away from the heater’s hottest micro-layer so your reading reflects what the fish actually swims through.
+              This betta fish temperature guide targets <strong>78–80°F (25.5–27°C)</strong> in the main water column—the range most keepers use for healthy, active bettas. Measure away from the heater’s hottest pocket so your reading matches where the fish actually swims.
+            </p>
+            <p className="text-slate-300 mb-0">
+              Most “room temperature” tanks run <strong>too cool for bettas</strong>, especially overnight, in winter, or near windows and AC vents. Air feeling warm does not mean betta tank temperature is safe—water almost always lags behind air by several degrees.
             </p>
           </GuideSection>
 
           <GuideSection Icon={Waves} iconColor="#60a5fa" title="Why Stability Matters More Than the Exact Number">
             <p className="text-slate-300 mb-4">
-              Fish tolerate small, slow oscillations from a cycling heater better than they tolerate <strong>drift across many degrees</strong> over a day or a cold spell after an AC cycle. A steady 79°F beats bouncing between 74°F and 82°F. Stability comes from right-sized heating, a lid that limits evaporative cooling, and avoiding direct drafts on the glass.
+              Fish handle small, slow swings from a cycling heater better than big daily drifts or a cold stretch after the room cools. A steady 79°F beats bouncing between 74°F and 82°F. Stability comes from a right-sized heater, a lid that limits heat loss, and reducing drafts on the glass.
             </p>
           </GuideSection>
 
-          <GuideSection Icon={AlertTriangle} iconColor="#f87171" title="Signs Temperature Is Wrong">
-            <p className="text-slate-300 mb-4">
-              <strong>Too cold:</strong> lethargy, clamped fins, reduced appetite, hovering near warmer pockets, increased ich susceptibility. <strong>Too warm:</strong> rapid breathing, gasping at the surface (when not explained by poor water quality), stress color changes. Always cross-check ammonia/nitrite when behavior shifts—temperature is one variable, water chemistry is another.
-            </p>
+          <GuideSection Icon={AlertTriangle} iconColor="#f87171" title="Signs Betta Tank Temperature Is Wrong">
+            <div className="space-y-5 text-slate-300 text-sm sm:text-base">
+              <div>
+                <p className="font-semibold text-sky-300 mb-2">Too cold</p>
+                <ul className="space-y-1.5 list-disc list-inside marker:text-sky-500">
+                  <li>Lethargy and clamped fins</li>
+                  <li>Reduced appetite</li>
+                  <li>Hugging the heater or warmest zone</li>
+                  <li>Higher risk of stress-related illness</li>
+                </ul>
+              </div>
+              <div>
+                <p className="font-semibold text-orange-300 mb-2">Too warm</p>
+                <ul className="space-y-1.5 list-disc list-inside marker:text-orange-400/90">
+                  <li>Rapid breathing or gasping at the surface (rule out ammonia first)</li>
+                  <li>Stress color or erratic swimming</li>
+                  <li>Heater zone feels hot to the touch while the rest of the tank lags</li>
+                </ul>
+              </div>
+              <p className="text-slate-400 text-sm pt-1 mb-0">
+                If behavior changes suddenly, test ammonia and nitrite—temperature is one variable, water chemistry is another.
+              </p>
+            </div>
           </GuideSection>
 
           <GuideSection Icon={CheckCircle2} iconColor="#34d399" title="Heater + Thermometer Setup">
             <p className="text-slate-300 mb-4">
-              Use an <strong>adjustable submersible heater</strong> sized to your tank volume and a <strong>separate thermometer</strong> (glass strip or digital probe). Set the heater toward 78–80°F, wait 12–24 hours, and adjust in small steps while watching the thermometer. For wattage guidance, see our{" "}
+              Use an <strong>adjustable submersible heater</strong> matched to your tank volume and a <strong>separate thermometer</strong> (glass strip or digital probe). Set toward <strong>78–80°F</strong>, wait 12–24 hours, then fine-tune in small steps while watching the thermometer. Put the thermometer where it reflects the water your fish actually lives in—not directly next to the heater. For wattage, see our{" "}
               <Link href="/guides/betta-heater-size" className="text-sky-400 hover:text-sky-300">
                 Betta Heater Size Guide
+              </Link>
+              {" "}and full heater context in our{" "}
+              <Link href="/guides/betta-fish-heater" className="text-sky-400 hover:text-sky-300">
+                Betta Fish Heater Guide
               </Link>
               .
             </p>
           </GuideSection>
 
-          <GuideSection Icon={AlertTriangle} iconColor="#fb923c" title="Common Mistakes">
+          <GuideSection Icon={AlertTriangle} iconColor="#fb923c" title="Common Betta Temperature Mistakes">
+            <p className="text-slate-300 mb-3">
+              Avoid these common betta temperature mistakes:
+            </p>
+            <ul className="space-y-2 text-slate-300 text-sm sm:text-base list-disc list-inside marker:text-orange-400/90 mb-4">
+              <li>
+                <strong>No heater</strong> because the room feels comfortable
+              </li>
+              <li>
+                <strong>Trusting room temperature</strong> instead of measuring betta tank temperature in the water
+              </li>
+              <li>
+                <strong>Undersized heater</strong> that never holds 78–80°F
+              </li>
+              <li>
+                <strong>One thermometer</strong> only on the glass far from where the fish spends time
+              </li>
+            </ul>
             <p className="text-slate-300 mb-0">
-              <strong>No heater</strong> because the room “feels fine.” <strong>Trusting seasonal room temp</strong> without measuring water. <strong>Undersized heaters</strong> that never reach setpoint. <strong>One thermometer stuck to the glass opposite the heater</strong> while the opposite end runs cold—use placement that represents whole-tank conditions. Full equipment context lives in our{" "}
+              Full equipment order and checks are in our{" "}
               <Link href="/guides/betta-setup" className="text-sky-400 hover:text-sky-300">
                 Complete Betta Fish Setup Guide
               </Link>
@@ -132,7 +200,7 @@ export default function BettaTemperatureGuidePage() {
           <div className="mt-16 text-center p-8 rounded-3xl bg-blue-500/10 border border-blue-500/30">
             <h2 className="text-2xl font-black text-white mb-4">Stable tropical temps by design</h2>
             <p className="text-slate-300 max-w-xl mx-auto mb-6">
-              The Betta builder recommends heaters sized to your tank and pairs them with filtration and tank-size checks—so temperature stability is part of the same list, not an afterthought.
+              BuildMyHabitat recommends a heater sized to your tank and checks it against tank size, filtration, and beginner-safe setup rules—so stable temperature is built into the plan from the start.
             </p>
             <Link
               href="/build/betta"

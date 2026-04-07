@@ -1,13 +1,13 @@
 export const metadata = {
-  title: 'Betta Heater Size Guide | What Watt Heater You Actually Need',
+  title: 'Betta Heater Size & Wattage Guide | 5 & 10 Gallon Tank Heaters',
   description:
-    'Betta heater wattage by tank size, why sizing matters for stable 78–80°F water, preset heater risks, and placement tips.',
+    'Betta heater size and heater wattage by tank size: 5 gallon (25–50W), 10 gallon (50–75W), stable 78–80°F, adjustable heaters, placement, and common mistakes.',
   keywords:
-    'betta heater wattage, what size heater for 5 gallon betta, betta fish heater 10 gallon, aquarium heater sizing, betta tank heater watts',
+    'betta heater size, betta heater wattage, heater for 5 gallon betta tank, betta tank heater guide, what size heater for betta, aquarium heater sizing',
   openGraph: {
-    title: 'Betta Heater Size Guide',
+    title: 'Betta Heater Size & Wattage Guide',
     description:
-      'Match heater watts to your tank so betta water stays stable and tropical.',
+      'Match betta heater size and wattage to tank volume for stable tropical water.',
     images: ['/betta.jpg'],
   },
 };

@@ -9,6 +9,7 @@ import {
   ArrowRight,
   ArrowLeft,
   HelpCircle,
+  Zap,
 } from "lucide-react";
 import Footer from "../../components/Footer";
 import { FAQSchema } from "../../components/StructuredData";
@@ -16,24 +17,24 @@ import { FAQSchema } from "../../components/StructuredData";
 export default function LeopardGeckoSandSafePage() {
   const faqs = [
     {
-      question: "Is playsand safe for leopard geckos?",
+      question: "Is sand safe for leopard geckos?",
       answer:
-        "Washed quartz playsand can be part of a safe setup when mixed with organic topsoil or used alone only if husbandry is solid—thermostat-controlled heat, hydration, and no unsafe “calcium” or vitamin-coated sands. It is not magic; poor temps and dehydration cause problems on any floor type.",
+        "Sand can be safe for leopard geckos when it is inert and husbandry is solid: thermostat-controlled floor heat, hydration, correct prey size, and a safe leopard gecko sand substrate choice—never calcium sand or “digestible” blends. Impaction has many causes; poor temps and dehydration matter as much as what is on the floor.",
+    },
+    {
+      question: "What leopard gecko sand substrate is safest?",
+      answer:
+        "The most common safe loose option is a 50/50 organic topsoil and washed quartz playsand mix (topsoil playsand mix), fully blended and kept dry in the warm zone. Washed playsand alone can work for experienced keepers but is easier to get wrong. Pair with tile or paper towel during quarantine or troubleshooting.",
     },
     {
       question: "Why is calcium sand bad for leopard geckos?",
       answer:
-        "Calcium sand is often ingested on purpose or while striking prey. It can clump and contribute to blockage and is marketed in ways that downplay risk. Use inert substrates instead: tile, paper towel, or topsoil/playsand mixes without calcium coating.",
+        "Calcium sand is often eaten on purpose or while striking prey, can clump in the gut, and is marketed to downplay risk. For leopard gecko impaction causes tied to substrate, calcium sand and similar products are high on the list—use inert options instead.",
     },
     {
-      question: "Should a beginner keep a leopard gecko on sand?",
+      question: "What are common leopard gecko impaction causes besides substrate?",
       answer:
-        "Most beginners progress faster on paper towel or tile while they master heating, three hides, and feeding. If you want sand later, switch after the enclosure is stable and you can monitor health and stools.",
-    },
-    {
-      question: "What actually causes impaction in leopard geckos?",
-      answer:
-        "Common factors include dehydration, parasites, illness, incorrect temperatures, swallowing indigestible substrate (especially calcium sand), and feeding oversized or poor-quality prey. Fixing husbandry and choosing inert substrate addresses most preventable cases.",
+        "Dehydration, incorrect temperatures, parasites, illness, oversized prey, and swallowing indigestible or coated substrate. Substrate is only one part of the problem—fix heat, water, and diet while you rule out disease.",
     },
   ];
 
@@ -54,7 +55,7 @@ export default function LeopardGeckoSandSafePage() {
               Is Sand Safe for Leopard Geckos?
             </h1>
             <p className="text-xl text-slate-300 max-w-2xl mx-auto mb-6">
-              What actually drives impaction, which sands are inert, and when solid substrate is the better default.
+              Sand can be safe for leopard geckos—but only when used correctly. Here’s what actually causes impaction, which sands are safe, and when solid substrate is the better choice.
             </p>
             <Link
               href="/build/leopard-gecko"
@@ -64,21 +65,67 @@ export default function LeopardGeckoSandSafePage() {
             </Link>
           </div>
 
+          <div className="mb-8 p-6 sm:p-8 rounded-3xl border-2 border-emerald-500/35 bg-emerald-500/[0.07] shadow-lg">
+            <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+              <Zap className="text-emerald-400 shrink-0" size={24} />
+              Quick Answer
+            </h2>
+            <ul className="space-y-2.5 text-slate-300 text-sm sm:text-base">
+              <li className="text-slate-300">
+                <span className="text-emerald-400 font-bold">Sand can be safe for leopard geckos</span>
+              </li>
+              <li className="flex flex-wrap gap-x-2 gap-y-1">
+                <span className="text-emerald-400 font-bold shrink-0">Safe option →</span>
+                <span>50/50 topsoil + playsand mix</span>
+              </li>
+              <li className="flex flex-wrap gap-x-2 gap-y-1">
+                <span className="text-emerald-400 font-bold shrink-0">Unsafe →</span>
+                <span>calcium sand, dyed sand, walnut shell</span>
+              </li>
+              <li className="flex flex-wrap gap-x-2 gap-y-1">
+                <span className="text-emerald-400 font-bold shrink-0">Best for beginners →</span>
+                <span>paper towel or slate tile</span>
+              </li>
+            </ul>
+          </div>
+
           <GuideSection Icon={ShieldAlert} iconColor="#f87171" title="Why Sand Has a Bad Reputation">
             <p className="text-slate-300 mb-4">
               For years, pet stores pushed <strong>calcium sand</strong> and generic “desert blends” while tanks ran too cold or lacked proper hides. Animals got sick; sand took the blame. The lesson is not “all particles are evil”—it is that <strong>coated, clumping, or appetizing sands</strong> plus weak husbandry created avoidable cases. Inert quartz sand and soil mixes behave differently from calcium sand and should never be lumped together.
+            </p>
+            <p className="text-slate-300 mb-0">
+              The problem was not sand itself—it was poor setup combined with the wrong materials.
             </p>
           </GuideSection>
 
           <GuideSection Icon={Layers} iconColor="#34d399" title="What Actually Causes Impaction">
             <p className="text-slate-300 mb-4">
-              Impaction usually lines up with <strong>dehydration</strong>, <strong>incorrect temperatures</strong> (slow digestion), <strong>parasites or illness</strong>, or <strong>eating the wrong substrate</strong>. Leopard geckos are not UVB-dependent like bearded dragons, but chronic stress, poor warm hide temps, and bad feeders still gut-check the same way. Substrate is one variable among many—fix heat, water, and diet before declaring sand the sole cause.
+              <strong>Impaction</strong> is when the digestive tract slows or blocks—often from multiple factors at once. It usually lines up with <strong>dehydration</strong>, <strong>incorrect temperatures</strong> (slow digestion), <strong>parasites or illness</strong>, or <strong>eating the wrong substrate</strong>. Leopard geckos are not UVB-dependent like bearded dragons, but chronic stress, poor warm hide temps, and bad feeders still matter. Substrate is only one part of the problem—fix heat, water, and diet before declaring sand the sole cause.
             </p>
           </GuideSection>
 
           <GuideSection Icon={CheckCircle2} iconColor="#22d3ee" title="Safe vs Unsafe Sand Types">
             <p className="text-slate-300 mb-4">
-              <strong>Generally acceptable when used responsibly:</strong> washed playsand as part of a 50/50 topsoil mix or alone only with excellent management. <strong>Avoid:</strong> calcium/vitamin sand, colored craft sand, sharp blasting grit, walnut shell, and anything marketed as “digestible” sand. For a full substrate overview, use our{" "}
+              <strong>Is sand safe for leopard geckos?</strong> It can be—when you pick inert material and run a dialed-in enclosure. The bag label matters less than whether you are using washed playsand or a topsoil playsand mix versus coated or “digestible” products.
+            </p>
+            <h3 className="text-base font-bold text-white mb-2">Safe (when used correctly)</h3>
+            <ul className="space-y-2 text-slate-300 text-sm sm:text-base list-disc list-inside marker:text-emerald-400/90 mb-6">
+              <li>
+                <strong>Washed playsand</strong> (quartz, not coated)—often as half of a <strong>topsoil playsand mix</strong>
+              </li>
+              <li>
+                <strong>50/50 topsoil mix</strong>: organic topsoil plus washed playsand, blended and managed dry in the warm zone
+              </li>
+            </ul>
+            <h3 className="text-base font-bold text-white mb-2">Avoid</h3>
+            <ul className="space-y-2 text-slate-300 text-sm sm:text-base list-disc list-inside marker:text-red-400/90 mb-4">
+              <li>Calcium sand</li>
+              <li>Dyed sand</li>
+              <li>Walnut shell</li>
+              <li>Anything sold as “digestible” sand</li>
+            </ul>
+            <p className="text-slate-300 mb-0">
+              For a full substrate overview, use our{" "}
               <Link href="/guides/leopard-gecko-substrate" className="text-emerald-400 hover:text-emerald-300">
                 Leopard Gecko Substrate Guide
               </Link>
@@ -88,13 +135,19 @@ export default function LeopardGeckoSandSafePage() {
 
           <GuideSection Icon={CheckCircle2} iconColor="#a78bfa" title="When Sand Is Appropriate vs Not">
             <p className="text-slate-300 mb-4">
-              Loose sand or soil mix fits keepers who already run a <strong>thermostat</strong>, offer <strong>three hides</strong>, and can spot early signs of illness. It is a poor first choice for <strong>quarantine</strong>, <strong>babies under heavy stress</strong>, or any setup still missing reliable warm-floor or overhead heat. If you are troubleshooting weight loss or abnormal stools, switch to solid substrate until a vet rules out parasites and other causes.
+              Most beginners should not start with loose substrate.
+            </p>
+            <p className="text-slate-300 mb-0">
+              Loose sand or a topsoil playsand mix fits keepers who already run a <strong>thermostat</strong>, offer <strong>three hides</strong>, and can spot early signs of illness. It is a poor first choice for <strong>quarantine</strong>, <strong>babies under heavy stress</strong>, or any setup still missing reliable warm-floor or overhead heat. If you are troubleshooting weight loss or abnormal stools, switch to solid substrate until a vet rules out parasites and other causes.
             </p>
           </GuideSection>
 
           <GuideSection Icon={CheckCircle2} iconColor="#34d399" title="Beginner Recommendation">
+            <p className="text-slate-300 mb-4">
+              <strong>Start with solid substrate</strong>—paper towel or slate tile—until heating and hides are boringly consistent. <strong>Upgrade later</strong> to a safe leopard gecko sand substrate or topsoil playsand mix only once setup is stable and you can monitor health and stools. That order reduces variables and matches how most experienced keepers teach the hobby.
+            </p>
             <p className="text-slate-300 mb-0">
-              Default to <strong>paper towel</strong> or <strong>slate tile</strong> until heating and hides are boringly consistent. Add a safe mix later if you want naturalistic digging. That order reduces variables and matches how most experienced keepers teach the hobby. For common hardware and substrate errors in one place, see our{" "}
+              For common hardware and substrate errors in one place, see our{" "}
               <Link href="/common-mistakes" className="text-emerald-400 hover:text-emerald-300">
                 Complete Safety Guide
               </Link>{" "}
@@ -127,7 +180,7 @@ export default function LeopardGeckoSandSafePage() {
           <div className="mt-16 text-center p-8 rounded-3xl bg-emerald-500/10 border border-emerald-500/30">
             <h2 className="text-2xl font-black text-white mb-4">Safe substrate, enforced on your list</h2>
             <p className="text-slate-300 max-w-xl mx-auto mb-6">
-              The Leopard Gecko builder excludes calcium sand and other high-risk options and aligns substrate with heating and hides—so you are not piecing together conflicting advice from product labels.
+              BuildMyHabitat removes unsafe substrate options like calcium sand and automatically pairs safe substrate with correct heating and hides—so you don’t risk impaction from mismatched setup decisions.
             </p>
             <Link
               href="/build/leopard-gecko"

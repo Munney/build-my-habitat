@@ -1,13 +1,13 @@
 export const metadata = {
-  title: 'Is Sand Safe for Leopard Geckos? | What Actually Causes Impaction',
+  title: 'Is Sand Safe for Leopard Geckos? | Sand, Impaction & Safe Substrate',
   description:
-    'Is sand safe for leopard geckos? Safe vs unsafe sand, what really causes impaction, and when solid substrate is the better choice for beginners.',
+    'Is sand safe for leopard geckos? Leopard gecko sand substrate options, what causes impaction, safe topsoil playsand mix vs calcium sand, and beginner-friendly solid floors.',
   keywords:
-    'is sand safe for leopard gecko, leopard gecko sand impaction, playsand leopard gecko, calcium sand leopard gecko, leopard gecko substrate safe',
+    'is sand safe for leopard geckos, leopard gecko sand substrate, leopard gecko impaction causes, sand safe leopard gecko, playsand leopard gecko, calcium sand leopard gecko',
   openGraph: {
     title: 'Is Sand Safe for Leopard Geckos?',
     description:
-      'Honest guide to sand, impaction risk, and husbandry—plus what to avoid.',
+      'Sand, impaction risk, safe vs unsafe materials, and when solid substrate wins.',
     images: ['/gecko.jpg'],
   },
 };

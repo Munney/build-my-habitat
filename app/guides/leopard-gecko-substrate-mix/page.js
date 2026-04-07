@@ -17,24 +17,24 @@ import { FAQSchema } from "../../components/StructuredData";
 export default function LeopardGeckoSubstrateMixPage() {
   const faqs = [
     {
-      question: "What is the best 50/50 mix for a leopard gecko?",
+      question: "What is the best leopard gecko substrate mix?",
       answer:
-        "A common safe naturalistic mix is roughly 50% organic topsoil (no fertilizer, no perlite) and 50% washed playsand. Both components must be clean and additive-free. This mix holds light burrows and looks natural while avoiding calcium sand and other marketed “reptile sands” that increase risk.",
+        "A widely used safe mix is roughly half organic topsoil (no fertilizer, no perlite) and half washed playsand. Both parts should be clean and free of fertilizers, pesticides, or extra additives. This leopard gecko substrate mix supports light burrows and a natural look while avoiding calcium sand and other risky “reptile sands.”",
     },
     {
-      question: "How deep should leopard gecko substrate be?",
+      question: "How deep should a topsoil and playsand mix be?",
       answer:
-        "For a simple naturalistic setup, about 2–4 inches is typical. Deeper layers are mainly for bioactive or heavy digging goals and need planning for moisture and cleanup. Very thin layers dry out fast and offer little benefit.",
+        "For a simple naturalistic setup, about 2–4 inches of topsoil and playsand mix is typical. Deeper layers are mainly for bioactive setups and need a plan for moisture and cleaning. Very thin layers dry out quickly and add little benefit.",
     },
     {
-      question: "Should beginners use a substrate mix?",
+      question: "Should beginners use a loose substrate mix?",
       answer:
-        "Beginners often do best on solid substrate first—paper towel or slate tile—while they dial in heating, three hides, and feeding. Loose mix adds monitoring (humidity pockets, cleaning) and is easier to manage once the basics are stable.",
+        "Many keepers start on paper towel or slate tile while they lock in heating, three hides, and feeding. A loose topsoil and playsand mix is easier to manage once those basics are stable. That order reduces variables while you learn.",
     },
     {
-      question: "Does loose substrate always cause impaction?",
+      question: "Does loose substrate always cause impaction in leopard geckos?",
       answer:
-        "No. Impaction is often tied to dehydration, illness, incorrect temperatures, or swallowing unsafe materials (e.g. calcium sand), not loose substrate alone. Safe mix plus correct husbandry is widely used; if health or feeding is off, fix that before blaming substrate.",
+        "No. Impaction is not caused by one material alone. Dehydration, illness, wrong temperatures, parasites, or swallowing unsafe substrate (like calcium sand) are common factors. A safe topsoil and playsand mix with correct husbandry is used successfully by many keepers—fix health and diet before blaming substrate only.",
     },
   ];
 
@@ -55,7 +55,7 @@ export default function LeopardGeckoSubstrateMixPage() {
               Leopard Gecko Substrate Mix Guide
             </h1>
             <p className="text-xl text-slate-300 max-w-2xl mx-auto mb-6">
-              Safe 50/50 topsoil and playsand mixes, realistic depth, and when solid substrate is the smarter choice.
+              The safest 50/50 topsoil and playsand mix for leopard geckos, correct substrate depth, and when solid substrate is the better choice for beginners.
             </p>
             <Link
               href="/build/leopard-gecko"
@@ -65,15 +65,18 @@ export default function LeopardGeckoSubstrateMixPage() {
             </Link>
           </div>
 
-          <GuideSection Icon={Layers} iconColor="#34d399" title="What Makes a Safe Substrate Mix">
+          <GuideSection Icon={Layers} iconColor="#34d399" title="What Makes a Safe Leopard Gecko Substrate Mix">
             <p className="text-slate-300 mb-4">
-              A safe mix is <strong>inert</strong>, <strong>additive-free</strong>, and <strong>not designed to be eaten</strong> for calcium. Organic topsoil should have no fertilizers, pesticides, or perlite. Playsand should be washed quartz sand—not calcium sand, not dyed craft sand, and not coarse construction blends with unknown additives. The goal is stable, fine-to-medium particles that pass with normal digestion when the animal is healthy and husbandry is correct.
+              Choose materials that are <strong>free of fertilizers, pesticides, or additives</strong>—and not sold as “digestible” or calcium-coated sand. Organic topsoil should not contain perlite or unknown fillers. Playsand should be washed quartz sand: not calcium sand, not dyed craft sand, and not coarse construction blends with mystery ingredients. You want steady, fine-to-medium grains that move through a healthy gecko when temperatures, hydration, and diet are right.
             </p>
           </GuideSection>
 
-          <GuideSection Icon={CheckCircle2} iconColor="#22d3ee" title="Recommended Mix: 50/50 Topsoil + Playsand">
+          <GuideSection Icon={CheckCircle2} iconColor="#22d3ee" title="Recommended Mix: 50/50 Topsoil and Playsand">
             <p className="text-slate-300 mb-4">
-              Blend roughly equal parts <strong>organic topsoil</strong> and <strong>washed playsand</strong>. Screen or rinse if there is dust or debris. This combination drains better than sand alone, supports light digging, and is a standard choice for naturalistic leopard gecko enclosures when temperatures and hides are correct. For a full comparison of solid vs loose options, see our{" "}
+              Blend roughly equal parts <strong>organic topsoil</strong> and <strong>washed playsand</strong>. Screen or rinse off dust if needed. This topsoil and playsand mix drains better than sand alone, supports light digging, and fits naturalistic leopard gecko setups when heat and hides are correct. This mix is widely used because it balances safety, drainage, and natural digging behavior.
+            </p>
+            <p className="text-slate-300 mb-0">
+              For solid vs loose options and what counts as leopard gecko substrate safe, see our{" "}
               <Link href="/guides/leopard-gecko-substrate" className="text-emerald-400 hover:text-emerald-300">
                 Leopard Gecko Substrate Guide
               </Link>
@@ -81,31 +84,74 @@ export default function LeopardGeckoSubstrateMixPage() {
             </p>
           </GuideSection>
 
-          <GuideSection Icon={ShieldAlert} iconColor="#f87171" title="Why Impaction Is Often Misunderstood">
+          <div className="mb-8 p-6 sm:p-8 rounded-3xl border-2 border-emerald-500/35 bg-emerald-500/[0.07] shadow-lg">
+            <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+              <CheckCircle2 className="text-emerald-400 shrink-0" size={24} />
+              Quick Recommendation
+            </h2>
+            <div className="grid sm:grid-cols-2 gap-6 text-slate-300 text-sm sm:text-base leading-relaxed">
+              <div>
+                <p className="font-semibold text-white mb-2">If you want the safest beginner setup</p>
+                <ul className="space-y-2 list-disc list-inside marker:text-emerald-500">
+                  <li>Use paper towel or slate tile</li>
+                  <li>Focus on heating, hides, and feeding first</li>
+                </ul>
+              </div>
+              <div>
+                <p className="font-semibold text-white mb-2">If you want a natural setup</p>
+                <ul className="space-y-2 list-disc list-inside marker:text-emerald-500">
+                  <li>Use a 50/50 topsoil + playsand mix</li>
+                  <li>Maintain proper temperatures and hydration</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <GuideSection Icon={ShieldAlert} iconColor="#f87171" title="Leopard Gecko Substrate and Impaction: Why It’s Misunderstood">
             <p className="text-slate-300 mb-4">
-              Impaction is a <strong>symptom cluster</strong>, not a single-substrate verdict. Dehydration, parasites, low core temperatures, fasting stress, and swallowing the wrong substrate (especially calcium sand) all raise risk. Leopard geckos do not depend on UVB the way many diurnal lizards do, but overall health, hydration, and correct warm-side temperatures still matter for gut motility. Blaming “all loose substrate” ignores cases where husbandry—not particle type—was the driver.
+              <strong>Impaction is not caused by one material alone.</strong> Dehydration, parasites, low warm-side temperatures, stress, and eating the wrong substrate (especially calcium sand) all raise risk. Leopard geckos are crepuscular and do not need UVB the way many day-active lizards do, but overall health, water intake, and correct belly heat still matter for digestion. Blaming “all loose substrate” misses cases where husbandry—not particle type—was the real problem.
             </p>
           </GuideSection>
 
-          <GuideSection Icon={Ruler} iconColor="#a78bfa" title="How Deep Substrate Should Be">
+          <GuideSection Icon={Ruler} iconColor="#a78bfa" title="How Deep Should Leopard Gecko Substrate Mix Be?">
             <p className="text-slate-300 mb-4">
-              For a typical display tank with overhead heating and dry ambient air, <strong>2–4 inches</strong> of mix is enough for light burrowing and easy spot cleaning. Going deeper is mainly for bioactive setups (drainage layer, cleanup crew, moisture management). Very shallow layers look patchy and dry unevenly; excessively deep dry layers without a plan can hide stale pockets under decor.
+              For a typical tank with overhead heating and dry air, <strong>2–4 inches</strong> of your topsoil and playsand mix is enough for light burrowing and straightforward spot cleaning. Deeper layers are mainly for bioactive plans (drainage, cleanup crew, moisture control). Very shallow layers dry unevenly. Too much dry substrate without planning can trap waste under decor.
             </p>
           </GuideSection>
 
-          <GuideSection Icon={CheckCircle2} iconColor="#34d399" title="When Solid Substrate Is Better">
+          <GuideSection Icon={CheckCircle2} iconColor="#34d399" title="When Solid Substrate Is Better for Beginners">
             <p className="text-slate-300 mb-4">
-              Use <strong>paper towel</strong> or <strong>slate tile</strong> for quarantine, new acquisitions, troubleshooting health issues, or your first months as a keeper. Solid substrate removes ingestion variables, simplifies hygiene, and lets you focus on thermostat-controlled heat, three hides, and diet. You can move to a 50/50 mix later without changing the rest of your standards. Enclosure layout and heating still follow the same rules—see our{" "}
+              Use <strong>paper towel</strong> or <strong>slate tile</strong> for quarantine, new animals, health troubleshooting, or your first months as a keeper. Solid substrate removes ingestion variables, simplifies cleaning, and lets you focus on thermostat-controlled heat, three hides, and diet. You can move to a 50/50 topsoil and playsand mix later without changing the rest of your standards. Enclosure layout and heating follow the same rules—see our{" "}
               <Link href="/guides/leopard-gecko-setup" className="text-emerald-400 hover:text-emerald-300">
                 Leopard Gecko Setup Guide
               </Link>{" "}
               for tank size, hides, and heat placement.
             </p>
+            <p className="text-slate-300 mb-0">
+              Most beginners should start with solid substrate, then switch to a natural mix once they are comfortable.
+            </p>
           </GuideSection>
 
-          <GuideSection Icon={ShieldAlert} iconColor="#f87171" title="Common Mistakes">
-            <p className="text-slate-300 mb-0">
-              <strong>Calcium sand</strong>—marketed as safe but commonly linked to consumption and impaction. <strong>Reptile carpet</strong>—snags toes and harbors bacteria. <strong>Walnut shell</strong>—sharp and risky. <strong>Wood chips or aromatic woods</strong>—wrong species entirely. If you want a loose natural floor, stick to clean topsoil + playsand and keep heating on a thermostat with a proper warm hide.
+          <GuideSection Icon={ShieldAlert} iconColor="#f87171" title="Common Leopard Gecko Substrate Mistakes">
+            <p className="text-slate-300 mb-3">
+              Avoid these common substrate mistakes:
+            </p>
+            <ul className="space-y-2 text-slate-300 text-sm sm:text-base list-disc list-inside marker:text-red-400/90">
+              <li>
+                <strong>Calcium sand</strong> — often eaten on purpose; high impaction risk.
+              </li>
+              <li>
+                <strong>Reptile carpet</strong> — snags toes and traps bacteria.
+              </li>
+              <li>
+                <strong>Walnut shell</strong> — sharp and unsafe to swallow.
+              </li>
+              <li>
+                <strong>Wood chips or aromatic woods</strong> — wrong for leopard geckos.
+              </li>
+            </ul>
+            <p className="text-slate-300 mt-4 mb-0">
+              If you use a loose natural floor, stick to clean topsoil and playsand, keep heating on a thermostat, and provide a proper warm hide.
             </p>
           </GuideSection>
 
@@ -134,7 +180,7 @@ export default function LeopardGeckoSubstrateMixPage() {
           <div className="mt-16 text-center p-8 rounded-3xl bg-emerald-500/10 border border-emerald-500/30">
             <h2 className="text-2xl font-black text-white mb-4">Substrate choices that skip the guesswork</h2>
             <p className="text-slate-300 max-w-xl mx-auto mb-6">
-              BuildMyHabitat’s Leopard Gecko builder pairs safe substrate options with compatible heating, hides, and enclosure size—so your shopping list stays within current husbandry standards.
+              BuildMyHabitat automatically selects safe substrate, heating, and enclosure combinations—so you don’t have to second-guess compatibility or risk common setup mistakes.
             </p>
             <Link
               href="/build/leopard-gecko"
