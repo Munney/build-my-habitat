@@ -165,8 +165,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         
         {/* --- GLOBAL BACKGROUND --- */}
         {/* Dark grainy background with subtle, diffused light sources */}
-        <div className="fixed inset-0 -z-50" style={{
-          background: `
+        <div
+          className="app-bg-fixed -z-50"
+          style={{
+            background: `
             radial-gradient(
               ellipse 2800px 2000px at 5% 15%,
               rgba(94, 234, 212, 0.06) 0%,
@@ -207,17 +209,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             ),
             #020617
           `,
-          position: 'fixed',
-          width: '100%',
-          height: '100%'
-        }} />
+          }}
+        />
         {/* Grain texture overlay - fine, consistent grain */}
-        <div 
-          className="fixed inset-0 -z-40 opacity-[0.025] pointer-events-none"
+        <div
+          className="app-bg-fixed -z-40 opacity-[0.025] pointer-events-none"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-            backgroundSize: '300px 300px',
-            imageRendering: 'auto'
+            backgroundSize: "300px 300px",
+            imageRendering: "auto",
           }}
         />
 
