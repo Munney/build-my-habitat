@@ -351,6 +351,16 @@ export default function Home() {
                 <p className="text-sm text-slate-400">Placement ranges and screen-top impact</p>
               </Link>
             </div>
+
+            <div className="text-center pt-5">
+              <Link
+                href="/setup-help"
+                onClick={() => analytics.trackNavClick("setup-help-hub-link")}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-slate-900/60 hover:bg-slate-900/80 border border-white/10 text-white font-bold transition-all"
+              >
+                View All Setup Help <ArrowRight size={18} />
+              </Link>
+            </div>
           </div>
 
           {/* Avoid These Mistakes */}

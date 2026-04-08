@@ -96,6 +96,15 @@ export default function BeardedDragonUVBDistancePage() {
             </p>
           </GuideSection>
 
+          <GuideSection Icon={Zap} iconColor="#a78bfa" title="Why This Matters (Evidence-Based)">
+            <p className="text-slate-300 mb-4">
+              Bearded dragon vitamin D work repeatedly shows UVB exposure drives much stronger vitamin D metabolite levels than relying on powder alone. That is why distance and placement are not “fine tuning”—they decide whether UVB is actually doing its job.
+            </p>
+            <p className="text-slate-300 mb-0">
+              Clinical records also show metabolic bone disease still appears in captive dragons when core husbandry breaks down. Correct UVB distance is one of the easiest high-impact fixes because it controls a major failure point before symptoms appear.
+            </p>
+          </GuideSection>
+
           <GuideSection Icon={ShieldAlert} iconColor="#fb923c" title="Common Mistakes">
             <ul className="space-y-2 text-slate-300 text-sm sm:text-base list-disc list-inside marker:text-orange-400/90 mb-4">
               <li>Mounting UVB too far from basking height</li>

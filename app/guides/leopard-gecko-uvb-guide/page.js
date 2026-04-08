@@ -3,8 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import {
-  Thermometer,
-  Flame,
+  Sun,
   ShieldAlert,
   CheckCircle2,
   ArrowRight,
@@ -15,27 +14,27 @@ import {
 import Footer from "../../components/Footer";
 import { FAQSchema } from "../../components/StructuredData";
 
-export default function LeopardGeckoHeatingGuidePage() {
+export default function LeopardGeckoUVBGuidePage() {
   const faqs = [
     {
-      question: "What is the ideal warm hide temperature for a leopard gecko?",
+      question: "Do leopard geckos need UVB if they are nocturnal?",
       answer:
-        "Target roughly 90-92°F at the warm hide floor/surface. This supports digestion and normal activity while still allowing retreat to cooler zones.",
+        "They can survive without UVB in some setups, but low-level UVB has been shown to raise vitamin D status in leopard geckos. That gives you a more reliable calcium-metabolism foundation than relying on supplements alone.",
     },
     {
-      question: "Is under tank heat or overhead heat better for leopard geckos?",
+      question: "What UVB level should I use for a leopard gecko?",
       answer:
-        "Both can work when controlled correctly. Under tank heating can support belly heat zones, while overhead halogen or deep heat projectors can create a stronger daytime gradient. The key is thermostat control and accurate temperature measurement.",
+        "Use low to moderate UVB in a gradient setup so your gecko can self-regulate exposure. Keep bright UVB focused on part of the warm side and always provide lower-UV retreats and full shade.",
     },
     {
-      question: "Do leopard geckos need a thermostat?",
+      question: "Can UVB go through glass or dense screen tops?",
       answer:
-        "Yes. Every heat source should be thermostat-controlled. Unregulated heating can overheat enclosures, cause burns, and create unstable daily swings.",
+        "Not effectively. Glass blocks UVB and dense mesh reduces output. Placement and distance matter as much as bulb type, so verify setup with the manufacturer chart and practical enclosure layout.",
     },
     {
-      question: "Where should I measure temperatures in a leopard gecko tank?",
+      question: "Is UVB a replacement for calcium and proper heating?",
       answer:
-        "Measure warm hide floor/surface, basking/warm zone, and cool side. Use an infrared temp gun for surfaces and digital probes for ambient checks to confirm a full gradient.",
+        "No. UVB, calcium strategy, and correct heat all work together. If one part fails, long-term bone and metabolic risk rises even when the other two look decent.",
     },
   ];
 
@@ -50,10 +49,10 @@ export default function LeopardGeckoHeatingGuidePage() {
 
           <div className="text-center mb-12">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-4 leading-tight">
-              Leopard Gecko Heating Guide
+              Leopard Gecko UVB Guide
             </h1>
             <p className="text-xl text-slate-300 max-w-2xl mx-auto mb-6">
-              Safe temperatures, heating methods, and gradient setup rules that prevent common gecko heating mistakes.
+              The practical UVB setup for leopard geckos: what helps, what is outdated, and how to build safe light gradients.
             </p>
             <Link href="/build/leopard-gecko" className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-full transition-all">
               Build a Leopard Gecko Habitat <ArrowRight size={20} />
@@ -66,62 +65,55 @@ export default function LeopardGeckoHeatingGuidePage() {
               Quick Answer
             </h2>
             <ul className="space-y-2.5 text-slate-300 text-sm sm:text-base">
-              <li>Warm hide floor/surface target: <strong>~90-92°F</strong></li>
-              <li>Use thermostat control on every heat source</li>
-              <li>Build a warm-to-cool gradient across the enclosure</li>
-              <li>Measure surfaces and ambient temps in multiple zones</li>
+              <li>Low-level UVB can support leopard gecko vitamin D status</li>
+              <li>Use a UV gradient with full shade retreat zones</li>
+              <li>Glass and dense mesh reduce useful UVB</li>
+              <li>UVB works best when paired with correct heat and calcium strategy</li>
             </ul>
           </div>
 
-          <GuideSection Icon={Flame} iconColor="#fb923c" title="Heat Sources: UTH vs Overhead Heating">
+          <GuideSection Icon={Sun} iconColor="#facc15" title="Do Leopard Geckos Benefit from UVB?">
+            <p className="text-slate-300 mb-0">
+              Yes. Even though leopard geckos are crepuscular/nocturnal, low-level UVB exposure has been shown to raise vitamin D levels compared with no UVB exposure. That does not mean blasting desert-level UV everywhere; it means offering usable low-level UV as part of a controlled setup.
+            </p>
+          </GuideSection>
+
+          <GuideSection Icon={CheckCircle2} iconColor="#22d3ee" title="Safe UVB Setup Strategy">
             <p className="text-slate-300 mb-4">
-              <strong>Under tank heaters (UTH)</strong> can provide a localized warm floor zone when installed and controlled correctly. <strong>Overhead heating</strong> (halogen or deep heat projector) can create stronger daytime ambient support and more natural gradient behavior.
+              Keep UVB concentrated over part of the warm zone and let intensity fall across the enclosure. Your gecko should always have a dark, low-UV retreat and multiple hides to choose from.
             </p>
             <p className="text-slate-300 mb-0">
-              Either method can fail if placement, wattage, or thermostat setup is wrong. Heat source type matters less than controlled delivery and verified temperatures.
+              This mirrors good thermal design: choice, not forced exposure. UVB works best when geckos can self-regulate.
             </p>
           </GuideSection>
 
-          <GuideSection Icon={Thermometer} iconColor="#34d399" title="Why Belly Heat Still Matters">
-            <p className="text-slate-300 mb-0">
-              Leopard geckos often rest on warm surfaces to support digestion. The warm hide floor target (~90-92°F) is a practical benchmark for safe metabolic function. Even with overhead options, surface readings in the warm hide remain a critical check.
-            </p>
-          </GuideSection>
-
-          <GuideSection Icon={ShieldAlert} iconColor="#f87171" title="Thermostat Importance">
-            <p className="text-slate-300 mb-0">
-              No thermostat means no reliable safety limit. Unregulated heaters can overheat quickly, especially in smaller enclosures or seasonal room swings. Use a thermostat plus routine temperature checks to keep conditions stable and safe.
-            </p>
-          </GuideSection>
-
-          <GuideSection Icon={CheckCircle2} iconColor="#22d3ee" title="Temperature Gradient Setup">
-            <p className="text-slate-300 mb-0">
-              Build a clear gradient: warm hide near target heating zone and a cooler opposite side for retreat. Measure warm hide surface, warm-side ambient, and cool-side ambient so your gecko can choose preferred body temperature throughout the day.
-            </p>
+          <GuideSection Icon={ShieldAlert} iconColor="#f87171" title="Common UVB Mistakes">
+            <ul className="space-y-2 text-slate-300 text-sm sm:text-base list-disc list-inside marker:text-orange-400/90 mb-0">
+              <li>No UVB at all because “they are nocturnal”</li>
+              <li>Mounting UVB through glass or dense mesh and assuming output is unchanged</li>
+              <li>Running one bright zone without proper shade and hide options</li>
+              <li>Treating UVB as a substitute for heating or calcium strategy</li>
+            </ul>
           </GuideSection>
 
           <GuideSection Icon={Zap} iconColor="#a78bfa" title="Why This Matters (Evidence-Based)">
             <p className="text-slate-300 mb-4">
-              Controlled gecko studies show body temperature tracks the surface they sit on more than people expect. In practical terms, this is why warm-hide floor measurements beat random air readings for day-to-day safety.
+              UVB evidence in leopard geckos challenges the old all-or-nothing advice. Low-level exposure can improve vitamin D status, which supports a stronger long-term calcium pathway.
             </p>
             <p className="text-slate-300 mb-0">
-              This also explains why unstable floor heat causes digestion and appetite issues even when one thermometer looks “fine.” If the warm hide surface drifts, your gecko pays the cost first.
+              In beginner terms: a good UVB setup reduces hidden risk. It does not replace other basics, but it closes a common husbandry gap.
             </p>
           </GuideSection>
 
-          <GuideSection Icon={ShieldAlert} iconColor="#fb923c" title="Common Mistakes">
-            <ul className="space-y-2 text-slate-300 text-sm sm:text-base list-disc list-inside marker:text-orange-400/90 mb-4">
-              <li>No thermostat on UTH or overhead heat</li>
-              <li>Heat source placement that creates one hotspot but no usable gradient</li>
-              <li>Using only one thermometer and missing cool-side conditions</li>
-              <li>Not rechecking temperatures after room or season changes</li>
-            </ul>
+          <GuideSection Icon={CheckCircle2} iconColor="#34d399" title="How to Integrate UVB with the Rest of Your Setup">
             <p className="text-slate-300 mb-0">
-              For full enclosure context, use our{" "}
-              <Link href="/guides/leopard-gecko-setup" className="text-emerald-400 hover:text-emerald-300">Leopard Gecko Setup Guide</Link>
-              {" "}and{" "}
+              Pair UVB with stable heating, safe substrate, and proper supplementation. Use our{" "}
+              <Link href="/guides/leopard-gecko-heating-guide" className="text-emerald-400 hover:text-emerald-300">Leopard Gecko Heating Guide</Link>
+              ,{" "}
               <Link href="/guides/leopard-gecko-substrate" className="text-emerald-400 hover:text-emerald-300">Leopard Gecko Substrate Guide</Link>
-              .
+              , and{" "}
+              <Link href="/guides/leopard-gecko-setup" className="text-emerald-400 hover:text-emerald-300">Leopard Gecko Setup Guide</Link>
+              {" "}to align the full system.
             </p>
           </GuideSection>
 
@@ -137,16 +129,18 @@ export default function LeopardGeckoHeatingGuidePage() {
           <div className="my-12 p-6 rounded-2xl bg-slate-800/80 border border-slate-700">
             <h2 className="text-lg font-bold text-white mb-3">Related Guides</h2>
             <p className="text-slate-400 text-sm mb-0">
+              <Link href="/guides/leopard-gecko-heating-guide" className="text-emerald-400 hover:text-emerald-300">Leopard Gecko Heating Guide</Link>
+              {" · "}
               <Link href="/guides/leopard-gecko-setup" className="text-emerald-400 hover:text-emerald-300">Leopard Gecko Setup Guide</Link>
               {" · "}
-              <Link href="/guides/leopard-gecko-substrate" className="text-emerald-400 hover:text-emerald-300">Leopard Gecko Substrate Guide</Link>
+              <Link href="/guides/leopard-gecko-enrichment-guide" className="text-emerald-400 hover:text-emerald-300">Leopard Gecko Enrichment Guide</Link>
             </p>
           </div>
 
           <div className="mt-16 text-center p-8 rounded-3xl bg-emerald-500/10 border border-emerald-500/30">
-            <h2 className="text-2xl font-black text-white mb-4">Safe heating, pre-matched to your setup</h2>
+            <h2 className="text-2xl font-black text-white mb-4">UVB choices that fit your full habitat</h2>
             <p className="text-slate-300 max-w-xl mx-auto mb-6">
-              BuildMyHabitat pairs heat sources, thermostat control, and enclosure layout so your leopard gecko has a stable warm hide and safe full-tank gradient from the start.
+              BuildMyHabitat pairs lighting, heating, and enclosure rules so your leopard gecko setup includes practical UVB logic without unsafe overexposure.
             </p>
             <Link href="/build/leopard-gecko" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-full transition-all">
               Build a Leopard Gecko Habitat <ArrowRight size={20} />

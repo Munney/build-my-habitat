@@ -3,10 +3,9 @@
 import React from "react";
 import Link from "next/link";
 import {
-  Thermometer,
-  Flame,
-  ShieldAlert,
+  Home,
   CheckCircle2,
+  ShieldAlert,
   ArrowRight,
   ArrowLeft,
   HelpCircle,
@@ -15,27 +14,27 @@ import {
 import Footer from "../../components/Footer";
 import { FAQSchema } from "../../components/StructuredData";
 
-export default function LeopardGeckoHeatingGuidePage() {
+export default function LeopardGeckoEnrichmentGuidePage() {
   const faqs = [
     {
-      question: "What is the ideal warm hide temperature for a leopard gecko?",
+      question: "What enrichment does a leopard gecko actually need?",
       answer:
-        "Target roughly 90-92°F at the warm hide floor/surface. This supports digestion and normal activity while still allowing retreat to cooler zones.",
+        "Start with structure that changes behavior: multiple hides, varied textures, climbing points, and usable floor depth. Enrichment should increase exploration and choice, not just visual decoration.",
     },
     {
-      question: "Is under tank heat or overhead heat better for leopard geckos?",
+      question: "Do leopard geckos need a naturalistic enclosure for good welfare?",
       answer:
-        "Both can work when controlled correctly. Under tank heating can support belly heat zones, while overhead halogen or deep heat projectors can create a stronger daytime gradient. The key is thermostat control and accurate temperature measurement.",
+        "Naturalistic setups are often preferred, but welfare gains come from function first: hiding options, movement choices, and stable heat/moisture zones. You can improve welfare in simpler setups if those features are present.",
     },
     {
-      question: "Do leopard geckos need a thermostat?",
+      question: "Can enrichment reduce stress-related behavior?",
       answer:
-        "Yes. Every heat source should be thermostat-controlled. Unregulated heating can overheat enclosures, cause burns, and create unstable daily swings.",
+        "It can. Better structure and choice often increase normal exploration and reduce inactivity or defensive behavior, especially when paired with correct temperatures and secure hides.",
     },
     {
-      question: "Where should I measure temperatures in a leopard gecko tank?",
+      question: "Is enrichment still important for beginner setups?",
       answer:
-        "Measure warm hide floor/surface, basking/warm zone, and cool side. Use an infrared temp gun for surfaces and digital probes for ambient checks to confirm a full gradient.",
+        "Yes. Beginners should keep enrichment safe and simple: stable hides, climbing options, and clear temperature zones. Complexity should never replace monitoring or core husbandry basics.",
     },
   ];
 
@@ -50,10 +49,10 @@ export default function LeopardGeckoHeatingGuidePage() {
 
           <div className="text-center mb-12">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-4 leading-tight">
-              Leopard Gecko Heating Guide
+              Leopard Gecko Enrichment Guide
             </h1>
             <p className="text-xl text-slate-300 max-w-2xl mx-auto mb-6">
-              Safe temperatures, heating methods, and gradient setup rules that prevent common gecko heating mistakes.
+              Practical enrichment that improves gecko welfare through real choice, not clutter.
             </p>
             <Link href="/build/leopard-gecko" className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-full transition-all">
               Build a Leopard Gecko Habitat <ArrowRight size={20} />
@@ -66,62 +65,55 @@ export default function LeopardGeckoHeatingGuidePage() {
               Quick Answer
             </h2>
             <ul className="space-y-2.5 text-slate-300 text-sm sm:text-base">
-              <li>Warm hide floor/surface target: <strong>~90-92°F</strong></li>
-              <li>Use thermostat control on every heat source</li>
-              <li>Build a warm-to-cool gradient across the enclosure</li>
-              <li>Measure surfaces and ambient temps in multiple zones</li>
+              <li>Enrichment means better behavior options, not just more objects</li>
+              <li>Start with multiple hides, climbable structure, and varied textures</li>
+              <li>Naturalistic setups help, but function matters more than aesthetics</li>
+              <li>Always pair enrichment with correct heating and secure layout</li>
             </ul>
           </div>
 
-          <GuideSection Icon={Flame} iconColor="#fb923c" title="Heat Sources: UTH vs Overhead Heating">
-            <p className="text-slate-300 mb-4">
-              <strong>Under tank heaters (UTH)</strong> can provide a localized warm floor zone when installed and controlled correctly. <strong>Overhead heating</strong> (halogen or deep heat projector) can create stronger daytime ambient support and more natural gradient behavior.
-            </p>
+          <GuideSection Icon={Home} iconColor="#34d399" title="What Counts as Real Enrichment">
             <p className="text-slate-300 mb-0">
-              Either method can fail if placement, wattage, or thermostat setup is wrong. Heat source type matters less than controlled delivery and verified temperatures.
+              Real enrichment gives your gecko meaningful choices: where to hide, where to climb, where to warm up, and where to cool down. If an item does not change usable behavior, it is decoration, not enrichment.
             </p>
           </GuideSection>
 
-          <GuideSection Icon={Thermometer} iconColor="#34d399" title="Why Belly Heat Still Matters">
-            <p className="text-slate-300 mb-0">
-              Leopard geckos often rest on warm surfaces to support digestion. The warm hide floor target (~90-92°F) is a practical benchmark for safe metabolic function. Even with overhead options, surface readings in the warm hide remain a critical check.
-            </p>
-          </GuideSection>
-
-          <GuideSection Icon={ShieldAlert} iconColor="#f87171" title="Thermostat Importance">
-            <p className="text-slate-300 mb-0">
-              No thermostat means no reliable safety limit. Unregulated heaters can overheat quickly, especially in smaller enclosures or seasonal room swings. Use a thermostat plus routine temperature checks to keep conditions stable and safe.
-            </p>
-          </GuideSection>
-
-          <GuideSection Icon={CheckCircle2} iconColor="#22d3ee" title="Temperature Gradient Setup">
-            <p className="text-slate-300 mb-0">
-              Build a clear gradient: warm hide near target heating zone and a cooler opposite side for retreat. Measure warm hide surface, warm-side ambient, and cool-side ambient so your gecko can choose preferred body temperature throughout the day.
-            </p>
+          <GuideSection Icon={CheckCircle2} iconColor="#22d3ee" title="High-Value Enrichment Priorities">
+            <ul className="space-y-2 text-slate-300 text-sm sm:text-base list-disc list-inside marker:text-emerald-400/90 mb-0">
+              <li>At least three functional hides in distinct thermal zones</li>
+              <li>Climbing features with secure footing and stable placement</li>
+              <li>Substrate and texture variety that supports natural movement</li>
+              <li>Visual barriers so the gecko can choose exposure vs cover</li>
+            </ul>
           </GuideSection>
 
           <GuideSection Icon={Zap} iconColor="#a78bfa" title="Why This Matters (Evidence-Based)">
             <p className="text-slate-300 mb-4">
-              Controlled gecko studies show body temperature tracks the surface they sit on more than people expect. In practical terms, this is why warm-hide floor measurements beat random air readings for day-to-day safety.
+              Enrichment studies in leopard geckos show they actively interact with features that support hiding and climbing. That is a welfare signal: when choices exist, geckos use them.
             </p>
             <p className="text-slate-300 mb-0">
-              This also explains why unstable floor heat causes digestion and appetite issues even when one thermometer looks “fine.” If the warm hide surface drifts, your gecko pays the cost first.
+              The practical takeaway is simple: enrichment should be judged by behavior change. More exploration and normal resting patterns usually mean your setup is working.
             </p>
           </GuideSection>
 
-          <GuideSection Icon={ShieldAlert} iconColor="#fb923c" title="Common Mistakes">
-            <ul className="space-y-2 text-slate-300 text-sm sm:text-base list-disc list-inside marker:text-orange-400/90 mb-4">
-              <li>No thermostat on UTH or overhead heat</li>
-              <li>Heat source placement that creates one hotspot but no usable gradient</li>
-              <li>Using only one thermometer and missing cool-side conditions</li>
-              <li>Not rechecking temperatures after room or season changes</li>
+          <GuideSection Icon={ShieldAlert} iconColor="#f87171" title="Common Enrichment Mistakes">
+            <ul className="space-y-2 text-slate-300 text-sm sm:text-base list-disc list-inside marker:text-orange-400/90 mb-0">
+              <li>Adding clutter without improving hide quality or thermal options</li>
+              <li>Unstable climbing decor that can shift or collapse</li>
+              <li>Ignoring heating/UVB fundamentals while focusing only on decor</li>
+              <li>Using unsafe substrate or sharp materials in “naturalistic” builds</li>
             </ul>
+          </GuideSection>
+
+          <GuideSection Icon={CheckCircle2} iconColor="#34d399" title="Beginner-Friendly Enrichment Plan">
             <p className="text-slate-300 mb-0">
-              For full enclosure context, use our{" "}
+              Start with proven basics, then layer complexity. Use our{" "}
               <Link href="/guides/leopard-gecko-setup" className="text-emerald-400 hover:text-emerald-300">Leopard Gecko Setup Guide</Link>
-              {" "}and{" "}
+              ,{" "}
+              <Link href="/guides/leopard-gecko-heating-guide" className="text-emerald-400 hover:text-emerald-300">Leopard Gecko Heating Guide</Link>
+              , and{" "}
               <Link href="/guides/leopard-gecko-substrate" className="text-emerald-400 hover:text-emerald-300">Leopard Gecko Substrate Guide</Link>
-              .
+              {" "}to build structure, temperature, and substrate in the right order.
             </p>
           </GuideSection>
 
@@ -139,14 +131,16 @@ export default function LeopardGeckoHeatingGuidePage() {
             <p className="text-slate-400 text-sm mb-0">
               <Link href="/guides/leopard-gecko-setup" className="text-emerald-400 hover:text-emerald-300">Leopard Gecko Setup Guide</Link>
               {" · "}
-              <Link href="/guides/leopard-gecko-substrate" className="text-emerald-400 hover:text-emerald-300">Leopard Gecko Substrate Guide</Link>
+              <Link href="/guides/leopard-gecko-heating-guide" className="text-emerald-400 hover:text-emerald-300">Leopard Gecko Heating Guide</Link>
+              {" · "}
+              <Link href="/guides/leopard-gecko-sand-safe" className="text-emerald-400 hover:text-emerald-300">Leopard Gecko Sand Safety Guide</Link>
             </p>
           </div>
 
           <div className="mt-16 text-center p-8 rounded-3xl bg-emerald-500/10 border border-emerald-500/30">
-            <h2 className="text-2xl font-black text-white mb-4">Safe heating, pre-matched to your setup</h2>
+            <h2 className="text-2xl font-black text-white mb-4">Enrichment matched to safe core setup</h2>
             <p className="text-slate-300 max-w-xl mx-auto mb-6">
-              BuildMyHabitat pairs heat sources, thermostat control, and enclosure layout so your leopard gecko has a stable warm hide and safe full-tank gradient from the start.
+              BuildMyHabitat pairs enrichment choices with heating, substrate, and enclosure rules so your gecko gets real behavioral options without hidden safety tradeoffs.
             </p>
             <Link href="/build/leopard-gecko" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-full transition-all">
               Build a Leopard Gecko Habitat <ArrowRight size={20} />

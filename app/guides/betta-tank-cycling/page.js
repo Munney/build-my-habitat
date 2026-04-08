@@ -94,6 +94,15 @@ export default function BettaTankCyclingPage() {
             </p>
           </GuideSection>
 
+          <GuideSection Icon={Zap} iconColor="#a78bfa" title="Why This Matters (Evidence-Based)">
+            <p className="text-slate-300 mb-4">
+              Fish stress data consistently show water-quality drops trigger measurable stress responses fast, including higher stress hormones when ammonia and nitrite climb. So cycling is not just a “numbers game”—it directly changes how safe the tank feels to the fish.
+            </p>
+            <p className="text-slate-300 mb-0">
+              Nitrite is especially deceptive because it can look like a temporary stage while still harming fish. The safer rule is simple: do not stock until ammonia and nitrite hold at zero, not just once, but consistently.
+            </p>
+          </GuideSection>
+
           <GuideSection Icon={AlertTriangle} iconColor="#f87171" title="Common Cycling Mistakes">
             <ul className="space-y-2 text-slate-300 text-sm sm:text-base list-disc list-inside marker:text-orange-400/90 mb-4">
               <li>Adding fish before ammonia and nitrite are both 0</li>
