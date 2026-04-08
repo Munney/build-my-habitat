@@ -2,16 +2,12 @@
 
 import Link from "next/link";
 import Image from "next/image"; 
-import { useState } from "react";
 import { ArrowRight, BookOpen, ArrowUpRight, ShieldCheck, CheckCircle2, Sparkles, FileText } from "lucide-react";
 import { analytics } from "./utils/analytics";
 import { HowToSchema } from "./components/StructuredData";
-import { EmailCapturePopup, ExitIntentTracker } from "./components/EmailCapture";
 import Footer from "./components/Footer";
 
 export default function Home() {
-  const [showEmailPopup, setShowEmailPopup] = useState(false);
-
   // HowTo structured data for the homepage
   const howToSteps = [
     {
@@ -36,27 +32,6 @@ export default function Home() {
         name="How to Build a Safe Pet Habitat"
         description="Learn how to use BuildMyHabitat to create a safe, research-backed habitat for your pet in three simple steps."
       />
-      
-      {/* Exit Intent Tracker */}
-      <ExitIntentTracker 
-        onExitIntent={() => {
-          if (typeof window !== "undefined" && !sessionStorage.getItem("exitIntentShown")) {
-            setShowEmailPopup(true);
-            sessionStorage.setItem("exitIntentShown", "true");
-          }
-        }}
-      />
-
-      {/* Email Popup */}
-      {showEmailPopup && (
-        <EmailCapturePopup
-          onClose={() => setShowEmailPopup(false)}
-          onSuccess={(email) => {
-            console.log("Email captured from homepage:", email);
-          }}
-          leadMagnet="5 Common Setup Mistakes PDF"
-        />
-      )}
       
       {/* NOTE: The Background Image was removed from here 
           because it is now in app/layout.js 

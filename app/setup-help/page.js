@@ -118,6 +118,18 @@ export default function SetupHelpHubPage() {
                 analyticsKey="setup-help-leopard-gecko-heating-guide"
               />
               <SetupHelpCard
+                href="/guides/leopard-gecko-uvb-guide"
+                title="Leopard Gecko UVB Guide"
+                description="Low-level UVB logic and safe gradients"
+                analyticsKey="setup-help-leopard-gecko-uvb-guide"
+              />
+              <SetupHelpCard
+                href="/guides/leopard-gecko-enrichment-guide"
+                title="Leopard Gecko Enrichment Guide"
+                description="Evidence-backed hiding and climbing enrichment"
+                analyticsKey="setup-help-leopard-gecko-enrichment-guide"
+              />
+              <SetupHelpCard
                 href="/guides/leopard-gecko-not-eating"
                 title="Leopard Gecko Not Eating?"
                 description="Troubleshoot appetite issues safely"
@@ -182,6 +194,18 @@ export default function SetupHelpHubPage() {
                 title="Betta Fish Filter Guide"
                 description="Gentle filtration and low-flow options"
                 analyticsKey="setup-help-betta-filter"
+              />
+              <SetupHelpCard
+                href="/guides/betta-bowl-vs-tank"
+                title="Betta Bowl vs Tank Guide"
+                description="Why bowls fail and stable tanks win"
+                analyticsKey="setup-help-betta-bowl-vs-tank"
+              />
+              <SetupHelpCard
+                href="/guides/betta-water-quality-stress"
+                title="Betta Water Quality Stress Guide"
+                description="Ammonia/nitrite stress and prevention rules"
+                analyticsKey="setup-help-betta-water-quality-stress"
               />
             </div>
             <div className="text-center">
@@ -248,6 +272,18 @@ export default function SetupHelpHubPage() {
                 title="Bearded Dragon Mistakes Guide"
                 description="Bad setups and how to fix them"
                 analyticsKey="setup-help-bearded-dragon-mistakes"
+              />
+              <SetupHelpCard
+                href="/guides/bearded-dragon-uvb-vs-d3"
+                title="Bearded Dragon UVB vs D3 Guide"
+                description="Why UVB comes first and supplementation supports"
+                analyticsKey="setup-help-bearded-dragon-uvb-vs-d3"
+              />
+              <SetupHelpCard
+                href="/guides/bearded-dragon-mbd-delay"
+                title="Bearded Dragon MBD Delay Guide"
+                description="Why symptoms appear late and how to catch risk early"
+                analyticsKey="setup-help-bearded-dragon-mbd-delay"
               />
             </div>
             <div className="text-center">
