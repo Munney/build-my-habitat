@@ -4,7 +4,7 @@
  * JSON-LD ItemList schema for summary/build receipt pages.
  * Renders selected items so rich results can show the list.
  */
-const BASE_URL = "https://buildmyhabitat.com";
+const BASE_URL = "https://www.buildmyhabitat.com";
 
 export default function SeoSchemaItemList({ items = [], listName = "Leopard Gecko Habitat Shopping List", species = "leopard-gecko" }) {
   if (!items || items.length === 0) return null;

@@ -2,7 +2,7 @@
  * JSON-LD HowTo schema for the Leopard Gecko builder page.
  * Rendered in layout so it appears in initial HTML for crawlers.
  */
-const BASE_URL = "https://buildmyhabitat.com";
+const BASE_URL = "https://www.buildmyhabitat.com";
 
 export default function SeoSchemaLeopardGeckoBuilder() {
   const schema = {

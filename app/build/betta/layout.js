@@ -1,4 +1,4 @@
-const BASE_URL = "https://buildmyhabitat.com";
+const BASE_URL = "https://www.buildmyhabitat.com";
 
 export const metadata = {
   title: "Betta Fish Tank Setup Builder (Free) | 5+ Gallon Guide & Shopping List",

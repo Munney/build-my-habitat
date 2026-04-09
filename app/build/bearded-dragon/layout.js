@@ -1,4 +1,4 @@
-const baseUrl = 'https://buildmyhabitat.com';
+const baseUrl = "https://www.buildmyhabitat.com";
 
 export const metadata = {
   title: 'Bearded Dragon Setup Builder (Free) | Build a 120-Gallon Habitat',

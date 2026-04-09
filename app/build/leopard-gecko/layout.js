@@ -1,4 +1,4 @@
-const baseUrl = 'https://buildmyhabitat.com';
+const baseUrl = "https://www.buildmyhabitat.com";
 
 export const metadata = {
   title: 'Leopard Gecko Setup Builder (Free) | Build a 40-Gallon Habitat',

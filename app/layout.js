@@ -18,7 +18,10 @@ const sourceSerif = Source_Serif_4({
 });
 
 export const metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.buildmyhabitat.com'),
+  metadataBase: new URL("https://www.buildmyhabitat.com"),
+  alternates: {
+    canonical: "/",
+  },
   title: {
     template: '%s | BuildMyHabitat',
     default: 'Leopard Gecko & Betta Fish Setup Builder | BuildMyHabitat',
@@ -42,7 +45,7 @@ export const metadata = {
     type: 'website',
     images: [
       {
-        url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.buildmyhabitat.com'}/opengraph-image`,
+        url: "https://www.buildmyhabitat.com/opengraph-image",
         width: 1200,
         height: 630,
         alt: 'BuildMyHabitat - Build Safe Pet Habitats',
