@@ -145,13 +145,13 @@ export default function Home() {
         </div>
 
         {/* --- SETUP HELP BY TOPIC --- */}
-        <div className="w-full max-w-4xl mx-auto mb-16 text-center">
+          <div className="w-full max-w-4xl mx-auto mb-16 text-center p-8 rounded-2xl border border-emerald-500/20 bg-gradient-to-r from-emerald-500/10 to-blue-500/10">
           <h2 className="text-2xl font-bold text-white mb-2">Setup Help by Topic</h2>
           <p className="text-slate-400 text-sm mb-6">Quick guides organized for leopard geckos, betta fish, and bearded dragons.</p>
           <Link
             href="/setup-help"
             onClick={() => analytics.trackNavClick("setup-help-hub-link")}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-slate-900/60 hover:bg-slate-900/80 border border-white/10 text-white font-bold transition-all"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold transition-all text-sm"
           >
             Browse All Setup Guides <ArrowRight size={18} />
           </Link>
