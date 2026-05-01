@@ -66,10 +66,10 @@ export function Section({
       )}
 
       {isLocked && (
-        <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm rounded-3xl flex items-center justify-center z-20 pointer-events-none">
-          <div className="text-center p-6">
-            <AlertCircle size={32} className="text-slate-500 mx-auto mb-3" />
-            <p className="text-slate-400 font-medium text-sm">Complete previous sections to unlock</p>
+        <div className="absolute inset-0 bg-slate-900/75 rounded-3xl flex items-center justify-center z-20 pointer-events-none">
+          <div className="text-center px-6 py-4 bg-slate-900 border border-slate-700/80 rounded-2xl shadow-xl">
+            <AlertCircle size={28} className="text-slate-300 mx-auto mb-2" />
+            <p className="text-white font-semibold text-sm">Complete previous sections to unlock</p>
           </div>
         </div>
       )}

@@ -77,6 +77,14 @@ export default function MyBuildsPage() {
             <p className="text-slate-400 font-medium drop-shadow-md">
               View and manage your saved habitat configurations.
             </p>
+            <div className="flex items-start gap-3 mt-4 px-4 py-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-sm text-amber-300 max-w-xl">
+              <span className="mt-0.5 shrink-0">⚠️</span>
+              <span>
+                Builds are saved in this browser only. Clearing your browser data
+                will delete them. Use the <strong className="text-white">Share Build</strong> link
+                on your summary page to save a permanent link.
+              </span>
+            </div>
           </div>
         </div>
 

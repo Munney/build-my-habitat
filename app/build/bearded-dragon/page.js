@@ -340,13 +340,28 @@ function BeardedDragonBuilderContent() {
   const hasThermostat = heatingIds.includes("thermostat");
   const hasBasking = heatingIds.some((id) => id.startsWith("halogen_") || id.startsWith("che_"));
   const hasUvb = lightingIds.some((id) => id.startsWith("uvb_t5") || id.startsWith("uvb"));
+  const blockedSubstrateIds = useMemo(() => new Set([
+    "reptile_carpet",
+    "sand",
+    "sand_reptile_sand_calcium_white",
+    "sand_reptile_sand_calcium_black",
+    "sand_reptile_sand_calcium_tan",
+    "sand_reptile_sand_calcium_blue",
+  ]), []);
 
   const filteredSubstrates = useMemo(() => {
+    const safeSubstrates = SUBSTRATES.filter((s) => !blockedSubstrateIds.has(s.id));
     if (experience === "beginner") {
-      return SUBSTRATES.filter((s) => s.type === "solid" || !s.type);
+      return safeSubstrates.filter((s) => s.type === "solid" || !s.type);
     }
-    return SUBSTRATES;
-  }, [experience]);
+    return safeSubstrates;
+  }, [experience, blockedSubstrateIds]);
+
+  useEffect(() => {
+    if (substrateId && blockedSubstrateIds.has(substrateId)) {
+      setSubstrateId(null);
+    }
+  }, [substrateId, blockedSubstrateIds]);
 
   const selectedEnclosure = ENCLOSURES.find((e) => e.id === enclosureId);
   const selectedSubstrate = SUBSTRATES.find((s) => s.id === substrateId);

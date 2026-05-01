@@ -1,12 +1,15 @@
 "use client";
 
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import { ExternalLink, BookOpen, ArrowLeft } from "lucide-react";
 import { analytics, trackEvent } from "../utils/analytics";
 import Footer from "../components/Footer";
+import SafetyDisclaimer from "../components/SafetyDisclaimer";
 
 export default function ResearchPage() {
+  const [filter, setFilter] = React.useState("all");
+
   // Track page view
   useEffect(() => {
     trackEvent("research_page_view", {});
@@ -113,6 +116,10 @@ export default function ResearchPage() {
     }
   ];
 
+  const filteredArticles = filter === "all"
+    ? articles
+    : articles.filter((article) => article.category === filter);
+
   return (
     <>
     <main className="relative min-h-screen py-20 px-4 sm:px-6">
@@ -136,13 +143,35 @@ export default function ResearchPage() {
             <span>Research & <span className="text-slate-300">Evidence</span></span>
           </h1>
           <p className="text-slate-200 text-base sm:text-lg max-w-2xl leading-relaxed drop-shadow-md font-medium px-2 sm:px-0">
-            We don't just guess. Every product recommended on BuildMyHabitat is backed by modern husbandry standards and vet-approved research.
+            We do not just guess. Every recommendation on BuildMyHabitat is built around published husbandry guidance, welfare standards, and conservative habitat safety principles.
           </p>
+        </div>
+        <SafetyDisclaimer />
+
+        <div className="flex flex-wrap gap-2">
+          {["All", "Betta Fish", "Leopard Gecko", "Bearded Dragon"].map((tab) => {
+            const tabValue = tab === "All" ? "all" : tab;
+            const isActive = filter === tabValue;
+            return (
+              <button
+                key={tab}
+                type="button"
+                onClick={() => setFilter(tabValue)}
+                className={`px-4 py-1.5 rounded-full text-sm font-semibold border transition-all ${
+                  isActive
+                    ? "bg-emerald-600 border-emerald-500 text-white"
+                    : "border-slate-700 text-slate-400 hover:border-slate-500"
+                }`}
+              >
+                {tab}
+              </button>
+            );
+          })}
         </div>
 
         {/* Article Grid */}
         <div className="grid gap-6">
-          {articles.map((article, i) => (
+          {filteredArticles.map((article, i) => (
             <div 
               key={i} 
               className="group p-4 sm:p-6 rounded-2xl card-warm hover:bg-slate-800/70 transition-all duration-300 hover:-translate-y-1"

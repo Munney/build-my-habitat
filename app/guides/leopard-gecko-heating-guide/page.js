@@ -153,6 +153,23 @@ export default function LeopardGeckoHeatingGuidePage() {
             </Link>
           </div>
         </div>
+      <div className="max-w-3xl mx-auto mt-16 p-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          <h3 className="text-white font-bold text-lg mb-1">
+            Ready to build your setup?
+          </h3>
+          <p className="text-slate-400 text-sm">
+            The builder selects compatible, research-verified products
+            and generates your complete shopping list.
+          </p>
+        </div>
+        <Link
+          href="/build/leopard-gecko"
+          className="shrink-0 px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-full transition-all whitespace-nowrap"
+        >
+          Start the Builder →
+        </Link>
+      </div>
       </main>
       <Footer variant="minimal" />
     </>

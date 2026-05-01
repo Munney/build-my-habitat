@@ -10,7 +10,7 @@ function SetupHelpCard({ href, title, description, analyticsKey }) {
     <Link
       href={href}
       onClick={() => analytics.trackNavClick(analyticsKey)}
-      className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 transition-all"
+      className="group p-4 rounded-lg card-warm hover:bg-slate-800/60 hover:bg-slate-700/60 hover:border-slate-500/50 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
     >
       <div className="flex items-start justify-between gap-3">
         <div>

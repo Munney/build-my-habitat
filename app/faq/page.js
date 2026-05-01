@@ -24,6 +24,10 @@ export default function FAQPage() {
           a: "Yes! BuildMyHabitat is completely free to use. We don't charge any fees. We earn a small commission when you purchase products through our Amazon affiliate links, but this doesn't cost you anything extra."
         },
         {
+          q: "Are some links affiliate links?",
+          a: "Yes. Some product links are affiliate links, which means we may earn a small commission at no extra cost to you. This supports ongoing guide updates, product reviews, and builder improvements."
+        },
+        {
           q: "How accurate are the prices?",
           a: "Prices are estimates based on current Amazon listings. Actual prices may vary slightly, and Amazon prices can change. We recommend checking the final price on Amazon before purchasing. We update prices periodically, but for the most current pricing, always check Amazon directly."
         },
@@ -34,6 +38,10 @@ export default function FAQPage() {
         {
           q: "Can I save or share my build?",
           a: "Yes! You can save your build by clicking the bookmark icon on your summary page. Saved builds are stored locally in your browser and can be accessed from the 'My Builds' page. You can also share your build by clicking the share button - the URL contains all your selections, so anyone with the link can see your exact configuration."
+        },
+        {
+          q: "Do I still need to research animal care myself?",
+          a: "Yes. The builder is designed to help you avoid common mistakes, but it does not replace responsible learning. Read species-specific guides, verify environmental targets, and stay current with published husbandry guidance."
         }
       ]
     },
@@ -42,11 +50,11 @@ export default function FAQPage() {
       questions: [
         {
           q: "Why are some products blocked or restricted?",
-          a: "We block dangerous products based on current veterinary and herpetological research. For example, we block tanks under 5 gallons for bettas and 10-gallon tanks for leopard geckos because research shows these cause stress and health issues. We also block heat rocks, calcium sand, and other known hazards."
+          a: "We block products when they conflict with published husbandry guidance and conservative safety rules. Examples include calcium sand, reptile carpet, and undersized enclosures. These items are flagged to reduce avoidable welfare risks."
         },
         {
           q: "Can I override the restrictions?",
-          a: "No. Our restrictions are in place to prevent animal suffering. If a product is blocked, it's because research shows it's dangerous. We prioritize animal welfare over convenience. If you need help finding safe alternatives, check our Common Mistakes page or Care Sheets."
+          a: "No. Restrictions are part of the builder's conservative safety model. If an item is blocked, choose a safer alternative from the recommended options and review the linked educational guidance."
         },
         {
           q: "Why is a thermostat required?",
@@ -54,7 +62,19 @@ export default function FAQPage() {
         },
         {
           q: "Are your recommendations vet-approved?",
-          a: "Our recommendations are based on current veterinary standards and peer-reviewed research. We cite specific studies on our Research page. However, we're not a substitute for a qualified veterinarian - always consult a vet for health concerns."
+          a: "BuildMyHabitat is not a veterinary service. Our recommendations are based on published husbandry research, welfare standards, and conservative safety rules. Always consult a qualified reptile, aquatic, or exotic animal veterinarian for medical concerns."
+        },
+        {
+          q: "Does the builder guarantee safety?",
+          a: "No tool can guarantee safety in every situation. The builder is designed to flag common unsafe products and incompatible setup choices, but your animal's health still depends on correct setup, maintenance, and ongoing observation."
+        },
+        {
+          q: "Why is reptile carpet blocked in some contexts?",
+          a: "Reptile carpet can trap waste and bacteria over time and may snag nails or claws. We use a conservative hygiene-first standard and recommend safer substrate options based on species and setup goals."
+        },
+        {
+          q: "Is the generated shopping list required or optional?",
+          a: "Optional. You can use it as a checklist and buy from any retailer. The list is meant to help you avoid missing essentials and incompatible combinations."
         }
       ]
     },
@@ -200,11 +220,9 @@ export default function FAQPage() {
                         )}
                       </button>
                       
-                      {isOpen && (
-                        <div className="px-5 pb-5 pt-0">
-                          <p className="text-slate-300 leading-relaxed">{faq.a}</p>
-                        </div>
-                      )}
+                      <div className={`px-5 pb-5 pt-0 ${isOpen ? "block" : "block"}`}>
+                        <p className="text-slate-300 leading-relaxed">{faq.a}</p>
+                      </div>
                     </div>
                   );
                 })}

@@ -4,7 +4,7 @@ export const metadata = {
   keywords: 'leopard gecko setup, leopard gecko tank setup, leopard gecko habitat, leopard gecko enclosure, leopard gecko tank size, leopard gecko heating, leopard gecko substrate, leopard gecko uvb, 40 gallon leopard gecko, leopard gecko beginner setup, leopard gecko setup guide, how to set up leopard gecko tank',
   openGraph: {
     title: 'Complete Leopard Gecko Setup Guide 2026',
-    description: 'Step-by-step guide to building a safe, vet-approved leopard gecko habitat. Learn about tank size, heating, substrate, and all essential equipment.',
+    description: 'Step-by-step guide to building a safe, research-backed leopard gecko habitat. Learn about tank size, heating, substrate, and all essential equipment.',
     images: ['/gecko.jpg'],
   },
 };

@@ -5,8 +5,8 @@ const getSystemPrompt = (species, currentBuild) => {
   let basePrompt = `You are the AI Habitat Assistant for BuildMyHabitat.com - a platform that enforces research-backed standards to ensure pets thrive, not just survive.
 
 BRAND VOICE & VALUES:
-- Safety-first: We automatically block dangerous items. You cannot build an unsafe habitat here.
-- Research-backed: All advice is based on current herpetological/aquatic research and veterinary standards
+- Safety-first: We use conservative safety rules to flag common unsafe products and incompatible choices.
+- Research-backed: All advice is based on current herpetological/aquatic research and published husbandry guidance.
 - Educational: We explain WHY, not just WHAT. Education is our priority.
 - Ethical: We aim for pets to thrive, not just survive. Enrichment and mental health matter.
 - Honest: If you don't know something, say so clearly. No guessing.
@@ -29,7 +29,7 @@ COMMUNICATION STYLE:
 - Temperature gradient is critical: 88-92°F basking spot, 70-75°F cool side (this allows proper thermoregulation)
 - Primary heat sources: Halogen Flood Lamp OR Deep Heat Projector (DHP) - both are superior to heat mats
 - UVB is optional but beneficial (helps with D3 synthesis and overall health)
-- Substrates: Paper towels (safest, easiest), slate tile (natural, retains heat), reptile carpet, or bioactive (advanced only)
+- Substrates: Paper towels (safest, easiest), slate tile (natural, retains heat), or bioactive-style options (advanced only)
 - NEVER recommend calcium sand - it causes fatal impaction in leopard geckos
 - Supplements: Calcium with D3 (if no UVB) or pure calcium (if UVB provided)
 - Always use a thermostat with any heat source - this prevents burns and is non-negotiable
@@ -140,7 +140,7 @@ function getFallbackResponse(message, species, currentBuild) {
 
   if (lowerMessage.includes("substrate") || lowerMessage.includes("floor")) {
     if (species === "leopard-gecko") {
-      return "Safe substrates for leopard geckos (per BuildMyHabitat standards):\n\n✅ Paper towels - safest, easiest to monitor health\n✅ Slate tile - natural look, retains heat well\n✅ Reptile carpet - easy clean\n✅ Bioactive - advanced only\n\n❌ NEVER use calcium sand - it causes fatal impaction. Our builder blocks this for your safety.";
+      return "Safer substrates for leopard geckos (per BuildMyHabitat standards):\n\n✅ Paper towels - safest, easiest to monitor health\n✅ Slate tile - natural look, retains heat well\n✅ Bioactive-style options - advanced only\n\n⚠️ We avoid calcium sand and reptile carpet in conservative setups due to husbandry and hygiene risks.";
     } else if (species === "betta") {
       return "Substrate options for betta tanks:\n\n✅ Bare bottom - easiest to clean\n✅ Gravel - inert, safe (avoid sharp edges)\n✅ Sand - fine, smooth\n✅ Active plant soil - for live plants\n\nWhy it matters: Substrate affects water chemistry and provides enrichment.";
     }

@@ -30,6 +30,7 @@ import { EmailCaptureInline, EmailCapturePopup, ExitIntentTracker } from "../../
 import { PremiumPDFExport } from "../../components/PremiumPDFExport";
 import { SocialShare } from "../../components/SocialShare";
 import { CareInstructions } from "../../components/CareInstructions";
+import AffiliateDisclosure from "../../components/AffiliateDisclosure";
 
 const AFFILIATE_TAG = "habitatbuilde-20";
 
@@ -366,16 +367,6 @@ function SummaryContent() {
           </a>
           <p className="text-xs text-slate-400 mt-2 relative z-10">Opens a pre-filled Amazon cart with all recommended items.</p>
           <p className="text-xs text-slate-400 relative z-10">Items will open directly in an Amazon cart ready to checkout</p>
-          <div className="h-1 relative z-10" />
-
-          {/* Price anchoring — above score to frame price before evaluation */}
-          <p className="text-xs text-slate-500 mt-6 max-w-lg mx-auto relative z-10">
-            Typical beginner betta setups cost $350–$450 when purchased separately.
-          </p>
-          <p className="text-xs text-slate-500 mb-2 max-w-lg mx-auto relative z-10">
-            This builder selects compatible equipment to avoid wasted purchases.
-          </p>
-
           {/* Habitat Safety Score — real score */}
           <div className="mt-6 relative z-10 max-w-md mx-auto px-5 py-4 rounded-2xl bg-blue-500/15 border border-blue-400/40 shadow-lg shadow-blue-900/20 text-center">
             <p className="text-[11px] uppercase tracking-[0.2em] font-black text-blue-200 mb-2">
@@ -425,6 +416,16 @@ function SummaryContent() {
               </div>
             </details>
           </div>
+          <AffiliateDisclosure className="mt-2 relative z-10 text-left" />
+          <div className="h-1 relative z-10" />
+
+          {/* Price anchoring — above score to frame price before evaluation */}
+          <p className="text-xs text-slate-500 mt-6 max-w-lg mx-auto relative z-10">
+            Typical beginner betta setups cost $350–$450 when purchased separately.
+          </p>
+          <p className="text-xs text-slate-500 mb-2 max-w-lg mx-auto relative z-10">
+            This builder selects compatible equipment to avoid wasted purchases.
+          </p>
 
           {/* Micro trust signals */}
           <div className="mt-4 flex flex-wrap justify-center gap-x-6 gap-y-2 text-left relative z-10">

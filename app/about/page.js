@@ -1,6 +1,8 @@
 import React from "react";
 import { ShieldCheck, BookOpen, Heart, Activity } from "lucide-react";
 import Link from "next/link";
+import AffiliateDisclosure from "../components/AffiliateDisclosure";
+import SafetyDisclaimer from "../components/SafetyDisclaimer";
 
 export default function AboutPage() {
   return (
@@ -10,7 +12,7 @@ export default function AboutPage() {
           The BuildMyHabitat <span className="text-emerald-400">Standard</span>
         </h1>
         <p className="text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto">
-          We don't just sell parts. We enforce <span className="text-white font-bold">veterinary standards</span> to ensure your pet thrives, not just survives.
+          We do not just list parts. We use <span className="text-white font-bold">research-backed husbandry standards</span> and conservative safety rules to help keepers build better habitats.
         </p>
       </div>
 
@@ -18,7 +20,7 @@ export default function AboutPage() {
         <StandardCard 
           icon={<ShieldCheck size={32} className="text-emerald-400" />}
           title="Safety First"
-          desc="Our algorithm automatically blocks dangerous items. You literally cannot build an unsafe habitat here. No heat rocks, no calcium sand, no small bowls."
+          desc="Our builder is designed to flag common unsafe products and incompatible setup choices, including calcium sand, heat rocks, and undersized enclosures."
         />
         <StandardCard 
           icon={<Activity size={32} className="text-blue-400" />}
@@ -39,21 +41,17 @@ export default function AboutPage() {
 
       {/* Affiliate Disclosure */}
       <div className="max-w-5xl mx-auto mt-16 mb-8">
-        <div className="bg-amber-500/10 border border-amber-500/30 p-6 rounded-2xl">
-          <h3 className="text-xl font-bold text-white mb-3 flex items-center gap-2">
-            <span className="text-amber-400">💰</span>
-            Affiliate Disclosure
-          </h3>
-          <p className="text-slate-300 leading-relaxed">
-            BuildMyHabitat uses Amazon affiliate links. When you purchase products through our links, we earn a small commission at no extra cost to you. This helps us keep the site free and maintain our research-backed recommendations. We only recommend products we've verified as safe and appropriate for your pets.
-          </p>
-        </div>
+        <AffiliateDisclosure className="p-6 rounded-2xl" />
+      </div>
+
+      <div className="max-w-5xl mx-auto mb-8">
+        <SafetyDisclaimer className="p-6 rounded-2xl" />
       </div>
 
       <div className="text-center mt-12">
         <Link 
           href="/"
-          className="px-8 py-4 bg-white text-slate-900 font-bold rounded-full hover:bg-emerald-400 hover:scale-105 transition-all"
+          className="px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-full hover:scale-105 transition-all shadow-lg shadow-emerald-500/20"
         >
           Start Building Now
         </Link>

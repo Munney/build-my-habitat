@@ -24,6 +24,7 @@ import {
   Menu,
   X,
   RotateCcw,
+  Lock,
   Copy,
   Check
 } from "lucide-react";
@@ -1349,7 +1350,7 @@ function BettaBuilderContent() {
               </div>
 
               <div className="p-5">
-                <div className="space-y-2 mb-6 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+                <div className="space-y-2 mb-6 pr-2">
                   {allSelectedItems.length === 0 ? (
                     <div className="text-center py-12 opacity-60 animate-pulse">
                         <div className="mx-auto w-16 h-16 border-2 border-dashed border-slate-500/50 rounded-2xl mb-4 flex items-center justify-center bg-slate-800/30 backdrop-blur-sm">
@@ -1428,42 +1429,6 @@ function BettaBuilderContent() {
               </div>
             </div>
 
-            {/* Compatibility Monitor */}
-            <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-3xl p-6">
-              <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4 flex items-center gap-2">
-                 <AlertTriangle size={14} /> System Checks
-              </h3>
-
-              <div className="space-y-3">
-                {allSelectedItems.length === 0 ? (
-                      <p className="text-slate-500 text-xs italic">Waiting for input...</p>
-                ) : checks.messages.length === 0 ? (
-                    <div className="p-3 rounded-xl border border-blue-500/20 bg-blue-500/10 text-blue-200 text-xs flex gap-2">
-                        <CheckCircle2 size={16} /> All systems nominal.
-                    </div>
-                ) : (
-                    checks.messages.map((c, i) => (
-                    <div
-                        key={i}
-                        className={`flex gap-3 p-3 rounded-xl border text-xs font-medium leading-relaxed ${
-                        c.level === "error"
-                            ? "bg-red-500/10 border-red-500/20 text-red-200"
-                            : c.level === "warning"
-                            ? "bg-amber-500/10 border-amber-500/20 text-amber-200"
-                            : "bg-blue-500/10 border-blue-500/20 text-blue-200"
-                        }`}
-                    >
-                        <div className="shrink-0 mt-0.5">
-                            {c.level === "error" && <XCircle size={14} />}
-                            {c.level === "warning" && <AlertTriangle size={14} />}
-                            {c.level === "ok" && <CheckCircle2 size={14} />}
-                        </div>
-                        {c.text}
-                    </div>
-                    ))
-                )}
-              </div>
-            </div>
           </aside>
         </div>
 
@@ -1573,9 +1538,62 @@ function BettaBuilderContent() {
 export default function BettaBuilder() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
-        <div className="text-white text-lg">Loading...</div>
-      </div>
+      <main className="relative min-h-screen pb-20 px-6 text-slate-200">
+        <div className="relative z-10 max-w-5xl mx-auto pt-8 space-y-6">
+          <section className="rounded-3xl border border-white/10 bg-slate-900/60 backdrop-blur-xl p-6 md:p-8">
+            <h1 className="text-3xl md:text-5xl font-black text-white tracking-tight mb-4">
+              Build a Complete Betta Fish Setup
+            </h1>
+            <p className="text-slate-300 leading-relaxed">
+              Build a complete betta fish setup with an appropriately sized tank, heater, gentle filtration, water
+              conditioner, cycling supplies, substrate, plants, hiding spaces, and food. This tool helps avoid common
+              beginner mistakes like unheated bowls, undersized tanks, and uncycled setups.
+            </p>
+            <p className="text-slate-400 text-sm mt-3">
+              BuildMyHabitat is not a veterinary service. Our recommendations are based on published husbandry
+              research, welfare standards, and conservative safety rules.
+            </p>
+          </section>
+
+          <section className="grid md:grid-cols-2 gap-6">
+            <div className="rounded-2xl border border-blue-500/20 bg-blue-500/10 p-5">
+              <h2 className="text-lg font-bold text-white mb-3">Setup Checklist</h2>
+              <ul className="space-y-2 text-sm text-slate-200">
+                <li>- 5+ gallon tank (10 gallon preferred)</li>
+                <li>- Adjustable heater and thermometer</li>
+                <li>- Betta-safe filtration with gentle flow</li>
+                <li>- Water conditioner and cycling/test supplies</li>
+                <li>- Substrate, plants, hides, and food plan</li>
+              </ul>
+            </div>
+            <div className="rounded-2xl border border-amber-500/20 bg-amber-500/10 p-5">
+              <h2 className="text-lg font-bold text-white mb-3">Safety Warnings</h2>
+              <ul className="space-y-2 text-sm text-slate-200">
+                <li>- Blocked: unheated bowls are not a safe long-term habitat.</li>
+                <li>- Blocked: tanks below minimum size are not recommended.</li>
+                <li>- Blocked: uncycled setups can cause ammonia poisoning.</li>
+                <li>- High-flow filtration may stress bettas and should be adjusted.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section className="rounded-2xl border border-white/10 bg-slate-900/50 p-5">
+            <h2 className="text-lg font-bold text-white mb-3">Related Guides</h2>
+            <div className="flex flex-wrap gap-3 text-sm">
+              <a href="/guides/betta-setup" className="px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10">Complete Setup Guide</a>
+              <a href="/guides/betta-fish-tank-size" className="px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10">Tank Size Guide</a>
+              <a href="/guides/betta-tank-cycling" className="px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10">Cycling Guide</a>
+            </div>
+          </section>
+
+          <div className="text-center pt-2">
+            <p className="text-slate-300 mb-3">Use the interactive builder to personalize your setup and shopping list.</p>
+            <div className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-blue-600/90 text-white font-bold">
+              Loading interactive builder...
+            </div>
+          </div>
+        </div>
+      </main>
     }>
       <BettaBuilderContent />
     </Suspense>
@@ -1802,7 +1820,9 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
           </span>
         )}
         {showRequired && (
-          <span className="inline-block text-xs font-semibold text-amber-400 uppercase tracking-wide whitespace-nowrap shrink-0">Required</span>
+          <span className="inline-flex items-center gap-1 text-xs text-slate-400">
+            <Lock size={10} /> Required
+          </span>
         )}
       </div>
 
@@ -1818,7 +1838,6 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
             }`}
           >
             {active && <CheckCircle2 size={16} className="text-white drop-shadow-sm" />}
-            {showRequired && <AlertCircle size={14} className="text-amber-400 drop-shadow-sm" />}
           </div>
 
           <div className="flex-1 min-w-0">

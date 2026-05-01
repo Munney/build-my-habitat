@@ -1,8 +1,11 @@
 "use client";
 
 import { useState, useMemo, useRef, useEffect } from "react";
+import Link from "next/link";
 import { Search, PackageSearch, ArrowUpRight, X, Filter, DollarSign, Tag } from "lucide-react";
 import Footer from "../components/Footer";
+import AffiliateDisclosure from "../components/AffiliateDisclosure";
+import ProductSafetyBadge from "../components/ProductSafetyBadge";
 
 // These imports will work now that your folder structure is fixed!
 import bettaData from "../../data/betta.json";
@@ -52,6 +55,42 @@ const REMOVED_PRODUCT_IDS = {
   ],
 };
 
+function getSafetyStatus(item) {
+  if (item?.safetyStatus) return item.safetyStatus;
+  const id = (item?.id || "").toLowerCase();
+  const label = (item?.label || "").toLowerCase();
+
+  if (
+    id.includes("calcium") && id.includes("sand") ||
+    label.includes("calcium sand") ||
+    label.includes("walnut shell")
+  ) {
+    return "blocked";
+  }
+
+  if (id.includes("reptile_carpet") || label.includes("reptile carpet")) {
+    return "blocked";
+  }
+
+  return "recommended";
+}
+
+function getBlockedReason(item) {
+  const id = (item?.id || "").toLowerCase();
+  const label = (item?.label || "").toLowerCase();
+
+  if (id.includes("calcium") && id.includes("sand") || label.includes("calcium sand")) {
+    return "Blocked: calcium sand is not recommended because it can create husbandry and ingestion risks.";
+  }
+  if (id.includes("reptile_carpet") || label.includes("reptile carpet")) {
+    return "Blocked: reptile carpet can trap waste and bacteria and may catch claws. Use safer substrate options instead.";
+  }
+  if (label.includes("walnut shell")) {
+    return "Blocked: walnut shell substrates can be abrasive and carry ingestion risk for many species.";
+  }
+  return "Blocked: this product conflicts with conservative habitat safety guidance.";
+}
+
 export default function BrowsePage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filter, setFilter] = useState("all");
@@ -95,7 +134,8 @@ export default function BrowsePage() {
           ...item,
           species,
           category: categoryLabel,
-          url: link
+          url: link,
+          safetyStatus: getSafetyStatus(item)
         });
       });
     };
@@ -132,7 +172,12 @@ export default function BrowsePage() {
         add(beardedDragonData.feeding,     "Bearded Dragon", "Feeding");
     }
 
-    return products;
+    return products.sort((a, b) => {
+      const aBlocked = a.safetyStatus === "blocked";
+      const bBlocked = b.safetyStatus === "blocked";
+      if (aBlocked === bBlocked) return 0;
+      return aBlocked ? 1 : -1;
+    });
   }, []);
 
   // Get unique categories
@@ -246,8 +291,29 @@ export default function BrowsePage() {
               Part Browser
             </h1>
             <p className="text-slate-400 font-medium drop-shadow-md">
-              Browse our entire database of approved habitat supplies.
+              Browse research-backed habitat supplies with clearly labeled safety status.
             </p>
+          </div>
+        </div>
+        <AffiliateDisclosure />
+        <div className="w-full mb-8 p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-slate-300 text-sm">
+            Want a complete compatible setup? The builder selects and
+            checks everything for you.
+          </p>
+          <div className="flex gap-3 shrink-0">
+            <Link href="/build/leopard-gecko" 
+              className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-bold rounded-full transition-all">
+              Gecko Builder →
+            </Link>
+            <Link href="/build/betta"
+              className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold rounded-full transition-all">
+              Betta Builder →
+            </Link>
+            <Link href="/build/bearded-dragon"
+              className="px-4 py-2 bg-emerald-700 hover:bg-emerald-600 text-white text-sm font-bold rounded-full transition-all">
+              Dragon Builder →
+            </Link>
           </div>
         </div>
 
@@ -436,7 +502,10 @@ export default function BrowsePage() {
                 
                 const priceClass = isBetta ? "text-blue-400" : "text-emerald-400";
                 
-                const buttonClass = isBetta
+                const isBlocked = item.safetyStatus === "blocked";
+                const buttonClass = isBlocked
+                    ? "bg-slate-700 hover:bg-slate-600 shadow-slate-900/20"
+                    : isBetta
                     ? "bg-blue-600 hover:bg-blue-500 shadow-blue-900/20"
                     : "bg-emerald-600 hover:bg-emerald-500 shadow-emerald-900/20";
 
@@ -455,10 +524,18 @@ export default function BrowsePage() {
                         </div>
                         <h3 className="font-bold text-white leading-tight mb-2 text-lg">{item.label}</h3>
                         <p className="text-xs text-slate-400 font-medium">{item.species}</p>
+                        <div className="mt-2">
+                          <ProductSafetyBadge status={item.safetyStatus} />
+                        </div>
+                        {isBlocked && (
+                          <p className="text-xs text-red-300 mt-2 leading-relaxed">
+                            {getBlockedReason(item)}
+                          </p>
+                        )}
                     </div>
 
                     <span className={`mt-5 flex items-center justify-center gap-2 w-full py-3 rounded-xl text-white text-xs font-bold transition-all shadow-lg ${buttonClass}`}>
-                        View Product <ArrowUpRight size={14} />
+                        {isBlocked ? "Blocked / Learn More" : "View Product"} <ArrowUpRight size={14} />
                     </span>
                 </a>
                 );

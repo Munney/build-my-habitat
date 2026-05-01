@@ -20,6 +20,7 @@ export default function Navbar() {
   const navLinks = [
     { name: "Home", href: "/", icon: <Home size={20} /> },
     { name: "Research", href: "/research", icon: <BookOpen size={20} /> },
+    { name: "Guides", href: "/setup-help", icon: <BookOpen size={20} /> },
     { name: "Browse Parts", href: "/browse", icon: <Package size={20} /> },
     { name: "My Builds", href: "/my-builds", icon: <Bookmark size={20} /> },
     { name: "FAQ", href: "/faq", icon: <Info size={20} /> },

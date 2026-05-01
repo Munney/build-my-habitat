@@ -1,10 +1,10 @@
 export const metadata = {
   title: 'About BuildMyHabitat | Safety Standards & Ethical Pet Care',
-  description: 'Learn about BuildMyHabitat\'s veterinary standards for pet habitat building. We block dangerous products and enforce research-backed requirements for leopard gecko and betta fish care.',
-  keywords: 'habitat builder about, pet safety standards, ethical pet care, veterinary standards, safe pet habitats, research-backed pet care, leopard gecko safety, betta fish safety',
+  description: 'Learn about BuildMyHabitat\'s research-backed husbandry standards. We block dangerous products and apply conservative habitat safety rules for leopard gecko and betta fish care.',
+  keywords: 'habitat builder about, pet safety standards, ethical pet care, husbandry standards, safe pet habitats, research-backed pet care, leopard gecko safety, betta fish safety',
   openGraph: {
     title: 'The BuildMyHabitat Standard - Safety & Ethics',
-    description: 'We don\'t just sell parts. We enforce veterinary standards to ensure your pet thrives, not just survives.',
+    description: 'We don\'t just list parts. We use research-backed husbandry standards and conservative safety rules.',
     images: ['/og-image.jpg'],
   },
 };

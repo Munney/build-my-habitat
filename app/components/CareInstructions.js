@@ -224,7 +224,7 @@ export function CareInstructions({ species }) {
         <div className="space-y-3 care-details-print">
           {care.sections.map((section, idx) => (
             <details key={idx} className="bg-slate-900/40 rounded-xl border border-white/5 overflow-hidden group">
-              <summary className="flex items-center gap-2 p-4 cursor-pointer list-none font-bold text-white text-sm uppercase tracking-wide hover:bg-white/5 transition-colors [&::-webkit-details-marker]:hidden">
+              <summary className="flex items-center gap-2 p-4 cursor-pointer list-none font-bold text-white text-sm tracking-wide hover:bg-white/5 transition-colors [&::-webkit-details-marker]:hidden">
                 <div className={`${colors.text} opacity-80 shrink-0`}>
                   {section.icon}
                 </div>

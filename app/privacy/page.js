@@ -128,7 +128,7 @@ export default function PrivacyPage() {
                 Contact Us
               </h2>
               <p>
-                If you have questions about this privacy policy, you can contact us through the contact options available on our website.
+                If you have questions about this privacy policy, please use our contact page: <Link href="/contact" className="text-blue-400 hover:text-blue-300">/contact</Link>.
               </p>
             </section>
 

@@ -17,6 +17,7 @@ import { EmailCaptureInline, EmailCapturePopup, ExitIntentTracker } from "../../
 import { SocialShare } from "../../components/SocialShare";
 import { CareInstructions } from "../../components/CareInstructions";
 import SeoSchemaItemList from "../../components/SeoSchemaItemList";
+import AffiliateDisclosure from "../../components/AffiliateDisclosure";
 
 const AFFILIATE_TAG = "habitatbuilde-20";
 
@@ -256,10 +257,6 @@ function SummaryContent() {
           <a href={amazonCartUrl} target="_blank" rel="noopener noreferrer" onClick={() => analytics.trackAmazonCartClick("bearded-dragon", totalNumber, allItems.length)} className="relative z-10 flex items-center justify-center gap-2 w-full min-h-[48px] py-4 px-4 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-black text-sm sm:text-lg border-2 border-emerald-400/30 hover:border-emerald-300/50 transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-emerald-900/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 text-center">
             <ShoppingCart size={20} className="shrink-0" /> <span className="hidden sm:inline">Open Complete Bearded Dragon Cart on Amazon</span><span className="sm:hidden">Add to Amazon Cart</span> →
           </a>
-          <p className="text-xs text-slate-400 mt-2 relative z-10">Opens a pre-filled Amazon cart with all recommended items.</p>
-
-          <p className="text-xs text-slate-500 mt-6 max-w-lg mx-auto relative z-10">Typical bearded dragon setups cost $500–$700+. This builder selects compatible equipment to avoid wasted purchases.</p>
-
           <div className="mt-6 relative z-10 max-w-md mx-auto px-5 py-4 rounded-2xl bg-emerald-500/15 border border-emerald-400/40 shadow-lg text-center">
             <p className="text-[11px] uppercase tracking-[0.2em] font-black text-emerald-200 mb-2">HABITAT SAFETY SCORE</p>
             <div className="flex items-baseline justify-center gap-2">
@@ -303,6 +300,10 @@ function SummaryContent() {
               </div>
             </details>
           </div>
+          <p className="text-xs text-slate-400 mt-2 relative z-10">Opens a pre-filled Amazon cart with all recommended items.</p>
+          <AffiliateDisclosure className="mt-2 relative z-10 text-left" />
+
+          <p className="text-xs text-slate-500 mt-6 max-w-lg mx-auto relative z-10">Typical bearded dragon setups cost $500–$700+. This builder selects compatible equipment to avoid wasted purchases.</p>
 
           <div className="mt-4 flex flex-wrap justify-center gap-x-6 gap-y-2 text-left relative z-10">
             {["Research-backed recommendations", "UVB required", "Thermostat required", "Proper enclosure size", "Safe substrate"].map((line, i) => (

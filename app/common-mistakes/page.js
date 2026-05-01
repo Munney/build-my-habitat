@@ -341,8 +341,8 @@ export default function CommonMistakesPage() {
             Our Builder Prevents All of These
           </h3>
           <p className="text-slate-300 mb-6 max-w-2xl mx-auto">
-            You literally cannot build an unsafe habitat using our tool. We block dangerous products, 
-            enforce minimum requirements, and guide you to safe, research-backed configurations.
+            Our builder is designed to flag common unsafe products and incompatible setup choices. We block high-risk
+            options, enforce key minimum requirements, and guide users toward research-backed configurations.
           </p>
           <Link
             href="/"

@@ -26,7 +26,7 @@ export const metadata = {
     template: '%s | BuildMyHabitat',
     default: 'Leopard Gecko & Betta Fish Setup Builder | BuildMyHabitat',
   },
-  description: 'Build safe, vet-approved habitats for Leopard Geckos and Betta Fish. Free compatibility checker, complete setup guides, and verified product lists. Start your 40-gallon gecko or 5+ gallon betta setup today.',
+  description: 'Build research-backed habitats for Leopard Geckos and Betta Fish. Free compatibility checker, complete setup guides, and conservative safety-focused product lists. Start your 40-gallon gecko or 5+ gallon betta setup today.',
   keywords: 'leopard gecko setup, betta fish tank setup, leopard gecko habitat, betta fish care, leopard gecko tank setup, betta fish setup, reptile habitat builder, aquarium setup, leopard gecko enclosure, betta fish tank size, leopard gecko heating, betta fish heater, leopard gecko substrate, betta fish filter, safe pet enclosures, research-backed pet care',
   authors: [{ name: 'BuildMyHabitat' }],
   icons: {

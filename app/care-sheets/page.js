@@ -220,33 +220,33 @@ export default function CareSheetsPage() {
         </div>
 
         {/* Species Selector */}
-        <div className="flex gap-4 justify-center mb-12">
+        <div className="flex gap-3 mb-8 flex-wrap justify-center">
           <button
             onClick={() => setSelectedSpecies("leopard-gecko")}
-            className={`px-6 py-3 rounded-xl font-bold transition-all ${
+            className={`px-5 py-2.5 rounded-full text-sm font-bold border-2 transition-all ${
               selectedSpecies === "leopard-gecko"
-                ? "bg-emerald-600 text-white shadow-lg shadow-emerald-900/20"
-                : "bg-white/5 text-slate-300 hover:bg-white/10 border border-white/10"
+                ? "border-emerald-500 bg-emerald-500/15 text-emerald-400 transition-all"
+                : "border-slate-700 text-slate-400 hover:border-slate-500 hover:text-white transition-all"
             }`}
           >
             🦎 Leopard Gecko
           </button>
           <button
             onClick={() => setSelectedSpecies("betta")}
-            className={`px-6 py-3 rounded-xl font-bold transition-all ${
+            className={`px-5 py-2.5 rounded-full text-sm font-bold border-2 transition-all ${
               selectedSpecies === "betta"
-                ? "bg-blue-600 text-white shadow-lg shadow-blue-900/20"
-                : "bg-white/5 text-slate-300 hover:bg-white/10 border border-white/10"
+                ? "border-emerald-500 bg-emerald-500/15 text-emerald-400 transition-all"
+                : "border-slate-700 text-slate-400 hover:border-slate-500 hover:text-white transition-all"
             }`}
           >
             🐟 Betta Fish
           </button>
           <button
             onClick={() => setSelectedSpecies("bearded-dragon")}
-            className={`px-6 py-3 rounded-xl font-bold transition-all ${
+            className={`px-5 py-2.5 rounded-full text-sm font-bold border-2 transition-all ${
               selectedSpecies === "bearded-dragon"
-                ? "bg-emerald-600 text-white shadow-lg shadow-emerald-900/20"
-                : "bg-white/5 text-slate-300 hover:bg-white/10 border border-white/10"
+                ? "border-emerald-500 bg-emerald-500/15 text-emerald-400 transition-all"
+                : "border-slate-700 text-slate-400 hover:border-slate-500 hover:text-white transition-all"
             }`}
           >
             🦎 Bearded Dragon

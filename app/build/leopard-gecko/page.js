@@ -25,6 +25,7 @@ import {
   Sun,
   RotateCcw,
   ChevronDown,
+  Lock,
   Copy,
   Check
 } from "lucide-react";
@@ -74,7 +75,7 @@ function groupVariants(products) {
     const bioactivePattern = /^BioActive Terra Sahara\s+(\d+)\s*qts/i;
     // Pattern for sand: "Reptile Sand (Calcium) (White)"
     const sandPattern = /^Reptile Sand.*?\(Calcium\).*?\((\w+)\)/i;
-    // Pattern for topsoil: "Organic Topsoil Mix (Cocunut Chips)"
+    // Pattern for topsoil: "Organic Topsoil Mix (Coconut Chips)"
     const topsoilPattern = /^Organic Topsoil Mix\s+\((.+?)\)/i;
     // Pattern for cork bark: "Cork Bark Flat 4 pcs"
     const corkPattern = /^Cork Bark Flat\s+(\d+)\s+pcs/i;
@@ -140,7 +141,7 @@ function groupVariants(products) {
         variant = match[1]; // e.g., "White"
       } else if (topsoilPattern.test(label)) {
         baseName = "Organic Topsoil Mix";
-        variant = match[1]; // e.g., "Cocunut Chips"
+        variant = match[1]; // e.g., "Coconut Chips"
       } else if (corkPattern.test(label) && label.includes("4 pcs")) {
         // Only group "Cork Bark Flat 4 pcs", not standalone "Cork Bark Flat"
         baseName = "Cork Bark Flat";
@@ -1110,14 +1111,14 @@ function LeopardGeckoBuilderContent() {
                     onClick={() => setExperience("beginner")}
                     className={`relative overflow-hidden p-4 sm:p-5 rounded-2xl border transition-all duration-300 group text-left cursor-pointer ${
                       experience === "beginner"
-                        ? "border-emerald-500 bg-emerald-500/10 shadow-[0_0_20px_-5px_rgba(16,185,129,0.3)]"
-                        : "border-slate-700/50 bg-slate-900/40 hover:border-emerald-500/50 hover:bg-slate-800/60"
+                        ? "border-2 border-emerald-400 bg-emerald-500/15 shadow-[0_0_20px_-5px_rgba(16,185,129,0.4)]"
+                        : "border-2 border-slate-700/50 hover:border-slate-500/70 bg-slate-900/40 hover:bg-slate-800/60"
                     }`}
                   >
                     <p className="font-bold text-base sm:text-lg text-white capitalize">
                         Beginner
                     </p>
-                    <p className="text-xs font-medium text-slate-400 mt-2 uppercase tracking-wider leading-relaxed">
+                    <p className="text-xs font-medium text-slate-400 mt-2 tracking-wider leading-relaxed">
                       Restricts unsafe items. Hides loose substrate to prevent impaction risk.
                     </p>
                 </button>
@@ -1125,14 +1126,14 @@ function LeopardGeckoBuilderContent() {
                     onClick={() => setExperience("experienced")}
                     className={`relative overflow-hidden p-4 sm:p-5 rounded-2xl border transition-all duration-300 group text-left cursor-pointer ${
                       experience === "experienced"
-                        ? "border-emerald-500 bg-emerald-500/10 shadow-[0_0_20px_-5px_rgba(16,185,129,0.3)]"
-                        : "border-slate-700/50 bg-slate-900/40 hover:border-emerald-500/50 hover:bg-slate-800/60"
+                        ? "border-2 border-emerald-400 bg-emerald-500/15 shadow-[0_0_20px_-5px_rgba(16,185,129,0.4)]"
+                        : "border-2 border-slate-700/50 hover:border-slate-500/70 bg-slate-900/40 hover:bg-slate-800/60"
                     }`}
                   >
                     <p className="font-bold text-base sm:text-lg text-white capitalize">
                         Experienced
                     </p>
-                    <p className="text-xs font-medium text-slate-400 mt-2 uppercase tracking-wider leading-relaxed">
+                    <p className="text-xs font-medium text-slate-400 mt-2 tracking-wider leading-relaxed">
                       Unlocks full database. Includes advanced loose substrates.
                     </p>
                 </button>
@@ -1631,7 +1632,7 @@ function LeopardGeckoBuilderContent() {
               </div>
 
               <div className="p-5">
-                <div className="space-y-2 mb-6 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+                <div className="space-y-2 mb-6 pr-2">
                   {allSelectedItems.length === 0 ? (
                     <div className="text-center py-12 opacity-60 animate-pulse">
                         <div className="mx-auto w-16 h-16 border-2 border-dashed border-slate-500/50 rounded-2xl mb-4 flex items-center justify-center bg-slate-800/30 backdrop-blur-sm">
@@ -1705,41 +1706,6 @@ function LeopardGeckoBuilderContent() {
               </div>
             </div>
 
-            <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-3xl p-6">
-              <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4 flex items-center gap-2">
-                 <AlertTriangle size={14} /> System Checks
-              </h3>
-
-              <div className="space-y-3">
-                {allSelectedItems.length === 0 ? (
-                      <p className="text-slate-500 text-xs italic">Waiting for input...</p>
-                ) : checks.messages.length === 0 ? (
-                    <div className="p-3 rounded-xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-200 text-xs flex gap-2">
-                        <CheckCircle2 size={16} /> All systems nominal.
-                    </div>
-                ) : (
-                    checks.messages.map((c, i) => (
-                    <div
-                        key={i}
-                        className={`flex gap-3 p-3 rounded-xl border text-xs font-medium leading-relaxed ${
-                        c.level === "error"
-                            ? "bg-red-500/10 border-red-500/20 text-red-200"
-                            : c.level === "warning"
-                            ? "bg-amber-500/10 border-amber-500/20 text-amber-200"
-                            : "bg-emerald-500/10 border-emerald-500/20 text-emerald-200"
-                        }`}
-                    >
-                        <div className="shrink-0 mt-0.5">
-                            {c.level === "error" && <XCircle size={14} />}
-                            {c.level === "warning" && <AlertTriangle size={14} />}
-                            {c.level === "ok" && <CheckCircle2 size={14} />}
-                        </div>
-                        {c.text}
-                    </div>
-                    ))
-                )}
-              </div>
-            </div>
           </aside>
         </div>
 
@@ -1847,9 +1813,62 @@ function LeopardGeckoBuilderContent() {
 export default function LeopardGeckoBuilder() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
-        <div className="text-white text-lg">Loading...</div>
-      </div>
+      <main className="relative min-h-screen pb-20 px-6 text-slate-200">
+        <div className="relative z-10 max-w-5xl mx-auto pt-8 space-y-6">
+          <section className="rounded-3xl border border-white/10 bg-slate-900/60 backdrop-blur-xl p-6 md:p-8">
+            <h1 className="text-3xl md:text-5xl font-black text-white tracking-tight mb-4">
+              Build a Complete Leopard Gecko Habitat
+            </h1>
+            <p className="text-slate-300 leading-relaxed">
+              Build a complete leopard gecko habitat with a 40-gallon breeder, safe heating, thermostat, UVB,
+              substrate, hides, supplements, and enrichment. This tool helps flag common unsafe choices like heat
+              rocks, calcium sand, and undersized enclosures.
+            </p>
+            <p className="text-slate-400 text-sm mt-3">
+              BuildMyHabitat is not a veterinary service. Our recommendations are based on published husbandry
+              research, welfare standards, and conservative safety rules.
+            </p>
+          </section>
+
+          <section className="grid md:grid-cols-2 gap-6">
+            <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/10 p-5">
+              <h2 className="text-lg font-bold text-white mb-3">Setup Checklist</h2>
+              <ul className="space-y-2 text-sm text-slate-200">
+                <li>- 40-gallon breeder or larger enclosure</li>
+                <li>- Primary heat source + thermostat control</li>
+                <li>- Optional UVB with correct calcium strategy</li>
+                <li>- Safe substrate and 3-hide layout</li>
+                <li>- Supplements, enrichment, and monitoring tools</li>
+              </ul>
+            </div>
+            <div className="rounded-2xl border border-amber-500/20 bg-amber-500/10 p-5">
+              <h2 className="text-lg font-bold text-white mb-3">Safety Warnings</h2>
+              <ul className="space-y-2 text-sm text-slate-200">
+                <li>- Blocked: calcium sand can create husbandry and ingestion risks.</li>
+                <li>- Blocked: heat rocks can cause serious thermal burns.</li>
+                <li>- Blocked: undersized enclosures can increase chronic stress.</li>
+                <li>- Reptile carpet is discouraged in conservative hygiene-first setups.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section className="rounded-2xl border border-white/10 bg-slate-900/50 p-5">
+            <h2 className="text-lg font-bold text-white mb-3">Related Guides</h2>
+            <div className="flex flex-wrap gap-3 text-sm">
+              <a href="/guides/leopard-gecko-setup" className="px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10">Complete Setup Guide</a>
+              <a href="/guides/leopard-gecko-substrate" className="px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10">Substrate Safety Guide</a>
+              <a href="/guides/leopard-gecko-heating-guide" className="px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10">Heating Guide</a>
+            </div>
+          </section>
+
+          <div className="text-center pt-2">
+            <p className="text-slate-300 mb-3">Use the interactive builder to personalize your enclosure and shopping list.</p>
+            <div className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-emerald-600/90 text-white font-bold">
+              Loading interactive builder...
+            </div>
+          </div>
+        </div>
+      </main>
     }>
       <LeopardGeckoBuilderContent />
     </Suspense>
@@ -2132,10 +2151,11 @@ function HeatingSection({ heating, selectedIds, selectedVariants, onToggle, onVa
         const maxPrice = Math.max(...prices);
         const priceRange = minPrice === maxPrice ? `$${minPrice.toFixed(2)}` : `$${minPrice.toFixed(2)} - $${maxPrice.toFixed(2)}`;
         
-        // Check if this variant group is required (only Halogen or DHP, NOT under tank heater)
-        const isRequired = (group.baseName.includes("Halogen") || group.baseName.includes("Flood Lamp") || 
-                           group.baseName.includes("Deep Heat") || group.baseName.includes("DHP")) &&
-                           !group.baseName.includes("Under Tank Heater");
+        // Heat source groups are informationally required within this category,
+        // but only thermostat gets the strict REQUIRED (SAFETY) badge.
+        const isHeatSourceGroup = (group.baseName.includes("Halogen") || group.baseName.includes("Flood Lamp") ||
+                                  group.baseName.includes("Deep Heat") || group.baseName.includes("DHP")) &&
+                                  !group.baseName.includes("Under Tank Heater");
         
         return (
           <VariantCard
@@ -2147,7 +2167,8 @@ function HeatingSection({ heating, selectedIds, selectedVariants, onToggle, onVa
             selectedVariant={variantSelection?.variant}
             isCheckbox={true}
             isSizeOnly={true}
-            isRequired={isRequired}
+            isRequired={false}
+            infoBadge={isHeatSourceGroup ? "Heat Source" : null}
             onVariantChange={(variant) => {
               const variantItem = group.variants.find(v => v.variant === variant);
               if (variantItem) {
@@ -2411,7 +2432,7 @@ function HidesSection({ hides, selectedIds, selectedVariants, onToggle, onVarian
   );
 }
 
-function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVariant, onVariantChange, onSelect, isCheckbox = false, isSizeOnly = false, productId, isRequired = false, sublabel }) {
+function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVariant, onVariantChange, onSelect, isCheckbox = false, isSizeOnly = false, productId, isRequired = false, sublabel, infoBadge = null }) {
   const selectedVariantItem = selectedVariant 
     ? variants.find(v => v.variant === selectedVariant)
     : null;
@@ -2470,8 +2491,8 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
     <div
       className={`group relative isolate p-6 rounded-3xl border-2 transition-all duration-300 cursor-pointer overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
         isActive
-          ? "border-emerald-500/80 bg-gradient-to-br from-emerald-500/15 via-emerald-500/10 to-slate-900/60 shadow-[0_0_40px_-5px_rgba(16,185,129,0.4)] shadow-emerald-500/20 scale-[1.02] z-10"
-          : "border-slate-700/60 bg-gradient-to-br from-slate-900/70 via-slate-900/50 to-slate-900/70 hover:border-emerald-500/40 hover:bg-gradient-to-br hover:from-slate-800/70 hover:via-slate-800/50 hover:to-slate-800/70 hover:shadow-lg hover:shadow-emerald-500/10"
+          ? "border-2 border-emerald-400 bg-emerald-500/15 shadow-[0_0_20px_-5px_rgba(16,185,129,0.4)]"
+          : "border-2 border-slate-700/50 hover:border-slate-500/70 bg-gradient-to-br from-slate-900/70 via-slate-900/50 to-slate-900/70 hover:bg-gradient-to-br hover:from-slate-800/70 hover:via-slate-800/50 hover:to-slate-800/70 hover:shadow-lg hover:shadow-emerald-500/10"
       }`}
       onClick={onSelect}
       tabIndex={0}
@@ -2500,7 +2521,6 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
             }`}
           >
             {isActive && <CheckCircle2 size={16} className="text-white drop-shadow-sm" />}
-            {showRequired && <AlertTriangle size={14} className="text-amber-400 drop-shadow-sm shrink-0" />}
           </div>
 
           <div className="flex-1 min-w-0">
@@ -2508,7 +2528,14 @@ function VariantCard({ baseLabel, priceRange, variants, isActive, selectedVarian
               <div className={`font-bold text-lg transition-colors flex-1 min-w-0 ${isActive ? "text-white drop-shadow-sm" : "text-slate-200 group-hover:text-white"}`}>
                 <div style={{ wordBreak: 'normal', overflowWrap: 'normal' }}>{baseLabel}</div>
                 {showRequired && (
-                  <span className="ml-0 mt-1 inline-flex items-center gap-1 text-xs font-semibold text-amber-100 uppercase tracking-wide bg-amber-500/30 border border-amber-500/50 rounded-full px-2 py-0.5 whitespace-nowrap">Required (Safety)</span>
+                  <span className="inline-flex items-center gap-1 text-xs text-slate-400">
+                    <Lock size={10} /> Required
+                  </span>
+                )}
+                {infoBadge && (
+                  <span className="ml-0 mt-1 inline-flex items-center gap-1 text-xs font-semibold text-sky-200 bg-sky-500/15 border border-sky-400/30 rounded-full px-2 py-0.5 whitespace-nowrap">
+                    {infoBadge}
+                  </span>
                 )}
                 {sublabel === "Advanced" && (
                   <span className="ml-0 mt-1 inline-block text-xs font-semibold text-purple-400 uppercase tracking-wide bg-purple-500/20 px-2 py-0.5 rounded-full border border-purple-500/30 whitespace-nowrap">Advanced</span>
@@ -2588,8 +2615,8 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
       onClick={onClick}
       className={`group relative isolate p-6 rounded-3xl border-2 cursor-pointer transition-all duration-300 overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
         active
-          ? "border-emerald-500/80 bg-gradient-to-br from-emerald-500/15 via-emerald-500/10 to-slate-900/60 shadow-[0_0_40px_-5px_rgba(16,185,129,0.4)] shadow-emerald-500/20 scale-[1.02] z-10"
-          : "border-slate-700/60 bg-gradient-to-br from-slate-900/70 via-slate-900/50 to-slate-900/70 hover:border-emerald-500/40 hover:bg-gradient-to-br hover:from-slate-800/70 hover:via-slate-800/50 hover:to-slate-800/70 hover:shadow-lg hover:shadow-emerald-500/10"
+          ? "border-2 border-emerald-400 bg-emerald-500/15 shadow-[0_0_20px_-5px_rgba(16,185,129,0.4)]"
+          : "border-2 border-slate-700/50 hover:border-slate-500/70 bg-gradient-to-br from-slate-900/70 via-slate-900/50 to-slate-900/70 hover:bg-gradient-to-br hover:from-slate-800/70 hover:via-slate-800/50 hover:to-slate-800/70 hover:shadow-lg hover:shadow-emerald-500/10"
       }`}
     >
       {/* Premium accent line - no orange for required */}
@@ -2606,7 +2633,9 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
           </span>
         )}
         {showRequired && (
-          <span className="inline-flex items-center gap-1 text-xs font-semibold text-amber-100 uppercase tracking-wide bg-amber-500/30 border border-amber-500/50 rounded-full px-2 py-0.5 whitespace-nowrap shrink-0">Required (Safety)</span>
+          <span className="inline-flex items-center gap-1 text-xs text-slate-400">
+            <Lock size={10} /> Required
+          </span>
         )}
         {sublabel === "Recommended" && (
           <span className="inline-block text-xs font-semibold text-emerald-400 uppercase tracking-wide bg-emerald-500/20 px-2 py-0.5 rounded-full border border-emerald-500/30 whitespace-nowrap shrink-0">Recommended</span>
@@ -2623,7 +2652,6 @@ function SelectionCard({ active, label, sublabel, price, onClick, type, productI
             }`}
           >
             {active && <CheckCircle2 size={16} className="text-white drop-shadow-sm" />}
-            {showRequired && <AlertTriangle size={14} className="text-amber-400 drop-shadow-sm shrink-0" />}
           </div>
 
           <div className="flex-1 min-w-0">

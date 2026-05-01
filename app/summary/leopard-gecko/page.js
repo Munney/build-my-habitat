@@ -29,6 +29,7 @@ import { EmailCaptureInline, EmailCapturePopup, ExitIntentTracker } from "../../
 import { SocialShare } from "../../components/SocialShare";
 import { CareInstructions } from "../../components/CareInstructions";
 import SeoSchemaItemList from "../../components/SeoSchemaItemList";
+import AffiliateDisclosure from "../../components/AffiliateDisclosure";
 
 const AFFILIATE_TAG = "habitatbuilde-20";
 
@@ -337,18 +338,6 @@ function SummaryContent() {
             <ShoppingCart size={20} className="drop-shadow-sm shrink-0" />
             Open Complete Gecko Setup Cart on Amazon →
           </a>
-          <p className="text-xs text-slate-400 mt-2 relative z-10">Opens a pre-filled Amazon cart with all recommended items.</p>
-          <p className="text-xs text-slate-400 relative z-10">Items will open directly in an Amazon cart ready to checkout</p>
-          <div className="h-1 relative z-10" />
-
-          {/* Price anchoring — above score to frame price before evaluation */}
-          <p className="text-xs text-slate-500 mt-6 max-w-lg mx-auto relative z-10">
-            Typical leopard gecko starter setups often cost $550–$700 when purchased separately.
-          </p>
-          <p className="text-xs text-slate-500 mb-2 max-w-lg mx-auto relative z-10">
-            This builder selects compatible equipment to avoid wasted purchases and unsafe combinations.
-          </p>
-
           {/* Habitat Safety Score — real score */}
           <div className="mt-6 relative z-10 max-w-md mx-auto px-5 py-4 rounded-2xl bg-emerald-500/15 border border-emerald-400/40 shadow-lg shadow-emerald-900/20 text-center">
             <p className="text-[11px] uppercase tracking-[0.2em] font-black text-emerald-200 mb-2">
@@ -398,6 +387,18 @@ function SummaryContent() {
               </div>
             </details>
           </div>
+          <p className="text-xs text-slate-400 mt-2 relative z-10">Opens a pre-filled Amazon cart with all recommended items.</p>
+          <p className="text-xs text-slate-400 relative z-10">Items will open directly in an Amazon cart ready to checkout</p>
+          <AffiliateDisclosure className="mt-2 relative z-10 text-left" />
+          <div className="h-1 relative z-10" />
+
+          {/* Price anchoring — above score to frame price before evaluation */}
+          <p className="text-xs text-slate-500 mt-6 max-w-lg mx-auto relative z-10">
+            Typical leopard gecko starter setups often cost $550–$700 when purchased separately.
+          </p>
+          <p className="text-xs text-slate-500 mb-2 max-w-lg mx-auto relative z-10">
+            This builder selects compatible equipment to avoid wasted purchases and unsafe combinations.
+          </p>
 
           {/* Micro trust signals */}
           <div className="mt-4 flex flex-wrap justify-center gap-x-6 gap-y-2 text-left relative z-10">

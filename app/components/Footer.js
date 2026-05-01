@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Github, Twitter, Heart, ArrowLeft } from "lucide-react";
+import { Github, Twitter, ArrowLeft } from "lucide-react";
 
 export default function Footer({ variant = "full" }) {
   // Minimal footer for guides and builder flows
@@ -12,9 +12,11 @@ export default function Footer({ variant = "full" }) {
             <span className="hidden md:inline">•</span>
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <span className="hidden md:inline">•</span>
+            <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
+            <span className="hidden md:inline">•</span>
             <Link href="/about" className="hover:text-white transition-colors">The Standard</Link>
             <span className="hidden md:inline">•</span>
-            <span className="opacity-70">Not professional veterinary advice.</span>
+            <span className="opacity-70">Not a veterinary service.</span>
           </div>
         </div>
       </footer>
@@ -40,6 +42,7 @@ export default function Footer({ variant = "full" }) {
           <ul className="space-y-2">
             <li><Link href="/build/leopard-gecko" className="hover:text-emerald-400 transition-colors">Leopard Gecko Build</Link></li>
             <li><Link href="/build/betta" className="hover:text-sky-400 transition-colors">Betta Fish Build</Link></li>
+            <li><Link href="/build/bearded-dragon" className="hover:text-emerald-400 transition-colors">Bearded Dragon Build</Link></li>
             <li><Link href="/browse" className="hover:text-white transition-colors">Part Browser</Link></li>
           </ul>
         </div>
@@ -54,6 +57,7 @@ export default function Footer({ variant = "full" }) {
             <li><Link href="/faq" className="hover:text-white transition-colors">FAQ</Link></li>
             <li><Link href="/about" className="hover:text-white transition-colors">The Standard</Link></li>
             <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
+            <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
           </ul>
         </div>
 
@@ -61,18 +65,24 @@ export default function Footer({ variant = "full" }) {
         <div className="space-y-4">
           <h4 className="font-bold text-white">Connect</h4>
           <div className="flex gap-4">
-            <span className="p-2 bg-white/5 rounded-full text-slate-500"><Twitter size={18} /></span>
-            <span className="p-2 bg-white/5 rounded-full text-slate-500"><Github size={18} /></span>
+            <a href="https://twitter.com/buildmyhabitat" target="_blank" rel="noopener noreferrer"
+              className="p-2 bg-white/5 hover:bg-white/10 rounded-full text-slate-400 hover:text-white transition-colors">
+              <Twitter size={18} />
+            </a>
+            <a href="https://reddit.com/r/reptiles" target="_blank" rel="noopener noreferrer"
+              className="p-2 bg-white/5 hover:bg-white/10 rounded-full text-slate-400 hover:text-white transition-colors">
+              <Github size={18} />
+            </a>
           </div>
-          <p className="flex items-center gap-1 text-xs mt-4">
-            Made with <Heart size={12} className="text-red-500 fill-red-500" /> for pets.
+          <p className="text-xs text-slate-500 mt-2">
+            Questions? <a href="mailto:buildmyhabitat@gmail.com" className="hover:text-white transition-colors underline">buildmyhabitat@gmail.com</a>
           </p>
         </div>
       </div>
       
       {/* Copyright Bar */}
       <div className="border-t border-white/5 py-6 text-center text-xs opacity-60">
-        &copy; {new Date().getFullYear()} BuildMyHabitat. Not professional veterinary advice.
+        &copy; 2026 BuildMyHabitat · Made with ❤️ for pets · Not a veterinary service.
       </div>
     </footer>
   );
