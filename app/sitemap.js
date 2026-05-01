@@ -30,6 +30,18 @@ export default async function sitemap() {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/summary/leopard-gecko`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/summary/betta`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/summary/bearded-dragon`,
       lastModified: now,
       changeFrequency: 'weekly',
@@ -244,12 +256,6 @@ export default async function sitemap() {
       lastModified: now,
       changeFrequency: 'yearly',
       priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/my-builds`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.5,
     },
   ];
 }
