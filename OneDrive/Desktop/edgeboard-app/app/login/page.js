@@ -6,18 +6,26 @@ import { createClient } from '../../lib/supabase/client';
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState('idle'); // idle | sending | sent | error
+  const [errorMsg, setErrorMsg] = useState('');
 
   async function handleSubmit(e) {
     e.preventDefault();
     setStatus('sending');
+    setErrorMsg('');
     const supabase = createClient();
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
-        emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/scanner`,
+        emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback?next=/scanner`,
       },
     });
-    setStatus(error ? 'error' : 'sent');
+    if (error) {
+      console.error('signInWithOtp error:', error);
+      setErrorMsg(error.message || 'Unknown error');
+      setStatus('error');
+    } else {
+      setStatus('sent');
+    }
   }
 
   return (
@@ -45,7 +53,7 @@ export default function LoginPage() {
           </button>
           {status === 'error' && (
             <p className="mono" style={{ color: 'var(--red)', fontSize: 13 }}>
-              Something went wrong — try again.
+              {errorMsg || 'Something went wrong — try again.'}
             </p>
           )}
         </form>
