@@ -432,12 +432,191 @@ export function calculateBeardedDragonHabitatScore(selections) {
 }
 
 /**
+ * Ball Python: 100 pts — Enclosure 20, Heating+thermostat 25, Humidity 15, Hides 15, Substrate 10, Water+monitoring 10, UVB 5
+ * Adult minimum 4×2×2; overhead heat + thermostat required; 3 hides; 60–80% humidity.
+ */
+export function calculateBallPythonHabitatScore(selections) {
+  const checks = [];
+  const warnings = [];
+  const missingEssentials = [];
+  let score = 0;
+
+  const enclosure = selections?.enclosure;
+  const enclosureSize =
+    enclosure?.size ??
+    (enclosure?.name ? parseInt(enclosure.name.match(/\d+/)?.[0], 10) : 0) ??
+    (enclosure?.label ? parseInt(enclosure.label.match(/\d+/)?.[0], 10) : 0);
+
+  const encMax = 20;
+  let encPoints = 0;
+  let encMessage;
+  if (enclosureSize >= 120 || enclosure?.id === "pvc4x2x2" || enclosure?.id === "pvc4x4x2" || enclosure?.id === "120gal") {
+    encPoints = 20;
+    encMessage = "You received full points for enclosure size. ReptiFiles adult minimum is 4×2×2 (48\"L x 24\"W x 24\"H).";
+  } else if (enclosure?.id === "40gal" || enclosureSize === 40) {
+    encPoints = 6;
+    encMessage = "40 gallon is below the ReptiFiles minimum for adult ball pythons. We recommend at least a 4x2x2.";
+    missingEssentials.push("Larger enclosure (4×2×2 / 120 gal minimum)");
+    warnings.push("40 gallon is juvenile-only.");
+  } else if (enclosure) {
+    encPoints = 8;
+    encMessage = "Select at least a 4×2×2 (120 gallon) enclosure for an adult ball python.";
+    missingEssentials.push("Larger enclosure (4×2×2 minimum)");
+  } else {
+    encMessage = "Select an enclosure to get started.";
+    missingEssentials.push("Enclosure");
+  }
+  score += encPoints;
+  checks.push({ key: "enclosure", label: "Enclosure size", passed: encPoints >= 20, points: encPoints, maxPoints: encMax, message: encMessage });
+
+  const heating = selections?.heating || [];
+  const hasThermostat = heating.some((h) => h && h.id === "thermostat");
+  const hasPrimaryHeat = heating.some((h) =>
+    h && ["halogen-flood", "deep-heat-projector", "ceramic-heat-emitter", "radiant-heat-panel"].includes(h.id)
+  );
+  const hasHeatMat = heating.some((h) => h && h.id === "heat-mat");
+  const heatMax = 25;
+  let heatPoints = 0;
+  let heatMessage;
+  if (hasPrimaryHeat && hasThermostat) {
+    heatPoints = 25;
+    heatMessage = "Overhead heat source and thermostat selected. Warm hide target: 90-95°F. Cool side: 75-80°F.";
+    if (hasHeatMat) warnings.push("Heat mat is supplemental only in adult enclosures.");
+  } else if (hasHeatMat && hasThermostat && !hasPrimaryHeat) {
+    heatPoints = 8;
+    heatMessage = "Heat mats are supplemental only in adult enclosures. Add a primary overhead heat source.";
+    missingEssentials.push("Primary overhead heat source");
+  } else if (hasPrimaryHeat) {
+    heatPoints = 0;
+    heatMessage = "A thermostat is required. Unregulated heat causes burns and overheating.";
+    missingEssentials.push("Thermostat");
+  } else if (hasThermostat) {
+    heatPoints = 8;
+    heatMessage = "Add a primary overhead heat source with your thermostat.";
+    missingEssentials.push("Primary overhead heat source");
+  } else {
+    heatMessage = "Add overhead heat and a thermostat. Probe goes inside the warm hide at snake level.";
+    missingEssentials.push("Primary overhead heat source", "Thermostat");
+  }
+  score += heatPoints;
+  checks.push({ key: "heating", label: "Heating + thermostat", passed: heatPoints >= 25, points: heatPoints, maxPoints: heatMax, message: heatMessage });
+
+  const humidity = selections?.humidity || [];
+  const hasMoss = humidity.some((h) => h && h.id === "sphagnum-moss");
+  const hasHygrometer = humidity.some((h) => h && h.id === "hygrometer");
+  const hasMister = humidity.some((h) => h && (h.id === "pressure-sprayer" || h.id === "auto-mister"));
+  const humidMax = 15;
+  let humidPoints = 0;
+  let humidMessage;
+  if (hasMoss && hasHygrometer && hasMister) {
+    humidPoints = 15;
+    humidMessage = "Humidity tools selected. Target 60-80% ambient daytime and 80-100% in the humid hide.";
+  } else if (humidity.length > 0) {
+    humidPoints = 6;
+    humidMessage = "Add sphagnum moss, a hygrometer, and a sprayer or automatic mister to hold 60-80% humidity.";
+    if (!hasMoss) missingEssentials.push("Sphagnum moss");
+    if (!hasHygrometer) missingEssentials.push("Hygrometer");
+    if (!hasMister) missingEssentials.push("Misting tool");
+  } else {
+    humidMessage = "Add humidity tools. Target 60-80% ambient humidity and 80-100% in the humid hide.";
+    missingEssentials.push("Humidity tools");
+  }
+  score += humidPoints;
+  checks.push({ key: "humidity", label: "Humidity tools", passed: humidPoints >= 15, points: humidPoints, maxPoints: humidMax, message: humidMessage });
+
+  const hides = selections?.hides || [];
+  const hideIds = new Set(hides.map((h) => h?.id).filter(Boolean));
+  const hasWarm = hideIds.has("warm-hide");
+  const hasCool = hideIds.has("cool-hide");
+  const hasHumid = hideIds.has("humid-hide");
+  const hideMax = 15;
+  let hidePoints = hasWarm && hasCool && hasHumid ? 15 : (hasWarm || hasCool || hasHumid) ? 6 : 0;
+  let hideMessage;
+  if (hasWarm && hasCool && hasHumid) hideMessage = "All 3 essential hides (warm 90-95°F, cool 75-80°F, humid) selected.";
+  else if (hides.length > 0) {
+    hideMessage = "Warm, cool, and humid hides are all required.";
+    if (!hasWarm) missingEssentials.push("Warm hide");
+    if (!hasCool) missingEssentials.push("Cool hide");
+    if (!hasHumid) missingEssentials.push("Humid hide");
+  } else {
+    hideMessage = "Add warm, cool, and humid hides.";
+    missingEssentials.push("3 essential hides");
+  }
+  score += hidePoints;
+  checks.push({ key: "hides", label: "Essential hides", passed: hidePoints >= 15, points: hidePoints, maxPoints: hideMax, message: hideMessage });
+
+  const sub = selections?.substrate;
+  const subMax = 10;
+  let subPoints = 0;
+  let subMessage;
+  if (sub) {
+    if (sub.id === "paper-towels") {
+      subPoints = 4;
+      subMessage = "Paper towels are quarantine/hatchling use only and do not hold humidity for adults.";
+      warnings.push("Adults need 4\" of moisture-retentive substrate.");
+    } else {
+      subPoints = 10;
+      subMessage = "Moisture-retentive substrate selected. Keep at least 4\" deep.";
+    }
+  } else {
+    subMessage = "Select a 4\"+ moisture-retentive substrate. Avoid cedar, pine, and reptile carpet.";
+    missingEssentials.push("Substrate");
+  }
+  score += subPoints;
+  checks.push({ key: "substrate", label: "Substrate", passed: subPoints >= 10, points: subPoints, maxPoints: subMax, message: subMessage });
+
+  const water = selections?.water || [];
+  const monitoring = selections?.monitoring || [];
+  const hasBowl = water.some((w) => w && w.id === "large-water-bowl");
+  const hasGun = monitoring.some((m) => m && m.id === "temp-gun");
+  const waterMax = 10;
+  let waterPoints = hasBowl && hasGun ? 10 : hasBowl || hasGun ? 5 : 0;
+  let waterMessage;
+  if (hasBowl && hasGun) waterMessage = "Soaking water bowl and infrared temp gun selected.";
+  else {
+    waterMessage = "Add a large soaking water bowl and a temperature gun (warm hide 90-95°F, cool side 75-80°F).";
+    if (!hasBowl) missingEssentials.push("Large soaking water bowl");
+    if (!hasGun) missingEssentials.push("Infrared temperature gun");
+  }
+  score += waterPoints;
+  checks.push({ key: "water", label: "Water & monitoring", passed: waterPoints >= 10, points: waterPoints, maxPoints: waterMax, message: waterMessage });
+
+  const uvb = selections?.uvb;
+  const uvbMax = 5;
+  let uvbPoints = 0;
+  let uvbMessage;
+  if (uvb && uvb.id && uvb.id !== "no-uvb") {
+    uvbPoints = 5;
+    uvbMessage = "UVB selected. ReptiFiles recommends T5 HO 6% spanning the warm half of the enclosure.";
+  } else if (uvb?.id === "no-uvb") {
+    uvbPoints = 1;
+    uvbMessage = "UVB skipped. Ball pythons can survive without it, but ReptiFiles strongly recommends UVB for welfare.";
+    warnings.push("UVB is strongly recommended.");
+  } else {
+    uvbMessage = "Add T5 HO 6% UVB spanning the warm half of the enclosure.";
+    warnings.push("UVB is strongly recommended.");
+  }
+  score += uvbPoints;
+  checks.push({ key: "uvb", label: "UVB lighting", passed: uvbPoints >= 5, points: uvbPoints, maxPoints: uvbMax, message: uvbMessage });
+
+  return {
+    score: Math.min(score, MAX_SCORE),
+    maxScore: MAX_SCORE,
+    label: getScoreLabel(score),
+    checks,
+    warnings,
+    missingEssentials: [...new Set(missingEssentials)],
+  };
+}
+
+/**
  * Shared wrapper: returns score result for the given species.
  */
 export function calculateHabitatScore(species, selections) {
   if (species === "betta") return calculateBettaHabitatScore(selections);
   if (species === "leopard-gecko") return calculateGeckoHabitatScore(selections);
   if (species === "bearded-dragon") return calculateBeardedDragonHabitatScore(selections);
+  if (species === "ball-python") return calculateBallPythonHabitatScore(selections);
   return {
     score: 0,
     maxScore: MAX_SCORE,

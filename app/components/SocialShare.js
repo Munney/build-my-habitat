@@ -3,10 +3,19 @@
 import { useState, useEffect } from "react";
 import { Share2, Facebook, Twitter, Copy, Check, Link2, MessageCircle } from "lucide-react";
 
+function speciesShareCopy(species) {
+  if (species === "betta") return { title: "Betta Fish", short: "betta fish" };
+  if (species === "bearded-dragon") return { title: "Bearded Dragon", short: "bearded dragon" };
+  if (species === "ball-python") return { title: "Ball Python", short: "ball python" };
+  return { title: "Leopard Gecko", short: "leopard gecko" };
+}
+
 export function SocialShare({ buildName, total, species, shareUrl }) {
   const [linkCopied, setLinkCopied] = useState(false);
   const [showShareMenu, setShowShareMenu] = useState(false);
   const [hasNativeShare, setHasNativeShare] = useState(false);
+
+  const { title: speciesTitle, short: speciesShort } = speciesShareCopy(species);
 
   useEffect(() => {
     setHasNativeShare(typeof navigator !== "undefined" && !!navigator.share);
@@ -35,8 +44,8 @@ export function SocialShare({ buildName, total, species, shareUrl }) {
     if (typeof window !== "undefined" && navigator.share) {
       try {
         await navigator.share({
-          title: `My ${species === "betta" ? "Betta Fish" : "Leopard Gecko"} Habitat Build - $${total}`,
-          text: `Check out my safe ${species === "betta" ? "betta fish" : "leopard gecko"} setup! Built with BuildMyHabitat.`,
+          title: `My ${speciesTitle} Habitat Build - $${total}`,
+          text: `Check out my safe ${speciesShort} setup! Built with BuildMyHabitat.`,
           url: shareUrl || window.location.href,
         });
 
@@ -67,7 +76,7 @@ export function SocialShare({ buildName, total, species, shareUrl }) {
   };
 
   const shareToTwitter = () => {
-    const text = encodeURIComponent(`Check out my ${species === "betta" ? "betta fish" : "leopard gecko"} setup! Built with BuildMyHabitat - $${total}`);
+    const text = encodeURIComponent(`Check out my ${speciesShort} setup! Built with BuildMyHabitat - $${total}`);
     const url = encodeURIComponent(shareUrl || window.location.href);
     window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, "_blank", "width=600,height=400");
 
@@ -81,7 +90,7 @@ export function SocialShare({ buildName, total, species, shareUrl }) {
   };
 
   const shareToReddit = () => {
-    const title = encodeURIComponent(`My ${species === "betta" ? "Betta Fish" : "Leopard Gecko"} Setup - $${total}`);
+    const title = encodeURIComponent(`My ${speciesTitle} Setup - $${total}`);
     const url = encodeURIComponent(shareUrl || window.location.href);
     window.open(`https://reddit.com/submit?title=${title}&url=${url}`, "_blank", "width=600,height=400");
 

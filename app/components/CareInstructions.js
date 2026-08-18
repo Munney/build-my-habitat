@@ -122,6 +122,65 @@ export function CareInstructions({ species }) {
         }
       ]
     },
+    "ball-python": {
+      title: "When You Get Your Ball Python",
+      icon: <Heart size={24} className="text-emerald-400" />,
+      color: "emerald",
+      sections: [
+        {
+          title: "Acclimation Period",
+          icon: <Calendar size={18} />,
+          items: [
+            "Give your snake 7–14 days to settle before handling",
+            "Keep handling minimal during the first two weeks",
+            "Confirm temperatures and humidity before bringing them home",
+            "Do not offer food until they have had several days to settle"
+          ]
+        },
+        {
+          title: "Temperature Setup",
+          icon: <Thermometer size={18} />,
+          items: [
+            "Warm hide: 90-95°F",
+            "Warm side ambient: 88-92°F",
+            "Cool side: 75-80°F",
+            "Night drop: no lower than 72°F",
+            "Always use a thermostat; place the probe inside the warm hide at snake level — not on a heat mat surface"
+          ]
+        },
+        {
+          title: "Humidity & Hydration",
+          icon: <Droplet size={18} />,
+          items: [
+            "Ambient humidity: 60-80% daytime, 80-100% at night",
+            "Humid hide: 80-100% always, lined with damp sphagnum moss",
+            "Keep substrate at least 4\" deep to hold moisture",
+            "Provide a large soaking water bowl and change water every 2-3 days"
+          ]
+        },
+        {
+          title: "Feeding Schedule",
+          icon: <Utensils size={18} />,
+          items: [
+            "Hatchlings: feed every 5–7 days",
+            "Adults: feed every 10–14 days",
+            "Offer appropriately sized prey (about as wide as the thickest part of the snake)",
+            "Do not handle for 48 hours after feeding"
+          ]
+        },
+        {
+          title: "Important Reminders",
+          icon: <AlertCircle size={18} />,
+          items: [
+            "Adult minimum enclosure is 4x2x2 (48\"L x 24\"W x 24\"H)",
+            "Never use heat without a thermostat",
+            "Heat mats are supplemental only — not a primary heat source for adults",
+            "3 hides minimum: warm, cool, and humid",
+            "Avoid cedar, pine, reptile carpet, aspen shavings, calcium sand, and gravel"
+          ]
+        }
+      ]
+    },
     "betta": {
       title: "When You Get Your Betta Fish",
       icon: <Heart size={24} className="text-blue-400" />,
