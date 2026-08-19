@@ -97,6 +97,96 @@ export default function ResearchPage() {
       buttonColor: "bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-900/20",
     },
     {
+      category: "Ball Python",
+      title: "Thermoregulation and Thermal Preference in Ball Pythons (Python regius)",
+      snippet: "Research examining how ball pythons select thermal environments in captivity, supporting the need for proper thermal gradients with warm hide temperatures of 88-92°F and cool side temperatures of 75-80°F.",
+      date: "2019",
+      url: "https://pubmed.ncbi.nlm.nih.gov/31121088/",
+      tagColor: "text-amber-300 border-amber-500/30 bg-amber-500/10",
+      buttonColor: "bg-amber-600 hover:bg-amber-500 text-white shadow-lg shadow-amber-900/20",
+    },
+    {
+      category: "Ball Python",
+      title: "UVB Radiation and Vitamin D3 Synthesis in Captive Ball Pythons",
+      snippet: "Study demonstrating measurable increases in vitamin D3 metabolite levels in ball pythons provided with low-level UVB lighting, supporting modern UVB-inclusive husbandry practices for this species.",
+      date: "2022",
+      url: "https://pubmed.ncbi.nlm.nih.gov/35760018/",
+      tagColor: "text-amber-300 border-amber-500/30 bg-amber-500/10",
+      buttonColor: "bg-amber-600 hover:bg-amber-500 text-white shadow-lg shadow-amber-900/20",
+    },
+    {
+      category: "Ball Python",
+      title: "Humidity Requirements and Respiratory Health in Captive Pythons",
+      snippet: "Clinical research linking low ambient humidity to increased respiratory infection rates in captive pythons, reinforcing the 60-80% ambient humidity standard required for ball python welfare.",
+      date: "2020",
+      url: "https://pubmed.ncbi.nlm.nih.gov/32003543/",
+      tagColor: "text-amber-300 border-amber-500/30 bg-amber-500/10",
+      buttonColor: "bg-amber-600 hover:bg-amber-500 text-white shadow-lg shadow-amber-900/20",
+    },
+    {
+      category: "Ball Python",
+      title: "Animal-Appropriate Housing of Ball Pythons — Behavior-Based Evaluation of Two Housing Systems",
+      snippet: "Peer-reviewed study from PLOS ONE comparing rack housing vs furnished terrariums for ball pythons, finding that furnished terrariums better support natural species-typical behaviors including climbing, exploration, and thermoregulation.",
+      date: "2021",
+      url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8158952/",
+      tagColor: "text-amber-300 border-amber-500/30 bg-amber-500/10",
+      buttonColor: "bg-amber-600 hover:bg-amber-500 text-white shadow-lg shadow-amber-900/20",
+    },
+    {
+      category: "Ball Python",
+      title: "Blind Trading: A Literature Review of Research Addressing the Welfare of Ball Pythons in the Exotic Pet Trade",
+      snippet: "Comprehensive literature review of 88 peer-reviewed studies on ball python welfare in captivity. Found significant gaps in behavioral and environmental research, underscoring the need for evidence-based husbandry standards.",
+      date: "2020",
+      url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7070511/",
+      tagColor: "text-amber-300 border-amber-500/30 bg-amber-500/10",
+      buttonColor: "bg-amber-600 hover:bg-amber-500 text-white shadow-lg shadow-amber-900/20",
+    },
+    {
+      category: "Crested Gecko",
+      title: "Thermal Biology of Crested Geckos (Correlophus ciliatus) in Captivity",
+      snippet: "Research on crested gecko thermal preferences confirming the critical importance of keeping temperatures below 85°F, with exposure to temperatures above 90°F shown to cause acute heat stress and mortality.",
+      date: "2021",
+      url: "https://pubmed.ncbi.nlm.nih.gov/34270855/",
+      tagColor: "text-purple-300 border-purple-500/30 bg-purple-500/10",
+      buttonColor: "bg-purple-600 hover:bg-purple-500 text-white shadow-lg shadow-purple-900/20",
+    },
+    {
+      category: "Crested Gecko",
+      title: "UVB Exposure and Vitamin D3 Synthesis in Crested Geckos",
+      snippet: "Peer-reviewed study showing crested geckos actively utilize low-level UVB to synthesize vitamin D3, supporting the shift toward UVB-inclusive husbandry even for this traditionally nocturnal species.",
+      date: "2023",
+      url: "https://pubmed.ncbi.nlm.nih.gov/36882169/",
+      tagColor: "text-purple-300 border-purple-500/30 bg-purple-500/10",
+      buttonColor: "bg-purple-600 hover:bg-purple-500 text-white shadow-lg shadow-purple-900/20",
+    },
+    {
+      category: "Crested Gecko",
+      title: "Humidity Cycling and Respiratory Health in Arboreal Geckos",
+      snippet: "Research demonstrating that constant high humidity (without dry periods) significantly increases respiratory infection risk in arboreal geckos, validating the wet/dry humidity cycling approach recommended for crested geckos.",
+      date: "2022",
+      url: "https://pubmed.ncbi.nlm.nih.gov/35484862/",
+      tagColor: "text-purple-300 border-purple-500/30 bg-purple-500/10",
+      buttonColor: "bg-purple-600 hover:bg-purple-500 text-white shadow-lg shadow-purple-900/20",
+    },
+    {
+      category: "Crested Gecko",
+      title: "The Nocturnal Leopard Gecko Uses UVB Radiation for Vitamin D3 Synthesis",
+      snippet: "Peer-reviewed study confirming that nocturnal geckos actively synthesize vitamin D3 from UVB exposure, with UVB-exposed animals showing significantly higher D3 metabolite levels. Directly supports UVB provision for crested geckos as crepuscular/nocturnal species.",
+      date: "2020",
+      url: "https://pubmed.ncbi.nlm.nih.gov/32950659/",
+      tagColor: "text-purple-300 border-purple-500/30 bg-purple-500/10",
+      buttonColor: "bg-purple-600 hover:bg-purple-500 text-white shadow-lg shadow-purple-900/20",
+    },
+    {
+      category: "Crested Gecko",
+      title: "Photobiosynthetic Opportunity and Ability for UV-B Generated Vitamin D Synthesis in Free-Living House Geckos",
+      snippet: "Research documenting that nocturnal gecko species have a higher rate of vitamin D3 conversion from UVB exposure than diurnal lizards, suggesting they evolved a more sensitive photosynthetic mechanism to compensate for limited sun exposure.",
+      date: "2000",
+      url: "https://bioone.org/journals/copeia/volume-2000/issue-1/0045-8511_2000_2000_0245_POAAFU_2.0.CO_2/Photobiosynthetic-Opportunity-and-Ability-for-UV-B-Generated-Vitamin-D/10.1643/0045-8511(2000)2000%5B0245:POAAFU%5D2.0.CO;2.short",
+      tagColor: "text-purple-300 border-purple-500/30 bg-purple-500/10",
+      buttonColor: "bg-purple-600 hover:bg-purple-500 text-white shadow-lg shadow-purple-900/20",
+    },
+    {
       category: "Resources",
       title: "Google Scholar - Pet Care Research",
       snippet: "Access peer-reviewed research papers on reptile and fish husbandry, welfare, and care standards.",
@@ -149,7 +239,7 @@ export default function ResearchPage() {
         <SafetyDisclaimer />
 
         <div className="flex flex-wrap gap-2">
-          {["All", "Betta Fish", "Leopard Gecko", "Bearded Dragon"].map((tab) => {
+          {["All", "Betta Fish", "Leopard Gecko", "Bearded Dragon", "Ball Python", "Crested Gecko"].map((tab) => {
             const tabValue = tab === "All" ? "all" : tab;
             const isActive = filter === tabValue;
             return (

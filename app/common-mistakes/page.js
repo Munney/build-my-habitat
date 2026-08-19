@@ -16,6 +16,8 @@ const SPECIES_TABS = [
   { key: "Leopard Gecko", label: "Leopard Gecko", icon: "🦎", color: "emerald" },
   { key: "Betta Fish", label: "Betta Fish", icon: "🐟", color: "blue" },
   { key: "Bearded Dragon", label: "Bearded Dragon", icon: "🦎", color: "emerald" },
+  { key: "Ball Python", label: "Ball Python", icon: "🐍", color: "amber" },
+  { key: "Crested Gecko", label: "Crested Gecko", icon: "🦎", color: "purple" },
 ];
 
 export default function CommonMistakesPage() {
@@ -183,6 +185,108 @@ export default function CommonMistakesPage() {
           link: "/build/bearded-dragon"
         }
       ]
+    },
+    {
+      category: "Ball Python",
+      color: "amber",
+      items: [
+        {
+          mistake: "40-Gallon Tank for Adults",
+          severity: "CRITICAL",
+          description: "40-gallon tanks are severely undersized for adult ball pythons. They prevent proper thermoregulation, cause chronic stress, and are directly linked to feeding refusal.",
+          why: "An adult ball python can reach 4-5 feet in length. A 40-gallon tank (36\" x 18\" x 18\") prevents the snake from fully stretching out and cannot provide a proper thermal gradient from warm to cool. Chronic stress from inadequate space suppresses the immune system and causes feeding strikes.",
+          solution: "Minimum 4×2×2 ft (48\" × 24\" × 24\") for adults. PVC enclosures are preferred for their superior humidity retention. Juvenile ball pythons can start in smaller enclosures but must be upgraded as they grow.",
+          research: "Reptile behavioral research links undersized enclosures to elevated stress hormones, reduced activity, and immune suppression. Ball pythons in appropriately sized enclosures show more natural exploratory behavior.",
+          link: "/build/ball-python"
+        },
+        {
+          mistake: "Heat Mat as Primary Heat Source",
+          severity: "HIGH",
+          description: "Heat mats alone are insufficient as the primary heat source in adult ball python enclosures. They only heat the floor surface and cannot warm the ambient air temperature to the required range.",
+          why: "Ball pythons need an ambient warm-side air temperature of 88-92°F and a warm hide surface of 90-95°F. Heat mats only raise the floor temperature and cannot achieve the ambient warmth needed for proper thermoregulation and digestion.",
+          solution: "Use an overhead heat source (halogen PAR38 flood bulb or Arcadia Deep Heat Projector) as the primary heat source. Heat mats can be used as supplemental heating only, always controlled by a thermostat with the probe inside the warm hide.",
+          research: "Ball pythons are ambush predators that bask under the sun in the wild. Overhead radiant heat more accurately mimics natural solar heating and promotes proper thermoregulation behavior.",
+          link: "/build/ball-python"
+        },
+        {
+          mistake: "No Thermostat",
+          severity: "CRITICAL",
+          description: "Unregulated heat sources in ball python enclosures can reach lethal temperatures. Every heat source — overhead lamps and heat mats — must be connected to a thermostat.",
+          why: "A halogen flood bulb without a thermostat can raise warm hide temperatures well above 100°F. Ball pythons that cannot escape extreme heat will suffer from heat stress and can die. The thermostat probe placement is also critical — it must be inside the warm hide at snake level.",
+          solution: "Use a thermostat on every heat source. Place the probe inside the warm hide where the snake rests, not on the heat mat surface. Set the thermostat to maintain 90-95°F inside the warm hide.",
+          research: "Unregulated heating is a leading cause of reptile burns and heat stress. Correct thermostat probe placement is as important as having a thermostat at all.",
+          link: "/build/ball-python"
+        },
+        {
+          mistake: "Low Humidity / No Humid Hide",
+          severity: "HIGH",
+          description: "Ball pythons require 60-80% ambient humidity and a dedicated humid hide for healthy shedding. Low humidity causes dysecdysis (stuck shed) which can cut off circulation to the tail and eyes.",
+          why: "In the wild, ball pythons live in humid West African savannas and burrow underground where humidity is near 100%. Captive environments with low humidity cause incomplete sheds that wrap around the body, toes, and eye caps — causing injury and blindness if not removed.",
+          solution: "Maintain 60-80% ambient humidity using a moisture-retentive substrate (4\" minimum depth) and a humid hide lined with damp sphagnum moss. Monitor with a digital hygrometer and mist as needed.",
+          research: "Dysecdysis from low humidity is one of the most common health issues in captive ball pythons. Veterinary literature documents severe cases including tail loss from constricting retained shed.",
+          link: "/build/ball-python"
+        },
+        {
+          mistake: "Feeding Live Prey",
+          severity: "HIGH",
+          description: "Live prey can seriously injure or kill ball pythons. Rodents will bite and scratch in self-defense, causing wounds that can become infected and life-threatening.",
+          why: "A live mouse or rat will fight back when threatened. Ball pythons have been found dead in enclosures with live rodents that turned on them. Even small wounds can become infected and abscess. Frozen/thawed prey is safer, more humane, and equally nutritious.",
+          solution: "Always feed frozen/thawed prey. Thaw completely to room temperature and use feeding tongs to present the prey with movement. If your snake refuses, try warming the prey slightly or feeding in a separate container.",
+          research: "Rodent bites are a documented cause of injury and death in captive snakes. Frozen/thawed prey eliminates this risk entirely while providing equivalent nutrition.",
+          link: "/build/ball-python"
+        }
+      ]
+    },
+    {
+      category: "Crested Gecko",
+      color: "purple",
+      items: [
+        {
+          mistake: "Temperatures Above 85°F",
+          severity: "CRITICAL",
+          description: "Crested geckos are extremely heat sensitive. Temperatures above 85°F cause acute heat stress, and exposure above 90°F can be fatal within hours.",
+          why: "Crested geckos are native to New Caledonia, a cool subtropical island. They did not evolve to handle the high temperatures tolerated by desert reptiles. Unlike many reptiles, they cannot tolerate prolonged heat exposure and will die rapidly if temperatures spike.",
+          solution: "Keep ambient temperatures between 72-78°F. If using a heat source, use a low-wattage bulb (25-35W) with a thermostat set below 80°F. Monitor temperatures closely during summer. Never place the enclosure in direct sunlight.",
+          research: "Thermal biology research confirms crested geckos show acute stress responses above 85°F. Unlike many reptile species, they cannot behaviorally thermoregulate away from heat in typical enclosure setups.",
+          link: "/build/crested-gecko"
+        },
+        {
+          mistake: "Horizontal Enclosure",
+          severity: "CRITICAL",
+          description: "Horizontal enclosures prevent crested geckos from exhibiting natural arboreal behavior. They cause chronic stress, reduced activity, and poor welfare outcomes.",
+          why: "Crested geckos are arboreal — they live in trees and spend almost all their time elevated off the ground. A horizontal enclosure gives them nowhere to climb, nowhere to hide at height, and no way to thermoregulate vertically. This causes chronic stress and suppresses natural behavior.",
+          solution: "Always use a tall enclosure with a minimum height of 24\". Fill the vertical space with vines, cork bark, branches, and foliage at multiple heights so the gecko can use the entire enclosure.",
+          research: "Behavioral enrichment research confirms arboreal reptiles in enclosures that match their natural habitat orientation show significantly more natural behavior and lower stress indicators.",
+          link: "/build/crested-gecko"
+        },
+        {
+          mistake: "Constant High Humidity",
+          severity: "HIGH",
+          description: "Keeping crested gecko enclosures at constantly high humidity (80%+) without dry periods causes respiratory infections and mold growth.",
+          why: "Crested geckos need a wet/dry humidity cycle that mimics rainfall patterns in their native New Caledonia. Constant high humidity creates stagnant moisture that breeds bacteria and mold, and prevents the respiratory system from functioning properly.",
+          solution: "Mist the enclosure twice daily (morning and evening) to spike humidity to 80%+, then allow it to dry down to 40-50% between mistings. This wet/dry cycle is essential — not optional.",
+          research: "Respiratory infections from chronic high humidity are well-documented in arboreal gecko species. The wet/dry cycling approach is validated by field research on New Caledonian gecko microclimates.",
+          link: "/build/crested-gecko"
+        },
+        {
+          mistake: "No Hiding Spots at Height",
+          severity: "HIGH",
+          description: "Crested geckos with only ground-level hides experience chronic stress. They need secure hiding spots at multiple vertical levels, especially high up in the enclosure.",
+          why: "In the wild, crested geckos hide in dense vegetation elevated off the ground where they feel safe from ground predators. A gecko that cannot hide at height will be chronically stressed, stop eating, and become ill.",
+          solution: "Provide hiding spots at the bottom, middle, and top of the enclosure using cork bark tubes, coconut hides, and dense foliage. Crested geckos should never be visible at all times — they need to feel covered.",
+          research: "Hide availability research in arboreal reptiles shows that geckos without appropriate elevated hiding spots exhibit significantly higher stress hormone levels and reduced feeding responses.",
+          link: "/build/crested-gecko"
+        },
+        {
+          mistake: "D3 Toxicity from Over-Supplementation",
+          severity: "MEDIUM",
+          description: "Using calcium with D3 while also providing UVB lighting can cause vitamin D3 toxicity, leading to calcium deposits in organs and kidney failure.",
+          why: "When crested geckos have access to UVB they synthesize their own D3 through their skin. Adding D3 through supplementation on top of UVB-synthesized D3 can push levels too high, causing hypercalcemia and soft tissue calcification.",
+          solution: "If providing UVB lighting, use calcium WITHOUT D3 for regular supplementation. Only use calcium WITH D3 if you are not providing UVB. Use an all-in-one supplement like Repashy Calcium Plus LoD (low D3) which is formulated for UVB setups.",
+          research: "D3 toxicity from combined UVB and high-D3 supplementation is documented in captive reptiles. Low-D3 supplements were specifically developed in response to this issue in UVB-lit enclosures.",
+          link: "/build/crested-gecko"
+        }
+      ]
     }
   ];
 
@@ -238,15 +342,18 @@ export default function CommonMistakesPage() {
         <div className="flex flex-wrap gap-3 justify-center mb-10">
           {SPECIES_TABS.map((tab) => {
             const isActive = selectedSpecies === tab.key;
-            const isBetta = tab.key === "Betta Fish";
             return (
               <button
                 key={tab.key}
                 onClick={() => setSelectedSpecies(tab.key)}
                 className={`px-5 py-3 rounded-xl font-bold transition-all flex items-center gap-2 ${
                   isActive
-                    ? isBetta
+                    ? tab.color === "blue"
                       ? "bg-blue-600 text-white shadow-lg shadow-blue-900/20"
+                      : tab.color === "purple"
+                      ? "bg-purple-600 text-white shadow-lg shadow-purple-900/20"
+                      : tab.color === "amber"
+                      ? "bg-amber-600 text-white shadow-lg shadow-amber-900/20"
                       : "bg-emerald-600 text-white shadow-lg shadow-emerald-900/20"
                     : "bg-white/5 text-slate-300 hover:bg-white/10 border border-white/10"
                 }`}
@@ -322,6 +429,10 @@ export default function CommonMistakesPage() {
                     className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-white transition-all shadow-lg ${
                       category.color === "blue"
                         ? "bg-blue-600 hover:bg-blue-500"
+                        : category.color === "purple"
+                        ? "bg-purple-600 hover:bg-purple-500"
+                        : category.color === "amber"
+                        ? "bg-amber-600 hover:bg-amber-500"
                         : "bg-emerald-600 hover:bg-emerald-500"
                     }`}
                   >

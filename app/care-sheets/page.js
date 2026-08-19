@@ -188,6 +188,121 @@ export default function CareSheetsPage() {
         "Full substrate change or deep clean if solid",
         "Inspect hides and decor for damage"
       ]
+    },
+    "ball-python": {
+      name: "Ball Python",
+      scientificName: "Python regius",
+      color: "amber",
+      icon: "🐍",
+      stats: {
+        temperature: {
+          basking: "88-92°F (31-33°C)",
+          cool: "75-80°F (24-27°C)",
+          night: "72-75°F (22-24°C)"
+        },
+        humidity: "60-80% ambient, 80-100% in humid hide",
+        enclosure: {
+          minimum: "4×2×2 ft / 120 gal (48\" × 24\" × 24\")",
+          recommended: "4×2×2 PVC enclosure",
+          note: "40-gallon tanks are severely undersized for adults and prevent proper thermoregulation"
+        },
+        lifespan: "20-30 years",
+        diet: "Frozen/thawed mice or rats — appropriately sized (as wide as widest part of snake)"
+      },
+      essentials: [
+        "Thermostat (REQUIRED on ALL heat sources)",
+        "Primary overhead heat source (halogen PAR38 or Arcadia DHP)",
+        "3 hides: warm (90-95°F), cool, and humid",
+        "Large soaking water bowl (snake must fit inside)",
+        "4\" minimum substrate depth (topsoil/ReptiSoil/playsand mix)",
+        "Sphagnum moss in humid hide",
+        "Digital thermometer/hygrometer",
+        "Infrared temperature gun",
+        "Low-level UVB (Arcadia 6% T5 HO — optional but recommended)"
+      ],
+      warnings: [
+        "Never use heat mats as the primary heat source — insufficient for adult enclosures",
+        "40-gallon tanks are too small — stress, poor thermoregulation, feeding refusal",
+        "Thermostat probe must be inside warm hide at snake level — NOT on mat surface",
+        "Cedar and pine substrates are toxic to snakes — use only safe substrates",
+        "Feeding live prey risks serious injury to your snake — always use frozen/thawed"
+      ],
+      daily: [
+        "Check warm hide temp (90-95°F) and cool side (75-80°F)",
+        "Check humidity (60-80% ambient)",
+        "Ensure fresh water is available in soaking bowl",
+        "Observe snake behavior for signs of stress or illness"
+      ],
+      weekly: [
+        "Feed appropriately sized frozen/thawed prey (juveniles weekly, adults every 10-14 days)",
+        "Spot clean substrate",
+        "Change water bowl and clean with dish soap",
+        "Check thermostat and all equipment"
+      ],
+      monthly: [
+        "Deep clean entire enclosure",
+        "Replace sphagnum moss in humid hide",
+        "Check substrate depth (maintain 4\" minimum)",
+        "Weigh snake to track healthy growth"
+      ]
+    },
+    "crested-gecko": {
+      name: "Crested Gecko",
+      scientificName: "Correlophus ciliatus",
+      color: "purple",
+      icon: "🦎",
+      stats: {
+        temperature: {
+          basking: "78-80°F maximum at warm spot",
+          cool: "72-75°F ambient",
+          night: "65-72°F (natural drop is beneficial)"
+        },
+        humidity: "40-50% daytime, spike to 80%+ after misting twice daily",
+        enclosure: {
+          minimum: "18\"×18\"×24\" (tall orientation required)",
+          recommended: "18\"×18\"×36\" or larger",
+          note: "Horizontal enclosures cause extreme stress — crested geckos MUST have vertical climbing space"
+        },
+        lifespan: "15-20 years",
+        diet: "CGD (Crested Gecko Diet) as primary food — Repashy or Pangea. Supplement with live insects 2x per week."
+      },
+      essentials: [
+        "Tall enclosure — minimum 18\"×18\"×24\" (never horizontal)",
+        "Thermostat or dimmer on all heat sources",
+        "Low-output UVB (Arcadia ShadeDweller 7% T5)",
+        "Full-spectrum LED for plant growth and day cycle",
+        "Pressure sprayer for twice-daily misting",
+        "Digital thermometer/hygrometer",
+        "Magnetic feeding ledge (elevated feeding position)",
+        "CGD food (Repashy or Pangea) — complete diet",
+        "Dense vines, cork bark, and foliage at all vertical levels",
+        "3 hides at different heights (bottom, middle, top)"
+      ],
+      warnings: [
+        "Temperatures above 85°F cause heat stress — above 90°F can be fatal",
+        "Horizontal enclosures cause chronic stress — TALL orientation is mandatory",
+        "Constant high humidity without dry periods causes respiratory infections",
+        "D3 toxicity — do not use calcium with D3 if providing UVB",
+        "Never house two male crested geckos together — they will fight"
+      ],
+      daily: [
+        "Check temperature (must be below 85°F)",
+        "Mist enclosure morning and evening (spike to 80%, let dry to 40-50%)",
+        "Replace CGD food (remove after 24-48 hours)",
+        "Check all hides and foliage are secure"
+      ],
+      weekly: [
+        "Deep clean feeding ledge and cups",
+        "Dust feeder insects with calcium (no D3 if using UVB)",
+        "Spot clean substrate",
+        "Check thermostat and UVB are functioning"
+      ],
+      monthly: [
+        "Replace sphagnum moss topper",
+        "Deep clean enclosure",
+        "Check UVB bulb output (replace every 12 months)",
+        "Weigh gecko to track health"
+      ]
     }
   };
 
@@ -250,6 +365,26 @@ export default function CareSheetsPage() {
             }`}
           >
             🦎 Bearded Dragon
+          </button>
+          <button
+            onClick={() => setSelectedSpecies("ball-python")}
+            className={`px-5 py-2.5 rounded-full text-sm font-bold border-2 transition-all ${
+              selectedSpecies === "ball-python"
+                ? "border-emerald-500 bg-emerald-500/15 text-emerald-400"
+                : "border-slate-700 text-slate-400 hover:border-slate-500 hover:text-white"
+            }`}
+          >
+            🐍 Ball Python
+          </button>
+          <button
+            onClick={() => setSelectedSpecies("crested-gecko")}
+            className={`px-5 py-2.5 rounded-full text-sm font-bold border-2 transition-all ${
+              selectedSpecies === "crested-gecko"
+                ? "border-emerald-500 bg-emerald-500/15 text-emerald-400"
+                : "border-slate-700 text-slate-400 hover:border-slate-500 hover:text-white"
+            }`}
+          >
+            🦎 Crested Gecko
           </button>
         </div>
 
