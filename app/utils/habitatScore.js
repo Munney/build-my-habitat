@@ -432,12 +432,354 @@ export function calculateBeardedDragonHabitatScore(selections) {
 }
 
 /**
+ * Crested Gecko: 100 pts — Enclosure 20, Heat control 20, UVB 10, Humidity 15, Decor 15, CGD 15, Substrate 5
+ * Adult minimum 18x18x24 tall; thermostat/dimmer required; wet/dry humidity; CGD diet.
+ */
+export function calculateCrestedGeckoHabitatScore(selections) {
+  const checks = [];
+  const warnings = [];
+  const missingEssentials = [];
+  let score = 0;
+
+  const enclosure = selections?.enclosure;
+  const encId = enclosure?.id || "";
+  const encMax = 20;
+  let encPoints = 0;
+  let encMessage;
+  if (encId === "18x18x24" || encId === "18x18x36" || encId === "24x18x36") {
+    encPoints = 20;
+    encMessage = "Tall enclosure selected. Crested geckos need vertical climbing space — never a horizontal tank.";
+  } else if (encId === "12x12x18") {
+    encPoints = 6;
+    encMessage = "12\"x12\"x18\" is only suitable for juveniles under 25g. Adults require at least 18\"x18\"x24\".";
+    missingEssentials.push("Larger tall enclosure (18\"x18\"x24\" minimum)");
+    warnings.push("Juvenile enclosure is too small for adults.");
+  } else if (enclosure) {
+    encPoints = 8;
+    encMessage = "Select a tall enclosure. Adult minimum is 18\"x18\"x24\".";
+    missingEssentials.push("Tall enclosure (18\"x18\"x24\" minimum)");
+  } else {
+    encMessage = "Select a tall enclosure to get started.";
+    missingEssentials.push("Tall enclosure");
+  }
+  score += encPoints;
+  checks.push({ key: "enclosure", label: "Tall enclosure", passed: encPoints >= 20, points: encPoints, maxPoints: encMax, message: encMessage });
+
+  const heating = selections?.heating || [];
+  const hasThermostat = heating.some((h) => h && h.id === "thermostat");
+  const hasDimmer = heating.some((h) => h && h.id === "dimmer");
+  const hasHeatControl = hasThermostat || hasDimmer;
+  const hasHeatSource = heating.some((h) => h && ["halogen-25w", "halogen-35w", "ceramic-heat-emitter"].includes(h.id));
+  const heatMax = 20;
+  let heatPoints = 0;
+  let heatMessage;
+  if (hasHeatControl) {
+    heatPoints = 20;
+    heatMessage = "Thermostat or dimmer selected. Never exceed 85°F — above 90°F can be fatal.";
+    if (hasHeatSource && !hasThermostat) warnings.push("A dimming thermostat is the safest way to keep basking at 82-85°F.");
+  } else if (hasHeatSource) {
+    heatPoints = 0;
+    heatMessage = "Crested geckos are extremely heat sensitive. Temps above 85°F cause fatal heat stroke. A thermostat or dimmer is required.";
+    missingEssentials.push("Thermostat or dimmer");
+  } else {
+    heatMessage = "Add a thermostat or dimmer. Even low-wattage heat must be controlled.";
+    missingEssentials.push("Thermostat or dimmer");
+  }
+  score += heatPoints;
+  checks.push({ key: "heating", label: "Heat + thermostat/dimmer", passed: heatPoints >= 20, points: heatPoints, maxPoints: heatMax, message: heatMessage });
+
+  const uvb = selections?.uvb;
+  const lighting = selections?.lighting || [];
+  const hasUvb = uvb && uvb.id && uvb.id !== "no-uvb";
+  const hasTimer = lighting.some((l) => l && l.id === "timer");
+  const uvbMax = 10;
+  let uvbPoints = 0;
+  let uvbMessage;
+  if (hasUvb && hasTimer) {
+    uvbPoints = 10;
+    uvbMessage = "Low-output UVB and a day/night timer selected.";
+  } else if (hasUvb) {
+    uvbPoints = 7;
+    uvbMessage = "Add a timer for a 12–14 hour light cycle.";
+  } else if (uvb?.id === "no-uvb") {
+    uvbPoints = 3;
+    uvbMessage = "UVB skipped. Crested geckos can survive on CGD, but ReptiFiles strongly recommends UVB.";
+    warnings.push("UVB is strongly recommended.");
+    if (!hasTimer) missingEssentials.push("Light timer");
+  } else {
+    uvbMessage = "Add low-output UVB (ShadeDweller) and a timer.";
+    warnings.push("UVB is strongly recommended.");
+  }
+  score += uvbPoints;
+  checks.push({ key: "uvb", label: "UVB lighting", passed: uvbPoints >= 7, points: uvbPoints, maxPoints: uvbMax, message: uvbMessage });
+
+  const humidity = selections?.humidity || [];
+  const hasHygrometer = humidity.some((h) => h && h.id === "hygrometer");
+  const hasMister = humidity.some((h) => h && (h.id === "spray-bottle" || h.id === "auto-mister"));
+  const humidMax = 15;
+  let humidPoints = 0;
+  let humidMessage;
+  if (hasHygrometer && hasMister) {
+    humidPoints = 15;
+    humidMessage = "Humidity tools selected. Spike to 80%+ twice daily, then dry to 40-50%.";
+  } else if (humidity.length > 0) {
+    humidPoints = 6;
+    humidMessage = "Add a hygrometer and a sprayer or automatic mister for wet/dry cycling.";
+    if (!hasHygrometer) missingEssentials.push("Hygrometer");
+    if (!hasMister) missingEssentials.push("Misting tool");
+  } else {
+    humidMessage = "Add humidity tools. Constant high humidity without dry periods causes respiratory infection.";
+    missingEssentials.push("Humidity tools");
+  }
+  score += humidPoints;
+  checks.push({ key: "humidity", label: "Humidity cycling", passed: humidPoints >= 15, points: humidPoints, maxPoints: humidMax, message: humidMessage });
+
+  const decor = selections?.decor || [];
+  const decorIds = new Set(decor.map((d) => d?.id).filter(Boolean));
+  const hasHide = decorIds.has("cork-tube") || decorIds.has("coconut-hide");
+  const hasVines = decorIds.has("climbing-vines");
+  const hasLedges = decorIds.has("branches");
+  const decorMax = 15;
+  let decorPoints = 0;
+  let decorMessage;
+  if (hasHide && hasVines && hasLedges) {
+    decorPoints = 15;
+    decorMessage = "Hides, vines, and ledges selected so the gecko can use all vertical levels.";
+  } else if (decor.length > 0) {
+    decorPoints = 6;
+    decorMessage = "Add hides and climbing vines at top, middle, and bottom.";
+    if (!hasHide) missingEssentials.push("Hide");
+    if (!hasVines) missingEssentials.push("Climbing vines");
+  } else {
+    decorMessage = "Add hides and dense foliage. Crested geckos need cover at every height.";
+    missingEssentials.push("Hides and climbing vines");
+  }
+  score += decorPoints;
+  checks.push({ key: "decor", label: "Hides + vines", passed: decorPoints >= 15, points: decorPoints, maxPoints: decorMax, message: decorMessage });
+
+  const supps = selections?.supplements || [];
+  const hasCgd = supps.some((s) => s && (s.id === "cgd-repashy" || s.id === "cgd-pangea"));
+  const hasD3 = supps.some((s) => s && s.id === "calcium-d3");
+  const dietMax = 15;
+  let dietPoints = hasCgd ? 15 : 0;
+  let dietMessage = hasCgd
+    ? "Crested Gecko Diet selected as the primary food source."
+    : "Add a complete Crested Gecko Diet (Repashy or Pangea).";
+  if (!hasCgd) missingEssentials.push("Crested Gecko Diet (CGD)");
+  if (hasD3 && hasUvb) warnings.push("D3 toxicity risk — use calcium without D3 when providing UVB.");
+  score += dietPoints;
+  checks.push({ key: "diet", label: "CGD complete diet", passed: dietPoints >= 15, points: dietPoints, maxPoints: dietMax, message: dietMessage });
+
+  const sub = selections?.substrate;
+  const subMax = 5;
+  let subPoints = 0;
+  let subMessage;
+  if (sub) {
+    if (sub.id === "paper-towels") {
+      subPoints = 2;
+      subMessage = "Paper towels are quarantine/hatchling use only and do not hold humidity for adults.";
+      warnings.push("Adults need 3–4\" of moisture-retentive substrate.");
+    } else {
+      subPoints = 5;
+      subMessage = "Moisture-retentive substrate selected. Keep 3–4\" deep.";
+    }
+  } else {
+    subMessage = "Select a 3–4\" moisture-retentive substrate.";
+    missingEssentials.push("Substrate");
+  }
+  score += subPoints;
+  checks.push({ key: "substrate", label: "Substrate", passed: subPoints >= 5, points: subPoints, maxPoints: subMax, message: subMessage });
+
+  return {
+    score: Math.min(score, MAX_SCORE),
+    maxScore: MAX_SCORE,
+    label: getScoreLabel(score),
+    checks,
+    warnings,
+    missingEssentials: [...new Set(missingEssentials)],
+  };
+}
+
+/**
+ * Ball Python: 100 pts — Enclosure 20, Heating+thermostat 25, Humidity 15, Hides 15, Substrate 10, Water+monitoring 10, UVB 5
+ */
+export function calculateBallPythonHabitatScore(selections) {
+  const checks = [];
+  const warnings = [];
+  const missingEssentials = [];
+  let score = 0;
+
+  const enclosure = selections?.enclosure;
+  const enclosureSize = enclosure?.size ?? 0;
+  const encMax = 20;
+  let encPoints = 0;
+  let encMessage;
+  if (enclosureSize >= 120 || ["pvc4x2x2", "pvc4x4x2", "120gal"].includes(enclosure?.id)) {
+    encPoints = 20;
+    encMessage = "You received full points for enclosure size. ReptiFiles adult minimum is 4×2×2 (48\"L x 24\"W x 24\"H).";
+  } else if (enclosure?.id === "40gal" || enclosureSize === 40) {
+    encPoints = 6;
+    encMessage = "40 gallon is below the ReptiFiles minimum for adult ball pythons. We recommend at least a 4x2x2.";
+    missingEssentials.push("Larger enclosure (4×2×2 / 120 gal minimum)");
+    warnings.push("40 gallon is juvenile-only.");
+  } else if (enclosure) {
+    encPoints = 8;
+    encMessage = "Select at least a 4×2×2 (120 gallon) enclosure for an adult ball python.";
+    missingEssentials.push("Larger enclosure (4×2×2 minimum)");
+  } else {
+    encMessage = "Select an enclosure to get started.";
+    missingEssentials.push("Enclosure");
+  }
+  score += encPoints;
+  checks.push({ key: "enclosure", label: "Enclosure size", passed: encPoints >= 20, points: encPoints, maxPoints: encMax, message: encMessage });
+
+  const heating = selections?.heating || [];
+  const hasThermostat = heating.some((h) => h && h.id === "thermostat");
+  const hasPrimaryHeat = heating.some((h) => h && ["halogen-flood", "deep-heat-projector", "ceramic-heat-emitter", "radiant-heat-panel"].includes(h.id));
+  const hasHeatMat = heating.some((h) => h && h.id === "heat-mat");
+  const heatMax = 25;
+  let heatPoints = 0;
+  let heatMessage;
+  if (hasPrimaryHeat && hasThermostat) {
+    heatPoints = 25;
+    heatMessage = "Overhead heat source and thermostat selected. Warm hide target: 90-95°F. Cool side: 75-80°F.";
+    if (hasHeatMat) warnings.push("Heat mat is supplemental only in adult enclosures.");
+  } else if (hasHeatMat && hasThermostat && !hasPrimaryHeat) {
+    heatPoints = 8;
+    heatMessage = "Heat mats are supplemental only in adult enclosures. Add a primary overhead heat source.";
+    missingEssentials.push("Primary overhead heat source");
+  } else if (hasPrimaryHeat) {
+    heatPoints = 0;
+    heatMessage = "A thermostat is required. Unregulated heat causes burns and overheating.";
+    missingEssentials.push("Thermostat");
+  } else if (hasThermostat) {
+    heatPoints = 8;
+    heatMessage = "Add a primary overhead heat source with your thermostat.";
+    missingEssentials.push("Primary overhead heat source");
+  } else {
+    heatMessage = "Add overhead heat and a thermostat. Probe goes inside the warm hide at snake level.";
+    missingEssentials.push("Primary overhead heat source", "Thermostat");
+  }
+  score += heatPoints;
+  checks.push({ key: "heating", label: "Heating + thermostat", passed: heatPoints >= 25, points: heatPoints, maxPoints: heatMax, message: heatMessage });
+
+  const humidity = selections?.humidity || [];
+  const hasMoss = humidity.some((h) => h && h.id === "sphagnum-moss");
+  const hasHygrometer = humidity.some((h) => h && h.id === "hygrometer");
+  const hasMister = humidity.some((h) => h && (h.id === "pressure-sprayer" || h.id === "auto-mister"));
+  const humidMax = 15;
+  let humidPoints = 0;
+  let humidMessage;
+  if (hasMoss && hasHygrometer && hasMister) {
+    humidPoints = 15;
+    humidMessage = "Humidity tools selected. Target 60-80% ambient daytime and 80-100% in the humid hide.";
+  } else if (humidity.length > 0) {
+    humidPoints = 6;
+    humidMessage = "Add sphagnum moss, a hygrometer, and a sprayer or automatic mister to hold 60-80% humidity.";
+    if (!hasMoss) missingEssentials.push("Sphagnum moss");
+    if (!hasHygrometer) missingEssentials.push("Hygrometer");
+    if (!hasMister) missingEssentials.push("Misting tool");
+  } else {
+    humidMessage = "Add humidity tools. Target 60-80% ambient humidity and 80-100% in the humid hide.";
+    missingEssentials.push("Humidity tools");
+  }
+  score += humidPoints;
+  checks.push({ key: "humidity", label: "Humidity tools", passed: humidPoints >= 15, points: humidPoints, maxPoints: humidMax, message: humidMessage });
+
+  const hides = selections?.hides || [];
+  const hideIds = new Set(hides.map((h) => h?.id).filter(Boolean));
+  const hasWarm = hideIds.has("warm-hide");
+  const hasCool = hideIds.has("cool-hide");
+  const hasHumid = hideIds.has("humid-hide");
+  const hideMax = 15;
+  const hidePoints = hasWarm && hasCool && hasHumid ? 15 : (hasWarm || hasCool || hasHumid) ? 6 : 0;
+  let hideMessage;
+  if (hasWarm && hasCool && hasHumid) hideMessage = "All 3 essential hides (warm 90-95°F, cool 75-80°F, humid) selected.";
+  else if (hides.length > 0) {
+    hideMessage = "Warm, cool, and humid hides are all required.";
+    if (!hasWarm) missingEssentials.push("Warm hide");
+    if (!hasCool) missingEssentials.push("Cool hide");
+    if (!hasHumid) missingEssentials.push("Humid hide");
+  } else {
+    hideMessage = "Add warm, cool, and humid hides.";
+    missingEssentials.push("3 essential hides");
+  }
+  score += hidePoints;
+  checks.push({ key: "hides", label: "Essential hides", passed: hidePoints >= 15, points: hidePoints, maxPoints: hideMax, message: hideMessage });
+
+  const sub = selections?.substrate;
+  const subMax = 10;
+  let subPoints = 0;
+  let subMessage;
+  if (sub) {
+    if (sub.id === "paper-towels") {
+      subPoints = 4;
+      subMessage = "Paper towels are quarantine/hatchling use only and do not hold humidity for adults.";
+      warnings.push("Adults need 4\" of moisture-retentive substrate.");
+    } else {
+      subPoints = 10;
+      subMessage = "Moisture-retentive substrate selected. Keep at least 4\" deep.";
+    }
+  } else {
+    subMessage = "Select a 4\"+ moisture-retentive substrate. Avoid cedar, pine, and reptile carpet.";
+    missingEssentials.push("Substrate");
+  }
+  score += subPoints;
+  checks.push({ key: "substrate", label: "Substrate", passed: subPoints >= 10, points: subPoints, maxPoints: subMax, message: subMessage });
+
+  const water = selections?.water || [];
+  const monitoring = selections?.monitoring || [];
+  const hasBowl = water.some((w) => w && w.id === "large-water-bowl");
+  const hasGun = monitoring.some((m) => m && m.id === "temp-gun");
+  const waterMax = 10;
+  const waterPoints = hasBowl && hasGun ? 10 : hasBowl || hasGun ? 5 : 0;
+  let waterMessage;
+  if (hasBowl && hasGun) waterMessage = "Soaking water bowl and infrared temp gun selected.";
+  else {
+    waterMessage = "Add a large soaking water bowl and a temperature gun (warm hide 90-95°F, cool side 75-80°F).";
+    if (!hasBowl) missingEssentials.push("Large soaking water bowl");
+    if (!hasGun) missingEssentials.push("Infrared temperature gun");
+  }
+  score += waterPoints;
+  checks.push({ key: "water", label: "Water & monitoring", passed: waterPoints >= 10, points: waterPoints, maxPoints: waterMax, message: waterMessage });
+
+  const uvb = selections?.uvb;
+  const uvbMax = 5;
+  let uvbPoints = 0;
+  let uvbMessage;
+  if (uvb && uvb.id && uvb.id !== "no-uvb") {
+    uvbPoints = 5;
+    uvbMessage = "UVB selected. ReptiFiles recommends T5 HO 6% spanning the warm half of the enclosure.";
+  } else if (uvb?.id === "no-uvb") {
+    uvbPoints = 1;
+    uvbMessage = "UVB skipped. Ball pythons can survive without it, but ReptiFiles strongly recommends UVB for welfare.";
+    warnings.push("UVB is strongly recommended.");
+  } else {
+    uvbMessage = "Add T5 HO 6% UVB spanning the warm half of the enclosure.";
+    warnings.push("UVB is strongly recommended.");
+  }
+  score += uvbPoints;
+  checks.push({ key: "uvb", label: "UVB lighting", passed: uvbPoints >= 5, points: uvbPoints, maxPoints: uvbMax, message: uvbMessage });
+
+  return {
+    score: Math.min(score, MAX_SCORE),
+    maxScore: MAX_SCORE,
+    label: getScoreLabel(score),
+    checks,
+    warnings,
+    missingEssentials: [...new Set(missingEssentials)],
+  };
+}
+
+/**
  * Shared wrapper: returns score result for the given species.
  */
 export function calculateHabitatScore(species, selections) {
   if (species === "betta") return calculateBettaHabitatScore(selections);
   if (species === "leopard-gecko") return calculateGeckoHabitatScore(selections);
   if (species === "bearded-dragon") return calculateBeardedDragonHabitatScore(selections);
+  if (species === "crested-gecko") return calculateCrestedGeckoHabitatScore(selections);
+  if (species === "ball-python") return calculateBallPythonHabitatScore(selections);
   return {
     score: 0,
     maxScore: MAX_SCORE,

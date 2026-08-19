@@ -1,104 +1,41 @@
 import { NextResponse } from "next/server";
-import { writeFileSync, mkdirSync } from "fs";
-import { existsSync } from "fs";
-import path from "path";
-import { readFileSync } from "fs";
-
-// Simple file-based email storage (no external service needed)
-// Emails are saved to data/emails.json for easy access
 
 export async function POST(request) {
   try {
-    const { email, source, leadMagnet } = await request.json();
+    const { email, source } = await request.json();
 
-    // Validate email
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return NextResponse.json(
-        { error: "Invalid email address" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Invalid email" }, { status: 400 });
     }
 
-    // Create data directory if it doesn't exist
-    const dataDir = path.join(process.cwd(), "data");
-    if (!existsSync(dataDir)) {
-      mkdirSync(dataDir, { recursive: true });
-    }
-
-    // Read existing emails
-    const emailsFile = path.join(dataDir, "emails.json");
-    let emails = [];
-    
-    if (existsSync(emailsFile)) {
-      try {
-        const content = readFileSync(emailsFile, "utf8");
-        if (content.trim()) {
-          emails = JSON.parse(content);
-        }
-      } catch (e) {
-        // File might be empty or invalid, start fresh
-        emails = [];
-      }
-    }
-
-    // Check if email already exists
-    const emailExists = emails.some(e => e.email.toLowerCase() === email.toLowerCase());
-    
-    if (!emailExists) {
-      // Add new email
-      emails.push({
-        email: email.toLowerCase(),
-        source,
-        leadMagnet,
-        timestamp: new Date().toISOString(),
-        date: new Date().toLocaleDateString(),
-      });
-
-      // Save to file
-      writeFileSync(emailsFile, JSON.stringify(emails, null, 2), "utf8");
-
-      console.log(`✅ Email captured: ${email} (${source})`);
-    } else {
-      console.log(`⚠️ Email already exists: ${email}`);
-    }
-
-    return NextResponse.json(
-      { 
-        success: true, 
-        message: "Email captured successfully",
-        total: emails.length
+    const response = await fetch("https://api.resend.com/contacts", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
+        "Content-Type": "application/json",
       },
-      { status: 200 }
-    );
-  } catch (error) {
-    console.error("Email capture error:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
-  }
-}
+      body: JSON.stringify({
+        email: email,
+        unsubscribed: false,
+        audience_id: process.env.RESEND_AUDIENCE_ID,
+      }),
+    });
 
-// GET endpoint to view collected emails (for your use only)
-export async function GET(request) {
-  try {
-    const emailsFile = path.join(process.cwd(), "data", "emails.json");
-    
-    if (!existsSync(emailsFile)) {
-      return NextResponse.json({ emails: [], total: 0 });
+    if (!response.ok) {
+      const error = await response.json();
+      // Contact already exists — treat as success
+      if (error.name === "validation_error") {
+        return NextResponse.json({ success: true });
+      }
+      throw new Error(error.message);
     }
 
-    const content = readFileSync(emailsFile, "utf8");
-    const emails = content.trim() ? JSON.parse(content) : [];
+    return NextResponse.json({ success: true });
 
-    return NextResponse.json({
-      emails,
-      total: emails.length
-    });
   } catch (error) {
-    console.error("Error reading emails:", error);
+    console.error("Resend error:", error);
     return NextResponse.json(
-      { error: "Error reading emails" },
+      { error: "Failed to subscribe" },
       { status: 500 }
     );
   }

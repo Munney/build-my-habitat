@@ -43,6 +43,8 @@ export default function Footer({ variant = "full" }) {
             <li><Link href="/build/leopard-gecko" className="hover:text-emerald-400 transition-colors">Leopard Gecko Build</Link></li>
             <li><Link href="/build/betta" className="hover:text-sky-400 transition-colors">Betta Fish Build</Link></li>
             <li><Link href="/build/bearded-dragon" className="hover:text-emerald-400 transition-colors">Bearded Dragon Build</Link></li>
+            <li><Link href="/build/crested-gecko" className="hover:text-purple-400 transition-colors">Crested Gecko Build</Link></li>
+            <li><Link href="/build/ball-python" className="hover:text-amber-400 transition-colors">Ball Python Build</Link></li>
             <li><Link href="/browse" className="hover:text-white transition-colors">Part Browser</Link></li>
           </ul>
         </div>

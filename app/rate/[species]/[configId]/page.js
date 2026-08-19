@@ -7,12 +7,16 @@ import { CheckCircle2, ArrowLeft, AlertCircle, Share2 } from "lucide-react";
 import bettaConfig from "../../../../data/betta.json";
 import leopardGeckoConfig from "../../../../data/leopard-gecko.json";
 import beardedDragonConfig from "../../../../data/bearded-dragon.json";
+import crestedGeckoConfig from "../../../../data/crested-gecko.json";
+import ballPythonConfig from "../../../../data/ball-python.json";
 import { decodeSlugToParams } from "../../../utils/ratePayload";
 import { getConfigIdFromSearchParams } from "../../../utils/amazonCart";
 import {
   calculateBettaHabitatScore,
   calculateGeckoHabitatScore,
   calculateBeardedDragonHabitatScore,
+  calculateCrestedGeckoHabitatScore,
+  calculateBallPythonHabitatScore,
 } from "../../../utils/habitatScore";
 
 const SPECIES_CONFIG = {
@@ -27,6 +31,18 @@ const SPECIES_CONFIG = {
     config: beardedDragonConfig,
     scoreFn: calculateBeardedDragonHabitatScore,
     name: "Bearded Dragon",
+    accent: "emerald",
+  },
+  "crested-gecko": {
+    config: crestedGeckoConfig,
+    scoreFn: calculateCrestedGeckoHabitatScore,
+    name: "Crested Gecko",
+    accent: "emerald",
+  },
+  "ball-python": {
+    config: ballPythonConfig,
+    scoreFn: calculateBallPythonHabitatScore,
+    name: "Ball Python",
     accent: "emerald",
   },
 };
@@ -71,6 +87,30 @@ function buildSelectionsFromParams(species, params) {
     const supplements = get("supplements", config.supplements);
     const feeding = get("feeding", config.feeding);
     return { enclosure, substrate, heating, lighting, hides, decor, supplements, feeding };
+  }
+
+  if (species === "crested-gecko") {
+    const enclosure = config.enclosures?.find((e) => e.id === params.enclosure);
+    const substrate = config.substrates?.find((s) => s.id === params.substrate);
+    const heating = get("heating", config.heating);
+    const uvb = config.uvb?.find((u) => u.id === params.uvb);
+    const lighting = get("lighting", config.lighting);
+    const humidity = get("humidity", config.humidity);
+    const decor = get("decor", config.decor);
+    const supplements = get("supplements", config.supplements);
+    return { enclosure, substrate, heating, uvb, lighting, humidity, decor, supplements };
+  }
+
+  if (species === "ball-python") {
+    const enclosure = config.enclosures?.find((e) => e.id === params.enclosure);
+    const substrate = config.substrates?.find((s) => s.id === params.substrate);
+    const heating = get("heating", config.heating);
+    const uvb = config.uvb?.find((u) => u.id === params.uvb);
+    const humidity = get("humidity", config.humidity);
+    const hides = get("hides", config.hides);
+    const water = get("water", config.water);
+    const monitoring = get("monitoring", config.monitoring);
+    return { enclosure, substrate, heating, uvb, humidity, hides, water, monitoring };
   }
 
   return null;
@@ -148,6 +188,64 @@ function getBuildSummaryItems(species, selections) {
     ];
     return items.filter(Boolean);
   }
+  if (species === "crested-gecko") {
+    const nameOf = (item) => item?.name || item?.label;
+    const items = [
+      nameOf(selections.enclosure) && { label: "Enclosure", value: nameOf(selections.enclosure) },
+      nameOf(selections.substrate) && { label: "Substrate", value: nameOf(selections.substrate) },
+      selections.heating?.length && {
+        label: "Heating",
+        value: selections.heating.map(nameOf).filter(Boolean).join(", "),
+      },
+      nameOf(selections.uvb) && { label: "UVB", value: nameOf(selections.uvb) },
+      selections.lighting?.length && {
+        label: "Lighting",
+        value: selections.lighting.map(nameOf).filter(Boolean).join(", "),
+      },
+      selections.humidity?.length && {
+        label: "Humidity",
+        value: selections.humidity.map(nameOf).filter(Boolean).join(", "),
+      },
+      selections.decor?.length && {
+        label: "Decor",
+        value: selections.decor.map(nameOf).filter(Boolean).join(", "),
+      },
+      selections.supplements?.length && {
+        label: "Food & supplements",
+        value: selections.supplements.map(nameOf).filter(Boolean).join(", "),
+      },
+    ];
+    return items.filter(Boolean);
+  }
+  if (species === "ball-python") {
+    const nameOf = (item) => item?.name || item?.label;
+    const items = [
+      nameOf(selections.enclosure) && { label: "Enclosure", value: nameOf(selections.enclosure) },
+      nameOf(selections.substrate) && { label: "Substrate", value: nameOf(selections.substrate) },
+      selections.heating?.length && {
+        label: "Heating",
+        value: selections.heating.map(nameOf).filter(Boolean).join(", "),
+      },
+      nameOf(selections.uvb) && { label: "UVB", value: nameOf(selections.uvb) },
+      selections.humidity?.length && {
+        label: "Humidity",
+        value: selections.humidity.map(nameOf).filter(Boolean).join(", "),
+      },
+      selections.hides?.length && {
+        label: "Hides",
+        value: selections.hides.map(nameOf).filter(Boolean).join(", "),
+      },
+      selections.water?.length && {
+        label: "Water",
+        value: selections.water.map(nameOf).filter(Boolean).join(", "),
+      },
+      selections.monitoring?.length && {
+        label: "Monitoring",
+        value: selections.monitoring.map(nameOf).filter(Boolean).join(", "),
+      },
+    ];
+    return items.filter(Boolean);
+  }
   return [];
 }
 
@@ -181,7 +279,51 @@ function getChecklistKeys(species) {
       { key: "supplements", label: "Supplements" },
     ];
   }
+  if (species === "crested-gecko") {
+    return [
+      { key: "enclosure", label: "Tall enclosure" },
+      { key: "heating", label: "Heat + thermostat/dimmer" },
+      { key: "uvb", label: "UVB lighting" },
+      { key: "humidity", label: "Humidity cycling" },
+      { key: "decor", label: "Hides + vines" },
+      { key: "diet", label: "CGD complete diet" },
+      { key: "substrate", label: "Substrate" },
+    ];
+  }
+  if (species === "ball-python") {
+    return [
+      { key: "enclosure", label: "Enclosure size" },
+      { key: "heating", label: "Heating + thermostat" },
+      { key: "humidity", label: "Humidity tools" },
+      { key: "hides", label: "3 essential hides" },
+      { key: "substrate", label: "Substrate" },
+      { key: "water", label: "Water & monitoring" },
+      { key: "uvb", label: "UVB lighting" },
+    ];
+  }
   return [];
+}
+
+function builderHref(species) {
+  if (species === "leopard-gecko") return "/build/leopard-gecko";
+  if (species === "bearded-dragon") return "/build/bearded-dragon";
+  if (species === "crested-gecko") return "/build/crested-gecko";
+  if (species === "ball-python") return "/build/ball-python";
+  return "/build/betta";
+}
+
+function summaryHref(species, summaryQuery) {
+  const path =
+    species === "leopard-gecko"
+      ? "/summary/leopard-gecko"
+      : species === "bearded-dragon"
+        ? "/summary/bearded-dragon"
+        : species === "crested-gecko"
+          ? "/summary/crested-gecko"
+          : species === "ball-python"
+            ? "/summary/ball-python"
+            : "/summary/betta";
+  return path + (summaryQuery ? `?${summaryQuery}` : "");
 }
 
 export default function RateHabitatPage() {
@@ -252,7 +394,7 @@ export default function RateHabitatPage() {
               This score link doesn&apos;t match a valid build. Create a build in the builder and use &quot;Share your score&quot; to get a new link.
             </p>
             <Link
-              href={species === "leopard-gecko" ? "/build/leopard-gecko" : "/build/betta"}
+              href={builderHref(species)}
               className="inline-flex items-center gap-2 rounded-xl bg-white/10 border border-white/10 text-white px-5 py-3 font-bold hover:bg-white/15 transition"
             >
               <ArrowLeft size={18} /> Back to builder
@@ -272,7 +414,7 @@ export default function RateHabitatPage() {
         {/* Back + Config ID */}
         <div className="flex flex-wrap items-center justify-between gap-4">
           <Link
-            href={species === "leopard-gecko" ? "/build/leopard-gecko" : "/build/betta"}
+            href={builderHref(species)}
             className="flex items-center gap-2 text-slate-400 hover:text-white text-sm font-bold uppercase tracking-wider transition"
           >
             <ArrowLeft size={16} /> Back to builder
@@ -411,10 +553,7 @@ export default function RateHabitatPage() {
             )}
           </button>
           <Link
-            href={
-              (species === "leopard-gecko" ? "/summary/leopard-gecko" : "/summary/betta") +
-              (summaryQuery ? `?${summaryQuery}` : "")
-            }
+            href={summaryHref(species, summaryQuery)}
             className="text-slate-400 hover:text-white text-sm font-bold"
           >
             View full summary &amp; cart →

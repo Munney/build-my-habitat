@@ -1,0 +1,291 @@
+{
+  "enclosures": [
+    {
+      "id": "40gal",
+      "name": "40 Gallon Breeder",
+      "dimensions": "36\"L x 18\"W x 18\"H",
+      "note": "Minimum for juveniles only",
+      "badge": "juvenile-only",
+      "warning": "Below minimum for adults",
+      "price": 189.99,
+      "asin": "B0002AQCJK",
+      "size": 40
+    },
+    {
+      "id": "120gal",
+      "name": "120 Gallon (4x2x2)",
+      "dimensions": "48\"L x 24\"W x 24\"H",
+      "note": "ReptiFiles minimum for adults",
+      "badge": "Recommended",
+      "price": 399.99,
+      "asin": "B09QDLQ3YT",
+      "size": 120
+    },
+    {
+      "id": "pvc4x2x2",
+      "name": "4x2x2 PVC Enclosure",
+      "dimensions": "48\"L x 24\"W x 24\"H",
+      "note": "Excellent humidity retention for ball pythons",
+      "badge": "Best Value",
+      "price": 349.99,
+      "asin": "B08VGQM1JK",
+      "size": 120
+    },
+    {
+      "id": "pvc4x4x2",
+      "name": "4x4x2 PVC Enclosure",
+      "dimensions": "48\"L x 48\"W x 24\"H",
+      "note": "Extra floor space for larger females",
+      "price": 499.99,
+      "asin": "B09WQMK2LP",
+      "size": 120
+    }
+  ],
+  "heating": [
+    {
+      "id": "halogen-flood",
+      "name": "Halogen Flood Heat Bulb (100w PAR38)",
+      "description": "Primary heat source — best mimics natural sunlight. ReptiFiles top recommendation.",
+      "badge": "Recommended",
+      "required": true,
+      "safetyNote": "Must be paired with a thermostat",
+      "price": 17.99,
+      "asin": "B00BBB0ENS"
+    },
+    {
+      "id": "deep-heat-projector",
+      "name": "Arcadia Deep Heat Projector",
+      "description": "Penetrates deeper than surface heat mats. Excellent for ambient heat in large enclosures.",
+      "price": 49.99,
+      "asin": "B08CJNQJHF"
+    },
+    {
+      "id": "ceramic-heat-emitter",
+      "name": "Ceramic Heat Emitter (CHE)",
+      "description": "No-light heat source, good for maintaining ambient temps at night.",
+      "price": 14.99,
+      "asin": "B0002AQCJ2"
+    },
+    {
+      "id": "radiant-heat-panel",
+      "name": "Radiant Heat Panel",
+      "description": "Preferred for large enclosures. Creates large warm zones.",
+      "price": 89.99,
+      "asin": "B001ENCPJ4"
+    },
+    {
+      "id": "thermostat",
+      "name": "Digital Thermostat (Inkbird or Herpstat)",
+      "description": "Required with ALL heat sources to prevent burns and overheating.",
+      "badge": "REQUIRED (SAFETY)",
+      "required": true,
+      "safetyNote": "Place probe inside warm hide at snake level — not on heat mat surface",
+      "price": 34.99,
+      "asin": "B07CZKQBR3"
+    },
+    {
+      "id": "heat-mat",
+      "name": "Under Tank Heat Mat",
+      "description": "Supplemental only — helps maintain warm hide temp. NOT sufficient as primary heat source in adult enclosures.",
+      "warning": "Supplemental use only — must be thermostat controlled",
+      "price": 24.99,
+      "asin": "B0002AQCJ4"
+    }
+  ],
+  "uvb": [
+    {
+      "id": "uvb-t5-6pct",
+      "name": "Arcadia T5 HO 6% UVB Bulb",
+      "description": "ReptiFiles recommended. Span half the enclosure on warm side. Proven to benefit ball python health.",
+      "badge": "Recommended",
+      "note": "Place 12-18\" from snake. Replace every 12 months.",
+      "price": 49.99,
+      "asin": "B07RMK6XNJ"
+    },
+    {
+      "id": "uvb-reptisun-6",
+      "name": "Zoo Med ReptiSun 6.0 T5 HO",
+      "description": "Good alternative UVB option. Span at least half the enclosure length.",
+      "price": 39.99,
+      "asin": "B000255MJI"
+    },
+    {
+      "id": "no-uvb",
+      "name": "No UVB (not recommended)",
+      "description": "Ball pythons can survive without UVB but ReptiFiles strongly recommends it for optimal welfare.",
+      "warning": "If skipping UVB, ensure calcium supplementation is adequate",
+      "badge": "Not Recommended"
+    }
+  ],
+  "substrates": [
+    {
+      "id": "diy-mix",
+      "name": "DIY Topsoil + ReptiSoil + Play Sand Mix",
+      "description": "40% topsoil + 40% Zoo Med ReptiSoil + 20% play sand. ReptiFiles top recommendation. Excellent humidity retention.",
+      "badge": "Recommended",
+      "depth": "4\" minimum",
+      "price": 34.99,
+      "note": "Mix well, soak until muddy, pack firmly, dry overnight before introducing snake"
+    },
+    {
+      "id": "bio-dude-terra-firma",
+      "name": "Bio Dude Terra Firma",
+      "description": "Premium pre-mixed bioactive substrate. Ideal for bioactive setups.",
+      "badge": "Best for Bioactive",
+      "depth": "4\" minimum",
+      "price": 44.99,
+      "asin": "B07NPKZVVL"
+    },
+    {
+      "id": "coconut-fiber",
+      "name": "Zoo Med Eco Earth (Coconut Fiber)",
+      "description": "Holds humidity well but can get stuck in heat pits. Better as part of a mix.",
+      "depth": "4\" minimum",
+      "price": 14.99,
+      "asin": "B0002AQCJ8"
+    },
+    {
+      "id": "cypress-mulch",
+      "name": "Zoo Med Forest Floor Cypress Mulch",
+      "description": "Attractive, holds humidity well. Use large pieces to reduce ingestion risk.",
+      "depth": "4\" minimum",
+      "price": 12.99,
+      "asin": "B0002AQCK2"
+    },
+    {
+      "id": "paper-towels",
+      "name": "Paper Towels / Blue Shop Towels",
+      "description": "Quarantine and hatchling use only. Does not hold humidity. Not suitable for adults long-term.",
+      "badge": "Quarantine Only",
+      "price": 0
+    }
+  ],
+  "humidity": [
+    {
+      "id": "pressure-sprayer",
+      "name": "Exo Terra Pressure Sprayer (2L)",
+      "description": "Mist enclosure twice daily (morning and evening). Essential for maintaining 60-80% humidity.",
+      "required": true,
+      "price": 22.99,
+      "asin": "B000255MJQ"
+    },
+    {
+      "id": "auto-mister",
+      "name": "Automatic Misting System (MistKing or Exo Terra)",
+      "description": "Best option for consistent humidity. Programmable, hands-free.",
+      "badge": "Best Value Long-Term",
+      "price": 89.99,
+      "asin": "B00ADYXO72"
+    },
+    {
+      "id": "sphagnum-moss",
+      "name": "Sphagnum Moss (for humid hide)",
+      "description": "Line humid hide with damp sphagnum moss. Replace monthly to prevent mold. Most humid spot in enclosure.",
+      "required": true,
+      "price": 9.99,
+      "asin": "B0002AQCK8"
+    },
+    {
+      "id": "hygrometer",
+      "name": "Digital Thermometer/Hygrometer",
+      "description": "Place humidity probe in middle of enclosure. Target 60-80% ambient, 80-100% in humid hide.",
+      "required": true,
+      "price": 12.99,
+      "asin": "B07CZKPD7Z"
+    }
+  ],
+  "hides": [
+    {
+      "id": "warm-hide",
+      "name": "Warm Hide (on hot side, 90-95°F)",
+      "description": "Place directly under or near heat lamp. Snug fit — snake should feel walls touching body.",
+      "required": true,
+      "price": 14.99,
+      "asin": "B000255MJK"
+    },
+    {
+      "id": "cool-hide",
+      "name": "Cool Hide (on cool side, 75-80°F)",
+      "description": "Required. Ball pythons must always have a retreat on the cool side.",
+      "required": true,
+      "price": 14.99,
+      "asin": "B000255MJL"
+    },
+    {
+      "id": "humid-hide",
+      "name": "Humid Hide (center to cool side)",
+      "description": "Line with damp sphagnum moss. Most humid spot in enclosure. Critical for healthy shedding.",
+      "required": true,
+      "price": 16.99,
+      "asin": "B000255MJM"
+    },
+    {
+      "id": "cork-log",
+      "name": "Cork Log / Cork Rounds",
+      "description": "Additional hides and climbing enrichment. Ball pythons are semi-arboreal and will use these.",
+      "price": 24.99,
+      "asin": "B0002AQCK9"
+    },
+    {
+      "id": "climbing-branch",
+      "name": "Sturdy Climbing Branch",
+      "description": "Ball pythons climb more than many assume. Enrichment improves welfare.",
+      "price": 19.99,
+      "asin": "B000255MJN"
+    }
+  ],
+  "water": [
+    {
+      "id": "large-water-bowl",
+      "name": "Large Heavy Water Bowl (soaking size)",
+      "description": "Ball pythons soak frequently, especially before shedding. Must be large enough for snake to coil inside. Change water every 2-3 days.",
+      "required": true,
+      "price": 18.99,
+      "asin": "B0002AQCKA"
+    }
+  ],
+  "monitoring": [
+    {
+      "id": "temp-gun",
+      "name": "Etekcity Infrared Temperature Gun",
+      "description": "Most accurate way to monitor surface temps. Check warm hide target: 90-95°F. Cool side: 75-80°F. Essential.",
+      "required": true,
+      "price": 16.99,
+      "asin": "B00837OPBE"
+    }
+  ],
+  "safetyRules": {
+    "enclosure": {
+      "minimumAdult": "120 gallon / 4x2x2 (48\"L x 24\"W x 24\"H)",
+      "note": "Older 40-gallon recommendations are not science-based per ReptiFiles"
+    },
+    "temperature": {
+      "warmHide": "90-95°F",
+      "warmSide": "88-92°F ambient",
+      "coolSide": "75-80°F",
+      "nightDrop": "No lower than 72°F"
+    },
+    "humidity": {
+      "ambient": "60-80% daytime",
+      "night": "80-100%",
+      "humidHide": "80-100% always"
+    },
+    "substrate": {
+      "minimumDepth": "4 inches",
+      "dangerous": ["cedar", "pine", "reptile carpet", "aspen shavings", "calcium sand", "gravel"]
+    },
+    "heatSources": {
+      "dangerous": ["hot rocks", "heat mats as primary source", "red/blue night bulbs"],
+      "thermostatRequired": true,
+      "thermostatProbe": "Inside warm hide at snake level — NOT on heat mat surface"
+    },
+    "nonNegotiables": [
+      "4x2x2 minimum enclosure for adults",
+      "Thermostat required on ALL heat sources",
+      "3 hides minimum: warm, cool, and humid",
+      "60-80% ambient humidity maintained",
+      "Large soaking water bowl always available",
+      "4\" minimum substrate depth for humidity retention"
+    ]
+  }
+}

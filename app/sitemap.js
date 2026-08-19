@@ -30,6 +30,18 @@ export default async function sitemap() {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/build/crested-gecko`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/build/ball-python`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/summary/leopard-gecko`,
       lastModified: now,
       changeFrequency: 'weekly',
@@ -43,6 +55,18 @@ export default async function sitemap() {
     },
     {
       url: `${baseUrl}/summary/bearded-dragon`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/summary/crested-gecko`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/summary/ball-python`,
       lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.8,

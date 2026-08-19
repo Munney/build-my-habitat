@@ -1,0 +1,334 @@
+{
+  "enclosures": [
+    {
+      "id": "12x12x18",
+      "name": "12\"x12\"x18\" Exo Terra Small Tall",
+      "dimensions": "12\"L x 12\"W x 18\"H",
+      "note": "Minimum for juveniles and hatchlings only",
+      "badge": "Juvenile Only",
+      "warning": "Too small for adults",
+      "price": 89.99,
+      "asin": "B000BGONLS",
+      "size": 12
+    },
+    {
+      "id": "18x18x24",
+      "name": "18\"x18\"x24\" Exo Terra Medium Tall",
+      "dimensions": "18\"L x 18\"W x 24\"H",
+      "note": "ReptiFiles minimum for a single adult",
+      "badge": "Recommended",
+      "price": 179.99,
+      "asin": "B000BGONM2",
+      "size": 18
+    },
+    {
+      "id": "18x18x36",
+      "name": "18\"x18\"x36\" Exo Terra Large Tall",
+      "dimensions": "18\"L x 18\"W x 36\"H",
+      "note": "Ideal for adult — more vertical climbing space",
+      "badge": "Best Value",
+      "price": 219.99,
+      "asin": "B000BGONMW",
+      "size": 18
+    },
+    {
+      "id": "24x18x36",
+      "name": "24\"x18\"x36\" Large Front-Opening",
+      "dimensions": "24\"L x 18\"W x 36\"H",
+      "note": "Excellent for bioactive setups with live plants",
+      "price": 299.99,
+      "asin": "B08NWMMKLJ",
+      "size": 24
+    }
+  ],
+  "heating": [
+    {
+      "id": "halogen-25w",
+      "name": "25W Halogen Flood Bulb",
+      "description": "ReptiFiles top recommendation. Low wattage keeps temps safe. Use with dimmer or thermostat.",
+      "badge": "Recommended",
+      "required": true,
+      "safetyNote": "Must be paired with a thermostat or dimmer. Never exceed 85°F at basking spot.",
+      "price": 12.99,
+      "asin": "B009ZR5BJY"
+    },
+    {
+      "id": "halogen-35w",
+      "name": "35W Halogen Flood Bulb",
+      "description": "For larger 18x18x36 or 24x18x36 enclosures. Use with dimmer.",
+      "price": 14.99,
+      "asin": "B009ZR5C0I"
+    },
+    {
+      "id": "ceramic-heat-emitter",
+      "name": "Ceramic Heat Emitter (CHE) 40W",
+      "description": "No-light supplemental heat. Use only if room drops below 65°F at night.",
+      "note": "Nighttime use only if needed",
+      "price": 12.99,
+      "asin": "B0002AQCJ2"
+    },
+    {
+      "id": "thermostat",
+      "name": "Inkbird ITC-306T Dimming Thermostat",
+      "description": "Required with all heat sources. Set probe at basking spot. Target 82-85°F max.",
+      "badge": "REQUIRED (SAFETY)",
+      "required": true,
+      "safetyNote": "Crested geckos are extremely heat sensitive. Temps above 85°F cause stress, above 90°F can be fatal.",
+      "price": 34.99,
+      "asin": "B07KC24CKD"
+    },
+    {
+      "id": "dimmer",
+      "name": "Plug-In Lamp Dimmer",
+      "description": "Simple way to dial down heat bulb wattage. Use instead of or alongside thermostat.",
+      "price": 9.99,
+      "asin": "B001ALFXAO"
+    }
+  ],
+  "uvb": [
+    {
+      "id": "shadedweller-kit",
+      "name": "Arcadia ShadeDweller ProT5 Kit (7% UVB, 12\")",
+      "description": "ReptiFiles #1 recommendation for crested geckos. Low output, perfect for crepuscular species. Place on top of mesh.",
+      "badge": "Recommended",
+      "note": "Place 10-15\" above gecko's highest basking point. Replace every 12 months.",
+      "price": 49.99,
+      "asin": "B003ZG8E8G"
+    },
+    {
+      "id": "reptisun-5-cfl",
+      "name": "Zoo Med ReptiSun 5.0 Mini CFL 13W",
+      "description": "Good budget UVB option for smaller enclosures. Use in a 5.5\" dome fixture.",
+      "price": 14.99,
+      "asin": "B000255MJI"
+    },
+    {
+      "id": "no-uvb",
+      "name": "No UVB",
+      "description": "Crested geckos can survive without UVB due to their CGD diet, but ReptiFiles strongly recommends it for optimal health.",
+      "badge": "Not Recommended",
+      "warning": "Without UVB, ensure calcium supplementation is adequate and consistent"
+    }
+  ],
+  "lighting": [
+    {
+      "id": "led-full-spectrum",
+      "name": "Arcadia JungleDawn LED Bar 17W",
+      "description": "Full spectrum LED for plant growth and natural day cycle. Pairs perfectly with ShadeDweller UVB. Essential for live plant bioactive setups.",
+      "badge": "Recommended",
+      "price": 39.99,
+      "asin": "B07G5MHKYF"
+    },
+    {
+      "id": "timer",
+      "name": "Zilla 24/7 Digital Power Center Timer",
+      "description": "Automate lights on 12-14 hour cycle. Simulates natural day/night. Required for healthy hormonal rhythms.",
+      "required": true,
+      "price": 29.99,
+      "asin": "B002JCAISM"
+    }
+  ],
+  "substrates": [
+    {
+      "id": "eco-earth",
+      "name": "Zoo Med Eco Earth Coconut Fiber",
+      "description": "ReptiFiles recommended. Excellent humidity retention. Pack 3-4\" deep.",
+      "badge": "Recommended",
+      "depth": "3-4 inches",
+      "price": 14.99,
+      "asin": "B0002AQCJ8"
+    },
+    {
+      "id": "bioactive-mix",
+      "name": "Bio Dude Terra Fauna Bioactive Substrate",
+      "description": "Best for live plant bioactive setups. Use with drainage layer. Supports isopods and springtails.",
+      "badge": "Best for Bioactive",
+      "depth": "3-4 inches minimum",
+      "price": 29.99,
+      "asin": "B07MZLXF24"
+    },
+    {
+      "id": "diy-tropical",
+      "name": "DIY Tropical Mix (Eco Earth + Organic Topsoil)",
+      "description": "50/50 mix of coconut fiber and organic topsoil. Great humidity retention. Excellent for bioactive.",
+      "depth": "3-4 inches",
+      "price": 19.99
+    },
+    {
+      "id": "paper-towels",
+      "name": "Paper Towels",
+      "description": "For quarantine and hatchlings only. Does not retain humidity. Not suitable for long-term adult care.",
+      "badge": "Quarantine Only",
+      "price": 0
+    }
+  ],
+  "humidity": [
+    {
+      "id": "spray-bottle",
+      "name": "Exo Terra Pressure Sprayer 2L",
+      "description": "Mist enclosure once in morning and once in evening. Spike humidity to 80%+ then let dry to 40-50% before next misting.",
+      "required": true,
+      "price": 20.11,
+      "asin": "B004CJS7XW"
+    },
+    {
+      "id": "auto-mister",
+      "name": "Exo Terra Monsoon Misting System",
+      "description": "Programmable automatic mister. Best for consistent humidity cycling. Hands-free.",
+      "badge": "Best for Convenience",
+      "price": 89.99,
+      "asin": "B00176RXQA"
+    },
+    {
+      "id": "hygrometer",
+      "name": "Zoo Med Combo Digital Thermometer/Humidity Gauge",
+      "description": "Place probe in middle of enclosure. Target 40-50% ambient daytime, spike to 80% after misting.",
+      "required": true,
+      "price": 13.29,
+      "asin": "B07D284W96"
+    },
+    {
+      "id": "sphagnum-moss",
+      "name": "Sphagnum Moss",
+      "description": "Use in humid hide and as substrate topper. Retains moisture and boosts humidity. Replace monthly.",
+      "price": 9.99,
+      "asin": "B09TQM4TKL"
+    }
+  ],
+  "decor": [
+    {
+      "id": "cork-tube",
+      "name": "Cork Bark Tube (Large Hide)",
+      "description": "Essential hide. Crested geckos need multiple secure hiding spots at all levels — top, middle, and bottom.",
+      "required": true,
+      "price": 24.99,
+      "asin": "B001F9ANVG"
+    },
+    {
+      "id": "coconut-hide",
+      "name": "Exo Terra Coco Hut Coconut Hide",
+      "description": "Arboreal hide — hang or mount at upper level. Crested geckos love enclosed overhead retreats.",
+      "required": true,
+      "price": 14.99,
+      "asin": "B00176RXQ0"
+    },
+    {
+      "id": "climbing-vines",
+      "name": "Artificial Climbing Vines (5 pack)",
+      "description": "Fill vertical space for climbing and thermoregulation. Essential — crested geckos need to use all levels.",
+      "required": true,
+      "price": 16.99,
+      "asin": "B09KKRCTYC"
+    },
+    {
+      "id": "branches",
+      "name": "Natural Cork Bark Flat (climbing ledges)",
+      "description": "Horizontal resting surfaces at multiple heights. Gives gecko options to thermoregulate vertically.",
+      "required": true,
+      "price": 19.99,
+      "asin": "B0DSP8ZPKP"
+    },
+    {
+      "id": "live-plants",
+      "name": "Live Pothos / Philodendron Plant",
+      "description": "Excellent for humidity, enrichment, and hiding cover. Crested geckos thrive with live plant coverage.",
+      "badge": "Highly Recommended",
+      "price": 12.99,
+      "asin": "B08DMHTPMT"
+    },
+    {
+      "id": "fake-plants",
+      "name": "Artificial Hanging Plants (2 pack)",
+      "description": "Low maintenance alternative to live plants. Still provides essential cover and enrichment.",
+      "price": 9.99,
+      "asin": "B094J5G9DJ"
+    },
+    {
+      "id": "water-dish",
+      "name": "Small Reptile Water Dish",
+      "description": "Crested geckos prefer drinking water droplets off leaves, but a small dish is still recommended as backup.",
+      "price": 4.99,
+      "asin": "B0009YD68K"
+    }
+  ],
+  "supplements": [
+    {
+      "id": "cgd-repashy",
+      "name": "Repashy Crested Gecko Diet (CGD) 3oz",
+      "description": "ReptiFiles #1 recommended CGD. Complete diet — mix with water 1:2 ratio. Replace every 24-48 hours.",
+      "badge": "Recommended",
+      "required": true,
+      "price": 14.99,
+      "asin": "B00176RXRY"
+    },
+    {
+      "id": "cgd-pangea",
+      "name": "Pangea Fruit Mix Complete Gecko Diet 2oz",
+      "description": "Excellent CGD alternative. Variety helps prevent food boredom. Rotate flavors.",
+      "price": 10.99,
+      "asin": "B00C34AXFW"
+    },
+    {
+      "id": "calcium-no-d3",
+      "name": "Repti Calcium Without D3",
+      "description": "Dust feeder insects lightly 2-3x per week. Use WITHOUT D3 if providing UVB.",
+      "required": true,
+      "price": 8.99,
+      "asin": "B001OROQ8U"
+    },
+    {
+      "id": "calcium-d3",
+      "name": "Repti Calcium With D3",
+      "description": "Use only if NOT providing UVB. 1-2x per week maximum — D3 toxicity is a real risk.",
+      "note": "Only if no UVB — do not use with UVB",
+      "price": 8.99,
+      "asin": "B0002DHPEO"
+    },
+    {
+      "id": "multivitamin",
+      "name": "Repashy Calcium Plus LoD (Low D3)",
+      "description": "All-in-one supplement. Use with UVB. Dust insects 1x per week.",
+      "badge": "Best All-in-One",
+      "price": 12.99,
+      "asin": "B00C34AXHQ"
+    }
+  ],
+  "safetyRules": {
+    "enclosure": {
+      "minimumAdult": "18\"x18\"x24\" (tall/vertical orientation required)",
+      "orientation": "TALL not wide — crested geckos are arboreal and need vertical climbing space",
+      "note": "Never use a horizontal enclosure — crested geckos will be stressed without vertical climbing space"
+    },
+    "temperature": {
+      "basking": "82-85°F maximum",
+      "ambient": "72-78°F daytime",
+      "night": "65-72°F",
+      "danger": "Above 85°F causes stress. Above 90°F can be fatal. This is the #1 killer of crested geckos."
+    },
+    "humidity": {
+      "ambient": "40-50% daytime between mistings",
+      "afterMisting": "Spike to 80%+ twice daily",
+      "cycle": "Wet/dry cycle is essential — constant high humidity causes respiratory infections and mold"
+    },
+    "substrate": {
+      "minimumDepth": "3 inches",
+      "dangerous": ["reptile carpet", "bark chips", "gravel", "calci-sand", "paper substrate long-term"]
+    },
+    "nonNegotiables": [
+      "Tall enclosure only — minimum 18\"x18\"x24\" for adults",
+      "Thermostat or dimmer required on all heat sources",
+      "Temperature must NEVER exceed 85°F",
+      "Wet/dry humidity cycling — spike to 80%, dry to 40-50%",
+      "Multiple hides at all vertical levels",
+      "Dense vines and foliage for climbing and cover",
+      "CGD (Crested Gecko Diet) as primary food source"
+    ],
+    "dangerous": [
+      "Temperatures above 85°F — can be fatal",
+      "Horizontal enclosures — extreme stress",
+      "Constant high humidity without dry periods — respiratory infection",
+      "Cohabiting males — always fight",
+      "High D3 supplementation with UVB — toxicity risk"
+    ]
+  }
+}

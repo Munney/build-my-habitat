@@ -1,45 +1,162 @@
-Species,Product ID,Product Name,Category,Current Price,Current ASIN,Amazon URL or ASIN (Fill This)
-Betta Fish,bowl,Glass Bowl (1 Gallon),enclosures,14.99,,
-Betta Fish,5g,5 Gallon Portrait,enclosures,59.99,,
-Betta Fish,10g,10 Gallon Standard,enclosures,29.99,,
-Betta Fish,20g,20 Gallon Long,enclosures,49.99,,
-Betta Fish,sponge,Sponge Filter + Air Pump,filtration,19.99,,
-Betta Fish,hob,Hang-On-Back (HOB) Filter,filtration,24.99,,
-Betta Fish,internal,Internal Power Filter,filtration,15.99,,
-Betta Fish,50w,50W Adjustable Heater,heating,19.99,,
-Betta Fish,100w,100W Adjustable Heater,heating,24.99,,
-Betta Fish,thermometer,Glass Thermometer,heating,4.99,,
-Betta Fish,gravel,Natural Gravel,substrates,5.99,,
-Betta Fish,sand,Aquarium Sand,substrates,9.99,,
-Betta Fish,aquasoil,Active Plant Soil,substrates,24.99,,
-Betta Fish,plastic,Plastic Plants,decor,4.99,,
-Betta Fish,silk,Silk Plants,decor,8.99,,
-Betta Fish,live_easy,Live Plants (Anubias/Java Fern),decor,12.99,,
-Betta Fish,betta_log,Floating Betta Log,decor,14.99,,
-Betta Fish,driftwood,Natural Driftwood,decor,11.99,,
-Betta Fish,conditioner,Water Conditioner (Dechlorinator),watercare,8.99,,
-Betta Fish,bacteria,Beneficial Bacteria Starter,watercare,11.99,,
-Betta Fish,testkit,Master Test Kit,watercare,34.99,,
-Leopard Gecko,10g,10 Gallon Tank,enclosures,19.99,,
-Leopard Gecko,20g,20 Gallon Long,enclosures,49.99,,
-Leopard Gecko,40g,40 Gallon Breeder,enclosures,119.99,,
-Leopard Gecko,pvc4x2,4x2x2 PVC Enclosure,enclosures,299.99,,
-Leopard Gecko,heatmat,Under Tank Heater (Mat),heating,15.99,,
-Leopard Gecko,halogen,Halogen Flood Lamp,heating,9.99,,
-Leopard Gecko,dhp,Deep Heat Projector (DHP),heating,24.99,,
-Leopard Gecko,thermostat,Digital Thermostat,heating,29.99,,
-Leopard Gecko,uvb,ShadeDweller UVB Kit,heating,44.99,,
-Leopard Gecko,slate,Slate Tile / Stone,substrates,15,,
-Leopard Gecko,liner,Non-Adhesive Shelf Liner,substrates,5.99,,
-Leopard Gecko,topsoil,Organic Topsoil Mix,substrates,4.99,,
-Leopard Gecko,excavator,Excavator Clay,substrates,19.99,,
-Leopard Gecko,bioactive,BioActive Terra Sahara,substrates,29.99,,
-Leopard Gecko,sand,Reptile Sand (Calcium),substrates,12.99,,
-Leopard Gecko,warmhide,Warm Hide (Cave),hides,12.99,,
-Leopard Gecko,coolhide,Cool Hide (Rock),hides,14.99,,
-Leopard Gecko,humidhide,Humid Hide (Box),hides,9.99,,
-Leopard Gecko,corkbark,Cork Bark Flat,hides,8.99,,
-Leopard Gecko,branches,Climbing Branches,hides,18.99,,
-Leopard Gecko,calcium_no_d3,Pure Calcium (No D3),supplements,5.99,,
-Leopard Gecko,calcium_d3,Calcium + D3,supplements,6.99,,
-Leopard Gecko,multivitamin,Reptile Multivitamin,supplements,8.99,,
+Species,Product ID,Product Name,Category,Current Price,Current ASIN,Amazon URL or ASIN (Fill This),Image urls
+Betta Fish,bowl,Glass Bowl (1 Gallon),enclosures,14.99,,,
+Betta Fish,5g,5 Gallon Portrait,enclosures,59.99,,https://www.amazon.com/dp/B0FD2P3ZKQ?tag=habitatbuilde-20,h
+Betta Fish,10g,10 Gallon Standard,enclosures,79.99,,https://www.amazon.com/dp/B0FW3RHQ9H?tag=habitatbuilde-20,h
+Betta Fish,20g,20 Gallon Long,enclosures,279.99,,https://www.amazon.com/dp/B08QW9RLV2?tag=habitatbuilde-20,h
+Betta Fish,sponge,Sponge Filter + Air Pump,filtration,17.99,,https://www.amazon.com/dp/B07VTT5CJM?tag=habitatbuilde-20,h
+Betta Fish,hob,Hang-On-Back (HOB) Filter,filtration,39.99,,https://www.amazon.com/dp/B0FMXX9TZS?tag=habitatbuilde-20,h
+Betta Fish,internal,Internal Power Filter,filtration,15.97,,https://www.amazon.com/dp/B0002DHYF4?tag=habitatbuilde-20,h
+Betta Fish,50w,50W Adjustable Heater,heating,19.99,,https://www.amazon.com/dp/B0D53VDS9J?tag=habitatbuilde-20,h
+Betta Fish,100w,100W Adjustable Heater,heating,23.99,,https://www.amazon.com/dp/B0FC2DDDXC?tag=habitatbuilde-20,h
+Betta Fish,thermometer,Glass Thermometer,heating,9.99,,https://www.amazon.com/dp/B0BFVST4XX?tag=habitatbuilde-20,h
+Betta Fish,gravel,Natural Gravel - Light (2lbs),substrates,9.99,,https://www.amazon.com/dp/B0BFW114MY?tag=habitatbuilde-20,h
+Betta Fish,gravel,Natural Gravel - Dark (5lbs),substrates,14.99,,https://www.amazon.com/dp/B0C6D9YJXC?tag=habitatbuilde-20,h
+Betta Fish,sand,Aquarium Sand Beige (2lbs),substrates,9.99,,https://www.amazon.com/dp/B0DXF8XCHW?tag=habitatbuilde-20,h
+Betta Fish,sand,Aquarium Sand Black (2lbs),substrates,9.99,,https://www.amazon.com/dp/B0DXF812T8?tag=habitatbuilde-20,h
+Betta Fish,sand,Aquarium Sand White (2lbs),substrates,9.99,,https://www.amazon.com/dp/B0DXF76XRW?tag=habitatbuilde-20,h
+Betta Fish,sand,Aquarium Sand Beige (5lbs),substrates,16.99,,https://www.amazon.com/dp/B0DXF9TF74?tag=habitatbuilde-20,h
+Betta Fish,sand,Aquarium Sand Black (5lbs),substrates,16.99,,https://www.amazon.com/dp/B0DXF9GVY5?tag=habitatbuilde-20,h
+Betta Fish,sand,Aquarium Sand White (5lbs),substrates,16.99,,https://www.amazon.com/dp/B0DXF931PX?tag=habitatbuilde-20,h
+Betta Fish,aquasoil,Active Plant Soil Dark (4.4lbs),substrates,17.99,,https://www.amazon.com/dp/B00JGQIY48?tag=habitatbuilde-20,h
+Betta Fish,plastic,Plastic Plants,decor,8.99,,https://www.amazon.com/dp/B0CYGF1CTG?tag=habitatbuilde-20,h
+Betta Fish,silk,Silk Plants,decor,13.99,,https://www.amazon.com/dp/B0D3HG18HJ?tag=habitatbuilde-20,h
+Betta Fish,live_easy,Live Plants (Anubias/Java Fern),decor,17.99,,https://www.amazon.com/dp/B0DNNN5VD2?tag=habitatbuilde-20,h
+Betta Fish,betta_log,Floating Betta Log,decor,7.99,,https://www.amazon.com/dp/B0027ITKBS?tag=habitatbuilde-20,h
+Betta Fish,driftwood,"Natural Driftwood 3 pcs (6-10"") Large",decor,22.99,,https://www.amazon.com/dp/B08XYSWBBB?tag=habitatbuilde-20,h
+Betta Fish,driftwood,"Natural Driftwood 4 pcs (4-6"") Small",decor,13.44,,https://www.amazon.com/dp/B0CW37TK7C?tag=habitatbuilde-20,h
+Betta Fish,conditioner,Water Conditioner (Dechlorinator),watercare,17.99,,https://www.amazon.com/dp/B077MFZRVN?tag=habitatbuilde-20,h
+Betta Fish,bacteria,Beneficial Bacteria Starter,watercare,15.98,,https://www.amazon.com/dp/B00176ENNG?tag=habitatbuilde-20,h
+Betta Fish,testkit,Master Test Kit,watercare,32.99,,https://www.amazon.com/dp/B000255NCI?tag=habitatbuilde-20,h
+Leopard Gecko,10g,10 Gallon Tank,enclosures,65.99,,https://www.amazon.com/dp/B09MQBB6CP?tag=habitatbuilde-20,h
+Leopard Gecko,15g,15 Gallon Tank,enclosures,105.99,,https://www.amazon.com/dp/B0C8CG8NX3?tag=habitatbuilde-20,h
+Leopard Gecko,20g,20 Gallon Long,enclosures,155.98,,https://www.amazon.com/dp/B0D3KPYCQ9?tag=habitatbuilde-20,h
+Leopard Gecko,35g,35 Gallon Breeder,enclosures,191.81,,https://www.amazon.com/dp/B0922CCQFK?tag=habitatbuilde-20,h
+Leopard Gecko,40g,40 Gallon Breeder,enclosures,259,,https://www.amazon.com/dp/B09QKHHXSH?tag=habitatbuilde-20,h
+Leopard Gecko,pvc4x2,4x2x2 PVC Enclosure (120 gallon),enclosures,343.85,,https://www.amazon.com/dp/B0BQP7S859?tag=habitatbuilde-20,h
+Leopard Gecko,heatmat,Under Tank Heater (Mat) (10-20 gallon),heating,15.99,,https://www.amazon.com/dp/B08C98KNWR?tag=habitatbuilde-20,h
+Leopard Gecko,heatmat,Under Tank Heater (Mat) (30-40 gallon),heating,19.99,,https://www.amazon.com/dp/B08C93ZGPJ?tag=habitatbuilde-20,h
+Leopard Gecko,halogen,Halogen Flood Lamp (2 pack - 50W) 20 gallon tank,heating,17.99,,https://www.amazon.com/dp/B0C36H72BH?tag=habitatbuilde-20,h
+Leopard Gecko,halogen,Halogen Flood Lamp (2 pack - 75W) 40 Gallon tank,heating,15.99,,https://www.amazon.com/dp/B0B55T7946?tag=habitatbuilde-20,h
+Leopard Gecko,halogen,Halogen Flood Lamp (2 pack - 100W) 120 Gallon Tank,heating,15.99,,https://www.amazon.com/dp/B0B55TLWFD?tag=habitatbuilde-20,h
+Leopard Gecko,dhp,Deep Heat Projector (DHP) (2 pack) 50W 20 Gallon Tank,heating,15.99,,https://www.amazon.com/dp/B096TSBBZZ?tag=habitatbuilde-20,h
+Leopard Gecko,dhp,Deep Heat Projector (DHP) (2 pack) 75W 40 Gallon Tank,heating,15.99,,https://www.amazon.com/dp/B096TTB7B3?tag=habitatbuilde-20,h
+Leopard Gecko,dhp,Deep Heat Projector (DHP) (2 pack) 100W 120 Gallon Tank,heating,16.99,,https://www.amazon.com/dp/B096TS3YN3?tag=habitatbuilde-20,h
+Leopard Gecko,thermostat,Digital Thermostat and Heat Mat Controller,heating,20.99,,https://www.amazon.com/dp/B01I15S6OM?tag=habitatbuilde-20,h
+Leopard Gecko,uvb,"ShadeDweller UVB Kit (8W, 12 inch) 20 Gallon Tank",heating,29.89,,https://www.amazon.com/dp/B0BPSP5HMY?tag=habitatbuilde-20,h
+Leopard Gecko,uvb,"ShadeDweller UVB Kit (24W, 22 inch) 40 Gallon Tank",heating,41.09,,https://www.amazon.com/dp/B0BLVLTFZN?tag=habitatbuilde-20,h
+Leopard Gecko,uvb,"ShadeDweller UVB Kit (39W, 34 inch) 120 Gallon Tank",heating,49.99,,https://www.amazon.com/dp/B0BPSM1X5N?tag=habitatbuilde-20,h
+Leopard Gecko,slate,Slate Tile / Stone 6 in x 6 in (Square) 20 Gallon Tank,substrates,7.99,,https://www.amazon.com/dp/B0FR4PYMVW?tag=habitatbuilde-20,h
+Leopard Gecko,slate,Slate Tile / Stone 11.8 in x 5.9 in (Rectangle) 40 Gallon Tank,substrates,14.99,,https://www.amazon.com/dp/B0947QGS7R?tag=habitatbuilde-20,h
+Leopard Gecko,slate,Slate Tile / Stone 15.7 in x 9.8 in (Rectangle) 120 Gallon Tank,substrates,19.99,,https://www.amazon.com/dp/B09H78CYNG?tag=habitatbuilde-20,h
+Leopard Gecko,liner,Reptile Carpet (20 Gallon Tank),substrates,18.99,,https://www.amazon.com/dp/B07YJH46Y3?tag=habitatbuilde-20,h
+Leopard Gecko,liner,Reptile Carpet (40 Gallon Tank),substrates,25.99,,https://www.amazon.com/dp/B09CYCLP21?tag=habitatbuilde-20,h
+Leopard Gecko,topsoil,Organic Topsoil Mix (Cocunut Chips),substrates,27.08,,https://www.amazon.com/dp/B0CRDQH522?tag=habitatbuilde-20,h
+Leopard Gecko,excavator,Excavator Clay,substrates,13.99,,https://www.amazon.com/dp/B000N5OM8S?tag=habitatbuilde-20,h
+Leopard Gecko,bioactive,BioActive Terra Sahara 18 qts (20-40 Gallon Tanks),substrates,42.95,,https://www.amazon.com/dp/B0CVQR1X6N?tag=habitatbuilde-20,h
+Leopard Gecko,bioactive,BioActive Terra Sahara 36 qts (120 Gallon Tanks),substrates,59.95,,https://www.amazon.com/dp/B07Z5CJ573?tag=habitatbuilde-20,h
+Leopard Gecko,sand,Reptile Sand (Calcium) (White),substrates,19.99,,https://www.amazon.com/dp/B005J1ORIQ?tag=habitatbuilde-20,h
+Leopard Gecko,sand,Reptile Sand (Calcium) (Black),substrates,19.99,,https://www.amazon.com/dp/B00F8DU48W?tag=habitatbuilde-20,h
+Leopard Gecko,sand,Reptile Sand (Calcium) (Tan),substrates,18.99,,https://www.amazon.com/dp/B005J1OR72?tag=habitatbuilde-20,h
+Leopard Gecko,sand,Reptile Sand (Calcium) (Blue),substrates,19.99,,https://www.amazon.com/dp/B00F8DU3UQ?tag=habitatbuilde-20,h
+Leopard Gecko,warmhide,Warm Hide (Cave),hides,14.99,,https://www.amazon.com/dp/B008YDHDD2?tag=habitatbuilde-20,h
+Leopard Gecko,coolhide,Cool Hide (Rock),hides,18.49,,https://www.amazon.com/dp/B0DK6D4CWJ?tag=habitatbuilde-20,h
+Leopard Gecko,humidhide,Humid Hide (Box),hides,23.99,,https://www.amazon.com/dp/B0F1TVP46X?tag=habitatbuilde-20,h
+Leopard Gecko,corkbark,Cork Bark Flat 4 pcs,hides,14.99,,https://www.amazon.com/dp/B0DSP8ZPKP?tag=habitatbuilde-20,h
+Leopard Gecko,branches,Climbing Branches 4 pcs (14-16 inches),hides,19.99,,https://www.amazon.com/dp/B0CLY5WZ4S?tag=habitatbuilde-20,h
+Leopard Gecko,calcium_no_d3,Pure Calcium (No D3),supplements,5.99,,https://www.amazon.com/dp/B001OROQ8U?tag=habitatbuilde-20,h
+Leopard Gecko,calcium_d3,Calcium + D3,supplements,3.99,,https://www.amazon.com/dp/B0002DHPEO?tag=habitatbuilde-20,h
+Leopard Gecko,multivitamin,Reptile Multivitamin,supplements,15.57,,https://www.amazon.com/dp/B0D6CT1Q5Q?tag=habitatbuilde-20,h
+Leopard Gecko,Bowls,Food and Water Dish 2 pcs (Black Rock Design),Feeding,9.5,,https://www.amazon.com/dp/B0CH13PCSM?tag=habitatbuilde-20,h
+Leopard Gecko,Bowls,Food and Water Dish 2 pcs (Tree Trunk Design),Feeding,10.99,,https://www.amazon.com/dp/B0CH117LQP?tag=habitatbuilde-20,h
+Leopard Gecko,Bowls,Food and Water Dish 1 corner pc 1 round pc (Sahara Rock Design),Feeding,11.98,,https://www.amazon.com/dp/B0BY4P4S1C?tag=habitatbuilde-20,h
+Bearded Dragon,120g,4x2x2 (120 Gallon) Bearded Dragon Enclosure Front Open,Enclosures,343.85,,https://www.amazon.com/dp/B0BQP7S859?tag=habitatbuilde-20,
+Bearded Dragon,85g,85 Gallon Reptile Tank,Enclosures,322.76,,https://www.amazon.com/dp/B0CBBS1H92?tag=habitatbuilde-20,
+Bearded Dragon,120g,"120 Gallon, Tall & Wide Tempered Glass Reptile Tank 48"" x 24"" x 24""",Enclosures,439.99,,https://www.amazon.com/dp/B07W5346Z2?tag=habitatbuilde-20,
+Bearded Dragon,UVA,2 Pack UVA Heat Lamp 150W,Heating,21.99,,https://www.amazon.com/dp/B0BXKJD8Q5?tag=habitatbuilde-20,
+Bearded Dragon,Ceramic Heat,2 Pack 100W Ceramic Heat Emitter,Heating,16.99,,https://www.amazon.com/dp/B096TS3YN3?tag=habitatbuilde-20,
+Bearded Dragon,T5 UVB 10.0 ,"2 Pack T5 UVB Reptile Light 24W 10.0, 22""",Heating,37.99,,https://www.amazon.com/dp/B0C5MQ7MSJ?tag=habitatbuilde-20,
+Bearded Dragon,T5 UVB 10.0,"2 Pack T5 UVB 10.0 Reptile Light 39W 34""",Heating,46.99,,https://www.amazon.com/dp/B0C2V8XP8P?tag=habitatbuilde-20,
+Bearded Dragon,T5 UVB 10.0,"T5 Reptile Light Fixture Combo Kit 54W 46""",Heating,69.99,,https://www.amazon.com/dp/B0C7MTKC5S?tag=habitatbuilde-20,
+Bearded Dragon,Slate,"Basking Platform 6 × 6""",Substates,7.49,,https://www.amazon.com/dp/B0CZXRFNHW?tag=habitatbuilde-20,
+Bearded Dragon,Slate,"Slate Tile 11.8 x 5.9""",Substrates,14.99,,https://www.amazon.com/dp/B0CKY39TSP?tag=habitatbuilde-20,
+Bearded Dragon,Shelf Liner,"Tank Liner Mat for 40 Gallon, 20 Gallon, 50 Gallon,75 Gallon Tank",Substrates,9.99,,https://www.amazon.com/dp/B0BYTB7B4S?tag=habitatbuilde-20,
+Bearded Dragon,Shelf Liner ,Tank Liner Mat for 120 Gallon Tank,Substrates,22.99,,https://www.amazon.com/dp/B0CSKPDP3G?tag=habitatbuilde-20,
+Bearded Dragon,Sand Mix Playsand,Quikrete Sandbox Play Sand (50lbs),Substrates,32.99,,https://www.amazon.com/dp/B0896YDW45?tag=habitatbuilde-20,
+Bearded Dragon,Sand Mix Topsoil,Zoo Med ReptoSoil 24 Quart ,Substrates,36.26,,https://www.amazon.com/dp/B01M7RZFYI?tag=habitatbuilde-20,
+Bearded Dragon,Bioactive Substrate,Bioactive Reptile Substrate 36 quarts,Substrates,59.95,,https://www.amazon.com/dp/B07Z5CJ573?tag=habitatbuilde-20,
+Bearded Dragon,Carpet,"47"" x 24"" Large Reptile Carpet Terrarium Liner (GREY)",Substrates,11.99,,https://www.amazon.com/dp/B08R67K8LS?tag=habitatbuilde-20,
+Bearded Dragon,Carpet,"47"" x 24"" Large Reptile Carpet Terrarium Liner (BLACK",Substrates,9.99,,https://www.amazon.com/dp/B0BZSQ6CK4?tag=habitatbuilde-20,
+Bearded Dragon,Hides,Reptile Hide (Medium),Hides,17.99,,https://www.amazon.com/dp/B0BM651NQ3?tag=habitatbuilde-20,
+Bearded Dragon,Hides,Reptile Hide (Large),Hides,27.99,,https://www.amazon.com/dp/B0BM64QN5J?tag=habitatbuilde-20,
+Bearded Dragon,Hides,Reptile Hide (Extra Large),Hides,39.99,,https://www.amazon.com/dp/B0BM65BQW5?tag=habitatbuilde-20,
+Bearded Dragon,Basking Rock,"Basking Platform, 12.5x7x5 inch",Decor,39.99,,https://www.amazon.com/dp/B0D4Q7BZ9C?tag=habitatbuilde-20,
+Bearded Dragon,Cork bark,"Natural Cork Bark, Round, (Extra Large) Tube",Decor,32.98,,https://www.amazon.com/dp/B001F9ANVG?tag=habitatbuilde-20,
+Bearded Dragon,Cork bark,"4pcs Reptile Bark Decor Wood, Natural Cork Bark",Decor,13.59,,https://www.amazon.com/dp/B0DSP8ZPKP?tag=habitatbuilde-20,
+Bearded Dragon,Cork bark,Natural Cork Bark for Reptile Hideout Round Cork Bark Tube 7.8x3in (Small),Decor,26.99,,https://www.amazon.com/dp/B0FWKMTHN9?tag=habitatbuilde-20,
+Bearded Dragon,Fake Plants,5 Pack Hanging Plant Vines Artificial Leaves,Decor,16.99,,https://www.amazon.com/dp/B09KKRCTYC?tag=habitatbuilde-20,
+Bearded Dragon,Fake Plants,2 Pack Reptile Plants,Decor,9.99,,https://www.amazon.com/dp/B094J5G9DJ?tag=habitatbuilde-20,
+Bearded Dragon,Veggie Dish,"Rock Food Dish, Small ",Feeding,4.39,,https://www.amazon.com/dp/B0009YD68K?tag=habitatbuilde-20,
+Bearded Dragon,Insect Dish,"Mealworms & Cricket Dish Anti-Escape Feeder (XL 5"") 1 Pack",Feeding,13.99,,https://www.amazon.com/dp/B07VRQ369N?tag=habitatbuilde-20,
+Bearded Dragon,Insect Dish,"Mealworms & Cricket Dish Anti-Escape Feeder (Small 2.75"") 2 Pack",Feeding,6.99,,https://www.amazon.com/dp/B07YYL2TKB?tag=habitatbuilde-20,
+Bearded Dragon,Water Bowl,Reptile Ramp Bowl,Feeding ,18.69,,https://www.amazon.com/dp/B00167XQLG?tag=habitatbuilde-20,
+Bearded Dragon,Water Bowl,"Reptile Water Dish Large(8.8"" x 6.5"" x 1.5"") ",Feeding,19.49,,https://www.amazon.com/dp/B07HHXYL15?tag=habitatbuilde-20,
+Ball Python,40gal,40 Gallon Breeder Tank,enclosures,189.99,B09MQBB6CP,https://www.amazon.com/dp/B09MQBB6CP?tag=habitatbuilde-20,
+Ball Python,pvc4x2x2,4x2x2 PVC Enclosure,enclosures,349.99,B0BQP7S859,https://www.amazon.com/dp/B0BQP7S859?tag=habitatbuilde-20,
+Ball Python,halogen-90w,Halogen Flood Lamp PAR38 90W,heating,17.99,B009ZR5BJY,https://www.amazon.com/dp/B009ZR5BJY?tag=habitatbuilde-20,
+Ball Python,dhp-80w,Arcadia Deep Heat Projector 80W,heating,49.99,B0BSVT86WL,https://www.amazon.com/dp/B0BSVT86WL?tag=habitatbuilde-20,
+Ball Python,dhp-50w,Arcadia Deep Heat Projector 50W,heating,39.99,B0BSHS996Y,https://www.amazon.com/dp/B0BSHS996Y?tag=habitatbuilde-20,
+Ball Python,dhp-pack,Arcadia Optimal Heating Pack (75W Halogen + 50W DHP),heating,59.99,B0D4ZLFX9T,https://www.amazon.com/dp/B0D4ZLFX9T?tag=habitatbuilde-20,
+Ball Python,thermostat-306t,Inkbird ITC-306T Reptile Thermostat,heating,34.99,B07KC24CKD,https://www.amazon.com/dp/B07KC24CKD?tag=habitatbuilde-20,
+Ball Python,thermostat-308,Inkbird ITC-308 Thermostat (Heating + Cooling),heating,39.99,B09FXTVRJ9,https://www.amazon.com/dp/B09FXTVRJ9?tag=habitatbuilde-20,
+Ball Python,uvb-shadedweller,"Arcadia T5 ShadeDweller 7% UVB Kit 12""",uvb,49.99,B003ZG8E8G,https://www.amazon.com/dp/B003ZG8E8G?tag=habitatbuilde-20,
+Ball Python,topsoil,Organic Topsoil (40% of mix — buy at Home Depot/Lowes),substrates,8.99,,https://www.homedepot.com/p/Miracle-Gro-1-cu-ft-All-Purpose-Garden-Soil-71959430/203483090,
+Ball Python,reptisoil,Zoo Med ReptiSoil 24qt (40% of mix),substrates,14.99,B01M7RZFYI,https://www.amazon.com/dp/B01M7RZFYI?tag=habitatbuilde-20,
+Ball Python,playsand,Play Sand 50lb (20% of mix — buy at Home Depot/Lowes),substrates,9.99,,https://www.homedepot.com/p/Quikrete-50-lb-Play-Sand-111351/100318950,
+Ball Python,coconut-fiber,Zoo Med Eco Earth Coconut Fiber,substrates,29.76,B00U67QUJM,https://www.amazon.com/dp/B00U67QUJM?tag=habitatbuilde-20,
+Ball Python,cypress-mulch,Zoo Med Forest Floor Cypress Mulch,substrates,32.98,B0010OVM7A,https://www.amazon.com/dp/B0010OVM7A?tag=habitatbuilde-20,
+Ball Python,sprayer,Exo Terra Pressure Sprayer 2L,humidity,20.11,B004CJS7XW,https://www.amazon.com/dp/B004CJS7XW?tag=habitatbuilde-20,
+Ball Python,sphagnum-moss,Sphagnum Moss (for humid hide),humidity,21.84,B09TQM4TKL,https://www.amazon.com/dp/B09TQM4TKL?tag=habitatbuilde-20,
+Ball Python,hygrometer,Digital Thermometer/Hygrometer,humidity,13.29,B07D284W96,https://www.amazon.com/dp/B07D284W96?tag=habitatbuilde-20,
+Ball Python,warm-hide,Warm Hide (Cave),hides,28.99,B008YDHDD2,https://www.amazon.com/dp/B008YDHDD2?tag=habitatbuilde-20,
+Ball Python,cool-hide,Cool Hide,hides,18.99,B0GG5XB171,https://www.amazon.com/dp/B0GG5XB171?tag=habitatbuilde-20,
+Ball Python,humid-hide,Humid Hide (Box),hides,18.49,B0FLQPPBJV,https://www.amazon.com/dp/B0FLQPPBJV?tag=habitatbuilde-20,
+Ball Python,cork-log,Cork Log / Cork Rounds,hides,34.44,B001F9ANVG,https://www.amazon.com/dp/B001F9ANVG?tag=habitatbuilde-20,
+Ball Python,water-bowl,Large Heavy Water Bowl (soaking size),water,19.99,B0002DJ0PQ,https://www.amazon.com/dp/B0002DJ0PQ?tag=habitatbuilde-20,
+Ball Python,temp-gun,Etekcity Infrared Temperature Gun,monitoring,16.99,B0B71HFH9K,https://www.amazon.com/dp/B0B71HFH9K?tag=habitatbuilde-20,
+Crested Gecko,12x12x18,Waazoo 12x12x18 Glass Terrarium,enclosures,112.99,B0DK5BQ525,https://www.amazon.com/dp/B0DK5BQ525?tag=habitatbuilde-20,
+Crested Gecko,18x18x24,REPTI ZOO 18x18x24 Rainforest Terrarium,enclosures,176.99,B0D25Z1L2Z,https://www.amazon.com/dp/B0D25Z1L2Z?tag=habitatbuilde-20,
+Crested Gecko,18x18x36,REPTI ZOO 18x18x36 Chameleon Terrarium,enclosures,174.99,B0DDTBRJ9H,https://www.amazon.com/dp/B0DDTBRJ9H?tag=habitatbuilde-20,
+Crested Gecko,24x18x36,REPTI ZOO 24x18x36 Large Rainforest Terrarium,enclosures,208.99,B07Y866155,https://www.amazon.com/dp/B07Y866155?tag=habitatbuilde-20,
+Crested Gecko,halogen-25w,REPTI ZOO 25W Daylight Basking Bulb,heating,14.99,B0FF42ZTKW,https://www.amazon.com/dp/B0FF42ZTKW?tag=habitatbuilde-20,
+Crested Gecko,halogen-35w,Arcadia Golden Basking Halogen Lamp 35W,heating,17.99,B0DJRKGZN9,https://www.amazon.com/dp/B0DJRKGZN9?tag=habitatbuilde-20,
+Crested Gecko,ceramic-heat-emitter,Zoo Med Ceramic Heat Emitter 40W,heating,23.38,B075LNBF1Q,https://www.amazon.com/dp/B075LNBF1Q?tag=habitatbuilde-20,
+Crested Gecko,dimmer,Lutron Credenza Plug-In Lamp Dimmer 300W,heating,14.99,B0000BYEF6,https://www.amazon.com/dp/B0000BYEF6?tag=habitatbuilde-20,
+Crested Gecko,reptisun-5-cfl,Zoo Med ReptiSun 5.0 Mini CFL 13W,uvb,14.99,B00A8RI8TK,https://www.amazon.com/dp/B00A8RI8TK?tag=habitatbuilde-20,
+Crested Gecko,led-full-spectrum,"Arcadia LumenIZE Jungle Dawn LED Bar 12"" 18W",lighting,49.99,B0CP4FD8GX,https://www.amazon.com/dp/B0CP4FD8GX?tag=habitatbuilde-20,
+Crested Gecko,timer,Zilla 24/7 Digital Power Center Timer,lighting,39.99,B0012GTRSW,https://www.amazon.com/dp/B0012GTRSW?tag=habitatbuilde-20,
+Crested Gecko,bioactive-mix,Bio Dude Terra Fauna Bioactive Substrate,substrates,29.99,B07MZLXF24,https://www.amazon.com/dp/B07MZLXF24?tag=habitatbuilde-20,
+Crested Gecko,cgd-repashy,Repashy Crested Gecko Diet 5.3oz,supplements,14.99,B0053IWKX4,https://www.amazon.com/dp/B0053IWKX4?tag=habitatbuilde-20,
+Crested Gecko,cgd-repashy-mango,Repashy Crested Gecko Diet Mango Superblend 3oz,supplements,12.99,B0D84ZL6Q9,https://www.amazon.com/dp/B0D84ZL6Q9?tag=habitatbuilde-20,
+Crested Gecko,multivitamin,Repashy Calcium Plus 3oz,supplements,16.99,B0CP4FD8GX,https://www.amazon.com/dp/B0CP4FD8GX?tag=habitatbuilde-20,
+Crested Gecko,spray-bottle,Exo Terra Pressure Sprayer 2L,humidity,20.11,B004CJS7XW,https://www.amazon.com/dp/B004CJS7XW?tag=habitatbuilde-20,
+Crested Gecko,hygrometer,Zoo Med Combo Digital Thermometer/Hygrometer,humidity,13.29,B07D284W96,https://www.amazon.com/dp/B07D284W96?tag=habitatbuilde-20,
+Crested Gecko,sphagnum-moss,Sphagnum Moss,humidity,21.84,B09TQM4TKL,https://www.amazon.com/dp/B09TQM4TKL?tag=habitatbuilde-20,
+Crested Gecko,eco-earth,Zoo Med Eco Earth Coconut Fiber,substrates,29.76,B00U67QUJM,https://www.amazon.com/dp/B00U67QUJM?tag=habitatbuilde-20,
+Crested Gecko,thermostat,Inkbird ITC-306T Dimming Thermostat,heating,34.99,B07KC24CKD,https://www.amazon.com/dp/B07KC24CKD?tag=habitatbuilde-20,
+Crested Gecko,shadedweller-kit,"Arcadia ShadeDweller ProT5 Kit 7% UVB 12""",uvb,49.99,B003ZG8E8G,https://www.amazon.com/dp/B003ZG8E8G?tag=habitatbuilde-20,
+Crested Gecko,calcium-no-d3,Zoo Med Repti Calcium Without D3,supplements,8.99,B001OROQ8U,https://www.amazon.com/dp/B001OROQ8U?tag=habitatbuilde-20,
+Crested Gecko,calcium-d3,Zoo Med Repti Calcium With D3,supplements,8.99,B0002DHPEO,https://www.amazon.com/dp/B0002DHPEO?tag=habitatbuilde-20,
+Crested Gecko,cork-tube,Zoo Med Natural Cork Round Tube Large,decor,34.44,B001F9ANVG,https://www.amazon.com/dp/B001F9ANVG?tag=habitatbuilde-20,
+Crested Gecko,water-dish,Zoo Med Reptile Water Dish Small,decor,19.99,B0002DJ0PQ,https://www.amazon.com/dp/B0002DJ0PQ?tag=habitatbuilde-20,
+Crested Gecko,temp-gun,Etekcity Infrared Temperature Gun,monitoring,16.99,B0B71HFH9K,https://www.amazon.com/dp/B0B71HFH9K?tag=habitatbuilde-20,
+Crested Gecko,coconut-hide,Exo Terra Coco Hut Coconut Hide,decor,23.99,B09J1QQSQF,https://www.amazon.com/dp/B09J1QQSQF?tag=habitatbuilde-20,
+Crested Gecko,live-plants,Costa Farms Golden Pothos Live Plant,decor,19.97,B07TTJNM89,https://www.amazon.com/dp/B07TTJNM89?tag=habitatbuilde-20,
+Crested Gecko,calcium-lod,Repashy Calcium Plus LoD 3oz,supplements,15.99,B0D6SP118Q,https://www.amazon.com/dp/B0D6SP118Q?tag=habitatbuilde-20,
+Crested Gecko,climbing-vines,PINVNBY Artificial Terrarium Climbing Vines,decor,19.89,B0D9RM3S47,https://www.amazon.com/dp/B0D9RM3S47?tag=habitatbuilde-20,
+Crested Gecko,cgd-pangea,Pangea Gecko Diet with Fig & Insects 2oz,supplements,9.99,B07K1KH7J9,https://www.amazon.com/dp/B07K1KH7J9?tag=habitatbuilde-20,
+Ball Python,zen-4x2x2,Zen Habitats 4x2x2 Reptile Enclosure 3.0 (PVC),enclosures,349.99,B0DHYNB46R,https://www.amazon.com/dp/B0DHYNB46R?tag=habitatbuilde-20,
+Ball Python,heat-mat,"Fluker's Premium Heat Mat Large 17""x11""",heating,24.99,B00164PW9S,https://www.amazon.com/dp/B00164PW9S?tag=habitatbuilde-20,
+Ball Python,climbing-branch,Zoo Med Natural Cork Round Tube Extra Large,hides,34.44,B001F9ANVG,https://www.amazon.com/dp/B001F9ANVG?tag=habitatbuilde-20,
+Crested Gecko,feeding-ledge,Pangea Ultimate Gecko Ledge Magnetic,decor,14.99,B00B5I7CO8,https://www.amazon.com/dp/B00B5I7CO8?tag=habitatbuilde-20,
+Crested Gecko,feeding-cups,Pangea Small 0.5oz Paper Gecko Feeding Cups 100ct,decor,9.99,B07PNCSLBN,https://www.amazon.com/dp/B07PNCSLBN?tag=habitatbuilde-20,
+Crested Gecko,fake-plants,SLSON Reptile Artificial Hanging Plants,decor,12.99,B094J5G9DJ,https://www.amazon.com/dp/B094J5G9DJ?tag=habitatbuilde-20,

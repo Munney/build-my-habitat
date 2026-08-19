@@ -14,7 +14,7 @@ export default function Home() {
   const howToSteps = [
     {
       name: "Select Species",
-      text: "Choose your pet (Leopard Gecko or Betta Fish) and your experience level (Beginner or Experienced)."
+      text: "Choose your pet (Leopard Gecko, Betta Fish, Bearded Dragon, Crested Gecko, or Ball Python) and your experience level (Beginner or Experienced)."
     },
     {
       name: "Build Setup",
@@ -104,7 +104,7 @@ export default function Home() {
         </div>
 
         {/* --- BUILDER CARDS GRID --- */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 w-full mb-16">
           
           {/* LEOPARD GECKO BUILDER */}
           <SpeciesCard 
@@ -140,6 +140,30 @@ export default function Home() {
             borderColor="group-hover:border-emerald-500/50"
             glowColor="group-hover:shadow-[0_0_40px_-10px_rgba(16,185,129,0.35)]"
             titleColor="text-emerald-300"
+          />
+
+          {/* CRESTED GECKO BUILDER */}
+          <SpeciesCard 
+            href="/build/crested-gecko"
+            title="Crested Gecko"
+            description="Build a tall tropical enclosure with proper humidity cycling, UVB lighting, and dense foliage for your arboreal gecko."
+            imageSrc="/crested-gecko.jpg"
+            buttonColor="bg-purple-600 hover:bg-purple-500"
+            borderColor="group-hover:border-purple-500/50"
+            glowColor="group-hover:shadow-[0_0_40px_-10px_rgba(147,51,234,0.35)]"
+            titleColor="text-purple-300"
+          />
+
+          {/* BALL PYTHON BUILDER */}
+          <SpeciesCard 
+            href="/build/ball-python"
+            title="Ball Python"
+            description="Build a humidity-controlled enclosure with proper overhead heating, deep substrate, and essential hide setup."
+            imageSrc="/ball-python.jpg"
+            buttonColor="bg-amber-600 hover:bg-amber-500"
+            borderColor="group-hover:border-amber-500/50"
+            glowColor="group-hover:shadow-[0_0_40px_-10px_rgba(217,119,6,0.35)]"
+            titleColor="text-amber-400"
           />
 
         </div>
@@ -196,16 +220,8 @@ export default function Home() {
             <h2 className="text-2xl font-bold text-white mb-2">What's Next</h2>
             <p className="text-slate-400">More species builders in development — join the list to get notified.</p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+          <div className="grid grid-cols-1 max-w-xs mx-auto mb-8">
             <div className="py-4 px-6 rounded-xl bg-slate-900/40 border border-slate-700/50 backdrop-blur-sm flex items-center gap-3">
-              <div className="text-5xl">🐍</div>
-              <p className="text-xs sm:text-sm font-semibold text-slate-300 leading-tight">Ball Python</p>
-            </div>
-            <div className="py-4 px-6 rounded-xl bg-slate-900/40 border border-slate-700/50 backdrop-blur-sm flex items-center gap-3">
-              <div className="text-5xl">🦎</div>
-              <p className="text-xs sm:text-sm font-semibold text-slate-300 leading-tight">Crested Gecko</p>
-            </div>
-            <div className="col-span-2 md:col-span-1 mx-auto w-full max-w-xs md:max-w-none py-4 px-6 rounded-xl bg-slate-900/40 border border-slate-700/50 backdrop-blur-sm flex items-center gap-3">
               <div className="text-5xl">🐢</div>
               <p className="text-xs sm:text-sm font-semibold text-slate-300 leading-tight">Red-Eared Slider</p>
             </div>
@@ -260,7 +276,11 @@ function SpeciesCard({
     ? "betta"
     : lower.includes("bearded")
       ? "bearded-dragon"
-      : "leopard-gecko";
+      : lower.includes("crested")
+        ? "crested-gecko"
+        : lower.includes("ball python")
+          ? "ball-python"
+          : "leopard-gecko";
   
   return (
     <Link 
