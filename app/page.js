@@ -104,7 +104,7 @@ export default function Home() {
         </div>
 
         {/* --- BUILDER CARDS GRID --- */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 w-full mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 w-full mb-16">
           
           {/* LEOPARD GECKO BUILDER */}
           <SpeciesCard 
@@ -112,7 +112,7 @@ export default function Home() {
             title="Leopard Gecko"
             description="Create a naturalistic terrarium with precise heating, safe substrates, and enriching hides."
             imageSrc="/gecko.jpg"
-            buttonColor="bg-emerald-600 hover:bg-emerald-500"
+            buttonColor="bg-emerald-600 hover:bg-emerald-500 text-white"
             borderColor="group-hover:border-emerald-500/50"
             glowColor="group-hover:shadow-[0_0_40px_-10px_rgba(16,185,129,0.3)]"
             titleColor="text-emerald-400"
@@ -124,7 +124,7 @@ export default function Home() {
             title="Betta Fish"
             description="Design a planted aquarium with gentle filtration, proper heating, and safe decor."
             imageSrc="/betta.jpg"
-            buttonColor="bg-blue-600 hover:bg-blue-500"
+            buttonColor="bg-emerald-600 hover:bg-emerald-500 text-white"
             borderColor="group-hover:border-blue-500/50"
             glowColor="group-hover:shadow-[0_0_40px_-10px_rgba(59,130,246,0.3)]"
             titleColor="text-blue-400"
@@ -136,7 +136,7 @@ export default function Home() {
             title="Bearded Dragon"
             description="Build a complete enclosure with proper UVB lighting, safe heating, and enriching decor."
             imageSrc="/bearded_dragon.jpg"
-            buttonColor="bg-emerald-700 hover:bg-emerald-600"
+            buttonColor="bg-emerald-600 hover:bg-emerald-500 text-white"
             borderColor="group-hover:border-emerald-500/50"
             glowColor="group-hover:shadow-[0_0_40px_-10px_rgba(16,185,129,0.35)]"
             titleColor="text-emerald-300"
@@ -148,7 +148,7 @@ export default function Home() {
             title="Crested Gecko"
             description="Build a tall tropical enclosure with proper humidity cycling, UVB lighting, and dense foliage for your arboreal gecko."
             imageSrc="/crested-gecko.jpg"
-            buttonColor="bg-purple-600 hover:bg-purple-500"
+            buttonColor="bg-emerald-600 hover:bg-emerald-500 text-white"
             borderColor="group-hover:border-purple-500/50"
             glowColor="group-hover:shadow-[0_0_40px_-10px_rgba(147,51,234,0.35)]"
             titleColor="text-purple-300"
@@ -160,7 +160,7 @@ export default function Home() {
             title="Ball Python"
             description="Build a humidity-controlled enclosure with proper overhead heating, deep substrate, and essential hide setup."
             imageSrc="/ball-python.jpg"
-            buttonColor="bg-amber-600 hover:bg-amber-500"
+            buttonColor="bg-emerald-600 hover:bg-emerald-500 text-white"
             borderColor="group-hover:border-amber-500/50"
             glowColor="group-hover:shadow-[0_0_40px_-10px_rgba(217,119,6,0.35)]"
             titleColor="text-amber-400"
