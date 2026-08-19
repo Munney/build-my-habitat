@@ -15,11 +15,11 @@ import { GiGecko, GiSpikedDragonHead, GiSnake } from "react-icons/gi";
 import { FaFish } from "react-icons/fa";
 
 const SPECIES_TABS = [
-  { key: "Leopard Gecko", label: "Leopard Gecko", icon: <GiGecko size={18} className="text-emerald-400" />, color: "emerald" },
-  { key: "Betta Fish", label: "Betta Fish", icon: <FaFish size={18} className="text-blue-400" />, color: "blue" },
-  { key: "Bearded Dragon", label: "Bearded Dragon", icon: <GiSpikedDragonHead size={18} className="text-orange-400" />, color: "orange" },
-  { key: "Ball Python", label: "Ball Python", icon: <GiSnake size={18} className="text-amber-400" />, color: "amber" },
-  { key: "Crested Gecko", label: "Crested Gecko", icon: <GiGecko size={18} className="text-purple-400" />, color: "purple" },
+  { key: "Leopard Gecko", label: "Leopard Gecko", icon: <GiGecko size={18} className="text-emerald-400" />, color: "emerald", activeBorder: "border-emerald-500", activeBg: "bg-emerald-600" },
+  { key: "Betta Fish", label: "Betta Fish", icon: <FaFish size={18} className="text-blue-400" />, color: "blue", activeBorder: "border-blue-500", activeBg: "bg-blue-600" },
+  { key: "Bearded Dragon", label: "Bearded Dragon", icon: <GiSpikedDragonHead size={18} className="text-orange-400" />, color: "orange", activeBorder: "border-orange-500", activeBg: "bg-orange-600" },
+  { key: "Ball Python", label: "Ball Python", icon: <GiSnake size={18} className="text-amber-400" />, color: "amber", activeBorder: "border-amber-500", activeBg: "bg-amber-600" },
+  { key: "Crested Gecko", label: "Crested Gecko", icon: <GiGecko size={18} className="text-purple-400" />, color: "purple", activeBorder: "border-purple-500", activeBg: "bg-purple-600" },
 ];
 
 export default function CommonMistakesPage() {
@@ -350,15 +350,7 @@ export default function CommonMistakesPage() {
                 onClick={() => setSelectedSpecies(tab.key)}
                 className={`px-5 py-3 rounded-xl font-bold transition-all flex items-center gap-2 ${
                   isActive
-                    ? tab.color === "blue"
-                      ? "bg-blue-600 text-white shadow-lg shadow-blue-900/20"
-                      : tab.color === "purple"
-                      ? "bg-purple-600 text-white shadow-lg shadow-purple-900/20"
-                      : tab.color === "amber"
-                      ? "bg-amber-600 text-white shadow-lg shadow-amber-900/20"
-                      : tab.color === "orange"
-                      ? "bg-orange-600 text-white shadow-lg shadow-orange-900/20"
-                      : "bg-emerald-600 text-white shadow-lg shadow-emerald-900/20"
+                    ? `border-2 ${tab.activeBorder} ${tab.activeBg} text-white shadow-lg`
                     : "bg-white/5 text-slate-300 hover:bg-white/10 border border-white/10"
                 }`}
               >

@@ -28,6 +28,8 @@ export default function CareSheetsPage() {
       color: "emerald",
       icon: <GiGecko size={48} className="text-emerald-400" />,
       buttonIcon: <GiGecko size={16} className="text-emerald-400" />,
+      activeBorder: "border-emerald-500",
+      activeBg: "bg-emerald-500/15",
       stats: {
         temperature: {
           basking: "88-92°F (31-33°C)",
@@ -85,6 +87,8 @@ export default function CareSheetsPage() {
       color: "blue",
       icon: <FaFish size={48} className="text-blue-400" />,
       buttonIcon: <FaFish size={16} className="text-blue-400" />,
+      activeBorder: "border-blue-500",
+      activeBg: "bg-blue-500/15",
       stats: {
         temperature: {
           water: "78-80°F (25-27°C)",
@@ -145,6 +149,8 @@ export default function CareSheetsPage() {
       color: "emerald",
       icon: <GiSpikedDragonHead size={48} className="text-orange-400" />,
       buttonIcon: <GiSpikedDragonHead size={16} className="text-orange-400" />,
+      activeBorder: "border-orange-500",
+      activeBg: "bg-orange-500/15",
       stats: {
         temperature: {
           basking: "100-108°F (38-42°C)",
@@ -200,6 +206,8 @@ export default function CareSheetsPage() {
       color: "amber",
       icon: <GiSnake size={48} className="text-amber-400" />,
       buttonIcon: <GiSnake size={16} className="text-amber-400" />,
+      activeBorder: "border-amber-500",
+      activeBg: "bg-amber-500/15",
       stats: {
         temperature: {
           basking: "88-92°F (31-33°C)",
@@ -258,6 +266,8 @@ export default function CareSheetsPage() {
       color: "purple",
       icon: <GiGecko size={48} className="text-purple-400" />,
       buttonIcon: <GiGecko size={16} className="text-purple-400" />,
+      activeBorder: "border-purple-500",
+      activeBg: "bg-purple-500/15",
       stats: {
         temperature: {
           basking: "78-80°F maximum at warm spot",
@@ -349,7 +359,7 @@ export default function CareSheetsPage() {
               onClick={() => setSelectedSpecies(key)}
               className={`px-5 py-2.5 rounded-full text-sm font-bold border-2 transition-all flex items-center gap-2 ${
                 selectedSpecies === key
-                  ? "border-emerald-500 bg-emerald-500/15 text-white"
+                  ? `${species.activeBorder} ${species.activeBg} text-white`
                   : "border-slate-700 text-slate-400 hover:border-slate-500 hover:text-white"
               }`}
             >
@@ -364,7 +374,7 @@ export default function CareSheetsPage() {
           
           {/* Species Header */}
           <div className="text-center mb-10 pb-8 border-b border-white/10">
-            <div className="mb-4">{currentData.icon}</div>
+            <div className="flex justify-center mb-4">{currentData.icon}</div>
             <h2 className="text-4xl font-black text-white mb-2">
               {currentData.name}
             </h2>
