@@ -24,6 +24,7 @@ export default function CareSheetsPage() {
       name: "Leopard Gecko",
       scientificName: "Eublepharis macularius",
       color: "emerald",
+      iconColor: "text-emerald-400",
       icon: "🦎",
       stats: {
         temperature: {
@@ -80,6 +81,7 @@ export default function CareSheetsPage() {
       name: "Betta Fish",
       scientificName: "Betta splendens",
       color: "blue",
+      iconColor: "text-blue-400",
       icon: "🐟",
       stats: {
         temperature: {
@@ -139,6 +141,7 @@ export default function CareSheetsPage() {
       name: "Bearded Dragon",
       scientificName: "Pogona vitticeps",
       color: "emerald",
+      iconColor: "text-orange-400",
       icon: "🦎",
       stats: {
         temperature: {
@@ -193,6 +196,7 @@ export default function CareSheetsPage() {
       name: "Ball Python",
       scientificName: "Python regius",
       color: "amber",
+      iconColor: "text-amber-400",
       icon: "🐍",
       stats: {
         temperature: {
@@ -250,6 +254,7 @@ export default function CareSheetsPage() {
       name: "Crested Gecko",
       scientificName: "Correlophus ciliatus",
       color: "purple",
+      iconColor: "text-purple-400",
       icon: "🦎",
       stats: {
         temperature: {
@@ -336,56 +341,19 @@ export default function CareSheetsPage() {
 
         {/* Species Selector */}
         <div className="flex gap-3 mb-8 flex-wrap justify-center">
-          <button
-            onClick={() => setSelectedSpecies("leopard-gecko")}
-            className={`px-5 py-2.5 rounded-full text-sm font-bold border-2 transition-all ${
-              selectedSpecies === "leopard-gecko"
-                ? "border-emerald-500 bg-emerald-500/15 text-emerald-400 transition-all"
-                : "border-slate-700 text-slate-400 hover:border-slate-500 hover:text-white transition-all"
-            }`}
-          >
-            <span className="text-emerald-400">🦎</span> Leopard Gecko
-          </button>
-          <button
-            onClick={() => setSelectedSpecies("betta")}
-            className={`px-5 py-2.5 rounded-full text-sm font-bold border-2 transition-all ${
-              selectedSpecies === "betta"
-                ? "border-emerald-500 bg-emerald-500/15 text-emerald-400 transition-all"
-                : "border-slate-700 text-slate-400 hover:border-slate-500 hover:text-white transition-all"
-            }`}
-          >
-            <span className="text-blue-400">🐟</span> Betta Fish
-          </button>
-          <button
-            onClick={() => setSelectedSpecies("bearded-dragon")}
-            className={`px-5 py-2.5 rounded-full text-sm font-bold border-2 transition-all ${
-              selectedSpecies === "bearded-dragon"
-                ? "border-emerald-500 bg-emerald-500/15 text-emerald-400 transition-all"
-                : "border-slate-700 text-slate-400 hover:border-slate-500 hover:text-white transition-all"
-            }`}
-          >
-            <span className="text-orange-400">🦎</span> Bearded Dragon
-          </button>
-          <button
-            onClick={() => setSelectedSpecies("ball-python")}
-            className={`px-5 py-2.5 rounded-full text-sm font-bold border-2 transition-all ${
-              selectedSpecies === "ball-python"
-                ? "border-emerald-500 bg-emerald-500/15 text-emerald-400"
-                : "border-slate-700 text-slate-400 hover:border-slate-500 hover:text-white"
-            }`}
-          >
-            <span className="text-amber-400">🐍</span> Ball Python
-          </button>
-          <button
-            onClick={() => setSelectedSpecies("crested-gecko")}
-            className={`px-5 py-2.5 rounded-full text-sm font-bold border-2 transition-all ${
-              selectedSpecies === "crested-gecko"
-                ? "border-emerald-500 bg-emerald-500/15 text-emerald-400"
-                : "border-slate-700 text-slate-400 hover:border-slate-500 hover:text-white"
-            }`}
-          >
-            <span className="text-purple-400">🦎</span> Crested Gecko
-          </button>
+          {Object.entries(careData).map(([speciesId, species]) => (
+            <button
+              key={speciesId}
+              onClick={() => setSelectedSpecies(speciesId)}
+              className={`px-5 py-2.5 rounded-full text-sm font-bold border-2 transition-all ${
+                selectedSpecies === speciesId
+                  ? "border-emerald-500 bg-emerald-500/15 text-emerald-400 transition-all"
+                  : "border-slate-700 text-slate-400 hover:border-slate-500 hover:text-white transition-all"
+              }`}
+            >
+              <span className={species.iconColor}>{species.icon}</span> {species.name}
+            </button>
+          ))}
         </div>
 
         {/* Care Sheet Content */}
@@ -393,7 +361,7 @@ export default function CareSheetsPage() {
           
           {/* Species Header */}
           <div className="text-center mb-10 pb-8 border-b border-white/10">
-            <div className="text-6xl mb-4">{currentData.icon}</div>
+            <div className={`text-6xl mb-4 ${currentData.iconColor}`}>{currentData.icon}</div>
             <h2 className="text-4xl font-black text-white mb-2">
               {currentData.name}
             </h2>
