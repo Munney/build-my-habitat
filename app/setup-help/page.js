@@ -309,6 +309,48 @@ export default function SetupHelpHubPage() {
                 description="Complete setup baseline and essentials"
                 analyticsKey="setup-help-ball-python-setup"
               />
+              <SetupHelpCard
+                href="/guides/ball-python-humidity-guide"
+                title="Ball Python Humidity Guide"
+                description="60-80% ambient humidity and humid hide setup"
+                analyticsKey="setup-help-ball-python-humidity-guide"
+              />
+              <SetupHelpCard
+                href="/guides/ball-python-heating-guide"
+                title="Ball Python Heating Guide"
+                description="Warm hide targets, thermostats, and heat sources"
+                analyticsKey="setup-help-ball-python-heating-guide"
+              />
+              <SetupHelpCard
+                href="/guides/ball-python-substrate-guide"
+                title="Ball Python Substrate Guide"
+                description="Best substrates for humidity and burrowing"
+                analyticsKey="setup-help-ball-python-substrate-guide"
+              />
+              <SetupHelpCard
+                href="/guides/ball-python-enclosure-size"
+                title="Ball Python Enclosure Size"
+                description="Why adults need 4x2x2 minimum"
+                analyticsKey="setup-help-ball-python-enclosure-size"
+              />
+              <SetupHelpCard
+                href="/guides/ball-python-feeding-guide"
+                title="Ball Python Feeding Guide"
+                description="Prey sizing, schedule, and feeding refusal"
+                analyticsKey="setup-help-ball-python-feeding-guide"
+              />
+              <SetupHelpCard
+                href="/guides/ball-python-shedding-guide"
+                title="Ball Python Shedding Guide"
+                description="Blue phase, healthy sheds, and stuck shed"
+                analyticsKey="setup-help-ball-python-shedding-guide"
+              />
+              <SetupHelpCard
+                href="/guides/ball-python-uvb-guide"
+                title="Do Ball Pythons Need UVB?"
+                description="UVB evidence, setup, and supplementation"
+                analyticsKey="setup-help-ball-python-uvb-guide"
+              />
             </div>
             <div className="text-center">
               <SpeciesCTA
@@ -332,6 +374,48 @@ export default function SetupHelpHubPage() {
                 title="Crested Gecko Setup Guide"
                 description="Complete setup baseline and essentials"
                 analyticsKey="setup-help-crested-gecko-setup"
+              />
+              <SetupHelpCard
+                href="/guides/crested-gecko-humidity-guide"
+                title="Crested Gecko Humidity Guide"
+                description="Wet/dry cycle and misting schedule"
+                analyticsKey="setup-help-crested-gecko-humidity-guide"
+              />
+              <SetupHelpCard
+                href="/guides/crested-gecko-temperature-guide"
+                title="Crested Gecko Temperature Guide"
+                description="Safe ranges and heat stress prevention"
+                analyticsKey="setup-help-crested-gecko-temperature-guide"
+              />
+              <SetupHelpCard
+                href="/guides/crested-gecko-enclosure-guide"
+                title="Crested Gecko Enclosure Guide"
+                description="Why tall orientation is mandatory"
+                analyticsKey="setup-help-crested-gecko-enclosure-guide"
+              />
+              <SetupHelpCard
+                href="/guides/crested-gecko-uvb-guide"
+                title="Do Crested Geckos Need UVB?"
+                description="ShadeDweller setup and D3 interaction"
+                analyticsKey="setup-help-crested-gecko-uvb-guide"
+              />
+              <SetupHelpCard
+                href="/guides/crested-gecko-diet-guide"
+                title="Crested Gecko Diet Guide"
+                description="CGD brands, insects, and supplements"
+                analyticsKey="setup-help-crested-gecko-diet-guide"
+              />
+              <SetupHelpCard
+                href="/guides/crested-gecko-shedding-guide"
+                title="Crested Gecko Shedding Guide"
+                description="Healthy sheds and stuck shed on toes"
+                analyticsKey="setup-help-crested-gecko-shedding-guide"
+              />
+              <SetupHelpCard
+                href="/guides/crested-gecko-not-eating"
+                title="Crested Gecko Not Eating?"
+                description="Temperature, shedding, and CGD causes"
+                analyticsKey="setup-help-crested-gecko-not-eating"
               />
             </div>
             <div className="text-center">
