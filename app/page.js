@@ -127,7 +127,7 @@ export default function Home() {
             buttonColor="bg-emerald-600 hover:bg-emerald-500 text-white"
             borderColor="group-hover:border-blue-500/50"
             glowColor="group-hover:shadow-[0_0_40px_-10px_rgba(59,130,246,0.3)]"
-            titleColor="text-blue-400"
+            titleColor="text-emerald-400"
           />
 
           {/* BEARDED DRAGON BUILDER */}
@@ -139,7 +139,7 @@ export default function Home() {
             buttonColor="bg-emerald-600 hover:bg-emerald-500 text-white"
             borderColor="group-hover:border-emerald-500/50"
             glowColor="group-hover:shadow-[0_0_40px_-10px_rgba(16,185,129,0.35)]"
-            titleColor="text-emerald-300"
+            titleColor="text-emerald-400"
           />
 
           {/* CRESTED GECKO BUILDER */}
@@ -151,7 +151,7 @@ export default function Home() {
             buttonColor="bg-emerald-600 hover:bg-emerald-500 text-white"
             borderColor="group-hover:border-purple-500/50"
             glowColor="group-hover:shadow-[0_0_40px_-10px_rgba(147,51,234,0.35)]"
-            titleColor="text-purple-300"
+            titleColor="text-emerald-400"
           />
 
           {/* BALL PYTHON BUILDER */}
@@ -163,7 +163,7 @@ export default function Home() {
             buttonColor="bg-emerald-600 hover:bg-emerald-500 text-white"
             borderColor="group-hover:border-amber-500/50"
             glowColor="group-hover:shadow-[0_0_40px_-10px_rgba(217,119,6,0.35)]"
-            titleColor="text-amber-400"
+            titleColor="text-emerald-400"
           />
 
         </div>
