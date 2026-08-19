@@ -295,6 +295,7 @@ function SpeciesCard({
           alt={title}
           fill
           className="object-cover transition-transform duration-700 group-hover:scale-110"
+          style={species === "crested-gecko" ? { objectPosition: "center top" } : undefined}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent z-10" />
       </div>
@@ -308,7 +309,7 @@ function SpeciesCard({
           {description}
         </p>
         
-        <div className={`w-full py-4 rounded-xl font-bold text-white flex items-center justify-center gap-2 transition-all shadow-lg ${buttonColor}`}>
+        <div className={`w-full py-4 rounded-xl font-bold text-white flex items-center justify-center text-center gap-2 transition-all shadow-lg ${buttonColor}`}>
           Start {title} Setup <ArrowRight size={20} />
         </div>
       </div>
