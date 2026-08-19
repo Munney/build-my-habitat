@@ -11,15 +11,15 @@ import {
   CheckCircle2
 } from "lucide-react";
 import { analytics } from "../utils/analytics";
-import { GiLizard, GiSpikedDragonHead, GiSnake } from "react-icons/gi";
+import { GiGecko, GiSpikedDragonHead, GiSnake } from "react-icons/gi";
 import { FaFish } from "react-icons/fa";
 
 const SPECIES_TABS = [
-  { key: "Leopard Gecko", label: "Leopard Gecko", icon: <GiLizard size={18} className="text-emerald-400" />, color: "emerald" },
+  { key: "Leopard Gecko", label: "Leopard Gecko", icon: <GiGecko size={18} className="text-emerald-400" />, color: "emerald" },
   { key: "Betta Fish", label: "Betta Fish", icon: <FaFish size={18} className="text-blue-400" />, color: "blue" },
   { key: "Bearded Dragon", label: "Bearded Dragon", icon: <GiSpikedDragonHead size={18} className="text-orange-400" />, color: "orange" },
   { key: "Ball Python", label: "Ball Python", icon: <GiSnake size={18} className="text-amber-400" />, color: "amber" },
-  { key: "Crested Gecko", label: "Crested Gecko", icon: <GiLizard size={18} className="text-purple-400" />, color: "purple" },
+  { key: "Crested Gecko", label: "Crested Gecko", icon: <GiGecko size={18} className="text-purple-400" />, color: "purple" },
 ];
 
 export default function CommonMistakesPage() {

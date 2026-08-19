@@ -15,7 +15,7 @@ import {
   Download,
   FileText,
 } from "lucide-react";
-import { GiLizard, GiSpikedDragonHead, GiSnake } from "react-icons/gi";
+import { GiGecko, GiSpikedDragonHead, GiSnake } from "react-icons/gi";
 import { FaFish } from "react-icons/fa";
 
 export default function CareSheetsPage() {
@@ -26,8 +26,8 @@ export default function CareSheetsPage() {
       name: "Leopard Gecko",
       scientificName: "Eublepharis macularius",
       color: "emerald",
-      icon: <GiLizard size={48} className="text-emerald-400" />,
-      buttonIcon: <GiLizard size={16} className="text-emerald-400" />,
+      icon: <GiGecko size={48} className="text-emerald-400" />,
+      buttonIcon: <GiGecko size={16} className="text-emerald-400" />,
       stats: {
         temperature: {
           basking: "88-92°F (31-33°C)",
@@ -256,8 +256,8 @@ export default function CareSheetsPage() {
       name: "Crested Gecko",
       scientificName: "Correlophus ciliatus",
       color: "purple",
-      icon: <GiLizard size={48} className="text-purple-400" />,
-      buttonIcon: <GiLizard size={16} className="text-purple-400" />,
+      icon: <GiGecko size={48} className="text-purple-400" />,
+      buttonIcon: <GiGecko size={16} className="text-purple-400" />,
       stats: {
         temperature: {
           basking: "78-80°F maximum at warm spot",
