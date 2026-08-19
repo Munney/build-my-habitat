@@ -30,6 +30,7 @@ export default function CareSheetsPage() {
       buttonIcon: <GiGecko size={16} className="text-emerald-400" />,
       activeBorder: "border-emerald-500",
       activeBg: "bg-emerald-500/15",
+      buttonColor: "bg-emerald-600 hover:bg-emerald-500",
       stats: {
         temperature: {
           basking: "88-92°F (31-33°C)",
@@ -89,6 +90,7 @@ export default function CareSheetsPage() {
       buttonIcon: <FaFish size={16} className="text-blue-400" />,
       activeBorder: "border-blue-500",
       activeBg: "bg-blue-500/15",
+      buttonColor: "bg-blue-600 hover:bg-blue-500",
       stats: {
         temperature: {
           water: "78-80°F (25-27°C)",
@@ -151,6 +153,7 @@ export default function CareSheetsPage() {
       buttonIcon: <GiSpikedDragonHead size={16} className="text-orange-400" />,
       activeBorder: "border-orange-500",
       activeBg: "bg-orange-500/15",
+      buttonColor: "bg-orange-600 hover:bg-orange-500",
       stats: {
         temperature: {
           basking: "100-108°F (38-42°C)",
@@ -208,6 +211,7 @@ export default function CareSheetsPage() {
       buttonIcon: <GiSnake size={16} className="text-amber-400" />,
       activeBorder: "border-amber-500",
       activeBg: "bg-amber-500/15",
+      buttonColor: "bg-amber-600 hover:bg-amber-500",
       stats: {
         temperature: {
           basking: "88-92°F (31-33°C)",
@@ -268,6 +272,7 @@ export default function CareSheetsPage() {
       buttonIcon: <GiGecko size={16} className="text-purple-400" />,
       activeBorder: "border-purple-500",
       activeBg: "bg-purple-500/15",
+      buttonColor: "bg-purple-600 hover:bg-purple-500",
       stats: {
         temperature: {
           basking: "78-80°F maximum at warm spot",
@@ -533,11 +538,7 @@ export default function CareSheetsPage() {
           <div className="mt-10 pt-8 border-t border-white/10 flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href={`/build/${selectedSpecies}`}
-              className={`px-6 py-3 rounded-xl font-bold text-white transition-all shadow-lg ${
-                selectedSpecies === "betta"
-                  ? "bg-blue-600 hover:bg-blue-500"
-                  : "bg-emerald-600 hover:bg-emerald-500"
-              }`}
+              className={`px-6 py-3 rounded-xl font-bold text-white transition-all shadow-lg ${currentData.buttonColor}`}
             >
               Build {currentData.name} Habitat
             </Link>
