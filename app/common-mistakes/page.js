@@ -11,13 +11,15 @@ import {
   CheckCircle2
 } from "lucide-react";
 import { analytics } from "../utils/analytics";
+import { GiLizard, GiSpikedDragonHead, GiSnake } from "react-icons/gi";
+import { FaFish } from "react-icons/fa";
 
 const SPECIES_TABS = [
-  { key: "Leopard Gecko", label: "Leopard Gecko", icon: "🦎", color: "emerald", iconColor: "text-emerald-400" },
-  { key: "Betta Fish", label: "Betta Fish", icon: "🐟", color: "blue", iconColor: "text-blue-400" },
-  { key: "Bearded Dragon", label: "Bearded Dragon", icon: "🦎", color: "orange", iconColor: "text-orange-400" },
-  { key: "Ball Python", label: "Ball Python", icon: "🐍", color: "amber", iconColor: "text-amber-400" },
-  { key: "Crested Gecko", label: "Crested Gecko", icon: "🦎", color: "purple", iconColor: "text-purple-400" },
+  { key: "Leopard Gecko", label: "Leopard Gecko", icon: <GiLizard size={18} className="text-emerald-400" />, color: "emerald" },
+  { key: "Betta Fish", label: "Betta Fish", icon: <FaFish size={18} className="text-blue-400" />, color: "blue" },
+  { key: "Bearded Dragon", label: "Bearded Dragon", icon: <GiSpikedDragonHead size={18} className="text-orange-400" />, color: "orange" },
+  { key: "Ball Python", label: "Ball Python", icon: <GiSnake size={18} className="text-amber-400" />, color: "amber" },
+  { key: "Crested Gecko", label: "Crested Gecko", icon: <GiLizard size={18} className="text-purple-400" />, color: "purple" },
 ];
 
 export default function CommonMistakesPage() {
@@ -360,7 +362,7 @@ export default function CommonMistakesPage() {
                     : "bg-white/5 text-slate-300 hover:bg-white/10 border border-white/10"
                 }`}
               >
-                <span className={tab.iconColor}>{tab.icon}</span>
+                {tab.icon}
                 {tab.label}
               </button>
             );

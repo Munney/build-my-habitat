@@ -104,7 +104,7 @@ export default function Home() {
         </div>
 
         {/* --- BUILDER CARDS GRID --- */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 w-full mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 w-full mb-16">
           
           {/* LEOPARD GECKO BUILDER */}
           <SpeciesCard 
@@ -302,10 +302,10 @@ function SpeciesCard({
 
       {/* Content Half */}
       <div className="-mt-px flex flex-col flex-grow p-8 pt-4">
-        <h2 className={`text-3xl font-bold mb-3 ${titleColor} drop-shadow-sm`}>
+        <h2 className={`text-xl sm:text-2xl font-bold mb-3 ${titleColor} drop-shadow-sm`}>
           {title}
         </h2>
-        <p className="text-slate-300 mb-8 leading-relaxed flex-grow">
+        <p className="text-slate-300 mb-8 leading-snug flex-grow">
           {description}
         </p>
         

@@ -13,8 +13,10 @@ import {
   AlertTriangle,
   ArrowLeft,
   Download,
-  FileText
+  FileText,
 } from "lucide-react";
+import { GiLizard, GiSpikedDragonHead, GiSnake } from "react-icons/gi";
+import { FaFish } from "react-icons/fa";
 
 export default function CareSheetsPage() {
   const [selectedSpecies, setSelectedSpecies] = useState("leopard-gecko");
@@ -24,8 +26,8 @@ export default function CareSheetsPage() {
       name: "Leopard Gecko",
       scientificName: "Eublepharis macularius",
       color: "emerald",
-      iconColor: "text-emerald-400",
-      icon: "🦎",
+      icon: <GiLizard size={48} className="text-emerald-400" />,
+      buttonIcon: <GiLizard size={16} className="text-emerald-400" />,
       stats: {
         temperature: {
           basking: "88-92°F (31-33°C)",
@@ -81,8 +83,8 @@ export default function CareSheetsPage() {
       name: "Betta Fish",
       scientificName: "Betta splendens",
       color: "blue",
-      iconColor: "text-blue-400",
-      icon: "🐟",
+      icon: <FaFish size={48} className="text-blue-400" />,
+      buttonIcon: <FaFish size={16} className="text-blue-400" />,
       stats: {
         temperature: {
           water: "78-80°F (25-27°C)",
@@ -141,8 +143,8 @@ export default function CareSheetsPage() {
       name: "Bearded Dragon",
       scientificName: "Pogona vitticeps",
       color: "emerald",
-      iconColor: "text-orange-400",
-      icon: "🦎",
+      icon: <GiSpikedDragonHead size={48} className="text-orange-400" />,
+      buttonIcon: <GiSpikedDragonHead size={16} className="text-orange-400" />,
       stats: {
         temperature: {
           basking: "100-108°F (38-42°C)",
@@ -196,8 +198,8 @@ export default function CareSheetsPage() {
       name: "Ball Python",
       scientificName: "Python regius",
       color: "amber",
-      iconColor: "text-amber-400",
-      icon: "🐍",
+      icon: <GiSnake size={48} className="text-amber-400" />,
+      buttonIcon: <GiSnake size={16} className="text-amber-400" />,
       stats: {
         temperature: {
           basking: "88-92°F (31-33°C)",
@@ -254,8 +256,8 @@ export default function CareSheetsPage() {
       name: "Crested Gecko",
       scientificName: "Correlophus ciliatus",
       color: "purple",
-      iconColor: "text-purple-400",
-      icon: "🦎",
+      icon: <GiLizard size={48} className="text-purple-400" />,
+      buttonIcon: <GiLizard size={16} className="text-purple-400" />,
       stats: {
         temperature: {
           basking: "78-80°F maximum at warm spot",
@@ -341,17 +343,18 @@ export default function CareSheetsPage() {
 
         {/* Species Selector */}
         <div className="flex gap-3 mb-8 flex-wrap justify-center">
-          {Object.entries(careData).map(([speciesId, species]) => (
+          {Object.entries(careData).map(([key, species]) => (
             <button
-              key={speciesId}
-              onClick={() => setSelectedSpecies(speciesId)}
-              className={`px-5 py-2.5 rounded-full text-sm font-bold border-2 transition-all ${
-                selectedSpecies === speciesId
-                  ? "border-emerald-500 bg-emerald-500/15 text-emerald-400 transition-all"
-                  : "border-slate-700 text-slate-400 hover:border-slate-500 hover:text-white transition-all"
+              key={key}
+              onClick={() => setSelectedSpecies(key)}
+              className={`px-5 py-2.5 rounded-full text-sm font-bold border-2 transition-all flex items-center gap-2 ${
+                selectedSpecies === key
+                  ? "border-emerald-500 bg-emerald-500/15 text-white"
+                  : "border-slate-700 text-slate-400 hover:border-slate-500 hover:text-white"
               }`}
             >
-              <span className={species.iconColor}>{species.icon}</span> {species.name}
+              {species.buttonIcon}
+              {species.name}
             </button>
           ))}
         </div>
@@ -361,7 +364,7 @@ export default function CareSheetsPage() {
           
           {/* Species Header */}
           <div className="text-center mb-10 pb-8 border-b border-white/10">
-            <div className={`text-6xl mb-4 ${currentData.iconColor}`}>{currentData.icon}</div>
+            <div className="mb-4">{currentData.icon}</div>
             <h2 className="text-4xl font-black text-white mb-2">
               {currentData.name}
             </h2>
