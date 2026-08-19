@@ -8,8 +8,10 @@
       "badge": "juvenile-only",
       "warning": "Below minimum for adults",
       "price": 189.99,
-      "asin": "B0002AQCJK",
-      "size": 40
+      "asin": "B09MQBB6CP",
+      "size": 40,
+      "amazonUrl": "https://www.amazon.com/dp/B09MQBB6CP?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B09MQBB6CP?tag=habitatbuilde-20"
     },
     {
       "id": "120gal",
@@ -28,8 +30,10 @@
       "note": "Excellent humidity retention for ball pythons",
       "badge": "Best Value",
       "price": 349.99,
-      "asin": "B08VGQM1JK",
-      "size": 120
+      "asin": "B0BQP7S859",
+      "size": 120,
+      "amazonUrl": "https://www.amazon.com/dp/B0BQP7S859?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0BQP7S859?tag=habitatbuilde-20"
     },
     {
       "id": "pvc4x4x2",
@@ -39,6 +43,32 @@
       "price": 499.99,
       "asin": "B09WQMK2LP",
       "size": 120
+    },
+    {
+      "id": "40gal_40_gallon_breeder_tank",
+      "name": "40 Gallon Breeder Tank",
+      "price": 189.99,
+      "size": 40,
+      "asin": "B09MQBB6CP",
+      "amazonUrl": "https://www.amazon.com/dp/B09MQBB6CP?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B09MQBB6CP?tag=habitatbuilde-20"
+    },
+    {
+      "id": "zen-4x2x2",
+      "name": "Zen Habitats 4x2x2 Reptile Enclosure 3.0 (PVC)",
+      "price": 349.99,
+      "asin": "B0DHYNB46R",
+      "amazonUrl": "https://www.amazon.com/dp/B0DHYNB46R?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0DHYNB46R?tag=habitatbuilde-20"
+    },
+    {
+      "id": "40_gallon_breeder_tank",
+      "name": "40 Gallon Breeder Tank",
+      "price": 189.99,
+      "size": 40,
+      "asin": "B09MQBB6CP",
+      "amazonUrl": "https://www.amazon.com/dp/B09MQBB6CP?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B09MQBB6CP?tag=habitatbuilde-20"
     }
   ],
   "heating": [
@@ -89,7 +119,73 @@
       "description": "Supplemental only — helps maintain warm hide temp. NOT sufficient as primary heat source in adult enclosures.",
       "warning": "Supplemental use only — must be thermostat controlled",
       "price": 24.99,
-      "asin": "B0002AQCJ4"
+      "asin": "B00164PW9S",
+      "amazonUrl": "https://www.amazon.com/dp/B00164PW9S?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B00164PW9S?tag=habitatbuilde-20"
+    },
+    {
+      "id": "halogen-90w",
+      "name": "Halogen Flood Lamp PAR38 90W",
+      "price": 17.99,
+      "asin": "B009ZR5BJY",
+      "amazonUrl": "https://www.amazon.com/dp/B009ZR5BJY?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B009ZR5BJY?tag=habitatbuilde-20"
+    },
+    {
+      "id": "dhp-80w",
+      "name": "Arcadia Deep Heat Projector 80W",
+      "price": 49.99,
+      "asin": "B0BSVT86WL",
+      "amazonUrl": "https://www.amazon.com/dp/B0BSVT86WL?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0BSVT86WL?tag=habitatbuilde-20"
+    },
+    {
+      "id": "dhp-50w",
+      "name": "Arcadia Deep Heat Projector 50W",
+      "price": 39.99,
+      "asin": "B0BSHS996Y",
+      "amazonUrl": "https://www.amazon.com/dp/B0BSHS996Y?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0BSHS996Y?tag=habitatbuilde-20"
+    },
+    {
+      "id": "dhp-pack",
+      "name": "Arcadia Optimal Heating Pack (75W Halogen + 50W DHP)",
+      "price": 59.99,
+      "asin": "B0D4ZLFX9T",
+      "amazonUrl": "https://www.amazon.com/dp/B0D4ZLFX9T?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0D4ZLFX9T?tag=habitatbuilde-20"
+    },
+    {
+      "id": "thermostat-306t",
+      "name": "Inkbird ITC-306T Reptile Thermostat",
+      "price": 34.99,
+      "asin": "B07KC24CKD",
+      "amazonUrl": "https://www.amazon.com/dp/B07KC24CKD?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B07KC24CKD?tag=habitatbuilde-20"
+    },
+    {
+      "id": "thermostat-308",
+      "name": "Inkbird ITC-308 Thermostat (Heating + Cooling)",
+      "price": 39.99,
+      "asin": "B09FXTVRJ9",
+      "amazonUrl": "https://www.amazon.com/dp/B09FXTVRJ9?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B09FXTVRJ9?tag=habitatbuilde-20"
+    },
+    {
+      "id": "heat-mat_fluker_s_premium_heat_mat_larg",
+      "name": "Fluker's Premium Heat Mat Large 17x11",
+      "price": 24.99,
+      "asin": "B00164PW9S",
+      "amazonUrl": "https://www.amazon.com/dp/B00164PW9S?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B00164PW9S?tag=habitatbuilde-20"
+    },
+    {
+      "id": "fluker_s_premium_heat_mat_larg",
+      "name": "Fluker's Premium Heat Mat Large 17x11",
+      "price": 24.99,
+      "asin": "B00164PW9S",
+      "amazonUrl": "https://www.amazon.com/dp/B00164PW9S?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B00164PW9S?tag=habitatbuilde-20"
     }
   ],
   "uvb": [
@@ -115,6 +211,14 @@
       "description": "Ball pythons can survive without UVB but ReptiFiles strongly recommends it for optimal welfare.",
       "warning": "If skipping UVB, ensure calcium supplementation is adequate",
       "badge": "Not Recommended"
+    },
+    {
+      "id": "uvb-shadedweller",
+      "name": "Arcadia T5 ShadeDweller 7% UVB Kit 12",
+      "price": 49.99,
+      "asin": "B003ZG8E8G",
+      "amazonUrl": "https://www.amazon.com/dp/B003ZG8E8G?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B003ZG8E8G?tag=habitatbuilde-20"
     }
   ],
   "substrates": [
@@ -141,16 +245,20 @@
       "name": "Zoo Med Eco Earth (Coconut Fiber)",
       "description": "Holds humidity well but can get stuck in heat pits. Better as part of a mix.",
       "depth": "4\" minimum",
-      "price": 14.99,
-      "asin": "B0002AQCJ8"
+      "price": 29.76,
+      "asin": "B00U67QUJM",
+      "amazonUrl": "https://www.amazon.com/dp/B00U67QUJM?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B00U67QUJM?tag=habitatbuilde-20"
     },
     {
       "id": "cypress-mulch",
       "name": "Zoo Med Forest Floor Cypress Mulch",
       "description": "Attractive, holds humidity well. Use large pieces to reduce ingestion risk.",
       "depth": "4\" minimum",
-      "price": 12.99,
-      "asin": "B0002AQCK2"
+      "price": 32.98,
+      "asin": "B0010OVM7A",
+      "amazonUrl": "https://www.amazon.com/dp/B0010OVM7A?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0010OVM7A?tag=habitatbuilde-20"
     },
     {
       "id": "paper-towels",
@@ -158,6 +266,49 @@
       "description": "Quarantine and hatchling use only. Does not hold humidity. Not suitable for adults long-term.",
       "badge": "Quarantine Only",
       "price": 0
+    },
+    {
+      "id": "topsoil",
+      "name": "Organic Topsoil (40% of mix — buy at Home Depot/Lowes)",
+      "price": 8.99,
+      "type": "inert",
+      "amazonSearchUrl": "https://www.amazon.com/s?k=Organic%20Topsoil%20(40%25%20of%20mix%20%E2%80%94%20buy%20at%20Home%20Depot%2FLowes)%20reptile&tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/s?k=Organic%20Topsoil%20(40%25%20of%20mix%20%E2%80%94%20buy%20at%20Home%20Depot%2FLowes)%20reptile&tag=habitatbuilde-20"
+    },
+    {
+      "id": "reptisoil",
+      "name": "Zoo Med ReptiSoil 24qt (40% of mix)",
+      "price": 14.99,
+      "type": "inert",
+      "asin": "B01M7RZFYI",
+      "amazonUrl": "https://www.amazon.com/dp/B01M7RZFYI?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B01M7RZFYI?tag=habitatbuilde-20"
+    },
+    {
+      "id": "playsand",
+      "name": "Play Sand 50lb (20% of mix — buy at Home Depot/Lowes)",
+      "price": 9.99,
+      "type": "inert",
+      "amazonSearchUrl": "https://www.amazon.com/s?k=Play%20Sand%2050lb%20(20%25%20of%20mix%20%E2%80%94%20buy%20at%20Home%20Depot%2FLowes)%20reptile&tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/s?k=Play%20Sand%2050lb%20(20%25%20of%20mix%20%E2%80%94%20buy%20at%20Home%20Depot%2FLowes)%20reptile&tag=habitatbuilde-20"
+    },
+    {
+      "id": "coconut-fiber_zoo_med_eco_earth_coconut_fibe",
+      "name": "Zoo Med Eco Earth Coconut Fiber",
+      "price": 29.76,
+      "type": "inert",
+      "asin": "B00U67QUJM",
+      "amazonUrl": "https://www.amazon.com/dp/B00U67QUJM?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B00U67QUJM?tag=habitatbuilde-20"
+    },
+    {
+      "id": "zoo_med_eco_earth_coconut_fibe",
+      "name": "Zoo Med Eco Earth Coconut Fiber",
+      "price": 29.76,
+      "type": "inert",
+      "asin": "B00U67QUJM",
+      "amazonUrl": "https://www.amazon.com/dp/B00U67QUJM?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B00U67QUJM?tag=habitatbuilde-20"
     }
   ],
   "humidity": [
@@ -182,16 +333,28 @@
       "name": "Sphagnum Moss (for humid hide)",
       "description": "Line humid hide with damp sphagnum moss. Replace monthly to prevent mold. Most humid spot in enclosure.",
       "required": true,
-      "price": 9.99,
-      "asin": "B0002AQCK8"
+      "price": 21.84,
+      "asin": "B09TQM4TKL",
+      "amazonUrl": "https://www.amazon.com/dp/B09TQM4TKL?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B09TQM4TKL?tag=habitatbuilde-20"
     },
     {
       "id": "hygrometer",
       "name": "Digital Thermometer/Hygrometer",
       "description": "Place humidity probe in middle of enclosure. Target 60-80% ambient, 80-100% in humid hide.",
       "required": true,
-      "price": 12.99,
-      "asin": "B07CZKPD7Z"
+      "price": 13.29,
+      "asin": "B07D284W96",
+      "amazonUrl": "https://www.amazon.com/dp/B07D284W96?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B07D284W96?tag=habitatbuilde-20"
+    },
+    {
+      "id": "sprayer",
+      "name": "Exo Terra Pressure Sprayer 2L",
+      "price": 20.11,
+      "asin": "B004CJS7XW",
+      "amazonUrl": "https://www.amazon.com/dp/B004CJS7XW?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B004CJS7XW?tag=habitatbuilde-20"
     }
   ],
   "hides": [
@@ -200,38 +363,112 @@
       "name": "Warm Hide (on hot side, 90-95°F)",
       "description": "Place directly under or near heat lamp. Snug fit — snake should feel walls touching body.",
       "required": true,
-      "price": 14.99,
-      "asin": "B000255MJK"
+      "price": 28.99,
+      "asin": "B008YDHDD2",
+      "amazonUrl": "https://www.amazon.com/dp/B008YDHDD2?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B008YDHDD2?tag=habitatbuilde-20"
     },
     {
       "id": "cool-hide",
       "name": "Cool Hide (on cool side, 75-80°F)",
       "description": "Required. Ball pythons must always have a retreat on the cool side.",
       "required": true,
-      "price": 14.99,
-      "asin": "B000255MJL"
+      "price": 18.99,
+      "asin": "B0GG5XB171",
+      "amazonUrl": "https://www.amazon.com/dp/B0GG5XB171?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0GG5XB171?tag=habitatbuilde-20"
     },
     {
       "id": "humid-hide",
       "name": "Humid Hide (center to cool side)",
       "description": "Line with damp sphagnum moss. Most humid spot in enclosure. Critical for healthy shedding.",
       "required": true,
-      "price": 16.99,
-      "asin": "B000255MJM"
+      "price": 18.49,
+      "asin": "B0FLQPPBJV",
+      "amazonUrl": "https://www.amazon.com/dp/B0FLQPPBJV?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0FLQPPBJV?tag=habitatbuilde-20"
     },
     {
       "id": "cork-log",
       "name": "Cork Log / Cork Rounds",
       "description": "Additional hides and climbing enrichment. Ball pythons are semi-arboreal and will use these.",
-      "price": 24.99,
-      "asin": "B0002AQCK9"
+      "price": 34.44,
+      "asin": "B001F9ANVG",
+      "amazonUrl": "https://www.amazon.com/dp/B001F9ANVG?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B001F9ANVG?tag=habitatbuilde-20"
     },
     {
       "id": "climbing-branch",
       "name": "Sturdy Climbing Branch",
       "description": "Ball pythons climb more than many assume. Enrichment improves welfare.",
-      "price": 19.99,
-      "asin": "B000255MJN"
+      "price": 34.44,
+      "asin": "B001F9ANVG",
+      "amazonUrl": "https://www.amazon.com/dp/B001F9ANVG?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B001F9ANVG?tag=habitatbuilde-20"
+    },
+    {
+      "id": "warm-hide_warm_hide_cave",
+      "name": "Warm Hide (Cave)",
+      "price": 28.99,
+      "asin": "B008YDHDD2",
+      "amazonUrl": "https://www.amazon.com/dp/B008YDHDD2?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B008YDHDD2?tag=habitatbuilde-20"
+    },
+    {
+      "id": "cool-hide_cool_hide",
+      "name": "Cool Hide",
+      "price": 18.99,
+      "asin": "B0GG5XB171",
+      "amazonUrl": "https://www.amazon.com/dp/B0GG5XB171?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0GG5XB171?tag=habitatbuilde-20"
+    },
+    {
+      "id": "humid-hide_humid_hide_box",
+      "name": "Humid Hide (Box)",
+      "price": 18.49,
+      "asin": "B0FLQPPBJV",
+      "amazonUrl": "https://www.amazon.com/dp/B0FLQPPBJV?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0FLQPPBJV?tag=habitatbuilde-20"
+    },
+    {
+      "id": "climbing-branch_zoo_med_natural_cork_round_tub",
+      "name": "Zoo Med Natural Cork Round Tube Extra Large",
+      "price": 34.44,
+      "asin": "B001F9ANVG",
+      "amazonUrl": "https://www.amazon.com/dp/B001F9ANVG?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B001F9ANVG?tag=habitatbuilde-20"
+    },
+    {
+      "id": "warm_hide_cave",
+      "name": "Warm Hide (Cave)",
+      "price": 28.99,
+      "asin": "B008YDHDD2",
+      "amazonUrl": "https://www.amazon.com/dp/B008YDHDD2?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B008YDHDD2?tag=habitatbuilde-20"
+    },
+    {
+      "id": "cool_hide",
+      "name": "Cool Hide",
+      "price": 18.99,
+      "asin": "B0GG5XB171",
+      "amazonUrl": "https://www.amazon.com/dp/B0GG5XB171?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0GG5XB171?tag=habitatbuilde-20"
+    },
+    {
+      "id": "humid_hide_box",
+      "name": "Humid Hide (Box)",
+      "price": 18.49,
+      "asin": "B0FLQPPBJV",
+      "amazonUrl": "https://www.amazon.com/dp/B0FLQPPBJV?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0FLQPPBJV?tag=habitatbuilde-20"
+    },
+    {
+      "id": "zoo_med_natural_cork_round_tub",
+      "name": "Zoo Med Natural Cork Round Tube Extra Large",
+      "price": 34.44,
+      "asin": "B001F9ANVG",
+      "amazonUrl": "https://www.amazon.com/dp/B001F9ANVG?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B001F9ANVG?tag=habitatbuilde-20"
     }
   ],
   "water": [
@@ -242,6 +479,14 @@
       "required": true,
       "price": 18.99,
       "asin": "B0002AQCKA"
+    },
+    {
+      "id": "water-bowl",
+      "name": "Large Heavy Water Bowl (soaking size)",
+      "price": 19.99,
+      "asin": "B0002DJ0PQ",
+      "amazonUrl": "https://www.amazon.com/dp/B0002DJ0PQ?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0002DJ0PQ?tag=habitatbuilde-20"
     }
   ],
   "monitoring": [
@@ -251,7 +496,9 @@
       "description": "Most accurate way to monitor surface temps. Check warm hide target: 90-95°F. Cool side: 75-80°F. Essential.",
       "required": true,
       "price": 16.99,
-      "asin": "B00837OPBE"
+      "asin": "B0B71HFH9K",
+      "amazonUrl": "https://www.amazon.com/dp/B0B71HFH9K?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0B71HFH9K?tag=habitatbuilde-20"
     }
   ],
   "safetyRules": {
@@ -272,10 +519,21 @@
     },
     "substrate": {
       "minimumDepth": "4 inches",
-      "dangerous": ["cedar", "pine", "reptile carpet", "aspen shavings", "calcium sand", "gravel"]
+      "dangerous": [
+        "cedar",
+        "pine",
+        "reptile carpet",
+        "aspen shavings",
+        "calcium sand",
+        "gravel"
+      ]
     },
     "heatSources": {
-      "dangerous": ["hot rocks", "heat mats as primary source", "red/blue night bulbs"],
+      "dangerous": [
+        "hot rocks",
+        "heat mats as primary source",
+        "red/blue night bulbs"
+      ],
       "thermostatRequired": true,
       "thermostatProbe": "Inside warm hide at snake level — NOT on heat mat surface"
     },
