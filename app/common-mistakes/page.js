@@ -13,11 +13,11 @@ import {
 import { analytics } from "../utils/analytics";
 
 const SPECIES_TABS = [
-  { key: "Leopard Gecko", label: "Leopard Gecko", icon: "🦎", color: "emerald" },
-  { key: "Betta Fish", label: "Betta Fish", icon: "🐟", color: "blue" },
-  { key: "Bearded Dragon", label: "Bearded Dragon", icon: "🦎", color: "emerald" },
-  { key: "Ball Python", label: "Ball Python", icon: "🐍", color: "amber" },
-  { key: "Crested Gecko", label: "Crested Gecko", icon: "🦎", color: "purple" },
+  { key: "Leopard Gecko", label: "Leopard Gecko", icon: "🦎", color: "emerald", iconColor: "text-emerald-400" },
+  { key: "Betta Fish", label: "Betta Fish", icon: "🐟", color: "blue", iconColor: "text-blue-400" },
+  { key: "Bearded Dragon", label: "Bearded Dragon", icon: "🦎", color: "orange", iconColor: "text-orange-400" },
+  { key: "Ball Python", label: "Ball Python", icon: "🐍", color: "amber", iconColor: "text-amber-400" },
+  { key: "Crested Gecko", label: "Crested Gecko", icon: "🦎", color: "purple", iconColor: "text-purple-400" },
 ];
 
 export default function CommonMistakesPage() {
@@ -354,11 +354,13 @@ export default function CommonMistakesPage() {
                       ? "bg-purple-600 text-white shadow-lg shadow-purple-900/20"
                       : tab.color === "amber"
                       ? "bg-amber-600 text-white shadow-lg shadow-amber-900/20"
+                      : tab.color === "orange"
+                      ? "bg-orange-600 text-white shadow-lg shadow-orange-900/20"
                       : "bg-emerald-600 text-white shadow-lg shadow-emerald-900/20"
                     : "bg-white/5 text-slate-300 hover:bg-white/10 border border-white/10"
                 }`}
               >
-                <span>{tab.icon}</span>
+                <span className={tab.iconColor}>{tab.icon}</span>
                 {tab.label}
               </button>
             );

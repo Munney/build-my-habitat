@@ -344,7 +344,7 @@ export default function CareSheetsPage() {
                 : "border-slate-700 text-slate-400 hover:border-slate-500 hover:text-white transition-all"
             }`}
           >
-            🦎 Leopard Gecko
+            <span className="text-emerald-400">🦎</span> Leopard Gecko
           </button>
           <button
             onClick={() => setSelectedSpecies("betta")}
@@ -354,7 +354,7 @@ export default function CareSheetsPage() {
                 : "border-slate-700 text-slate-400 hover:border-slate-500 hover:text-white transition-all"
             }`}
           >
-            🐟 Betta Fish
+            <span className="text-blue-400">🐟</span> Betta Fish
           </button>
           <button
             onClick={() => setSelectedSpecies("bearded-dragon")}
@@ -364,7 +364,7 @@ export default function CareSheetsPage() {
                 : "border-slate-700 text-slate-400 hover:border-slate-500 hover:text-white transition-all"
             }`}
           >
-            🦎 Bearded Dragon
+            <span className="text-orange-400">🦎</span> Bearded Dragon
           </button>
           <button
             onClick={() => setSelectedSpecies("ball-python")}
@@ -374,7 +374,7 @@ export default function CareSheetsPage() {
                 : "border-slate-700 text-slate-400 hover:border-slate-500 hover:text-white"
             }`}
           >
-            🐍 Ball Python
+            <span className="text-amber-400">🐍</span> Ball Python
           </button>
           <button
             onClick={() => setSelectedSpecies("crested-gecko")}
@@ -384,7 +384,7 @@ export default function CareSheetsPage() {
                 : "border-slate-700 text-slate-400 hover:border-slate-500 hover:text-white"
             }`}
           >
-            🦎 Crested Gecko
+            <span className="text-purple-400">🦎</span> Crested Gecko
           </button>
         </div>
 
