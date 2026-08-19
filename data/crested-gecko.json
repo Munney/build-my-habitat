@@ -49,70 +49,6 @@
       "defaultProductUrl": "https://www.amazon.com/dp/B07Y866155?tag=habitatbuilde-20"
     },
     {
-      "id": "12x12x18_waazoo_12x12x18_glass_terrariu",
-      "name": "Waazoo 12x12x18 Glass Terrarium",
-      "price": 112.99,
-      "asin": "B0DK5BQ525",
-      "amazonUrl": "https://www.amazon.com/dp/B0DK5BQ525?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0DK5BQ525?tag=habitatbuilde-20"
-    },
-    {
-      "id": "18x18x24_repti_zoo_18x18x24_rainforest_",
-      "name": "REPTI ZOO 18x18x24 Rainforest Terrarium",
-      "price": 176.99,
-      "asin": "B0D25Z1L2Z",
-      "amazonUrl": "https://www.amazon.com/dp/B0D25Z1L2Z?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0D25Z1L2Z?tag=habitatbuilde-20"
-    },
-    {
-      "id": "18x18x36_repti_zoo_18x18x36_chameleon_t",
-      "name": "REPTI ZOO 18x18x36 Chameleon Terrarium",
-      "price": 174.99,
-      "asin": "B0DDTBRJ9H",
-      "amazonUrl": "https://www.amazon.com/dp/B0DDTBRJ9H?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0DDTBRJ9H?tag=habitatbuilde-20"
-    },
-    {
-      "id": "24x18x36_repti_zoo_24x18x36_large_rainf",
-      "name": "REPTI ZOO 24x18x36 Large Rainforest Terrarium",
-      "price": 208.99,
-      "asin": "B07Y866155",
-      "amazonUrl": "https://www.amazon.com/dp/B07Y866155?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B07Y866155?tag=habitatbuilde-20"
-    },
-    {
-      "id": "waazoo_12x12x18_glass_terrariu",
-      "name": "Waazoo 12x12x18 Glass Terrarium",
-      "price": 112.99,
-      "asin": "B0DK5BQ525",
-      "amazonUrl": "https://www.amazon.com/dp/B0DK5BQ525?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0DK5BQ525?tag=habitatbuilde-20"
-    },
-    {
-      "id": "repti_zoo_18x18x24_rainforest_",
-      "name": "REPTI ZOO 18x18x24 Rainforest Terrarium",
-      "price": 176.99,
-      "asin": "B0D25Z1L2Z",
-      "amazonUrl": "https://www.amazon.com/dp/B0D25Z1L2Z?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0D25Z1L2Z?tag=habitatbuilde-20"
-    },
-    {
-      "id": "repti_zoo_18x18x36_chameleon_t",
-      "name": "REPTI ZOO 18x18x36 Chameleon Terrarium",
-      "price": 174.99,
-      "asin": "B0DDTBRJ9H",
-      "amazonUrl": "https://www.amazon.com/dp/B0DDTBRJ9H?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0DDTBRJ9H?tag=habitatbuilde-20"
-    },
-    {
-      "id": "repti_zoo_24x18x36_large_rainf",
-      "name": "REPTI ZOO 24x18x36 Large Rainforest Terrarium",
-      "price": 208.99,
-      "asin": "B07Y866155",
-      "amazonUrl": "https://www.amazon.com/dp/B07Y866155?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B07Y866155?tag=habitatbuilde-20"
-    },
-    {
       "id": "waazoo_12x12x18_glass_terrariu_1",
       "name": "Waazoo 12x12x18 Glass Terrarium",
       "price": 112.99,
@@ -199,70 +135,6 @@
       "defaultProductUrl": "https://www.amazon.com/dp/B0000BYEF6?tag=habitatbuilde-20"
     },
     {
-      "id": "halogen-25w_repti_zoo_25w_daylight_basking",
-      "name": "REPTI ZOO 25W Daylight Basking Bulb",
-      "price": 14.99,
-      "asin": "B0FF42ZTKW",
-      "amazonUrl": "https://www.amazon.com/dp/B0FF42ZTKW?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0FF42ZTKW?tag=habitatbuilde-20"
-    },
-    {
-      "id": "halogen-35w_arcadia_golden_basking_halogen",
-      "name": "Arcadia Golden Basking Halogen Lamp 35W",
-      "price": 17.99,
-      "asin": "B0DJRKGZN9",
-      "amazonUrl": "https://www.amazon.com/dp/B0DJRKGZN9?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0DJRKGZN9?tag=habitatbuilde-20"
-    },
-    {
-      "id": "ceramic-heat-emitter_zoo_med_ceramic_heat_emitter_4",
-      "name": "Zoo Med Ceramic Heat Emitter 40W",
-      "price": 23.38,
-      "asin": "B075LNBF1Q",
-      "amazonUrl": "https://www.amazon.com/dp/B075LNBF1Q?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B075LNBF1Q?tag=habitatbuilde-20"
-    },
-    {
-      "id": "dimmer_lutron_credenza_plug_in_lamp_d",
-      "name": "Lutron Credenza Plug-In Lamp Dimmer 300W",
-      "price": 14.99,
-      "asin": "B0000BYEF6",
-      "amazonUrl": "https://www.amazon.com/dp/B0000BYEF6?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0000BYEF6?tag=habitatbuilde-20"
-    },
-    {
-      "id": "repti_zoo_25w_daylight_basking",
-      "name": "REPTI ZOO 25W Daylight Basking Bulb",
-      "price": 14.99,
-      "asin": "B0FF42ZTKW",
-      "amazonUrl": "https://www.amazon.com/dp/B0FF42ZTKW?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0FF42ZTKW?tag=habitatbuilde-20"
-    },
-    {
-      "id": "arcadia_golden_basking_halogen",
-      "name": "Arcadia Golden Basking Halogen Lamp 35W",
-      "price": 17.99,
-      "asin": "B0DJRKGZN9",
-      "amazonUrl": "https://www.amazon.com/dp/B0DJRKGZN9?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0DJRKGZN9?tag=habitatbuilde-20"
-    },
-    {
-      "id": "zoo_med_ceramic_heat_emitter_4",
-      "name": "Zoo Med Ceramic Heat Emitter 40W",
-      "price": 23.38,
-      "asin": "B075LNBF1Q",
-      "amazonUrl": "https://www.amazon.com/dp/B075LNBF1Q?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B075LNBF1Q?tag=habitatbuilde-20"
-    },
-    {
-      "id": "lutron_credenza_plug_in_lamp_d",
-      "name": "Lutron Credenza Plug-In Lamp Dimmer 300W",
-      "price": 14.99,
-      "asin": "B0000BYEF6",
-      "amazonUrl": "https://www.amazon.com/dp/B0000BYEF6?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0000BYEF6?tag=habitatbuilde-20"
-    },
-    {
       "id": "repti_zoo_25w_daylight_basking_1",
       "name": "REPTI ZOO 25W Daylight Basking Bulb",
       "price": 14.99,
@@ -322,22 +194,6 @@
       "warning": "Without UVB, ensure calcium supplementation is adequate and consistent"
     },
     {
-      "id": "shadedweller-kit_arcadia_shadedweller_prot5_kit",
-      "name": "Arcadia ShadeDweller ProT5 Kit 7% UVB 12",
-      "price": 49.99,
-      "asin": "B003ZG8E8G",
-      "amazonUrl": "https://www.amazon.com/dp/B003ZG8E8G?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B003ZG8E8G?tag=habitatbuilde-20"
-    },
-    {
-      "id": "arcadia_shadedweller_prot5_kit",
-      "name": "Arcadia ShadeDweller ProT5 Kit 7% UVB 12",
-      "price": 49.99,
-      "asin": "B003ZG8E8G",
-      "amazonUrl": "https://www.amazon.com/dp/B003ZG8E8G?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B003ZG8E8G?tag=habitatbuilde-20"
-    },
-    {
       "id": "arcadia_shadedweller_prot5_kit_1",
       "name": "Arcadia ShadeDweller ProT5 Kit 7% UVB 12",
       "price": 49.99,
@@ -366,22 +222,6 @@
       "asin": "B0012GTRSW",
       "amazonUrl": "https://www.amazon.com/dp/B0012GTRSW?tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/dp/B0012GTRSW?tag=habitatbuilde-20"
-    },
-    {
-      "id": "led-full-spectrum_arcadia_lumenize_jungle_dawn_l",
-      "name": "Arcadia LumenIZE Jungle Dawn LED Bar 12 18W",
-      "price": 49.99,
-      "asin": "B0CP4FD8GX",
-      "amazonUrl": "https://www.amazon.com/dp/B0CP4FD8GX?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0CP4FD8GX?tag=habitatbuilde-20"
-    },
-    {
-      "id": "arcadia_lumenize_jungle_dawn_l",
-      "name": "Arcadia LumenIZE Jungle Dawn LED Bar 12 18W",
-      "price": 49.99,
-      "asin": "B0CP4FD8GX",
-      "amazonUrl": "https://www.amazon.com/dp/B0CP4FD8GX?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0CP4FD8GX?tag=habitatbuilde-20"
     },
     {
       "id": "arcadia_lumenize_jungle_dawn_l_1",
@@ -467,22 +307,6 @@
       "defaultProductUrl": "https://www.amazon.com/dp/B09TQM4TKL?tag=habitatbuilde-20"
     },
     {
-      "id": "hygrometer_zoo_med_combo_digital_thermome",
-      "name": "Zoo Med Combo Digital Thermometer/Hygrometer",
-      "price": 13.29,
-      "asin": "B07D284W96",
-      "amazonUrl": "https://www.amazon.com/dp/B07D284W96?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B07D284W96?tag=habitatbuilde-20"
-    },
-    {
-      "id": "zoo_med_combo_digital_thermome",
-      "name": "Zoo Med Combo Digital Thermometer/Hygrometer",
-      "price": 13.29,
-      "asin": "B07D284W96",
-      "amazonUrl": "https://www.amazon.com/dp/B07D284W96?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B07D284W96?tag=habitatbuilde-20"
-    },
-    {
       "id": "zoo_med_combo_digital_thermome_1",
       "name": "Zoo Med Combo Digital Thermometer/Hygrometer",
       "price": 13.29,
@@ -555,114 +379,6 @@
       "defaultProductUrl": "https://www.amazon.com/dp/B0002DJ0PQ?tag=habitatbuilde-20"
     },
     {
-      "id": "cork-tube_zoo_med_natural_cork_round_tub",
-      "name": "Zoo Med Natural Cork Round Tube Large",
-      "price": 34.44,
-      "type": "safe",
-      "asin": "B001F9ANVG",
-      "amazonUrl": "https://www.amazon.com/dp/B001F9ANVG?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B001F9ANVG?tag=habitatbuilde-20"
-    },
-    {
-      "id": "water-dish_zoo_med_reptile_water_dish_sma",
-      "name": "Zoo Med Reptile Water Dish Small",
-      "price": 19.99,
-      "type": "safe",
-      "asin": "B0002DJ0PQ",
-      "amazonUrl": "https://www.amazon.com/dp/B0002DJ0PQ?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0002DJ0PQ?tag=habitatbuilde-20"
-    },
-    {
-      "id": "live-plants_costa_farms_golden_pothos_live",
-      "name": "Costa Farms Golden Pothos Live Plant",
-      "price": 19.97,
-      "type": "safe",
-      "asin": "B07TTJNM89",
-      "amazonUrl": "https://www.amazon.com/dp/B07TTJNM89?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B07TTJNM89?tag=habitatbuilde-20"
-    },
-    {
-      "id": "climbing-vines_pinvnby_artificial_terrarium_c",
-      "name": "PINVNBY Artificial Terrarium Climbing Vines",
-      "price": 19.89,
-      "type": "safe",
-      "asin": "B0D9RM3S47",
-      "amazonUrl": "https://www.amazon.com/dp/B0D9RM3S47?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0D9RM3S47?tag=habitatbuilde-20"
-    },
-    {
-      "id": "feeding-ledge",
-      "name": "Pangea Ultimate Gecko Ledge Magnetic",
-      "price": 14.99,
-      "type": "safe",
-      "asin": "B00B5I7CO8",
-      "amazonUrl": "https://www.amazon.com/dp/B00B5I7CO8?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B00B5I7CO8?tag=habitatbuilde-20"
-    },
-    {
-      "id": "feeding-cups",
-      "name": "Pangea Small 0.5oz Paper Gecko Feeding Cups 100ct",
-      "price": 9.99,
-      "type": "safe",
-      "asin": "B07PNCSLBN",
-      "amazonUrl": "https://www.amazon.com/dp/B07PNCSLBN?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B07PNCSLBN?tag=habitatbuilde-20"
-    },
-    {
-      "id": "fake-plants_slson_reptile_artificial_hangi",
-      "name": "SLSON Reptile Artificial Hanging Plants",
-      "price": 12.99,
-      "type": "safe",
-      "asin": "B094J5G9DJ",
-      "amazonUrl": "https://www.amazon.com/dp/B094J5G9DJ?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B094J5G9DJ?tag=habitatbuilde-20"
-    },
-    {
-      "id": "zoo_med_natural_cork_round_tub",
-      "name": "Zoo Med Natural Cork Round Tube Large",
-      "price": 34.44,
-      "type": "safe",
-      "asin": "B001F9ANVG",
-      "amazonUrl": "https://www.amazon.com/dp/B001F9ANVG?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B001F9ANVG?tag=habitatbuilde-20"
-    },
-    {
-      "id": "zoo_med_reptile_water_dish_sma",
-      "name": "Zoo Med Reptile Water Dish Small",
-      "price": 19.99,
-      "type": "safe",
-      "asin": "B0002DJ0PQ",
-      "amazonUrl": "https://www.amazon.com/dp/B0002DJ0PQ?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0002DJ0PQ?tag=habitatbuilde-20"
-    },
-    {
-      "id": "costa_farms_golden_pothos_live",
-      "name": "Costa Farms Golden Pothos Live Plant",
-      "price": 19.97,
-      "type": "safe",
-      "asin": "B07TTJNM89",
-      "amazonUrl": "https://www.amazon.com/dp/B07TTJNM89?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B07TTJNM89?tag=habitatbuilde-20"
-    },
-    {
-      "id": "pinvnby_artificial_terrarium_c",
-      "name": "PINVNBY Artificial Terrarium Climbing Vines",
-      "price": 19.89,
-      "type": "safe",
-      "asin": "B0D9RM3S47",
-      "amazonUrl": "https://www.amazon.com/dp/B0D9RM3S47?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0D9RM3S47?tag=habitatbuilde-20"
-    },
-    {
-      "id": "slson_reptile_artificial_hangi",
-      "name": "SLSON Reptile Artificial Hanging Plants",
-      "price": 12.99,
-      "type": "safe",
-      "asin": "B094J5G9DJ",
-      "amazonUrl": "https://www.amazon.com/dp/B094J5G9DJ?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B094J5G9DJ?tag=habitatbuilde-20"
-    },
-    {
       "id": "zoo_med_natural_cork_round_tub_1",
       "name": "Zoo Med Natural Cork Round Tube Large",
       "price": 34.44,
@@ -697,6 +413,24 @@
       "asin": "B0D9RM3S47",
       "amazonUrl": "https://www.amazon.com/dp/B0D9RM3S47?tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/dp/B0D9RM3S47?tag=habitatbuilde-20"
+    },
+    {
+      "id": "feeding-ledge",
+      "name": "Pangea Ultimate Gecko Ledge Magnetic",
+      "price": 14.99,
+      "type": "safe",
+      "asin": "B00B5I7CO8",
+      "amazonUrl": "https://www.amazon.com/dp/B00B5I7CO8?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B00B5I7CO8?tag=habitatbuilde-20"
+    },
+    {
+      "id": "feeding-cups",
+      "name": "Pangea Small 0.5oz Paper Gecko Feeding Cups 100ct",
+      "price": 9.99,
+      "type": "safe",
+      "asin": "B07PNCSLBN",
+      "amazonUrl": "https://www.amazon.com/dp/B07PNCSLBN?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B07PNCSLBN?tag=habitatbuilde-20"
     },
     {
       "id": "slson_reptile_artificial_hangi_1",
@@ -756,7 +490,7 @@
       "defaultProductUrl": "https://www.amazon.com/dp/B0CP4FD8GX?tag=habitatbuilde-20"
     },
     {
-      "id": "cgd-repashy_repashy_crested_gecko_diet_5_3",
+      "id": "repashy_crested_gecko_diet_5_3_1",
       "name": "Repashy Crested Gecko Diet 5.3oz",
       "price": 14.99,
       "asin": "B0053IWKX4",
@@ -770,94 +504,6 @@
       "asin": "B0D84ZL6Q9",
       "amazonUrl": "https://www.amazon.com/dp/B0D84ZL6Q9?tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/dp/B0D84ZL6Q9?tag=habitatbuilde-20"
-    },
-    {
-      "id": "multivitamin_repashy_calcium_plus_3oz",
-      "name": "Repashy Calcium Plus 3oz",
-      "price": 16.99,
-      "asin": "B0CP4FD8GX",
-      "amazonUrl": "https://www.amazon.com/dp/B0CP4FD8GX?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0CP4FD8GX?tag=habitatbuilde-20"
-    },
-    {
-      "id": "calcium-no-d3_zoo_med_repti_calcium_without_",
-      "name": "Zoo Med Repti Calcium Without D3",
-      "price": 8.99,
-      "asin": "B001OROQ8U",
-      "amazonUrl": "https://www.amazon.com/dp/B001OROQ8U?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B001OROQ8U?tag=habitatbuilde-20"
-    },
-    {
-      "id": "calcium-d3_zoo_med_repti_calcium_with_d3",
-      "name": "Zoo Med Repti Calcium With D3",
-      "price": 8.99,
-      "asin": "B0002DHPEO",
-      "amazonUrl": "https://www.amazon.com/dp/B0002DHPEO?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0002DHPEO?tag=habitatbuilde-20"
-    },
-    {
-      "id": "calcium-lod",
-      "name": "Repashy Calcium Plus LoD 3oz",
-      "price": 15.99,
-      "asin": "B0D6SP118Q",
-      "amazonUrl": "https://www.amazon.com/dp/B0D6SP118Q?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0D6SP118Q?tag=habitatbuilde-20"
-    },
-    {
-      "id": "cgd-pangea_pangea_gecko_diet_with_fig_ins",
-      "name": "Pangea Gecko Diet with Fig & Insects 2oz",
-      "price": 9.99,
-      "asin": "B07K1KH7J9",
-      "amazonUrl": "https://www.amazon.com/dp/B07K1KH7J9?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B07K1KH7J9?tag=habitatbuilde-20"
-    },
-    {
-      "id": "repashy_crested_gecko_diet_5_3",
-      "name": "Repashy Crested Gecko Diet 5.3oz",
-      "price": 14.99,
-      "asin": "B0053IWKX4",
-      "amazonUrl": "https://www.amazon.com/dp/B0053IWKX4?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0053IWKX4?tag=habitatbuilde-20"
-    },
-    {
-      "id": "repashy_calcium_plus_3oz",
-      "name": "Repashy Calcium Plus 3oz",
-      "price": 16.99,
-      "asin": "B0CP4FD8GX",
-      "amazonUrl": "https://www.amazon.com/dp/B0CP4FD8GX?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0CP4FD8GX?tag=habitatbuilde-20"
-    },
-    {
-      "id": "zoo_med_repti_calcium_without_",
-      "name": "Zoo Med Repti Calcium Without D3",
-      "price": 8.99,
-      "asin": "B001OROQ8U",
-      "amazonUrl": "https://www.amazon.com/dp/B001OROQ8U?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B001OROQ8U?tag=habitatbuilde-20"
-    },
-    {
-      "id": "zoo_med_repti_calcium_with_d3",
-      "name": "Zoo Med Repti Calcium With D3",
-      "price": 8.99,
-      "asin": "B0002DHPEO",
-      "amazonUrl": "https://www.amazon.com/dp/B0002DHPEO?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0002DHPEO?tag=habitatbuilde-20"
-    },
-    {
-      "id": "pangea_gecko_diet_with_fig_ins",
-      "name": "Pangea Gecko Diet with Fig & Insects 2oz",
-      "price": 9.99,
-      "asin": "B07K1KH7J9",
-      "amazonUrl": "https://www.amazon.com/dp/B07K1KH7J9?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B07K1KH7J9?tag=habitatbuilde-20"
-    },
-    {
-      "id": "repashy_crested_gecko_diet_5_3_1",
-      "name": "Repashy Crested Gecko Diet 5.3oz",
-      "price": 14.99,
-      "asin": "B0053IWKX4",
-      "amazonUrl": "https://www.amazon.com/dp/B0053IWKX4?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0053IWKX4?tag=habitatbuilde-20"
     },
     {
       "id": "repashy_calcium_plus_3oz_1",
@@ -882,6 +528,14 @@
       "asin": "B0002DHPEO",
       "amazonUrl": "https://www.amazon.com/dp/B0002DHPEO?tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/dp/B0002DHPEO?tag=habitatbuilde-20"
+    },
+    {
+      "id": "calcium-lod",
+      "name": "Repashy Calcium Plus LoD 3oz",
+      "price": 15.99,
+      "asin": "B0D6SP118Q",
+      "amazonUrl": "https://www.amazon.com/dp/B0D6SP118Q?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0D6SP118Q?tag=habitatbuilde-20"
     },
     {
       "id": "pangea_gecko_diet_with_fig_ins_1",

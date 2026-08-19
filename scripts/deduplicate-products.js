@@ -21,9 +21,12 @@ files.forEach((filePath) => {
     if (Array.isArray(data[category])) {
       const seen = new Map();
       data[category].forEach((item) => {
-        seen.set(item.id, item);
+        // Handle both 'name' (ball/crested) and 'label' (betta/gecko/bearded) formats
+        const key = item.name || item.label || item.id;
+        if (key) seen.set(key, item);
       });
       data[category] = Array.from(seen.values());
+      console.log(`  ${category}: ${data[category].length} items`);
     }
   });
 
