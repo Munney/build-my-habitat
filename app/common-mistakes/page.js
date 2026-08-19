@@ -139,7 +139,7 @@ export default function CommonMistakesPage() {
     },
     {
       category: "Bearded Dragon",
-      color: "emerald",
+      color: "orange",
       items: [
         {
           mistake: "40- or 75-Gallon Tanks",
