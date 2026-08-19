@@ -102,6 +102,18 @@ export default async function sitemap() {
       priority: 0.7,
     },
     {
+      url: `${baseUrl}/guides/ball-python-setup`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/guides/crested-gecko-setup`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/guides/betta-fish-tank-size`,
       lastModified: now,
       changeFrequency: 'monthly',

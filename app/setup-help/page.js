@@ -219,7 +219,7 @@ export default function SetupHelpHubPage() {
           </section>
 
           {/* Bearded Dragon */}
-          <section className="mb-6">
+          <section className="mb-14">
             <div className="mb-5">
               <h2 className="text-2xl font-bold text-white mb-2">Bearded Dragon Setup Help</h2>
               <p className="text-sm text-slate-400">Lighting, heating, substrate, and full habitat setup for bearded dragons.</p>
@@ -292,6 +292,54 @@ export default function SetupHelpHubPage() {
                 text="Build a Bearded Dragon Habitat"
                 analyticsKey="setup-help-cta-build-bearded-dragon"
                 className="bg-emerald-700 hover:bg-emerald-600 text-white"
+              />
+            </div>
+          </section>
+
+          {/* Ball Python */}
+          <section className="mb-14">
+            <div className="mb-5">
+              <h2 className="text-2xl font-bold text-white mb-2">Ball Python Setup Help</h2>
+              <p className="text-sm text-slate-400">Enclosure, heating, humidity, and substrate guides for ball pythons.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-8">
+              <SetupHelpCard
+                href="/guides/ball-python-setup"
+                title="Ball Python Setup Guide"
+                description="Complete setup baseline and essentials"
+                analyticsKey="setup-help-ball-python-setup"
+              />
+            </div>
+            <div className="text-center">
+              <SpeciesCTA
+                href="/build/ball-python"
+                text="Build a Ball Python Habitat"
+                analyticsKey="setup-help-cta-build-ball-python"
+                className="bg-amber-600 hover:bg-amber-500 text-white"
+              />
+            </div>
+          </section>
+
+          {/* Crested Gecko */}
+          <section className="mb-6">
+            <div className="mb-5">
+              <h2 className="text-2xl font-bold text-white mb-2">Crested Gecko Setup Help</h2>
+              <p className="text-sm text-slate-400">Enclosure orientation, temperature, humidity cycling, and diet guides.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-8">
+              <SetupHelpCard
+                href="/guides/crested-gecko-setup"
+                title="Crested Gecko Setup Guide"
+                description="Complete setup baseline and essentials"
+                analyticsKey="setup-help-crested-gecko-setup"
+              />
+            </div>
+            <div className="text-center">
+              <SpeciesCTA
+                href="/build/crested-gecko"
+                text="Build a Crested Gecko Habitat"
+                analyticsKey="setup-help-cta-build-crested-gecko"
+                className="bg-purple-600 hover:bg-purple-500 text-white"
               />
             </div>
           </section>
