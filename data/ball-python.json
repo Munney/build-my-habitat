@@ -69,6 +69,15 @@
       "asin": "B09MQBB6CP",
       "amazonUrl": "https://www.amazon.com/dp/B09MQBB6CP?tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/dp/B09MQBB6CP?tag=habitatbuilde-20"
+    },
+    {
+      "id": "40_gallon_breeder_tank_1",
+      "name": "40 Gallon Breeder Tank",
+      "price": 189.99,
+      "size": 40,
+      "asin": "B09MQBB6CP",
+      "amazonUrl": "https://www.amazon.com/dp/B09MQBB6CP?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B09MQBB6CP?tag=habitatbuilde-20"
     }
   ],
   "heating": [
@@ -181,6 +190,14 @@
     },
     {
       "id": "fluker_s_premium_heat_mat_larg",
+      "name": "Fluker's Premium Heat Mat Large 17x11",
+      "price": 24.99,
+      "asin": "B00164PW9S",
+      "amazonUrl": "https://www.amazon.com/dp/B00164PW9S?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B00164PW9S?tag=habitatbuilde-20"
+    },
+    {
+      "id": "fluker_s_premium_heat_mat_larg_1",
       "name": "Fluker's Premium Heat Mat Large 17x11",
       "price": 24.99,
       "asin": "B00164PW9S",
@@ -303,6 +320,15 @@
     },
     {
       "id": "zoo_med_eco_earth_coconut_fibe",
+      "name": "Zoo Med Eco Earth Coconut Fiber",
+      "price": 29.76,
+      "type": "inert",
+      "asin": "B00U67QUJM",
+      "amazonUrl": "https://www.amazon.com/dp/B00U67QUJM?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B00U67QUJM?tag=habitatbuilde-20"
+    },
+    {
+      "id": "zoo_med_eco_earth_coconut_fibe_1",
       "name": "Zoo Med Eco Earth Coconut Fiber",
       "price": 29.76,
       "type": "inert",
@@ -464,6 +490,38 @@
     },
     {
       "id": "zoo_med_natural_cork_round_tub",
+      "name": "Zoo Med Natural Cork Round Tube Extra Large",
+      "price": 34.44,
+      "asin": "B001F9ANVG",
+      "amazonUrl": "https://www.amazon.com/dp/B001F9ANVG?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B001F9ANVG?tag=habitatbuilde-20"
+    },
+    {
+      "id": "warm_hide_cave_1",
+      "name": "Warm Hide (Cave)",
+      "price": 28.99,
+      "asin": "B008YDHDD2",
+      "amazonUrl": "https://www.amazon.com/dp/B008YDHDD2?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B008YDHDD2?tag=habitatbuilde-20"
+    },
+    {
+      "id": "cool_hide_1",
+      "name": "Cool Hide",
+      "price": 18.99,
+      "asin": "B0GG5XB171",
+      "amazonUrl": "https://www.amazon.com/dp/B0GG5XB171?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0GG5XB171?tag=habitatbuilde-20"
+    },
+    {
+      "id": "humid_hide_box_1",
+      "name": "Humid Hide (Box)",
+      "price": 18.49,
+      "asin": "B0FLQPPBJV",
+      "amazonUrl": "https://www.amazon.com/dp/B0FLQPPBJV?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0FLQPPBJV?tag=habitatbuilde-20"
+    },
+    {
+      "id": "zoo_med_natural_cork_round_tub_1",
       "name": "Zoo Med Natural Cork Round Tube Extra Large",
       "price": 34.44,
       "asin": "B001F9ANVG",
