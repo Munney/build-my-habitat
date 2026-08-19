@@ -75,8 +75,8 @@ export default function ResearchPage() {
       snippet: "Comparative biochemistry research found UVB exposure produced much stronger vitamin D metabolite responses than supplementation-only protocols in growing bearded dragons.",
       date: "2010",
       url: "https://pubmed.ncbi.nlm.nih.gov/20206712/",
-      tagColor: "text-emerald-300 border-emerald-500/30 bg-emerald-500/10",
-      buttonColor: "bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-900/20",
+      tagColor: "text-orange-300 border-orange-500/30 bg-orange-500/10",
+      buttonColor: "bg-orange-600 hover:bg-orange-500 text-white shadow-lg shadow-orange-900/20",
     },
     {
       category: "Bearded Dragon",
@@ -84,8 +84,8 @@ export default function ResearchPage() {
       snippet: "Veterinary clinical data from Australia identifies common preventable husbandry-linked conditions, including metabolic bone disease, and supports prevention-first setup standards.",
       date: "2023",
       url: "https://pubmed.ncbi.nlm.nih.gov/36892098/",
-      tagColor: "text-emerald-300 border-emerald-500/30 bg-emerald-500/10",
-      buttonColor: "bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-900/20",
+      tagColor: "text-orange-300 border-orange-500/30 bg-orange-500/10",
+      buttonColor: "bg-orange-600 hover:bg-orange-500 text-white shadow-lg shadow-orange-900/20",
     },
     {
       category: "Betta Fish",
@@ -210,6 +210,17 @@ export default function ResearchPage() {
     ? articles
     : articles.filter((article) => article.category === filter);
 
+  const getTabColor = (tab) => {
+    switch (tab) {
+      case "Betta Fish": return "bg-blue-600 border-blue-500";
+      case "Leopard Gecko": return "bg-emerald-600 border-emerald-500";
+      case "Bearded Dragon": return "bg-orange-600 border-orange-500";
+      case "Ball Python": return "bg-amber-600 border-amber-500";
+      case "Crested Gecko": return "bg-purple-600 border-purple-500";
+      default: return "bg-emerald-600 border-emerald-500";
+    }
+  };
+
   return (
     <>
     <main className="relative min-h-screen py-20 px-4 sm:px-6">
@@ -249,7 +260,7 @@ export default function ResearchPage() {
                 onClick={() => setFilter(tabValue)}
                 className={`px-4 py-1.5 rounded-full text-sm font-semibold border transition-all ${
                   isActive
-                    ? "bg-emerald-600 border-emerald-500 text-white"
+                    ? `${getTabColor(tab)} text-white`
                     : "border-slate-700 text-slate-400 hover:border-slate-500"
                 }`}
               >
