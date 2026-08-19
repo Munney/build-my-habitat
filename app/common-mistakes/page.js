@@ -425,6 +425,8 @@ export default function CommonMistakesPage() {
                     className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-white transition-all shadow-lg ${
                       category.color === "blue"
                         ? "bg-blue-600 hover:bg-blue-500"
+                        : category.color === "orange"
+                        ? "bg-orange-600 hover:bg-orange-500"
                         : category.color === "purple"
                         ? "bg-purple-600 hover:bg-purple-500"
                         : category.color === "amber"
