@@ -84,6 +84,62 @@
       "decorIds": ["live_easy", "betta_log", "driftwood"],
       "watercareIds": ["conditioner", "bacteria", "testkit"]
     }
+  },
+  "ball-python": {
+    "budget": {
+      "name": "Budget Setup",
+      "description": "Essential items for a safe juvenile ball python habitat (~$250–350)",
+      "experience": "beginner",
+      "enclosureId": "40gal",
+      "substrateId": "paper-towels",
+      "heatingIds": ["halogen-flood", "thermostat"],
+      "uvbId": "no-uvb",
+      "humidityIds": ["sphagnum-moss", "hygrometer", "pressure-sprayer"],
+      "hideIds": ["warm-hide", "cool-hide", "humid-hide"],
+      "waterIds": ["water-bowl"],
+      "monitoringIds": ["temp-gun"]
+    },
+    "premium": {
+      "name": "Premium Setup",
+      "description": "Complete adult setup with 4×2×2, DHP, UVB, and bioactive substrate (~$500–700)",
+      "experience": "experienced",
+      "enclosureId": "pvc4x2x2",
+      "substrateId": "diy-mix",
+      "heatingIds": ["deep-heat-projector", "thermostat"],
+      "uvbId": "uvb-t5-6pct",
+      "humidityIds": ["sphagnum-moss", "hygrometer", "auto-mister"],
+      "hideIds": ["warm-hide", "cool-hide", "humid-hide"],
+      "waterIds": ["water-bowl"],
+      "monitoringIds": ["temp-gun"]
+    }
+  },
+  "crested-gecko": {
+    "budget": {
+      "name": "Budget Setup",
+      "description": "Essential items for a safe crested gecko habitat (~$200–300)",
+      "experience": "beginner",
+      "enclosureId": "18x18x24",
+      "substrateId": "eco-earth",
+      "heatingIds": ["dimmer"],
+      "uvbId": "no-uvb",
+      "lightingIds": ["timer"],
+      "humidityIds": ["spray-bottle", "hygrometer"],
+      "decorIds": ["cork-tube", "coconut-hide", "climbing-vines", "branches"],
+      "supplementIds": ["cgd-repashy"]
+    },
+    "premium": {
+      "name": "Premium Setup",
+      "description": "Complete setup with taller enclosure, UVB, bioactive substrate, and live plants (~$400–550)",
+      "experience": "experienced",
+      "enclosureId": "18x18x36",
+      "substrateId": "bioactive-mix",
+      "heatingIds": ["dimmer"],
+      "uvbId": "shadedweller-kit",
+      "lightingIds": ["led-full-spectrum", "timer"],
+      "humidityIds": ["auto-mister", "hygrometer", "sphagnum-moss"],
+      "decorIds": ["cork-tube", "coconut-hide", "climbing-vines", "branches", "live-plants"],
+      "supplementIds": ["cgd-repashy", "calcium-no-d3"]
+    }
   }
 }
 

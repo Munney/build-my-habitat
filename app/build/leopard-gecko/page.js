@@ -37,6 +37,9 @@ import { SetupTemplates } from "../../components/SetupTemplates";
 import Footer from "../../components/Footer";
 import { Section } from "../../components/builder/Section";
 import { useBuilderToasts } from "../../hooks/useBuilderToasts";
+import { buildAmazonCartUrl } from "../../utils/amazonCart";
+
+const AFFILIATE_TAG = "habitatbuilde-20";
 
 // Data Imports
 const ENCLOSURES = config.enclosures || [];
@@ -342,6 +345,7 @@ function LeopardGeckoBuilderContent() {
   const [supplementIds, setSupplementIds] = useState([]);
   const [stateRestored, setStateRestored] = useState(false);
   const [copyLinkSuccess, setCopyLinkSuccess] = useState(false);
+  const [templateApplied, setTemplateApplied] = useState(null);
 
   // Rebuild variant state from restored IDs so shared URLs show correct selected variant in UI
   const rebuildVariantsFromIds = useCallback((ids, products) => {
@@ -401,7 +405,7 @@ function LeopardGeckoBuilderContent() {
   }, [searchParams, stateRestored, rebuildVariantsFromIds]);
 
   // --- TEMPLATE APPLICATION ---
-  const applyTemplate = (template) => {
+  const applyTemplate = (template, templateKey) => {
     // Set experience level
     if (template.experience) {
       setExperience(template.experience);
@@ -483,6 +487,8 @@ function LeopardGeckoBuilderContent() {
     if (template.supplementIds) {
       setSupplementIds(template.supplementIds);
     }
+
+    setTemplateApplied(templateKey);
     
     // Scroll to top to show the applied template
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -698,6 +704,11 @@ function LeopardGeckoBuilderContent() {
       ...selectedSupplements,
     ].filter(Boolean);
   }, [selectedEnclosure, selectedSubstrates, selectedHeating, selectedHides, selectedSupplements]);
+
+  const amazonCartUrl = useMemo(
+    () => buildAmazonCartUrl(allSelectedItems, AFFILIATE_TAG),
+    [allSelectedItems]
+  );
 
   // Total Price Calculation
   const totalPrice = allSelectedItems.reduce((sum, item) => sum + (item.price || 0), 0);
@@ -1094,6 +1105,29 @@ function LeopardGeckoBuilderContent() {
               species="leopard-gecko" 
               onApplyTemplate={applyTemplate}
             />
+
+            {templateApplied && (
+              <div className="mt-4 p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div>
+                  <p className="text-white font-bold text-sm">
+                    ✓ {templateApplied === "budget" ? "Budget" : "Premium"} Setup Applied
+                  </p>
+                  <p className="text-slate-400 text-xs mt-0.5">
+                    All recommended items selected. Ready to purchase.
+                  </p>
+                </div>
+                <a
+                  href={amazonCartUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="shrink-0 flex items-center gap-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition-all shadow-lg whitespace-nowrap"
+                >
+                  <ShoppingCart size={18} />
+                  Buy This Setup Now →
+                </a>
+              </div>
+            )}
+
             <Section 
               title="1. Keeper Level" 
               icon={<Target />}

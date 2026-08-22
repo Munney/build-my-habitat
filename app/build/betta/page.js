@@ -37,6 +37,9 @@ import { SetupTemplates } from "../../components/SetupTemplates";
 import Footer from "../../components/Footer";
 import { Section } from "../../components/builder/Section";
 import { useBuilderToasts } from "../../hooks/useBuilderToasts";
+import { buildAmazonCartUrl } from "../../utils/amazonCart";
+
+const AFFILIATE_TAG = "habitatbuilde-20";
 
 // Data Imports
 const ENCLOSURES = config.enclosures || [];
@@ -204,6 +207,7 @@ function BettaBuilderContent() {
   const [careIds, setCareIds] = useState([]);
   const [stateRestored, setStateRestored] = useState(false);
   const [copyLinkSuccess, setCopyLinkSuccess] = useState(false);
+  const [templateApplied, setTemplateApplied] = useState(null);
 
   // --- RESTORE STATE FROM URL PARAMETERS ---
   useEffect(() => {
@@ -276,7 +280,7 @@ function BettaBuilderContent() {
   }, [searchParams, stateRestored]);
 
   // --- TEMPLATE APPLICATION ---
-  const applyTemplate = (template) => {
+  const applyTemplate = (template, templateKey) => {
     // Set experience level (Budget = beginner, Premium = experienced)
     if (template.experience) {
       setExperience(template.experience);
@@ -357,6 +361,8 @@ function BettaBuilderContent() {
     if (template.watercareIds) {
       setCareIds(template.watercareIds);
     }
+
+    setTemplateApplied(templateKey);
     
     // Scroll to top to show the applied template
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -444,6 +450,11 @@ function BettaBuilderContent() {
       ...selectedCare,
     ].filter(Boolean);
   }, [selectedEnclosure, selectedFiltration, selectedSubstrate, selectedHeating, selectedDecor, selectedCare]);
+
+  const amazonCartUrl = useMemo(
+    () => buildAmazonCartUrl(allSelectedItems, AFFILIATE_TAG),
+    [allSelectedItems]
+  );
 
   const totalPrice = allSelectedItems.reduce((sum, item) => sum + (item.price || 0), 0);
 
@@ -854,6 +865,28 @@ function BettaBuilderContent() {
               species="betta" 
               onApplyTemplate={applyTemplate}
             />
+
+            {templateApplied && (
+              <div className="mt-4 p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div>
+                  <p className="text-white font-bold text-sm">
+                    ✓ {templateApplied === "budget" ? "Budget" : "Premium"} Setup Applied
+                  </p>
+                  <p className="text-slate-400 text-xs mt-0.5">
+                    All recommended items selected. Ready to purchase.
+                  </p>
+                </div>
+                <a
+                  href={amazonCartUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="shrink-0 flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-all shadow-lg whitespace-nowrap"
+                >
+                  <ShoppingCart size={18} />
+                  Buy This Setup Now →
+                </a>
+              </div>
+            )}
             
             {/* 1. Experience Level */}
             <Section 

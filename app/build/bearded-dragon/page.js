@@ -14,6 +14,9 @@ import { SetupTemplates } from "../../components/SetupTemplates";
 import Footer from "../../components/Footer";
 import { Section } from "../../components/builder/Section";
 import { useBuilderToasts } from "../../hooks/useBuilderToasts";
+import { buildAmazonCartUrl } from "../../utils/amazonCart";
+
+const AFFILIATE_TAG = "habitatbuilde-20";
 
 const ENCLOSURES = config.enclosures || [];
 const HEATING = config.heating || [];
@@ -278,6 +281,7 @@ function BeardedDragonBuilderContent() {
   const [feedingIds, setFeedingIds] = useState([]);
   const [stateRestored, setStateRestored] = useState(false);
   const [copyLinkSuccess, setCopyLinkSuccess] = useState(false);
+  const [templateApplied, setTemplateApplied] = useState(null);
 
   useEffect(() => {
     analytics.trackBuilderStart("bearded-dragon");
@@ -323,7 +327,7 @@ function BeardedDragonBuilderContent() {
     }
   }, [searchParams, stateRestored]);
 
-  const applyTemplate = useCallback((template) => {
+  const applyTemplate = useCallback((template, templateKey) => {
     const resolved = resolveBeardedDragonTemplateToSize(template);
     if (resolved.experience) setExperience(resolved.experience);
     if (resolved.enclosureId) setEnclosureId(resolved.enclosureId);
@@ -334,6 +338,7 @@ function BeardedDragonBuilderContent() {
     if (resolved.decorIds) setDecorIds(resolved.decorIds || []);
     if (resolved.supplementIds) setSupplementIds(resolved.supplementIds);
     if (resolved.feedingIds) setFeedingIds(resolved.feedingIds || []);
+    setTemplateApplied(templateKey);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
@@ -382,6 +387,11 @@ function BeardedDragonBuilderContent() {
     ...selectedSupplements,
     ...selectedFeeding,
   ].filter(Boolean), [selectedEnclosure, selectedSubstrate, selectedHeating, selectedLighting, selectedHides, selectedDecor, selectedSupplements, selectedFeeding]);
+
+  const amazonCartUrl = useMemo(
+    () => buildAmazonCartUrl(allSelectedItems, AFFILIATE_TAG),
+    [allSelectedItems]
+  );
 
   const totalPrice = allSelectedItems.reduce((sum, item) => sum + (item.price || 0), 0);
 
@@ -542,6 +552,28 @@ function BeardedDragonBuilderContent() {
         </div>
 
         <SetupTemplates species="bearded-dragon" onApplyTemplate={applyTemplate} />
+
+        {templateApplied && (
+          <div className="mt-4 p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+              <p className="text-white font-bold text-sm">
+                ✓ {templateApplied === "budget" ? "Budget" : "Premium"} Setup Applied
+              </p>
+              <p className="text-slate-400 text-xs mt-0.5">
+                All recommended items selected. Ready to purchase.
+              </p>
+            </div>
+            <a
+              href={amazonCartUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shrink-0 flex items-center gap-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition-all shadow-lg whitespace-nowrap"
+            >
+              <ShoppingCart size={18} />
+              Buy This Setup Now →
+            </a>
+          </div>
+        )}
 
         <div className="space-y-10">
           <Section title="1. Experience" icon={<Target />} sectionId="experience" isCompleted={sectionCompletion.experience} sectionRef={(el) => { if (el) sectionRefs.current.experience = el; }} nextSectionId="enclosure" nextSectionTitle="Enclosure" isSectionLocked={isSectionLocked} scrollToSection={scrollToSection} theme="emerald">

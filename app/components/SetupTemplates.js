@@ -12,7 +12,7 @@ export function SetupTemplates({ species, onApplyTemplate }) {
   const handleApply = (templateKey) => {
     const template = templates[templateKey];
     if (template && onApplyTemplate) {
-      onApplyTemplate(template);
+      onApplyTemplate(template, templateKey);
     }
   };
 

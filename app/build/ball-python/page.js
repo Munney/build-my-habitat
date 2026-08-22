@@ -3,7 +3,7 @@
 import { useMemo, useState, useEffect, useRef, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
-  ArrowLeft, CheckCircle2, AlertCircle, AlertTriangle, ArrowRight,
+  ArrowLeft, CheckCircle2, AlertCircle, AlertTriangle, ArrowRight, ShoppingCart,
   Target, Thermometer, Box, Layers, HomeIcon, Zap, Sun, RotateCcw, Copy, Check, Droplets,
 } from "lucide-react";
 import config from "../../../data/ball-python.json";
@@ -12,6 +12,10 @@ import ScrollToTop from "../../components/ScrollToTop";
 import Footer from "../../components/Footer";
 import { Section } from "../../components/builder/Section";
 import { useBuilderToasts } from "../../hooks/useBuilderToasts";
+import { SetupTemplates } from "../../components/SetupTemplates";
+import { buildAmazonCartUrl } from "../../utils/amazonCart";
+
+const AFFILIATE_TAG = "habitatbuilde-20";
 
 const ENCLOSURES = config.enclosures || [];
 const HEATING = config.heating || [];
@@ -122,6 +126,7 @@ function BallPythonBuilderContent() {
   const [monitoringIds, setMonitoringIds] = useState([]);
   const [stateRestored, setStateRestored] = useState(false);
   const [copyLinkSuccess, setCopyLinkSuccess] = useState(false);
+  const [templateApplied, setTemplateApplied] = useState(null);
 
   const safeSubstrates = useMemo(
     () => SUBSTRATES.filter((s) => !isDangerousSubstrate(s)),
@@ -157,6 +162,20 @@ function BallPythonBuilderContent() {
     }
   }, [searchParams, stateRestored]);
 
+  const applyTemplate = (template, templateKey) => {
+    if (template.experience) setExperience(template.experience);
+    if (template.enclosureId) setEnclosureId(template.enclosureId);
+    if (template.substrateId) setSubstrateId(template.substrateId);
+    if (template.heatingIds) setHeatingIds(template.heatingIds);
+    if (template.uvbId) setUvbId(template.uvbId);
+    if (template.humidityIds) setHumidityIds(template.humidityIds);
+    if (template.hideIds) setHideIds(template.hideIds);
+    if (template.waterIds) setWaterIds(template.waterIds);
+    if (template.monitoringIds) setMonitoringIds(template.monitoringIds);
+    setTemplateApplied(templateKey);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const hasThermostat = heatingIds.includes("thermostat");
   const hasPrimaryHeat = heatingIds.some((id) => PRIMARY_HEAT_IDS.has(id));
   const hasHeatMat = heatingIds.includes("heat-mat");
@@ -189,6 +208,11 @@ function BallPythonBuilderContent() {
     ...selectedWater,
     ...selectedMonitoring,
   ].filter(Boolean), [selectedEnclosure, selectedSubstrate, selectedHeating, selectedUvb, selectedHumidity, selectedHides, selectedWater, selectedMonitoring]);
+
+  const amazonCartUrl = useMemo(
+    () => buildAmazonCartUrl(allSelectedItems, AFFILIATE_TAG),
+    [allSelectedItems]
+  );
 
   const totalPrice = allSelectedItems.reduce((sum, item) => sum + (item.price || 0), 0);
 
@@ -325,6 +349,30 @@ function BallPythonBuilderContent() {
             Start Builder →
           </button>
         </div>
+
+        <SetupTemplates species="ball-python" onApplyTemplate={applyTemplate} />
+
+        {templateApplied && (
+          <div className="mt-4 p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+              <p className="text-white font-bold text-sm">
+                ✓ {templateApplied === "budget" ? "Budget" : "Premium"} Setup Applied
+              </p>
+              <p className="text-slate-400 text-xs mt-0.5">
+                All recommended items selected. Ready to purchase.
+              </p>
+            </div>
+            <a
+              href={amazonCartUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shrink-0 flex items-center gap-2 px-6 py-3 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-xl transition-all shadow-lg whitespace-nowrap"
+            >
+              <ShoppingCart size={18} />
+              Buy This Setup Now →
+            </a>
+          </div>
+        )}
 
         <div className="space-y-10">
           <Section title="1. Keeper Level" icon={<Target />} sectionId="experience" isCompleted={sectionCompletion.experience} sectionRef={(el) => { if (el) sectionRefs.current.experience = el; }} nextSectionId="enclosure" nextSectionTitle="Enclosure Size" isSectionLocked={isSectionLocked} scrollToSection={scrollToSection} theme="emerald">
