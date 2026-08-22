@@ -155,7 +155,7 @@ function SummaryContent() {
     if (!item?.id) return null;
     if (item.id === "thermostat") return "Required — prevents overheating";
     if (item.id?.startsWith("halogen") || item.id?.startsWith("dhp")) return "Primary daytime heat source";
-    if (item.id === "humidhide") return "Required for healthy shedding";
+    if (item.id === "humid-hide" || item.id === "humidhide") return "Required for healthy shedding";
     if (item.id?.startsWith("uvb")) return "Supports natural vitamin D3 synthesis";
     if (item.id === "multivitamin") return "Helps prevent nutritional deficiencies";
     return null;

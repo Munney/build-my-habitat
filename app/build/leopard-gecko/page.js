@@ -48,6 +48,8 @@ const SUBSTRATES = config.substrates || [];
 const HIDES = config.hides || [];
 const SUPPLEMENTS = config.supplements || [];
 
+const REQUIRED_HIDE_IDS = ["warm-hide", "coolhide", "humid-hide"];
+
 function toggle(list, id) {
   return list.includes(id) ? list.filter((x) => x !== id) : [...list, id];
 }
@@ -783,7 +785,7 @@ function LeopardGeckoBuilderContent() {
   }, [sectionCompletion]);
 
   // Determine if a section is locked (prerequisites not met)
-  const hasAllThreeHides = hideIds.includes("warmhide") && hideIds.includes("coolhide") && hideIds.includes("humidhide");
+  const hasAllThreeHides = REQUIRED_HIDE_IDS.every((id) => hideIds.includes(id));
   const isSectionLocked = useMemo(() => {
     return {
       experience: false, // Always available
@@ -866,9 +868,9 @@ function LeopardGeckoBuilderContent() {
     if (hideIds.length === 0) {
       messages.push({ level: "warning", text: "Select at least one hide." });
     } else {
-      const hasWarmHide = hideIds.includes("warmhide");
+      const hasWarmHide = hideIds.includes("warm-hide");
       const hasCoolHide = hideIds.includes("coolhide");
-      const hasHumidHide = hideIds.includes("humidhide");
+      const hasHumidHide = hideIds.includes("humid-hide");
       
       if (!hasWarmHide) {
         const errorMsg = "Warm Hide REQUIRED. Geckos need a warm hide on the hot side for thermoregulation and digestion.";
@@ -1458,9 +1460,9 @@ function LeopardGeckoBuilderContent() {
             >
               {/* Check for missing required hides */}
               {(() => {
-                const hasWarmHide = hideIds.includes("warmhide");
+                const hasWarmHide = hideIds.includes("warm-hide");
                 const hasCoolHide = hideIds.includes("coolhide");
-                const hasHumidHide = hideIds.includes("humidhide");
+                const hasHumidHide = hideIds.includes("humid-hide");
                 const missingHides = [];
                 if (!hasWarmHide) missingHides.push("Warm hide");
                 if (!hasCoolHide) missingHides.push("Cool hide");
@@ -2062,8 +2064,10 @@ const productExplanations = {
   
   // Hides
   "warmhide": "Warm hide should be placed on the hot side of the tank. Geckos need a hide in the basking area to feel secure while thermoregulating.",
+  "warm-hide": "Warm hide should be placed on the hot side of the tank. Geckos need a hide in the basking area to feel secure while thermoregulating.",
   "coolhide": "Cool hide should be placed on the cool side. Essential for geckos to escape heat and regulate body temperature. Every gecko needs at least one cool hide.",
   "humidhide": "Humid hide (moist hide) is essential for shedding. Fill with damp substrate (paper towels or sphagnum moss). Geckos need this to shed properly.",
+  "humid-hide": "Humid hide (moist hide) is essential for shedding. Fill with damp substrate (paper towels or sphagnum moss). Geckos need this to shed properly.",
   "corkbark": "Cork bark provides natural hiding spots and climbing opportunities. Can be used as additional cover or as a hide. Safe and natural-looking.",
   "corkbark_cork_bark_flat_4_pcs": "Cork bark flat (4 pieces) provides natural hiding spots and climbing opportunities. Can be arranged to create multiple hiding areas. Safe and natural-looking.",
   "branches": "Climbing branches provide enrichment and exercise. Leopard geckos are not fully arboreal but enjoy climbing opportunities. Adds vertical space usage.",
@@ -2385,7 +2389,7 @@ function HidesSection({ hides, selectedIds, selectedVariants, onToggle, onVarian
       {/* Standalone products (no variants) - excludes standalone Cork Bark and Climbing Branches */}
       {standalone.map((h) => {
         // Warm hide, cool hide, and humid hide are all required
-        const isRequired = h.id === "warmhide" || h.id === "coolhide" || h.id === "humidhide";
+        const isRequired = REQUIRED_HIDE_IDS.includes(h.id);
         return (
           <SelectionCard
             key={h.id}

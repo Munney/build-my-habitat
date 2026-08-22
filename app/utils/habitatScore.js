@@ -240,11 +240,11 @@ export function calculateGeckoHabitatScore(selections) {
   checks.push({ key: "substrate", label: "Substrate safety", passed: subPoints >= 15, points: subPoints, maxPoints: subMax, message: subMessage });
 
   // Hides: 20 pts — warm + cool + humid = full, missing one = partial, multiple = fail
-  const requiredHideIds = ["warmhide", "coolhide", "humidhide"];
+  const requiredHideIds = ["warm-hide", "coolhide", "humid-hide"];
   const hides = selections?.hides || [];
-  const hasWarm = hides.some((h) => h && h.id === "warmhide");
+  const hasWarm = hides.some((h) => h && h.id === "warm-hide");
   const hasCool = hides.some((h) => h && h.id === "coolhide");
-  const hasHumid = hides.some((h) => h && h.id === "humidhide");
+  const hasHumid = hides.some((h) => h && h.id === "humid-hide");
   const hideCount = [hasWarm, hasCool, hasHumid].filter(Boolean).length;
   const hideMax = 20;
   let hidePoints = hideCount === 3 ? 20 : hideCount === 2 ? 12 : hideCount === 1 ? 5 : 0;

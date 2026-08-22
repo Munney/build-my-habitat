@@ -14,7 +14,7 @@
           "id": "halogen"
         }
       },
-      "hideIds": ["warmhide", "coolhide", "humidhide"],
+      "hideIds": ["warm-hide", "coolhide", "humid-hide"],
       "hideVariants": {},
       "supplementIds": ["calcium_d3", "multivitamin"]
     },
@@ -40,8 +40,15 @@
           "id": "shadedweller_uvb_kit_24w_22_in_2"
         }
       },
-      "hideIds": ["warmhide", "coolhide", "humidhide", "corkbark_cork_bark_flat_4_pcs", "branches_climbing_branches_4_pcs_14_16_"],
-      "hideVariants": {},
+      "hideIds": ["warm-hide", "coolhide", "humid-hide"],
+      "hideVariants": {
+        "Cork Bark Flat": {
+          "variant": "4 pcs"
+        },
+        "Climbing Branches": {
+          "variant": "4 pcs (14-16 inches)"
+        }
+      },
       "supplementIds": ["calcium_no_d3", "multivitamin"]
     }
   },
