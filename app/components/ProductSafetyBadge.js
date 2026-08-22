@@ -1,10 +1,10 @@
-export default function ProductSafetyBadge({ status = "recommended", className = "" }) {
-  const normalized = String(status || "recommended").toLowerCase();
+export default function ProductSafetyBadge({ status = "approved", className = "" }) {
+  const normalized = String(status || "approved").toLowerCase();
 
   if (normalized === "blocked") {
     return (
       <span className={`inline-flex items-center rounded-md border border-red-500/30 bg-red-500/10 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-red-300 ${className}`}>
-        Blocked / Not Recommended
+        ⚠ Not Recommended
       </span>
     );
   }
@@ -17,9 +17,13 @@ export default function ProductSafetyBadge({ status = "recommended", className =
     );
   }
 
-  return (
-    <span className={`inline-flex items-center rounded-md border border-emerald-500/30 bg-emerald-500/10 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-300 ${className}`}>
-      Recommended
-    </span>
-  );
+  if (normalized === "recommended") {
+    return (
+      <span className={`inline-flex items-center rounded-md border border-emerald-500/30 bg-emerald-500/10 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-300 ${className}`}>
+        ★ Recommended
+      </span>
+    );
+  }
+
+  return null;
 }

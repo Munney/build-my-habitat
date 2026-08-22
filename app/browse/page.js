@@ -11,6 +11,8 @@ import ProductSafetyBadge from "../components/ProductSafetyBadge";
 import bettaData from "../../data/betta.json";
 import geckoData from "../../data/leopard-gecko.json";
 import beardedDragonData from "../../data/bearded-dragon.json";
+import ballPythonData from "../../data/ball-python.json";
+import crestedGeckoData from "../../data/crested-gecko.json";
 
 // 👇 REPLACE WITH YOUR AMAZON TAG
 const AFFILIATE_TAG = "habitatbuilde-20";
@@ -58,7 +60,7 @@ const REMOVED_PRODUCT_IDS = {
 function getSafetyStatus(item) {
   if (item?.safetyStatus) return item.safetyStatus;
   const id = (item?.id || "").toLowerCase();
-  const label = (item?.label || "").toLowerCase();
+  const label = (item?.label || item?.name || "").toLowerCase();
 
   if (
     id.includes("calcium") && id.includes("sand") ||
@@ -72,12 +74,16 @@ function getSafetyStatus(item) {
     return "blocked";
   }
 
-  return "recommended";
+  if (item?.badge === "Recommended" || item?.badge === "Best Value") {
+    return "recommended";
+  }
+
+  return "approved";
 }
 
 function getBlockedReason(item) {
   const id = (item?.id || "").toLowerCase();
-  const label = (item?.label || "").toLowerCase();
+  const label = (item?.label || item?.name || "").toLowerCase();
 
   if (id.includes("calcium") && id.includes("sand") || label.includes("calcium sand")) {
     return "Blocked: calcium sand is not recommended because it can create husbandry and ingestion risks.";
@@ -111,15 +117,20 @@ export default function BrowsePage() {
       if (!list || !Array.isArray(list)) return; 
 
       list.forEach(item => {
+        const normalizedItem = {
+          ...item,
+          label: item.label || item.name,
+        };
+
         // Skip removed products for this species
         const removedForSpecies = REMOVED_PRODUCT_IDS[species] || [];
-        if (removedForSpecies.includes(item.id)) {
+        if (removedForSpecies.includes(normalizedItem.id)) {
           return;
         }
 
         // Direct Amazon link with affiliate tag (ASIN → dp link, else direct URL with tag, else search)
-        const link = getProductLink({ ...item, species });
-        const dedupeKey = (item.asin || link || item.label || item.id || "")
+        const link = getProductLink({ ...normalizedItem, species });
+        const dedupeKey = (normalizedItem.asin || link || normalizedItem.label || normalizedItem.id || "")
           .toString()
           .trim()
           .toLowerCase();
@@ -131,11 +142,11 @@ export default function BrowsePage() {
         }
 
         products.push({
-          ...item,
+          ...normalizedItem,
           species,
           category: categoryLabel,
           url: link,
-          safetyStatus: getSafetyStatus(item)
+          safetyStatus: getSafetyStatus(normalizedItem)
         });
       });
     };
@@ -170,6 +181,29 @@ export default function BrowsePage() {
         add(beardedDragonData.decor,       "Bearded Dragon", "Decor");
         add(beardedDragonData.supplements, "Bearded Dragon", "Supplements");
         add(beardedDragonData.feeding,     "Bearded Dragon", "Feeding");
+    }
+
+    if (ballPythonData) {
+        add(ballPythonData.enclosures,  "Ball Python", "Enclosure");
+        add(ballPythonData.heating,     "Ball Python", "Heating");
+        add(ballPythonData.uvb,         "Ball Python", "UVB");
+        add(ballPythonData.substrates,  "Ball Python", "Substrate");
+        add(ballPythonData.humidity,    "Ball Python", "Humidity");
+        add(ballPythonData.hides,       "Ball Python", "Hides");
+        add(ballPythonData.water,       "Ball Python", "Water");
+        add(ballPythonData.monitoring,  "Ball Python", "Monitoring");
+    }
+
+    if (crestedGeckoData) {
+        add(crestedGeckoData.enclosures,  "Crested Gecko", "Enclosure");
+        add(crestedGeckoData.heating,     "Crested Gecko", "Heating");
+        add(crestedGeckoData.uvb,         "Crested Gecko", "UVB");
+        add(crestedGeckoData.lighting,    "Crested Gecko", "Lighting");
+        add(crestedGeckoData.substrates,  "Crested Gecko", "Substrate");
+        add(crestedGeckoData.humidity,    "Crested Gecko", "Humidity");
+        add(crestedGeckoData.decor,       "Crested Gecko", "Decor");
+        add(crestedGeckoData.supplements, "Crested Gecko", "Supplements");
+        add(crestedGeckoData.monitoring,  "Crested Gecko", "Monitoring");
     }
 
     return products.sort((a, b) => {
@@ -314,6 +348,14 @@ export default function BrowsePage() {
               className="px-4 py-2 bg-emerald-700 hover:bg-emerald-600 text-white text-sm font-bold rounded-full transition-all">
               Dragon Builder →
             </Link>
+            <Link href="/build/ball-python"
+              className="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white text-sm font-bold rounded-full transition-all">
+              Python Builder →
+            </Link>
+            <Link href="/build/crested-gecko"
+              className="px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white text-sm font-bold rounded-full transition-all">
+              Crested Gecko Builder →
+            </Link>
           </div>
         </div>
 
@@ -397,6 +439,26 @@ export default function BrowsePage() {
                 }`}
               >
                 BEARDED
+              </button>
+              <button
+                onClick={() => setFilter("ball python")}
+                className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${
+                  filter === "ball python"
+                    ? "bg-amber-600 text-white"
+                    : "text-slate-300 hover:text-amber-400"
+                }`}
+              >
+                PYTHON
+              </button>
+              <button
+                onClick={() => setFilter("crested gecko")}
+                className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${
+                  filter === "crested gecko"
+                    ? "bg-purple-600 text-white"
+                    : "text-slate-300 hover:text-purple-400"
+                }`}
+              >
+                CRESTED
               </button>
             </div>
 
@@ -494,19 +556,33 @@ export default function BrowsePage() {
              </div>
           ) : (
             filteredProducts.map((item, i) => {
-                const isBetta = item.species === "Betta";
-                
-                const badgeClass = isBetta 
-                    ? "text-blue-300 border-blue-500/30 bg-blue-500/10" 
+                const badgeClass =
+                  item.species === "Betta"
+                    ? "text-blue-300 border-blue-500/30 bg-blue-500/10"
+                    : item.species === "Ball Python"
+                    ? "text-amber-300 border-amber-500/30 bg-amber-500/10"
+                    : item.species === "Crested Gecko"
+                    ? "text-purple-300 border-purple-500/30 bg-purple-500/10"
                     : "text-emerald-300 border-emerald-500/30 bg-emerald-500/10";
-                
-                const priceClass = isBetta ? "text-blue-400" : "text-emerald-400";
-                
+
+                const priceClass =
+                  item.species === "Betta"
+                    ? "text-blue-400"
+                    : item.species === "Ball Python"
+                    ? "text-amber-400"
+                    : item.species === "Crested Gecko"
+                    ? "text-purple-400"
+                    : "text-emerald-400";
+
                 const isBlocked = item.safetyStatus === "blocked";
                 const buttonClass = isBlocked
                     ? "bg-slate-700 hover:bg-slate-600 shadow-slate-900/20"
-                    : isBetta
+                    : item.species === "Betta"
                     ? "bg-blue-600 hover:bg-blue-500 shadow-blue-900/20"
+                    : item.species === "Ball Python"
+                    ? "bg-amber-600 hover:bg-amber-500 shadow-amber-900/20"
+                    : item.species === "Crested Gecko"
+                    ? "bg-purple-600 hover:bg-purple-500 shadow-purple-900/20"
                     : "bg-emerald-600 hover:bg-emerald-500 shadow-emerald-900/20";
 
                 return (
