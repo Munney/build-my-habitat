@@ -7,8 +7,13 @@
       "enclosureId": "20g",
       "substrateIds": ["papertowel"],
       "substrateVariants": {},
-      "heatingIds": ["halogen_50w", "thermostat"],
-      "heatingVariants": {},
+      "heatingIds": ["thermostat"],
+      "heatingVariants": {
+        "Halogen Flood Lamp": {
+          "variant": "50W",
+          "id": "halogen"
+        }
+      },
       "hideIds": ["warmhide", "coolhide", "humidhide"],
       "hideVariants": {},
       "supplementIds": ["calcium_d3", "multivitamin"]
@@ -24,8 +29,17 @@
           "variant": "18 qts"
         }
       },
-      "heatingIds": ["halogen_75w", "thermostat", "uvb_24"],
-      "heatingVariants": {},
+      "heatingIds": ["thermostat"],
+      "heatingVariants": {
+        "Halogen Flood Lamp": {
+          "variant": "75W",
+          "id": "halogen_flood_lamp_2_pack_75w__2"
+        },
+        "UVB Kit": {
+          "variant": "22\"",
+          "id": "shadedweller_uvb_kit_24w_22_in_2"
+        }
+      },
       "hideIds": ["warmhide", "coolhide", "humidhide", "corkbark_cork_bark_flat_4_pcs", "branches_climbing_branches_4_pcs_14_16_"],
       "hideVariants": {},
       "supplementIds": ["calcium_no_d3", "multivitamin"]
