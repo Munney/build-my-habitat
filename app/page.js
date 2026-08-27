@@ -171,7 +171,7 @@ export default function Home() {
         {/* --- SETUP HELP BY TOPIC --- */}
           <div className="w-full max-w-4xl mx-auto mb-16 text-center p-8 rounded-2xl border border-emerald-500/20 bg-gradient-to-r from-emerald-500/10 to-blue-500/10">
           <h2 className="text-2xl font-bold text-white mb-2">Setup Help by Topic</h2>
-          <p className="text-slate-400 text-sm mb-6">Quick guides organized for leopard geckos, betta fish, and bearded dragons.</p>
+          <p className="text-slate-400 text-sm mb-6">Quick guides organized for all five species — leopard geckos, betta fish, bearded dragons, ball pythons, and crested geckos.</p>
           <Link
             href="/setup-help"
             onClick={() => analytics.trackNavClick("setup-help-hub-link")}
