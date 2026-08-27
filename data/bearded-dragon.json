@@ -12,37 +12,8 @@
       "amazonUrl": "https://www.amazon.com/dp/B0BQP7S859?tag=habitatbuilde-20"
     },
     {
-      "id": "pvc4x2x2_premium",
-      "label": "4×2×2 ft PVC Front-Opening (120 gal)",
-      "price": 343.85,
-      "badge": "Best Value",
-      "size": 120,
-      "amazonSearchUrl": "https://www.amazon.com/s?k=4x2x2+front+opening+reptile+enclosure&tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0BQP7S859?tag=habitatbuilde-20",
-      "asin": "B0BQP7S859",
-      "amazonUrl": "https://www.amazon.com/dp/B0BQP7S859?tag=habitatbuilde-20"
-    },
-    {
       "id": "120g_glass",
       "label": "120 Gallon Glass Tank 48×24×24",
-      "price": 439.99,
-      "size": 120,
-      "asin": "B07W5346Z2",
-      "amazonUrl": "https://www.amazon.com/dp/B07W5346Z2?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B07W5346Z2?tag=habitatbuilde-20"
-    },
-    {
-      "id": "120g",
-      "label": "4x2x2 (120 Gallon) Bearded Dragon Enclosure Front Open",
-      "price": 439.99,
-      "size": 120,
-      "asin": "B07W5346Z2",
-      "amazonUrl": "https://www.amazon.com/dp/B07W5346Z2?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B07W5346Z2?tag=habitatbuilde-20"
-    },
-    {
-      "id": "120_gallon_tall_wide_tempered__2",
-      "label": "120 Gallon, Tall & Wide Tempered Glass Reptile Tank 48 x 24 x 24",
       "price": 439.99,
       "size": 120,
       "asin": "B07W5346Z2",
