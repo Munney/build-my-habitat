@@ -124,7 +124,7 @@
       "hideIds": ["warm-hide", "cool-hide", "humid-hide"],
       "waterIds": ["water-bowl"],
       "monitoringIds": ["temp-gun"],
-      "feedingIds": ["small-rat", "feeding-tongs"]
+      "feedingIds": ["feeding-tongs"]
     },
     "premium": {
       "name": "Premium Setup",
@@ -146,7 +146,7 @@
       "hideIds": ["warm-hide", "cool-hide", "humid-hide", "cork-log", "climbing-branch"],
       "waterIds": ["water-bowl"],
       "monitoringIds": ["temp-gun"],
-      "feedingIds": ["medium-rat", "feeding-tongs"]
+      "feedingIds": ["feeding-tongs"]
     }
   },
   "crested-gecko": {
