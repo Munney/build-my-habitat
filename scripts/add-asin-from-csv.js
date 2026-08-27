@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { validateSpeciesCategory, logSkippedRow } from './species-guard.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -125,6 +126,13 @@ function processCSV(csvFilePath) {
 
     if (!speciesName) {
       console.log(`⚠️  ${productName}: Unknown species "${speciesCell.trim()}"`);
+      skippedCount++;
+      continue;
+    }
+
+    const guard = validateSpeciesCategory(SPECIES_MAP, speciesName, categoryName);
+    if (!guard.ok) {
+      logSkippedRow(speciesCell, categoryCell, guard.targetFile || SPECIES_MAP[speciesName] || 'unknown');
       skippedCount++;
       continue;
     }
