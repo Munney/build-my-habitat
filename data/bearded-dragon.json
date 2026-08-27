@@ -23,15 +23,6 @@
       "amazonUrl": "https://www.amazon.com/dp/B0BQP7S859?tag=habitatbuilde-20"
     },
     {
-      "id": "85g",
-      "label": "85 Gallon Reptile Tank",
-      "price": 322.76,
-      "size": 85,
-      "asin": "B0CBBS1H92",
-      "amazonUrl": "https://www.amazon.com/dp/B0CBBS1H92?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0CBBS1H92?tag=habitatbuilde-20"
-    },
-    {
       "id": "120g_glass",
       "label": "120 Gallon Glass Tank 48×24×24",
       "price": 439.99,
@@ -43,33 +34,6 @@
     {
       "id": "120g",
       "label": "4x2x2 (120 Gallon) Bearded Dragon Enclosure Front Open",
-      "price": 439.99,
-      "size": 120,
-      "asin": "B07W5346Z2",
-      "amazonUrl": "https://www.amazon.com/dp/B07W5346Z2?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B07W5346Z2?tag=habitatbuilde-20"
-    },
-    {
-      "id": "120_gallon_tall_wide_tempered__1",
-      "label": "120 Gallon, Tall & Wide Tempered Glass Reptile Tank 48 x 24 x 24",
-      "price": 439.99,
-      "size": 120,
-      "asin": "B07W5346Z2",
-      "amazonUrl": "https://www.amazon.com/dp/B07W5346Z2?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B07W5346Z2?tag=habitatbuilde-20"
-    },
-    {
-      "id": "120g_120_gallon_tall_wide_tempered_",
-      "label": "120 Gallon, Tall & Wide Tempered Glass Reptile Tank 48 x 24 x 24",
-      "price": 439.99,
-      "size": 120,
-      "asin": "B07W5346Z2",
-      "amazonUrl": "https://www.amazon.com/dp/B07W5346Z2?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B07W5346Z2?tag=habitatbuilde-20"
-    },
-    {
-      "id": "120_gallon_tall_wide_tempered_",
-      "label": "120 Gallon, Tall & Wide Tempered Glass Reptile Tank 48 x 24 x 24",
       "price": 439.99,
       "size": 120,
       "asin": "B07W5346Z2",
@@ -140,54 +104,6 @@
     {
       "id": "T5 UVB 10.0",
       "label": "2 Pack T5 UVB Reptile Light 24W 10.0, 22",
-      "price": 69.99,
-      "asin": "B0C7MTKC5S",
-      "amazonUrl": "https://www.amazon.com/dp/B0C7MTKC5S?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0C7MTKC5S?tag=habitatbuilde-20"
-    },
-    {
-      "id": "2_pack_t5_uvb_10_0_reptile_lig_1",
-      "label": "2 Pack T5 UVB 10.0 Reptile Light 39W 34",
-      "price": 46.99,
-      "asin": "B0C2V8XP8P",
-      "amazonUrl": "https://www.amazon.com/dp/B0C2V8XP8P?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0C2V8XP8P?tag=habitatbuilde-20"
-    },
-    {
-      "id": "t5_reptile_light_fixture_combo_1",
-      "label": "T5 Reptile Light Fixture Combo Kit 54W 46",
-      "price": 69.99,
-      "asin": "B0C7MTKC5S",
-      "amazonUrl": "https://www.amazon.com/dp/B0C7MTKC5S?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0C7MTKC5S?tag=habitatbuilde-20"
-    },
-    {
-      "id": "T5 UVB 10.0_2_pack_t5_uvb_10_0_reptile_lig",
-      "label": "2 Pack T5 UVB 10.0 Reptile Light 39W 34",
-      "price": 46.99,
-      "asin": "B0C2V8XP8P",
-      "amazonUrl": "https://www.amazon.com/dp/B0C2V8XP8P?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0C2V8XP8P?tag=habitatbuilde-20"
-    },
-    {
-      "id": "T5 UVB 10.0_t5_reptile_light_fixture_combo",
-      "label": "T5 Reptile Light Fixture Combo Kit 54W 46",
-      "price": 69.99,
-      "asin": "B0C7MTKC5S",
-      "amazonUrl": "https://www.amazon.com/dp/B0C7MTKC5S?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0C7MTKC5S?tag=habitatbuilde-20"
-    },
-    {
-      "id": "2_pack_t5_uvb_10_0_reptile_lig",
-      "label": "2 Pack T5 UVB 10.0 Reptile Light 39W 34",
-      "price": 46.99,
-      "asin": "B0C2V8XP8P",
-      "amazonUrl": "https://www.amazon.com/dp/B0C2V8XP8P?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0C2V8XP8P?tag=habitatbuilde-20"
-    },
-    {
-      "id": "t5_reptile_light_fixture_combo",
-      "label": "T5 Reptile Light Fixture Combo Kit 54W 46",
       "price": 69.99,
       "asin": "B0C7MTKC5S",
       "amazonUrl": "https://www.amazon.com/dp/B0C7MTKC5S?tag=habitatbuilde-20",
@@ -324,7 +240,7 @@
       "defaultProductUrl": "https://www.amazon.com/dp/B0CSKPDP3G?tag=habitatbuilde-20"
     },
     {
-      "id": "tank_liner_mat_for_120_gallon__1",
+      "id": "tank_liner_mat_for_120_gallon__2",
       "label": "Tank Liner Mat for 120 Gallon Tank",
       "price": 22.99,
       "type": "inert",
@@ -369,7 +285,7 @@
       "defaultProductUrl": "https://www.amazon.com/dp/B0BZSQ6CK4?tag=habitatbuilde-20"
     },
     {
-      "id": "47_x_24_large_reptile_carpet_t_1",
+      "id": "47_x_24_large_reptile_carpet_t_2",
       "label": "47 x 24 Large Reptile Carpet Terrarium Liner (BLACK",
       "price": 9.99,
       "type": "inert",
@@ -385,60 +301,6 @@
       "asin": "B0CZXRFNHW",
       "amazonUrl": "https://www.amazon.com/dp/B0CZXRFNHW?tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/dp/B0CZXRFNHW?tag=habitatbuilde-20"
-    },
-    {
-      "id": "Shelf Liner_tank_liner_mat_for_120_gallon_",
-      "label": "Tank Liner Mat for 120 Gallon Tank",
-      "price": 22.99,
-      "type": "inert",
-      "asin": "B0CSKPDP3G",
-      "amazonUrl": "https://www.amazon.com/dp/B0CSKPDP3G?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0CSKPDP3G?tag=habitatbuilde-20"
-    },
-    {
-      "id": "Carpet_47_x_24_large_reptile_carpet_t",
-      "label": "47 x 24 Large Reptile Carpet Terrarium Liner (BLACK",
-      "price": 9.99,
-      "type": "inert",
-      "asin": "B0BZSQ6CK4",
-      "amazonUrl": "https://www.amazon.com/dp/B0BZSQ6CK4?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0BZSQ6CK4?tag=habitatbuilde-20"
-    },
-    {
-      "id": "tank_liner_mat_for_120_gallon_",
-      "label": "Tank Liner Mat for 120 Gallon Tank",
-      "price": 22.99,
-      "type": "inert",
-      "asin": "B0CSKPDP3G",
-      "amazonUrl": "https://www.amazon.com/dp/B0CSKPDP3G?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0CSKPDP3G?tag=habitatbuilde-20"
-    },
-    {
-      "id": "47_x_24_large_reptile_carpet_t",
-      "label": "47 x 24 Large Reptile Carpet Terrarium Liner (BLACK",
-      "price": 9.99,
-      "type": "inert",
-      "asin": "B0BZSQ6CK4",
-      "amazonUrl": "https://www.amazon.com/dp/B0BZSQ6CK4?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0BZSQ6CK4?tag=habitatbuilde-20"
-    },
-    {
-      "id": "tank_liner_mat_for_120_gallon__2",
-      "label": "Tank Liner Mat for 120 Gallon Tank",
-      "price": 22.99,
-      "type": "inert",
-      "asin": "B0CSKPDP3G",
-      "amazonUrl": "https://www.amazon.com/dp/B0CSKPDP3G?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0CSKPDP3G?tag=habitatbuilde-20"
-    },
-    {
-      "id": "47_x_24_large_reptile_carpet_t_2",
-      "label": "47 x 24 Large Reptile Carpet Terrarium Liner (BLACK",
-      "price": 9.99,
-      "type": "inert",
-      "asin": "B0BZSQ6CK4",
-      "amazonUrl": "https://www.amazon.com/dp/B0BZSQ6CK4?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0BZSQ6CK4?tag=habitatbuilde-20"
     }
   ],
   "hides": [
@@ -497,54 +359,6 @@
     {
       "id": "Hides",
       "label": "Reptile Hide (Medium)",
-      "price": 39.99,
-      "asin": "B0BM65BQW5",
-      "amazonUrl": "https://www.amazon.com/dp/B0BM65BQW5?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0BM65BQW5?tag=habitatbuilde-20"
-    },
-    {
-      "id": "reptile_hide_large_1",
-      "label": "Reptile Hide (Large)",
-      "price": 27.99,
-      "asin": "B0BM64QN5J",
-      "amazonUrl": "https://www.amazon.com/dp/B0BM64QN5J?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0BM64QN5J?tag=habitatbuilde-20"
-    },
-    {
-      "id": "reptile_hide_extra_large_1",
-      "label": "Reptile Hide (Extra Large)",
-      "price": 39.99,
-      "asin": "B0BM65BQW5",
-      "amazonUrl": "https://www.amazon.com/dp/B0BM65BQW5?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0BM65BQW5?tag=habitatbuilde-20"
-    },
-    {
-      "id": "Hides_reptile_hide_large",
-      "label": "Reptile Hide (Large)",
-      "price": 27.99,
-      "asin": "B0BM64QN5J",
-      "amazonUrl": "https://www.amazon.com/dp/B0BM64QN5J?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0BM64QN5J?tag=habitatbuilde-20"
-    },
-    {
-      "id": "Hides_reptile_hide_extra_large",
-      "label": "Reptile Hide (Extra Large)",
-      "price": 39.99,
-      "asin": "B0BM65BQW5",
-      "amazonUrl": "https://www.amazon.com/dp/B0BM65BQW5?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0BM65BQW5?tag=habitatbuilde-20"
-    },
-    {
-      "id": "reptile_hide_large",
-      "label": "Reptile Hide (Large)",
-      "price": 27.99,
-      "asin": "B0BM64QN5J",
-      "amazonUrl": "https://www.amazon.com/dp/B0BM64QN5J?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0BM64QN5J?tag=habitatbuilde-20"
-    },
-    {
-      "id": "reptile_hide_extra_large",
-      "label": "Reptile Hide (Extra Large)",
       "price": 39.99,
       "asin": "B0BM65BQW5",
       "amazonUrl": "https://www.amazon.com/dp/B0BM65BQW5?tag=habitatbuilde-20",
@@ -678,96 +492,6 @@
       "defaultProductUrl": "https://www.amazon.com/dp/B0FWKMTHN9?tag=habitatbuilde-20"
     },
     {
-      "id": "4pcs_reptile_bark_decor_wood_n_1",
-      "label": "4pcs Reptile Bark Decor Wood, Natural Cork Bark",
-      "price": 13.59,
-      "type": "safe",
-      "asin": "B0DSP8ZPKP",
-      "amazonUrl": "https://www.amazon.com/dp/B0DSP8ZPKP?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0DSP8ZPKP?tag=habitatbuilde-20"
-    },
-    {
-      "id": "natural_cork_bark_for_reptile__1",
-      "label": "Natural Cork Bark for Reptile Hideout Round Cork Bark Tube 7.8x3in (Small)",
-      "price": 26.99,
-      "type": "safe",
-      "asin": "B0FWKMTHN9",
-      "amazonUrl": "https://www.amazon.com/dp/B0FWKMTHN9?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0FWKMTHN9?tag=habitatbuilde-20"
-    },
-    {
-      "id": "Fake Plants",
-      "label": "5 Pack Hanging Plant Vines Artificial Leaves",
-      "price": 9.99,
-      "type": "safe",
-      "asin": "B094J5G9DJ",
-      "amazonUrl": "https://www.amazon.com/dp/B094J5G9DJ?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B094J5G9DJ?tag=habitatbuilde-20"
-    },
-    {
-      "id": "2_pack_reptile_plants_1",
-      "label": "2 Pack Reptile Plants",
-      "price": 9.99,
-      "type": "safe",
-      "asin": "B094J5G9DJ",
-      "amazonUrl": "https://www.amazon.com/dp/B094J5G9DJ?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B094J5G9DJ?tag=habitatbuilde-20"
-    },
-    {
-      "id": "Cork bark_4pcs_reptile_bark_decor_wood_n",
-      "label": "4pcs Reptile Bark Decor Wood, Natural Cork Bark",
-      "price": 13.59,
-      "type": "safe",
-      "asin": "B0DSP8ZPKP",
-      "amazonUrl": "https://www.amazon.com/dp/B0DSP8ZPKP?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0DSP8ZPKP?tag=habitatbuilde-20"
-    },
-    {
-      "id": "Cork bark_natural_cork_bark_for_reptile_",
-      "label": "Natural Cork Bark for Reptile Hideout Round Cork Bark Tube 7.8x3in (Small)",
-      "price": 26.99,
-      "type": "safe",
-      "asin": "B0FWKMTHN9",
-      "amazonUrl": "https://www.amazon.com/dp/B0FWKMTHN9?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0FWKMTHN9?tag=habitatbuilde-20"
-    },
-    {
-      "id": "Fake Plants_2_pack_reptile_plants",
-      "label": "2 Pack Reptile Plants",
-      "price": 9.99,
-      "type": "safe",
-      "asin": "B094J5G9DJ",
-      "amazonUrl": "https://www.amazon.com/dp/B094J5G9DJ?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B094J5G9DJ?tag=habitatbuilde-20"
-    },
-    {
-      "id": "4pcs_reptile_bark_decor_wood_n",
-      "label": "4pcs Reptile Bark Decor Wood, Natural Cork Bark",
-      "price": 13.59,
-      "type": "safe",
-      "asin": "B0DSP8ZPKP",
-      "amazonUrl": "https://www.amazon.com/dp/B0DSP8ZPKP?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0DSP8ZPKP?tag=habitatbuilde-20"
-    },
-    {
-      "id": "natural_cork_bark_for_reptile_",
-      "label": "Natural Cork Bark for Reptile Hideout Round Cork Bark Tube 7.8x3in (Small)",
-      "price": 26.99,
-      "type": "safe",
-      "asin": "B0FWKMTHN9",
-      "amazonUrl": "https://www.amazon.com/dp/B0FWKMTHN9?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0FWKMTHN9?tag=habitatbuilde-20"
-    },
-    {
-      "id": "2_pack_reptile_plants",
-      "label": "2 Pack Reptile Plants",
-      "price": 9.99,
-      "type": "safe",
-      "asin": "B094J5G9DJ",
-      "amazonUrl": "https://www.amazon.com/dp/B094J5G9DJ?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B094J5G9DJ?tag=habitatbuilde-20"
-    },
-    {
       "id": "4pcs_reptile_bark_decor_wood_n_2",
       "label": "4pcs Reptile Bark Decor Wood, Natural Cork Bark",
       "price": 13.59,
@@ -784,6 +508,15 @@
       "asin": "B0FWKMTHN9",
       "amazonUrl": "https://www.amazon.com/dp/B0FWKMTHN9?tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/dp/B0FWKMTHN9?tag=habitatbuilde-20"
+    },
+    {
+      "id": "Fake Plants",
+      "label": "5 Pack Hanging Plant Vines Artificial Leaves",
+      "price": 9.99,
+      "type": "safe",
+      "asin": "B094J5G9DJ",
+      "amazonUrl": "https://www.amazon.com/dp/B094J5G9DJ?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B094J5G9DJ?tag=habitatbuilde-20"
     },
     {
       "id": "2_pack_reptile_plants_2",
@@ -865,7 +598,7 @@
       "defaultProductUrl": "https://www.amazon.com/dp/B07YYL2TKB?tag=habitatbuilde-20"
     },
     {
-      "id": "mealworms_cricket_dish_anti_es_1",
+      "id": "mealworms_cricket_dish_anti_es_2",
       "label": "Mealworms & Cricket Dish Anti-Escape Feeder (Small 2.75) 2 Pack",
       "price": 6.99,
       "asin": "B07YYL2TKB",
@@ -879,54 +612,6 @@
       "asin": "B07HHXYL15",
       "amazonUrl": "https://www.amazon.com/dp/B07HHXYL15?tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/dp/B07HHXYL15?tag=habitatbuilde-20"
-    },
-    {
-      "id": "reptile_water_dish_large_8_8_x_1",
-      "label": "Reptile Water Dish Large(8.8 x 6.5 x 1.5)",
-      "price": 19.49,
-      "asin": "B07HHXYL15",
-      "amazonUrl": "https://www.amazon.com/dp/B07HHXYL15?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B07HHXYL15?tag=habitatbuilde-20"
-    },
-    {
-      "id": "Insect Dish_mealworms_cricket_dish_anti_es",
-      "label": "Mealworms & Cricket Dish Anti-Escape Feeder (Small 2.75) 2 Pack",
-      "price": 6.99,
-      "asin": "B07YYL2TKB",
-      "amazonUrl": "https://www.amazon.com/dp/B07YYL2TKB?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B07YYL2TKB?tag=habitatbuilde-20"
-    },
-    {
-      "id": "Water Bowl_reptile_water_dish_large_8_8_x",
-      "label": "Reptile Water Dish Large(8.8 x 6.5 x 1.5)",
-      "price": 19.49,
-      "asin": "B07HHXYL15",
-      "amazonUrl": "https://www.amazon.com/dp/B07HHXYL15?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B07HHXYL15?tag=habitatbuilde-20"
-    },
-    {
-      "id": "mealworms_cricket_dish_anti_es",
-      "label": "Mealworms & Cricket Dish Anti-Escape Feeder (Small 2.75) 2 Pack",
-      "price": 6.99,
-      "asin": "B07YYL2TKB",
-      "amazonUrl": "https://www.amazon.com/dp/B07YYL2TKB?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B07YYL2TKB?tag=habitatbuilde-20"
-    },
-    {
-      "id": "reptile_water_dish_large_8_8_x",
-      "label": "Reptile Water Dish Large(8.8 x 6.5 x 1.5)",
-      "price": 19.49,
-      "asin": "B07HHXYL15",
-      "amazonUrl": "https://www.amazon.com/dp/B07HHXYL15?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B07HHXYL15?tag=habitatbuilde-20"
-    },
-    {
-      "id": "mealworms_cricket_dish_anti_es_2",
-      "label": "Mealworms & Cricket Dish Anti-Escape Feeder (Small 2.75) 2 Pack",
-      "price": 6.99,
-      "asin": "B07YYL2TKB",
-      "amazonUrl": "https://www.amazon.com/dp/B07YYL2TKB?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B07YYL2TKB?tag=habitatbuilde-20"
     },
     {
       "id": "reptile_water_dish_large_8_8_x_2",
