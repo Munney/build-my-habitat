@@ -309,6 +309,62 @@
       "asin": "B00164PW9S",
       "amazonUrl": "https://www.amazon.com/dp/B00164PW9S?tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/dp/B00164PW9S?tag=habitatbuilde-20"
+    },
+    {
+      "id": "heatmat_under_tank_heater_mat_30_40_ga",
+      "label": "Under Tank Heater (Mat) (30-40 gallon)",
+      "price": 19.99,
+      "asin": "B08C93ZGPJ",
+      "amazonUrl": "https://www.amazon.com/dp/B08C93ZGPJ?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B08C93ZGPJ?tag=habitatbuilde-20"
+    },
+    {
+      "id": "halogen_halogen_flood_lamp_2_pack_75w_",
+      "label": "Halogen Flood Lamp (2 pack - 75W) 40 Gallon tank",
+      "price": 15.99,
+      "asin": "B0B55T7946",
+      "amazonUrl": "https://www.amazon.com/dp/B0B55T7946?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0B55T7946?tag=habitatbuilde-20"
+    },
+    {
+      "id": "halogen_halogen_flood_lamp_2_pack_100w",
+      "label": "Halogen Flood Lamp (2 pack - 100W) 120 Gallon Tank",
+      "price": 15.99,
+      "asin": "B0B55TLWFD",
+      "amazonUrl": "https://www.amazon.com/dp/B0B55TLWFD?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0B55TLWFD?tag=habitatbuilde-20"
+    },
+    {
+      "id": "dhp_deep_heat_projector_dhp_2_pack",
+      "label": "Deep Heat Projector (DHP) (2 pack) 75W 40 Gallon Tank",
+      "price": 15.99,
+      "asin": "B096TTB7B3",
+      "amazonUrl": "https://www.amazon.com/dp/B096TTB7B3?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B096TTB7B3?tag=habitatbuilde-20"
+    },
+    {
+      "id": "deep_heat_projector_dhp_2_pack",
+      "label": "Deep Heat Projector (DHP) (2 pack) 100W 120 Gallon Tank",
+      "price": 16.99,
+      "asin": "B096TS3YN3",
+      "amazonUrl": "https://www.amazon.com/dp/B096TS3YN3?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B096TS3YN3?tag=habitatbuilde-20"
+    },
+    {
+      "id": "uvb_shadedweller_uvb_kit_24w_22_in",
+      "label": "ShadeDweller UVB Kit (24W, 22 inch) 40 Gallon Tank",
+      "price": 41.09,
+      "asin": "B0BLVLTFZN",
+      "amazonUrl": "https://www.amazon.com/dp/B0BLVLTFZN?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0BLVLTFZN?tag=habitatbuilde-20"
+    },
+    {
+      "id": "uvb_shadedweller_uvb_kit_39w_34_in",
+      "label": "ShadeDweller UVB Kit (39W, 34 inch) 120 Gallon Tank",
+      "price": 49.99,
+      "asin": "B0BPSM1X5N",
+      "amazonUrl": "https://www.amazon.com/dp/B0BPSM1X5N?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0BPSM1X5N?tag=habitatbuilde-20"
     }
   ],
   "substrates": [
@@ -538,6 +594,105 @@
       "asin": "B07MZLXF24",
       "amazonUrl": "https://www.amazon.com/dp/B07MZLXF24?tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/dp/B07MZLXF24?tag=habitatbuilde-20"
+    },
+    {
+      "id": "slate_slate_tile_stone_6_in_x_6_in_s",
+      "label": "Slate Tile / Stone 6 in x 6 in (Square) 20 Gallon Tank",
+      "price": 7.99,
+      "type": "inert",
+      "asin": "B0FR4PYMVW",
+      "amazonUrl": "https://www.amazon.com/dp/B0FR4PYMVW?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0FR4PYMVW?tag=habitatbuilde-20"
+    },
+    {
+      "id": "slate_slate_tile_stone_11_8_in_x_5_9",
+      "label": "Slate Tile / Stone 11.8 in x 5.9 in (Rectangle) 40 Gallon Tank",
+      "price": 14.99,
+      "type": "inert",
+      "asin": "B0947QGS7R",
+      "amazonUrl": "https://www.amazon.com/dp/B0947QGS7R?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0947QGS7R?tag=habitatbuilde-20"
+    },
+    {
+      "id": "slate_slate_tile_stone_15_7_in_x_9_8",
+      "label": "Slate Tile / Stone 15.7 in x 9.8 in (Rectangle) 120 Gallon Tank",
+      "price": 19.99,
+      "type": "inert",
+      "asin": "B09H78CYNG",
+      "amazonUrl": "https://www.amazon.com/dp/B09H78CYNG?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B09H78CYNG?tag=habitatbuilde-20"
+    },
+    {
+      "id": "liner_reptile_carpet_40_gallon_tank",
+      "label": "Reptile Carpet (40 Gallon Tank)",
+      "price": 25.99,
+      "type": "inert",
+      "asin": "B09CYCLP21",
+      "amazonUrl": "https://www.amazon.com/dp/B09CYCLP21?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B09CYCLP21?tag=habitatbuilde-20"
+    },
+    {
+      "id": "organic_topsoil_mix_cocunut_ch",
+      "label": "Organic Topsoil Mix (Cocunut Chips)",
+      "price": 27.08,
+      "type": "inert",
+      "asin": "B0CRDQH522",
+      "amazonUrl": "https://www.amazon.com/dp/B0CRDQH522?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0CRDQH522?tag=habitatbuilde-20"
+    },
+    {
+      "id": "bioactive_bioactive_terra_sahara_18_qts_",
+      "label": "BioActive Terra Sahara 18 qts (20-40 Gallon Tanks)",
+      "price": 42.95,
+      "type": "inert",
+      "asin": "B0CVQR1X6N",
+      "amazonUrl": "https://www.amazon.com/dp/B0CVQR1X6N?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0CVQR1X6N?tag=habitatbuilde-20"
+    },
+    {
+      "id": "bioactive_bioactive_terra_sahara_36_qts_",
+      "label": "BioActive Terra Sahara 36 qts (120 Gallon Tanks)",
+      "price": 59.95,
+      "type": "inert",
+      "asin": "B07Z5CJ573",
+      "amazonUrl": "https://www.amazon.com/dp/B07Z5CJ573?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B07Z5CJ573?tag=habitatbuilde-20"
+    },
+    {
+      "id": "sand_reptile_sand_calcium_white",
+      "label": "Reptile Sand (Calcium) (White)",
+      "price": 19.99,
+      "type": "inert",
+      "asin": "B005J1ORIQ",
+      "amazonUrl": "https://www.amazon.com/dp/B005J1ORIQ?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B005J1ORIQ?tag=habitatbuilde-20"
+    },
+    {
+      "id": "sand_reptile_sand_calcium_black",
+      "label": "Reptile Sand (Calcium) (Black)",
+      "price": 19.99,
+      "type": "inert",
+      "asin": "B00F8DU48W",
+      "amazonUrl": "https://www.amazon.com/dp/B00F8DU48W?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B00F8DU48W?tag=habitatbuilde-20"
+    },
+    {
+      "id": "sand_reptile_sand_calcium_tan",
+      "label": "Reptile Sand (Calcium) (Tan)",
+      "price": 18.99,
+      "type": "inert",
+      "asin": "B005J1OR72",
+      "amazonUrl": "https://www.amazon.com/dp/B005J1OR72?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B005J1OR72?tag=habitatbuilde-20"
+    },
+    {
+      "id": "sand_reptile_sand_calcium_blue",
+      "label": "Reptile Sand (Calcium) (Blue)",
+      "price": 19.99,
+      "type": "inert",
+      "asin": "B00F8DU3UQ",
+      "amazonUrl": "https://www.amazon.com/dp/B00F8DU3UQ?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B00F8DU3UQ?tag=habitatbuilde-20"
     }
   ],
   "hides": [
@@ -623,6 +778,38 @@
       "asin": "B001F9ANVG",
       "amazonUrl": "https://www.amazon.com/dp/B001F9ANVG?tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/dp/B001F9ANVG?tag=habitatbuilde-20"
+    },
+    {
+      "id": "warmhide",
+      "label": "Warm Hide (Cave)",
+      "price": 14.99,
+      "asin": "B008YDHDD2",
+      "amazonUrl": "https://www.amazon.com/dp/B008YDHDD2?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B008YDHDD2?tag=habitatbuilde-20"
+    },
+    {
+      "id": "humidhide",
+      "label": "Humid Hide (Box)",
+      "price": 23.99,
+      "asin": "B0F1TVP46X",
+      "amazonUrl": "https://www.amazon.com/dp/B0F1TVP46X?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0F1TVP46X?tag=habitatbuilde-20"
+    },
+    {
+      "id": "corkbark_cork_bark_flat_4_pcs",
+      "label": "Cork Bark Flat 4 pcs",
+      "price": 14.99,
+      "asin": "B0DSP8ZPKP",
+      "amazonUrl": "https://www.amazon.com/dp/B0DSP8ZPKP?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0DSP8ZPKP?tag=habitatbuilde-20"
+    },
+    {
+      "id": "branches_climbing_branches_4_pcs_14_16_",
+      "label": "Climbing Branches 4 pcs (14-16 inches)",
+      "price": 19.99,
+      "asin": "B0CLY5WZ4S",
+      "amazonUrl": "https://www.amazon.com/dp/B0CLY5WZ4S?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0CLY5WZ4S?tag=habitatbuilde-20"
     }
   ],
   "supplements": [
@@ -731,6 +918,22 @@
     },
     {
       "id": "food_and_water_dish_1_corner_p_1",
+      "label": "Food and Water Dish 1 corner pc 1 round pc (Sahara Rock Design)",
+      "price": 11.98,
+      "asin": "B0BY4P4S1C",
+      "amazonUrl": "https://www.amazon.com/dp/B0BY4P4S1C?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0BY4P4S1C?tag=habitatbuilde-20"
+    },
+    {
+      "id": "Bowls_food_and_water_dish_2_pcs_tree",
+      "label": "Food and Water Dish 2 pcs (Tree Trunk Design)",
+      "price": 10.99,
+      "asin": "B0CH117LQP",
+      "amazonUrl": "https://www.amazon.com/dp/B0CH117LQP?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0CH117LQP?tag=habitatbuilde-20"
+    },
+    {
+      "id": "Bowls_food_and_water_dish_1_corner_p",
       "label": "Food and Water Dish 1 corner pc 1 round pc (Sahara Rock Design)",
       "price": 11.98,
       "asin": "B0BY4P4S1C",
