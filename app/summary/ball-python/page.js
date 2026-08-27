@@ -231,15 +231,16 @@ function SummaryContent() {
           <h3 className="text-sm font-bold text-white uppercase tracking-wide mb-3">Your Habitat Includes</h3>
           <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {[
-              "4x2x2 minimum enclosure",
-              "Thermostat-controlled heat source",
-              "3 essential hides (warm, cool, humid)",
-              "60-80% humidity maintained",
-              "Large soaking water bowl",
-              "4\"+ moisture-retentive substrate",
-            ].map((label, i) => (
+              { label: "4x2x2 minimum enclosure", icon: "✓" },
+              { label: "Thermostat-controlled heat source", icon: "✓" },
+              { label: "3 essential hides (warm, cool, humid)", icon: "✓" },
+              { label: "60-80% humidity maintained", icon: "✓" },
+              { label: "Large soaking water bowl", icon: "✓" },
+              { label: "4\"+ moisture-retentive substrate", icon: "✓" },
+              { label: "UVB lighting (optional but recommended)", icon: "✓" },
+            ].map((item, i) => (
               <li key={i} className="flex items-center gap-2 text-sm text-slate-200">
-                <CheckCircle2 size={16} className="text-emerald-400 shrink-0" /> {label}
+                <span className="text-emerald-400 shrink-0">{item.icon}</span> {item.label}
               </li>
             ))}
           </ul>

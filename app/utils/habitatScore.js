@@ -601,8 +601,10 @@ export function calculateCrestedGeckoHabitatScore(selections) {
 }
 
 /**
- * Ball Python: 100 pts — Enclosure 20, Heating+thermostat 25, Humidity 15, Hides 15, Substrate 10, Water+monitoring 10, UVB 5
+ * Ball Python: 105 pts — Enclosure 20, Heating+thermostat 25, Humidity 15, Hides 15, Substrate 10, Water+monitoring 10, UVB 5, Feeding tongs 5
  */
+const BALL_PYTHON_MAX_SCORE = 105;
+
 export function calculateBallPythonHabitatScore(selections) {
   const checks = [];
   const warnings = [];
@@ -761,9 +763,19 @@ export function calculateBallPythonHabitatScore(selections) {
   score += uvbPoints;
   checks.push({ key: "uvb", label: "UVB lighting", passed: uvbPoints >= 5, points: uvbPoints, maxPoints: uvbMax, message: uvbMessage });
 
+  const feeding = selections?.feeding || [];
+  const hasFeedingTongs = feeding.some((f) => f && f.id === "feeding-tongs");
+  const feedingMax = 5;
+  const feedingPoints = hasFeedingTongs ? 5 : 0;
+  const feedingMessage = hasFeedingTongs
+    ? "Feeding tongs selected — required for safe feeding."
+    : "Add feeding tongs. Never hand-feed a ball python.";
+  score += feedingPoints;
+  checks.push({ key: "feeding", label: "Feeding safety", passed: hasFeedingTongs, points: feedingPoints, maxPoints: feedingMax, message: feedingMessage });
+
   return {
-    score: Math.min(score, MAX_SCORE),
-    maxScore: MAX_SCORE,
+    score: Math.min(score, BALL_PYTHON_MAX_SCORE),
+    maxScore: BALL_PYTHON_MAX_SCORE,
     label: getScoreLabel(score),
     checks,
     warnings,
