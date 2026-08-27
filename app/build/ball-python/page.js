@@ -246,8 +246,8 @@ function BallPythonBuilderContent() {
     humidity: hasHumidityCore,
     hides: hasRequiredHides,
     water: hasWaterBowl && hasTempGun,
-    feeding: feedingIds.length > 0,
-  }), [experience, enclosureId, hasThermostat, hasPrimaryHeat, uvbId, substrateId, hasHumidityCore, hasRequiredHides, hasWaterBowl, hasTempGun, feedingIds.length]);
+    feeding: feedingIds.some((id) => PREY_SIZE_IDS.has(id)) && feedingIds.includes("feeding-tongs"),
+  }), [experience, enclosureId, hasThermostat, hasPrimaryHeat, uvbId, substrateId, hasHumidityCore, hasRequiredHides, hasWaterBowl, hasTempGun, feedingIds]);
 
   const progress = useMemo(() => {
     const steps = Object.values(sectionCompletion);
@@ -559,6 +559,11 @@ function BallPythonBuilderContent() {
                 />
               ))}
             </div>
+            {feedingIds.some((id) => PREY_SIZE_IDS.has(id)) && !feedingIds.includes("feeding-tongs") && (
+              <div className="w-full p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-sm mt-3">
+                ⚠ Feeding tongs are required for safe feeding — never hand-feed a ball python.
+              </div>
+            )}
           </Section>
         </div>
 
@@ -588,7 +593,7 @@ function BallPythonBuilderContent() {
             <p className="text-amber-200/90 text-sm">
               {!hasThermostat
                 ? "A thermostat is required before you can generate a summary."
-                : "Complete all required sections (enclosure, overhead heat + thermostat, UVB, substrate, humidity tools, 3 hides, water bowl, temp gun, and feeding) to generate your build."}
+                : "Complete all required sections (enclosure, overhead heat + thermostat, UVB, substrate, humidity tools, 3 hides, water bowl, temp gun, and feeding (prey size + feeding tongs)) to generate your build."}
             </p>
           )}
         </div>
