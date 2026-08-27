@@ -70,9 +70,6 @@ export function EmailCapturePopup({ onClose, onSuccess, leadMagnet = "Complete S
               <h2 className="text-2xl font-black text-white mb-2">
                 Get Your Free Setup Checklist
               </h2>
-              <p className="text-slate-300 text-sm">
-                Join {Math.floor(Math.random() * 5000 + 2000)}+ pet owners getting expert setup guides
-              </p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
