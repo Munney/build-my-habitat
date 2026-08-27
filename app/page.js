@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import Image from "next/image"; 
 import { ArrowRight, ArrowUpRight, ShieldCheck, FileText } from "lucide-react";
 import { analytics } from "./utils/analytics";
 import { HowToSchema } from "./components/StructuredData";
@@ -116,7 +115,6 @@ export default function Home() {
             borderColor="group-hover:border-emerald-500/50"
             glowColor="group-hover:shadow-[0_0_40px_-10px_rgba(16,185,129,0.3)]"
             titleColor="text-emerald-400"
-            priority
           />
 
           {/* BETTA FISH BUILDER */}
@@ -271,7 +269,6 @@ function SpeciesCard({
   borderColor, 
   glowColor,
   titleColor,
-  priority = false,
 }) {
   const lower = title.toLowerCase();
   const species = lower.includes("betta")
@@ -292,14 +289,10 @@ function SpeciesCard({
     >
       {/* Image Half */}
       <div className="relative h-64 w-full overflow-hidden bg-slate-800">
-        <Image 
+        <img 
           src={imageSrc} 
           alt={title}
-          width={400}
-          height={300}
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-          priority={priority}
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 20vw"
           style={species === "crested-gecko" ? { objectPosition: "43% center" } : undefined}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent z-10" />
@@ -336,13 +329,10 @@ function GuideCard({ href, title, description, imageSrc, accentColor, hoverBorde
         >
             {/* Thumbnail Container */}
             <div className="relative h-24 w-24 min-w-[6rem] shrink-0 overflow-hidden rounded-xl border border-white/10 bg-slate-800 shadow-lg">
-                <Image 
+                <img 
                     src={currentSrc} 
                     alt={title}
-                    width={96}
-                    height={96}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-90 group-hover:opacity-100"
-                    priority={false}
                     onError={() => setImgError(true)}
                 />
             </div>
