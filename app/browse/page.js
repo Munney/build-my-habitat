@@ -192,6 +192,7 @@ export default function BrowsePage() {
         add(ballPythonData.hides,       "Ball Python", "Hides");
         add(ballPythonData.water,       "Ball Python", "Water");
         add(ballPythonData.monitoring,  "Ball Python", "Monitoring");
+        add(ballPythonData.feeding,     "Ball Python", "Feeding");
     }
 
     if (crestedGeckoData) {

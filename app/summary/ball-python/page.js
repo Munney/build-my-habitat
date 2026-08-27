@@ -93,7 +93,8 @@ function SummaryContent() {
     const hides = get("hides", config.hides);
     const water = get("water", config.water);
     const monitoring = get("monitoring", config.monitoring);
-    return { enclosure, substrate, heating, uvb, humidity, hides, water, monitoring };
+    const feeding = get("feeding", config.feeding);
+    return { enclosure, substrate, heating, uvb, humidity, hides, water, monitoring, feeding };
   }, [searchParams]);
 
   const rawItems = [
@@ -105,6 +106,7 @@ function SummaryContent() {
     ...(selections.hides || []),
     ...(selections.water || []),
     ...(selections.monitoring || []),
+    ...(selections.feeding || []),
   ].filter(Boolean);
 
   const allItems = rawItems.map((item) => ({
@@ -120,6 +122,7 @@ function SummaryContent() {
     if ((selections.humidity || []).includes(item)) return "Humidity";
     if ((selections.hides || []).includes(item)) return "Hides";
     if ((selections.water || []).includes(item)) return "Water";
+    if ((selections.feeding || []).includes(item)) return "Feeding";
     return "Monitoring";
   });
 
@@ -132,7 +135,8 @@ function SummaryContent() {
     if (item.id === "heat-mat") return "Supplemental only — not a primary heat source";
     if (item.id === "humid-hide") return "Required for healthy shedding";
     if (item.id === "uvb-t5-6pct" || item.id === "uvb-reptisun-6") return "Supports natural vitamin D3 synthesis";
-    if (item.id === "large-water-bowl") return "Large enough for the snake to soak";
+    if (item.id === "water-bowl") return "Large enough for the snake to soak";
+    if (item.id === "feeding-tongs") return "Required — never hand-feed ball pythons";
     if (item.id === "temp-gun") return "Check warm hide 90-95°F and cool side 75-80°F";
     return null;
   };

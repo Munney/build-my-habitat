@@ -25,19 +25,31 @@ const HUMIDITY = config.humidity || [];
 const HIDES = config.hides || [];
 const WATER = config.water || [];
 const MONITORING = config.monitoring || [];
+const FEEDING = config.feeding || [];
 const DANGEROUS_SUBSTRATES = new Set(
   (config.safetyRules?.substrate?.dangerous || []).map((s) => String(s).toLowerCase())
 );
 const PRIMARY_HEAT_IDS = new Set([
   "halogen-flood",
   "deep-heat-projector",
+  "dhp-pack",
   "ceramic-heat-emitter",
   "radiant-heat-panel",
 ]);
 const REQUIRED_HIDE_IDS = ["warm-hide", "cool-hide", "humid-hide"];
+const ENRICHMENT_HIDE_IDS = ["cork-log", "climbing-branch"];
+const PREY_SIZE_IDS = new Set(["small-rat", "medium-rat", "large-rat"]);
 
 function toggle(list, id) {
   return list.includes(id) ? list.filter((x) => x !== id) : [...list, id];
+}
+
+function toggleFeeding(feedingIds, id) {
+  if (PREY_SIZE_IDS.has(id)) {
+    const withoutPrey = feedingIds.filter((x) => !PREY_SIZE_IDS.has(x));
+    return feedingIds.includes(id) ? withoutPrey : [...withoutPrey, id];
+  }
+  return toggle(feedingIds, id);
 }
 
 function itemTitle(item) {
@@ -124,6 +136,7 @@ function BallPythonBuilderContent() {
   const [hideIds, setHideIds] = useState([]);
   const [waterIds, setWaterIds] = useState([]);
   const [monitoringIds, setMonitoringIds] = useState([]);
+  const [feedingIds, setFeedingIds] = useState([]);
   const [stateRestored, setStateRestored] = useState(false);
   const [copyLinkSuccess, setCopyLinkSuccess] = useState(false);
   const [templateApplied, setTemplateApplied] = useState(null);
@@ -148,7 +161,8 @@ function BallPythonBuilderContent() {
     const hides = searchParams.get("hides");
     const water = searchParams.get("water");
     const monitoring = searchParams.get("monitoring");
-    if (exp || enc || sub || heat || uvb || humidity || hides || water || monitoring) {
+    const feeding = searchParams.get("feeding");
+    if (exp || enc || sub || heat || uvb || humidity || hides || water || monitoring || feeding) {
       if (exp) setExperience(exp);
       if (enc) setEnclosureId(enc);
       if (sub) setSubstrateId(sub);
@@ -158,6 +172,7 @@ function BallPythonBuilderContent() {
       if (hides) setHideIds(hides.split(",").filter(Boolean));
       if (water) setWaterIds(water.split(",").filter(Boolean));
       if (monitoring) setMonitoringIds(monitoring.split(",").filter(Boolean));
+      if (feeding) setFeedingIds(feeding.split(",").filter(Boolean));
       setStateRestored(true);
     }
   }, [searchParams, stateRestored]);
@@ -172,6 +187,7 @@ function BallPythonBuilderContent() {
     if (template.hideIds) setHideIds(template.hideIds);
     if (template.waterIds) setWaterIds(template.waterIds);
     if (template.monitoringIds) setMonitoringIds(template.monitoringIds);
+    if (template.feedingIds) setFeedingIds(template.feedingIds);
     setTemplateApplied(templateKey);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -186,7 +202,7 @@ function BallPythonBuilderContent() {
     humidityIds.includes("sphagnum-moss") &&
     humidityIds.includes("hygrometer") &&
     (humidityIds.includes("pressure-sprayer") || humidityIds.includes("auto-mister"));
-  const hasWaterBowl = waterIds.includes("large-water-bowl");
+  const hasWaterBowl = waterIds.includes("water-bowl");
   const hasTempGun = monitoringIds.includes("temp-gun");
 
   const selectedEnclosure = ENCLOSURES.find((e) => e.id === enclosureId);
@@ -197,6 +213,10 @@ function BallPythonBuilderContent() {
   const selectedHides = HIDES.filter((h) => hideIds.includes(h.id));
   const selectedWater = WATER.filter((w) => waterIds.includes(w.id));
   const selectedMonitoring = MONITORING.filter((m) => monitoringIds.includes(m.id));
+  const selectedFeeding = FEEDING.filter((f) => feedingIds.includes(f.id));
+
+  const requiredHides = HIDES.filter((h) => REQUIRED_HIDE_IDS.includes(h.id));
+  const enrichmentHides = HIDES.filter((h) => ENRICHMENT_HIDE_IDS.includes(h.id));
 
   const allSelectedItems = useMemo(() => [
     selectedEnclosure,
@@ -207,7 +227,8 @@ function BallPythonBuilderContent() {
     ...selectedHides,
     ...selectedWater,
     ...selectedMonitoring,
-  ].filter(Boolean), [selectedEnclosure, selectedSubstrate, selectedHeating, selectedUvb, selectedHumidity, selectedHides, selectedWater, selectedMonitoring]);
+    ...selectedFeeding,
+  ].filter(Boolean), [selectedEnclosure, selectedSubstrate, selectedHeating, selectedUvb, selectedHumidity, selectedHides, selectedWater, selectedMonitoring, selectedFeeding]);
 
   const amazonCartUrl = useMemo(
     () => buildAmazonCartUrl(allSelectedItems, AFFILIATE_TAG),
@@ -225,7 +246,8 @@ function BallPythonBuilderContent() {
     humidity: hasHumidityCore,
     hides: hasRequiredHides,
     water: hasWaterBowl && hasTempGun,
-  }), [experience, enclosureId, hasThermostat, hasPrimaryHeat, uvbId, substrateId, hasHumidityCore, hasRequiredHides, hasWaterBowl, hasTempGun]);
+    feeding: feedingIds.length > 0,
+  }), [experience, enclosureId, hasThermostat, hasPrimaryHeat, uvbId, substrateId, hasHumidityCore, hasRequiredHides, hasWaterBowl, hasTempGun, feedingIds.length]);
 
   const progress = useMemo(() => {
     const steps = Object.values(sectionCompletion);
@@ -241,6 +263,7 @@ function BallPythonBuilderContent() {
     humidity: !sectionCompletion.substrate,
     hides: !sectionCompletion.humidity,
     water: !sectionCompletion.hides,
+    feeding: !sectionCompletion.water,
   }), [experience, sectionCompletion]);
 
   const allRequirementsMet =
@@ -258,6 +281,7 @@ function BallPythonBuilderContent() {
       humidity: "Humidity tools added",
       hides: "Essential hides added",
       water: "Water & monitoring added",
+      feeding: "Feeding items added",
     },
   });
 
@@ -276,6 +300,7 @@ function BallPythonBuilderContent() {
     setHideIds([]);
     setWaterIds([]);
     setMonitoringIds([]);
+    setFeedingIds([]);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -289,6 +314,7 @@ function BallPythonBuilderContent() {
     hides: hideIds.join(","),
     water: waterIds.join(","),
     monitoring: monitoringIds.join(","),
+    feeding: feedingIds.join(","),
   });
 
   const copyBuildLink = () => {
@@ -467,14 +493,25 @@ function BallPythonBuilderContent() {
                 Warm, cool, and humid hides are all required.
               </div>
             )}
+            <p className="text-xs font-black text-amber-400 uppercase tracking-widest mb-3 border-b border-amber-500/20 pb-2">
+              Required Hides
+            </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {HIDES.map((h) => (
+              {requiredHides.map((h) => (
+                <OptionCard key={h.id} item={h} active={hideIds.includes(h.id)} onClick={() => { setHideIds(toggle(hideIds, h.id)); setToast({ title: "Added", msg: `+ $${(h.price || 0).toFixed(2)}` }); }} />
+              ))}
+            </div>
+            <p className="text-xs font-black text-slate-400 uppercase tracking-widest mb-3 mt-6 border-b border-slate-500/20 pb-2">
+              Optional Enrichment
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {enrichmentHides.map((h) => (
                 <OptionCard key={h.id} item={h} active={hideIds.includes(h.id)} onClick={() => { setHideIds(toggle(hideIds, h.id)); setToast({ title: "Added", msg: `+ $${(h.price || 0).toFixed(2)}` }); }} />
               ))}
             </div>
           </Section>
 
-          <Section title="8. Water & Monitoring" icon={<Zap />} description="Large soaking bowl plus an infrared temp gun. Warm hide 90-95°F, cool side 75-80°F." sectionId="water" isCompleted={sectionCompletion.water} isLocked={isSectionLocked.water} sectionRef={(el) => { if (el) sectionRefs.current.water = el; }} isSectionLocked={isSectionLocked} scrollToSection={scrollToSection} theme="emerald">
+          <Section title="8. Water & Monitoring" icon={<Droplets />} description="Large soaking bowl plus an infrared temp gun. Warm hide 90-95°F, cool side 75-80°F." sectionId="water" isCompleted={sectionCompletion.water} isLocked={isSectionLocked.water} sectionRef={(el) => { if (el) sectionRefs.current.water = el; }} nextSectionId="feeding" nextSectionTitle="Feeding" isSectionLocked={isSectionLocked} scrollToSection={scrollToSection} theme="emerald">
             {(!hasWaterBowl || !hasTempGun) && (
               <div className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl text-amber-100 text-sm">
                 A soaking water bowl and temperature gun are required.
@@ -497,6 +534,30 @@ function BallPythonBuilderContent() {
                   />
                 );
               })}
+            </div>
+          </Section>
+
+          <Section title="9. Feeding" icon={<Zap />} description="Ball pythons eat frozen/thawed rodents. Select the appropriate prey size for your snake's weight. Feeding tongs are required — never hand-feed." sectionId="feeding" isCompleted={sectionCompletion.feeding} isLocked={isSectionLocked.feeding} sectionRef={(el) => { if (el) sectionRefs.current.feeding = el; }} isSectionLocked={isSectionLocked} scrollToSection={scrollToSection} theme="emerald">
+            <p className="text-sm text-slate-300 mb-4">
+              Select ONE prey size appropriate for your snake. Prey should be approximately the same width as the widest part of the snake&apos;s body.
+            </p>
+            {!sectionCompletion.feeding && (
+              <div className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl text-amber-100 text-sm">
+                Add feeding tongs and a prey size before generating your build.
+              </div>
+            )}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {FEEDING.map((f) => (
+                <OptionCard
+                  key={f.id}
+                  item={f}
+                  active={feedingIds.includes(f.id)}
+                  onClick={() => {
+                    setFeedingIds(toggleFeeding(feedingIds, f.id));
+                    setToast({ title: "Added", msg: `+ $${(f.price || 0).toFixed(2)}` });
+                  }}
+                />
+              ))}
             </div>
           </Section>
         </div>
@@ -527,7 +588,7 @@ function BallPythonBuilderContent() {
             <p className="text-amber-200/90 text-sm">
               {!hasThermostat
                 ? "A thermostat is required before you can generate a summary."
-                : "Complete all required sections (enclosure, overhead heat + thermostat, UVB, substrate, humidity tools, 3 hides, water bowl, and temp gun) to generate your build."}
+                : "Complete all required sections (enclosure, overhead heat + thermostat, UVB, substrate, humidity tools, 3 hides, water bowl, temp gun, and feeding) to generate your build."}
             </p>
           )}
         </div>

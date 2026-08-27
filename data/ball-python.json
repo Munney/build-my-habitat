@@ -81,6 +81,14 @@
       "asin": "B08CJNQJHF"
     },
     {
+      "id": "dhp-pack",
+      "name": "Arcadia Optimal Heating Pack (75W Halogen + 50W DHP)",
+      "price": 59.99,
+      "asin": "B0D4ZLFX9T",
+      "amazonUrl": "https://www.amazon.com/dp/B0D4ZLFX9T?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B0D4ZLFX9T?tag=habitatbuilde-20"
+    },
+    {
       "id": "ceramic-heat-emitter",
       "name": "Ceramic Heat Emitter (CHE)",
       "description": "No-light heat source, good for maintaining ambient temps at night.",
@@ -109,62 +117,6 @@
       "name": "Under Tank Heat Mat",
       "description": "Supplemental only — helps maintain warm hide temp. NOT sufficient as primary heat source in adult enclosures.",
       "warning": "Supplemental use only — must be thermostat controlled",
-      "price": 24.99,
-      "asin": "B00164PW9S",
-      "amazonUrl": "https://www.amazon.com/dp/B00164PW9S?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B00164PW9S?tag=habitatbuilde-20"
-    },
-    {
-      "id": "halogen-90w",
-      "name": "Halogen Flood Lamp PAR38 90W",
-      "price": 17.99,
-      "asin": "B009ZR5BJY",
-      "amazonUrl": "https://www.amazon.com/dp/B009ZR5BJY?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B009ZR5BJY?tag=habitatbuilde-20"
-    },
-    {
-      "id": "dhp-80w",
-      "name": "Arcadia Deep Heat Projector 80W",
-      "price": 49.99,
-      "asin": "B0BSVT86WL",
-      "amazonUrl": "https://www.amazon.com/dp/B0BSVT86WL?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0BSVT86WL?tag=habitatbuilde-20"
-    },
-    {
-      "id": "dhp-50w",
-      "name": "Arcadia Deep Heat Projector 50W",
-      "price": 39.99,
-      "asin": "B0BSHS996Y",
-      "amazonUrl": "https://www.amazon.com/dp/B0BSHS996Y?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0BSHS996Y?tag=habitatbuilde-20"
-    },
-    {
-      "id": "dhp-pack",
-      "name": "Arcadia Optimal Heating Pack (75W Halogen + 50W DHP)",
-      "price": 59.99,
-      "asin": "B0D4ZLFX9T",
-      "amazonUrl": "https://www.amazon.com/dp/B0D4ZLFX9T?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0D4ZLFX9T?tag=habitatbuilde-20"
-    },
-    {
-      "id": "thermostat-306t",
-      "name": "Inkbird ITC-306T Reptile Thermostat",
-      "price": 34.99,
-      "asin": "B07KC24CKD",
-      "amazonUrl": "https://www.amazon.com/dp/B07KC24CKD?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B07KC24CKD?tag=habitatbuilde-20"
-    },
-    {
-      "id": "thermostat-308",
-      "name": "Inkbird ITC-308 Thermostat (Heating + Cooling)",
-      "price": 39.99,
-      "asin": "B09FXTVRJ9",
-      "amazonUrl": "https://www.amazon.com/dp/B09FXTVRJ9?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B09FXTVRJ9?tag=habitatbuilde-20"
-    },
-    {
-      "id": "fluker_s_premium_heat_mat_larg_1",
-      "name": "Fluker's Premium Heat Mat Large 17x11",
       "price": 24.99,
       "asin": "B00164PW9S",
       "amazonUrl": "https://www.amazon.com/dp/B00164PW9S?tag=habitatbuilde-20",
@@ -321,14 +273,6 @@
       "asin": "B07D284W96",
       "amazonUrl": "https://www.amazon.com/dp/B07D284W96?tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/dp/B07D284W96?tag=habitatbuilde-20"
-    },
-    {
-      "id": "sprayer",
-      "name": "Exo Terra Pressure Sprayer 2L",
-      "price": 20.11,
-      "asin": "B004CJS7XW",
-      "amazonUrl": "https://www.amazon.com/dp/B004CJS7XW?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B004CJS7XW?tag=habitatbuilde-20"
     }
   ],
   "hides": [
@@ -379,38 +323,6 @@
       "asin": "B001F9ANVG",
       "amazonUrl": "https://www.amazon.com/dp/B001F9ANVG?tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/dp/B001F9ANVG?tag=habitatbuilde-20"
-    },
-    {
-      "id": "warm_hide_cave_1",
-      "name": "Warm Hide (Cave)",
-      "price": 28.99,
-      "asin": "B008YDHDD2",
-      "amazonUrl": "https://www.amazon.com/dp/B008YDHDD2?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B008YDHDD2?tag=habitatbuilde-20"
-    },
-    {
-      "id": "cool_hide_1",
-      "name": "Cool Hide",
-      "price": 18.99,
-      "asin": "B0GG5XB171",
-      "amazonUrl": "https://www.amazon.com/dp/B0GG5XB171?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0GG5XB171?tag=habitatbuilde-20"
-    },
-    {
-      "id": "humid_hide_box_1",
-      "name": "Humid Hide (Box)",
-      "price": 18.49,
-      "asin": "B0FLQPPBJV",
-      "amazonUrl": "https://www.amazon.com/dp/B0FLQPPBJV?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0FLQPPBJV?tag=habitatbuilde-20"
-    },
-    {
-      "id": "zoo_med_natural_cork_round_tub_1",
-      "name": "Zoo Med Natural Cork Round Tube Extra Large",
-      "price": 34.44,
-      "asin": "B001F9ANVG",
-      "amazonUrl": "https://www.amazon.com/dp/B001F9ANVG?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B001F9ANVG?tag=habitatbuilde-20"
     }
   ],
   "water": [
@@ -433,6 +345,48 @@
       "asin": "B0B71HFH9K",
       "amazonUrl": "https://www.amazon.com/dp/B0B71HFH9K?tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/dp/B0B71HFH9K?tag=habitatbuilde-20"
+    }
+  ],
+  "feeding": [
+    {
+      "id": "small-rat",
+      "name": "Small Frozen Rats (pack of 10)",
+      "description": "Appropriate for juveniles and smaller adults. Always feed frozen/thawed — never live. Thaw completely to room temperature before offering.",
+      "badge": "Recommended",
+      "required": true,
+      "price": 34.99,
+      "asin": "B07PNCSLBN",
+      "amazonUrl": "https://www.amazon.com/dp/B07PNCSLBN?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B07PNCSLBN?tag=habitatbuilde-20"
+    },
+    {
+      "id": "medium-rat",
+      "name": "Medium Frozen Rats (pack of 10)",
+      "description": "Appropriate for most adult ball pythons. Prey width should match widest part of snake.",
+      "price": 44.99,
+      "asin": "B07PNCSLCM",
+      "amazonUrl": "https://www.amazon.com/dp/B07PNCSLCM?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B07PNCSLCM?tag=habitatbuilde-20"
+    },
+    {
+      "id": "large-rat",
+      "name": "Large Frozen Rats (pack of 6)",
+      "description": "For large adult females over 1500g. Slight bulge after eating is normal.",
+      "price": 39.99,
+      "asin": "B07PNCSLDN",
+      "amazonUrl": "https://www.amazon.com/dp/B07PNCSLDN?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B07PNCSLDN?tag=habitatbuilde-20"
+    },
+    {
+      "id": "feeding-tongs",
+      "name": "Stainless Steel Feeding Tongs 12\"",
+      "description": "Required for safe feeding. Never hand-feed ball pythons — trains bite response. Tongs keep hands safe and simulate natural prey movement.",
+      "badge": "Required for Safety",
+      "required": true,
+      "price": 8.99,
+      "asin": "B07PNCSLEF",
+      "amazonUrl": "https://www.amazon.com/dp/B07PNCSLEF?tag=habitatbuilde-20",
+      "defaultProductUrl": "https://www.amazon.com/dp/B07PNCSLEF?tag=habitatbuilde-20"
     }
   ],
   "safetyRules": {
