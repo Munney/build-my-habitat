@@ -109,7 +109,7 @@
   "ball-python": {
     "budget": {
       "name": "Budget Setup",
-      "description": "Essential items for a safe juvenile ball python habitat (~$250-350)",
+      "description": "Essential items for a safe juvenile ball python habitat (~$450-500)",
       "experience": "beginner",
       "enclosureId": "40gal",
       "heatingIds": ["thermostat"],
@@ -128,7 +128,7 @@
     },
     "premium": {
       "name": "Premium Setup",
-      "description": "Complete adult setup with 4x2x2, DHP, UVB, and bioactive substrate (~$500-700)",
+      "description": "Complete adult setup with 4x2x2, DHP, UVB, and bioactive substrate (~$800-850)",
       "experience": "experienced",
       "enclosureId": "pvc4x2x2",
       "heatingIds": ["thermostat"],
@@ -152,7 +152,7 @@
   "crested-gecko": {
     "budget": {
       "name": "Budget Setup",
-      "description": "Essential items for a safe crested gecko habitat (~$200-300)",
+      "description": "Essential items for a safe crested gecko habitat (~$450-500)",
       "experience": "beginner",
       "enclosureId": "18x18x24",
       "heatingIds": ["thermostat"],
@@ -165,7 +165,7 @@
     },
     "premium": {
       "name": "Premium Setup",
-      "description": "Complete setup with taller enclosure, UVB, bioactive substrate, and live plants (~$400-550)",
+      "description": "Complete setup with taller enclosure, UVB, bioactive substrate, and live plants (~$600-650)",
       "experience": "experienced",
       "enclosureId": "18x18x36",
       "heatingIds": ["thermostat", "dimmer"],
