@@ -514,8 +514,8 @@ export function calculateCrestedGeckoHabitatScore(selections) {
   checks.push({ key: "uvb", label: "UVB lighting", passed: uvbPoints >= 7, points: uvbPoints, maxPoints: uvbMax, message: uvbMessage });
 
   const humidity = selections?.humidity || [];
-  const hasHygrometer = humidity.some((h) => h && h.id === "hygrometer");
-  const hasMister = humidity.some((h) => h && (h.id === "spray-bottle" || h.id === "auto-mister"));
+  const hasHygrometer = humidity.some((h) => h && (h.id === "hygrometer" || String(h.id).includes("hygrometer")));
+  const hasMister = humidity.some((h) => h && h.id === "spray-bottle");
   const humidMax = 15;
   let humidPoints = 0;
   let humidMessage;
@@ -524,7 +524,7 @@ export function calculateCrestedGeckoHabitatScore(selections) {
     humidMessage = "Humidity tools selected. Spike to 80%+ twice daily, then dry to 40-50%.";
   } else if (humidity.length > 0) {
     humidPoints = 6;
-    humidMessage = "Add a hygrometer and a sprayer or automatic mister for wet/dry cycling.";
+    humidMessage = "Add a hygrometer and spray bottle for wet/dry cycling.";
     if (!hasHygrometer) missingEssentials.push("Hygrometer");
     if (!hasMister) missingEssentials.push("Misting tool");
   } else {

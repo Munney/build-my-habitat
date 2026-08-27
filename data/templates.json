@@ -157,7 +157,7 @@
       "heatingIds": ["dimmer"],
       "uvbId": "shadedweller-kit",
       "lightingIds": ["led-full-spectrum", "timer"],
-      "humidityIds": ["auto-mister", "hygrometer", "sphagnum-moss"],
+      "humidityIds": ["spray-bottle", "hygrometer"],
       "decorIds": ["cork-tube", "coconut-hide", "climbing-vines", "branches", "live-plants"],
       "supplementIds": ["cgd-repashy", "calcium-no-d3"]
     }

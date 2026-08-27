@@ -199,9 +199,9 @@ function CrestedGeckoBuilderContent() {
   const hasD3WithUvb = hasUvb && supplementIds.includes("calcium-d3");
   const hasCgd = supplementIds.some((id) => CGD_IDS.has(id));
   const hasRequiredDecor = REQUIRED_DECOR_IDS.every((id) => decorIds.includes(id));
-  const hasHumidityCore =
-    humidityIds.includes("hygrometer") &&
-    (humidityIds.includes("spray-bottle") || humidityIds.includes("auto-mister"));
+  const hasHumidityComplete =
+    humidityIds.includes("spray-bottle") &&
+    humidityIds.some((id) => id.includes("hygrometer"));
   const hasTimer = lightingIds.includes("timer");
 
   const selectedEnclosure = ENCLOSURES.find((e) => e.id === enclosureId);
@@ -237,10 +237,10 @@ function CrestedGeckoBuilderContent() {
     heating: hasHeatControl,
     uvb: !!uvbId && hasTimer,
     substrate: !!substrateId,
-    humidity: hasHumidityCore,
+    humidity: hasHumidityComplete,
     decor: hasRequiredDecor,
     supplements: hasCgd,
-  }), [experience, enclosureId, hasHeatControl, uvbId, hasTimer, substrateId, hasHumidityCore, hasRequiredDecor, hasCgd]);
+  }), [experience, enclosureId, hasHeatControl, uvbId, hasTimer, substrateId, hasHumidityComplete, hasRequiredDecor, hasCgd]);
 
   const progress = useMemo(() => {
     const steps = Object.values(sectionCompletion);
@@ -483,7 +483,7 @@ function CrestedGeckoBuilderContent() {
                 Add a timer to automate a 12–14 hour light cycle.
               </div>
             )}
-            <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">UVB</p>
+            <p className="text-sm font-black text-emerald-400 uppercase tracking-widest mb-3 mt-6 flex items-center gap-2 border-b border-emerald-500/20 pb-2">UVB</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
               {UVB.map((u) => (
                 <OptionCard
@@ -497,7 +497,7 @@ function CrestedGeckoBuilderContent() {
                 />
               ))}
             </div>
-            <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Daylight & timer</p>
+            <p className="text-sm font-black text-emerald-400 uppercase tracking-widest mb-3 mt-6 flex items-center gap-2 border-b border-emerald-500/20 pb-2">DAYLIGHT & TIMER</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {LIGHTING.map((l) => (
                 <OptionCard
@@ -530,9 +530,9 @@ function CrestedGeckoBuilderContent() {
           </Section>
 
           <Section title="6. Humidity Tools" icon={<Droplets />} description="Spike to 80%+ twice daily, then dry to 40-50%. Constant high humidity causes respiratory infection." sectionId="humidity" isCompleted={sectionCompletion.humidity} isLocked={isSectionLocked.humidity} sectionRef={(el) => { if (el) sectionRefs.current.humidity = el; }} nextSectionId="decor" nextSectionTitle="Decor & Enrichment" isSectionLocked={isSectionLocked} scrollToSection={scrollToSection} theme="emerald">
-            {!hasHumidityCore && (
+            {!hasHumidityComplete && (
               <div className="mb-4 p-4 bg-amber-500/20 border border-amber-500/50 rounded-xl text-amber-100 text-sm">
-                Add a hygrometer and a sprayer or automatic mister for wet/dry cycling.
+                Add a hygrometer and spray bottle for wet/dry cycling.
               </div>
             )}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
