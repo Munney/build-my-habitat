@@ -55,8 +55,7 @@ function resolveBeardedDragonTemplateToSize(template) {
 
   const heatingIdMap = {
     halogen_100w: is120 ? "halogen_100w" : "halogen_100w",
-    halogen_150w: "halogen_150w",
-    che_100w: "che_100w",
+    ceramic_heat: "ceramic_heat",
     thermostat: "thermostat",
   };
   const resolvedHeatingIds = (template.heatingIds || []).map((id) => heatingIdMap[id] ?? id);
@@ -343,7 +342,7 @@ function BeardedDragonBuilderContent() {
   }, []);
 
   const hasThermostat = heatingIds.includes("thermostat");
-  const hasBasking = heatingIds.some((id) => id.startsWith("halogen_") || id.startsWith("che_"));
+  const hasBasking = heatingIds.some((id) => id.startsWith("halogen_") || id === "ceramic_heat");
   const hasUvb = lightingIds.some((id) => id.startsWith("uvb_t5") || id.startsWith("uvb"));
   const blockedSubstrateIds = useMemo(() => new Set([
     "reptile_carpet",
