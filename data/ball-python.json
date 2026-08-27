@@ -34,32 +34,6 @@
       "size": 120,
       "amazonUrl": "https://www.amazon.com/dp/B0BQP7S859?tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/dp/B0BQP7S859?tag=habitatbuilde-20"
-    },
-    {
-      "id": "pvc4x4x2",
-      "name": "4x4x2 PVC Enclosure",
-      "dimensions": "48\"L x 48\"W x 24\"H",
-      "note": "Extra floor space for larger females",
-      "price": 499.99,
-      "asin": "B09WQMK2LP",
-      "size": 120
-    },
-    {
-      "id": "40_gallon_breeder_tank_1",
-      "name": "40 Gallon Breeder Tank",
-      "price": 189.99,
-      "size": 40,
-      "asin": "B09MQBB6CP",
-      "amazonUrl": "https://www.amazon.com/dp/B09MQBB6CP?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B09MQBB6CP?tag=habitatbuilde-20"
-    },
-    {
-      "id": "zen-4x2x2",
-      "name": "Zen Habitats 4x2x2 Reptile Enclosure 3.0 (PVC)",
-      "price": 349.99,
-      "asin": "B0DHYNB46R",
-      "amazonUrl": "https://www.amazon.com/dp/B0DHYNB46R?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0DHYNB46R?tag=habitatbuilde-20"
     }
   ],
   "heating": [
@@ -167,15 +141,6 @@
       "note": "Mix well, soak until muddy, pack firmly, dry overnight before introducing snake"
     },
     {
-      "id": "bio-dude-terra-firma",
-      "name": "Bio Dude Terra Firma",
-      "description": "Premium pre-mixed bioactive substrate. Ideal for bioactive setups.",
-      "badge": "Best for Bioactive",
-      "depth": "4\" minimum",
-      "price": 44.99,
-      "asin": "B07NPKZVVL"
-    },
-    {
       "id": "coconut-fiber",
       "name": "Zoo Med Eco Earth (Coconut Fiber)",
       "description": "Holds humidity well but can get stuck in heat pits. Better as part of a mix.",
@@ -226,15 +191,6 @@
       "type": "inert",
       "amazonSearchUrl": "https://www.amazon.com/s?k=Play%20Sand%2050lb%20(20%25%20of%20mix%20%E2%80%94%20buy%20at%20Home%20Depot%2FLowes)%20reptile&tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/s?k=Play%20Sand%2050lb%20(20%25%20of%20mix%20%E2%80%94%20buy%20at%20Home%20Depot%2FLowes)%20reptile&tag=habitatbuilde-20"
-    },
-    {
-      "id": "zoo_med_eco_earth_coconut_fibe_1",
-      "name": "Zoo Med Eco Earth Coconut Fiber",
-      "price": 29.76,
-      "type": "inert",
-      "asin": "B00U67QUJM",
-      "amazonUrl": "https://www.amazon.com/dp/B00U67QUJM?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B00U67QUJM?tag=habitatbuilde-20"
     }
   ],
   "humidity": [
