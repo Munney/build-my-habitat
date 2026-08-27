@@ -42,7 +42,7 @@
       "defaultProductUrl": "https://www.amazon.com/dp/B08C93ZGPJ?tag=habitatbuilde-20"
     },
     {
-      "id": "under_tank_heater_mat_30_40_ga_1",
+      "id": "under_tank_heater_mat_30_40_ga",
       "label": "Under Tank Heater (Mat) (30-40 gallon)",
       "price": 19.99,
       "asin": "B08C93ZGPJ",
@@ -58,7 +58,7 @@
       "defaultProductUrl": "https://www.amazon.com/dp/B0B55TLWFD?tag=habitatbuilde-20"
     },
     {
-      "id": "halogen_flood_lamp_2_pack_75w__1",
+      "id": "halogen_flood_lamp_2_pack_75w__2",
       "label": "Halogen Flood Lamp (2 pack - 75W) 40 Gallon tank",
       "price": 15.99,
       "asin": "B0B55T7946",
@@ -66,7 +66,7 @@
       "defaultProductUrl": "https://www.amazon.com/dp/B0B55T7946?tag=habitatbuilde-20"
     },
     {
-      "id": "halogen_flood_lamp_2_pack_100w_1",
+      "id": "halogen_flood_lamp_2_pack_100w_2",
       "label": "Halogen Flood Lamp (2 pack - 100W) 120 Gallon Tank",
       "price": 15.99,
       "asin": "B0B55TLWFD",
@@ -82,7 +82,7 @@
       "defaultProductUrl": "https://www.amazon.com/dp/B096TS3YN3?tag=habitatbuilde-20"
     },
     {
-      "id": "deep_heat_projector_dhp_2_pack_3",
+      "id": "deep_heat_projector_dhp_2_pack_5",
       "label": "Deep Heat Projector (DHP) (2 pack) 75W 40 Gallon Tank",
       "price": 15.99,
       "asin": "B096TTB7B3",
@@ -90,7 +90,7 @@
       "defaultProductUrl": "https://www.amazon.com/dp/B096TTB7B3?tag=habitatbuilde-20"
     },
     {
-      "id": "deep_heat_projector_dhp_2_pack_4",
+      "id": "deep_heat_projector_dhp_2_pack_6",
       "label": "Deep Heat Projector (DHP) (2 pack) 100W 120 Gallon Tank",
       "price": 16.99,
       "asin": "B096TS3YN3",
@@ -115,7 +115,7 @@
       "defaultProductUrl": "https://www.amazon.com/dp/B0BPSM1X5N?tag=habitatbuilde-20"
     },
     {
-      "id": "shadedweller_uvb_kit_24w_22_in_1",
+      "id": "shadedweller_uvb_kit_24w_22_in_2",
       "label": "ShadeDweller UVB Kit (24W, 22 inch) 40 Gallon Tank",
       "price": 41.09,
       "asin": "B0BLVLTFZN",
@@ -123,108 +123,12 @@
       "defaultProductUrl": "https://www.amazon.com/dp/B0BLVLTFZN?tag=habitatbuilde-20"
     },
     {
-      "id": "shadedweller_uvb_kit_39w_34_in_1",
+      "id": "shadedweller_uvb_kit_39w_34_in_2",
       "label": "ShadeDweller UVB Kit (39W, 34 inch) 120 Gallon Tank",
       "price": 49.99,
       "asin": "B0BPSM1X5N",
       "amazonUrl": "https://www.amazon.com/dp/B0BPSM1X5N?tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/dp/B0BPSM1X5N?tag=habitatbuilde-20"
-    },
-    {
-      "id": "halogen-90w",
-      "label": "Halogen Flood Lamp PAR38 90W",
-      "price": 17.99,
-      "asin": "B009ZR5BJY",
-      "amazonUrl": "https://www.amazon.com/dp/B009ZR5BJY?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B009ZR5BJY?tag=habitatbuilde-20"
-    },
-    {
-      "id": "dhp-80w",
-      "label": "Arcadia Deep Heat Projector 80W",
-      "price": 49.99,
-      "asin": "B0BSVT86WL",
-      "amazonUrl": "https://www.amazon.com/dp/B0BSVT86WL?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0BSVT86WL?tag=habitatbuilde-20"
-    },
-    {
-      "id": "dhp-50w",
-      "label": "Arcadia Deep Heat Projector 50W",
-      "price": 39.99,
-      "asin": "B0BSHS996Y",
-      "amazonUrl": "https://www.amazon.com/dp/B0BSHS996Y?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0BSHS996Y?tag=habitatbuilde-20"
-    },
-    {
-      "id": "dhp-pack",
-      "label": "Arcadia Optimal Heating Pack (75W Halogen + 50W DHP)",
-      "price": 59.99,
-      "asin": "B0D4ZLFX9T",
-      "amazonUrl": "https://www.amazon.com/dp/B0D4ZLFX9T?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0D4ZLFX9T?tag=habitatbuilde-20"
-    },
-    {
-      "id": "thermostat-306t",
-      "label": "Inkbird ITC-306T Reptile Thermostat",
-      "price": 34.99,
-      "asin": "B07KC24CKD",
-      "amazonUrl": "https://www.amazon.com/dp/B07KC24CKD?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B07KC24CKD?tag=habitatbuilde-20"
-    },
-    {
-      "id": "thermostat-308",
-      "label": "Inkbird ITC-308 Thermostat (Heating + Cooling)",
-      "price": 39.99,
-      "asin": "B09FXTVRJ9",
-      "amazonUrl": "https://www.amazon.com/dp/B09FXTVRJ9?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B09FXTVRJ9?tag=habitatbuilde-20"
-    },
-    {
-      "id": "halogen-25w",
-      "label": "REPTI ZOO 25W Daylight Basking Bulb",
-      "price": 14.99,
-      "asin": "B0FF42ZTKW",
-      "amazonUrl": "https://www.amazon.com/dp/B0FF42ZTKW?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0FF42ZTKW?tag=habitatbuilde-20"
-    },
-    {
-      "id": "halogen-35w",
-      "label": "Arcadia Golden Basking Halogen Lamp 35W",
-      "price": 17.99,
-      "asin": "B0DJRKGZN9",
-      "amazonUrl": "https://www.amazon.com/dp/B0DJRKGZN9?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0DJRKGZN9?tag=habitatbuilde-20"
-    },
-    {
-      "id": "ceramic-heat-emitter",
-      "label": "Zoo Med Ceramic Heat Emitter 40W",
-      "price": 23.38,
-      "asin": "B075LNBF1Q",
-      "amazonUrl": "https://www.amazon.com/dp/B075LNBF1Q?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B075LNBF1Q?tag=habitatbuilde-20"
-    },
-    {
-      "id": "dimmer",
-      "label": "Lutron Credenza Plug-In Lamp Dimmer 300W",
-      "price": 14.99,
-      "asin": "B0000BYEF6",
-      "amazonUrl": "https://www.amazon.com/dp/B0000BYEF6?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0000BYEF6?tag=habitatbuilde-20"
-    },
-    {
-      "id": "thermostat_inkbird_itc_306t_dimming_therm",
-      "label": "Inkbird ITC-306T Dimming Thermostat",
-      "price": 34.99,
-      "asin": "B07KC24CKD",
-      "amazonUrl": "https://www.amazon.com/dp/B07KC24CKD?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B07KC24CKD?tag=habitatbuilde-20"
-    },
-    {
-      "id": "heat-mat",
-      "label": "Fluker's Premium Heat Mat Large 17x11",
-      "price": 24.99,
-      "asin": "B00164PW9S",
-      "amazonUrl": "https://www.amazon.com/dp/B00164PW9S?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B00164PW9S?tag=habitatbuilde-20"
     }
   ],
   "substrates": [
@@ -402,63 +306,11 @@
       "asin": "B0CRDQH522",
       "amazonUrl": "https://www.amazon.com/dp/B0CRDQH522?tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/dp/B0CRDQH522?tag=habitatbuilde-20"
-    },
-    {
-      "id": "topsoil_organic_topsoil_40_of_mix_buy_",
-      "label": "Organic Topsoil (40% of mix — buy at Home Depot/Lowes)",
-      "price": 8.99,
-      "type": "inert",
-      "amazonSearchUrl": "https://www.amazon.com/s?k=Organic%20Topsoil%20(40%25%20of%20mix%20%E2%80%94%20buy%20at%20Home%20Depot%2FLowes)%20reptile&tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/s?k=Organic%20Topsoil%20(40%25%20of%20mix%20%E2%80%94%20buy%20at%20Home%20Depot%2FLowes)%20reptile&tag=habitatbuilde-20"
-    },
-    {
-      "id": "reptisoil",
-      "label": "Zoo Med ReptiSoil 24qt (40% of mix)",
-      "price": 14.99,
-      "type": "inert",
-      "asin": "B01M7RZFYI",
-      "amazonUrl": "https://www.amazon.com/dp/B01M7RZFYI?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B01M7RZFYI?tag=habitatbuilde-20"
-    },
-    {
-      "id": "playsand",
-      "label": "Play Sand 50lb (20% of mix — buy at Home Depot/Lowes)",
-      "price": 9.99,
-      "type": "inert",
-      "amazonSearchUrl": "https://www.amazon.com/s?k=Play%20Sand%2050lb%20(20%25%20of%20mix%20%E2%80%94%20buy%20at%20Home%20Depot%2FLowes)%20reptile&tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/s?k=Play%20Sand%2050lb%20(20%25%20of%20mix%20%E2%80%94%20buy%20at%20Home%20Depot%2FLowes)%20reptile&tag=habitatbuilde-20"
-    },
-    {
-      "id": "eco-earth",
-      "label": "Zoo Med Eco Earth Coconut Fiber",
-      "price": 29.76,
-      "type": "inert",
-      "asin": "B00U67QUJM",
-      "amazonUrl": "https://www.amazon.com/dp/B00U67QUJM?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B00U67QUJM?tag=habitatbuilde-20"
-    },
-    {
-      "id": "cypress-mulch",
-      "label": "Zoo Med Forest Floor Cypress Mulch",
-      "price": 32.98,
-      "type": "inert",
-      "asin": "B0010OVM7A",
-      "amazonUrl": "https://www.amazon.com/dp/B0010OVM7A?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0010OVM7A?tag=habitatbuilde-20"
-    },
-    {
-      "id": "bioactive-mix",
-      "label": "Bio Dude Terra Fauna Bioactive Substrate",
-      "price": 29.99,
-      "type": "inert",
-      "asin": "B07MZLXF24",
-      "amazonUrl": "https://www.amazon.com/dp/B07MZLXF24?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B07MZLXF24?tag=habitatbuilde-20"
     }
   ],
   "hides": [
     {
-      "id": "warmhide",
+      "id": "warm-hide",
       "label": "Warm Hide (Cave)",
       "price": 14.99,
       "asin": "B008YDHDD2",
@@ -475,7 +327,7 @@
       "amazonUrl": "https://www.amazon.com/dp/B0DK6D4CWJ?tag=habitatbuilde-20"
     },
     {
-      "id": "humidhide",
+      "id": "humid-hide",
       "label": "Humid Hide (Box)",
       "price": 23.99,
       "asin": "B0F1TVP46X",
@@ -515,30 +367,6 @@
       "asin": "B0CLY5WZ4S",
       "amazonUrl": "https://www.amazon.com/dp/B0CLY5WZ4S?tag=habitatbuilde-20",
       "defaultProductUrl": "https://www.amazon.com/dp/B0CLY5WZ4S?tag=habitatbuilde-20"
-    },
-    {
-      "id": "cool-hide",
-      "label": "Cool Hide",
-      "price": 18.99,
-      "asin": "B0GG5XB171",
-      "amazonUrl": "https://www.amazon.com/dp/B0GG5XB171?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0GG5XB171?tag=habitatbuilde-20"
-    },
-    {
-      "id": "cork-log",
-      "label": "Cork Log / Cork Rounds",
-      "price": 34.44,
-      "asin": "B001F9ANVG",
-      "amazonUrl": "https://www.amazon.com/dp/B001F9ANVG?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B001F9ANVG?tag=habitatbuilde-20"
-    },
-    {
-      "id": "climbing-branch",
-      "label": "Zoo Med Natural Cork Round Tube Extra Large",
-      "price": 34.44,
-      "asin": "B001F9ANVG",
-      "amazonUrl": "https://www.amazon.com/dp/B001F9ANVG?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B001F9ANVG?tag=habitatbuilde-20"
     }
   ],
   "supplements": [
@@ -570,62 +398,6 @@
       "defaultProductUrl": "https://www.amazon.com/dp/B0D6CT1Q5Q?tag=habitatbuilde-20",
       "asin": "B0D6CT1Q5Q",
       "amazonUrl": "https://www.amazon.com/dp/B0D6CT1Q5Q?tag=habitatbuilde-20"
-    },
-    {
-      "id": "cgd-repashy",
-      "label": "Repashy Crested Gecko Diet 5.3oz",
-      "price": 14.99,
-      "asin": "B0053IWKX4",
-      "amazonUrl": "https://www.amazon.com/dp/B0053IWKX4?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0053IWKX4?tag=habitatbuilde-20"
-    },
-    {
-      "id": "cgd-repashy-mango",
-      "label": "Repashy Crested Gecko Diet Mango Superblend 3oz",
-      "price": 12.99,
-      "asin": "B0D84ZL6Q9",
-      "amazonUrl": "https://www.amazon.com/dp/B0D84ZL6Q9?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0D84ZL6Q9?tag=habitatbuilde-20"
-    },
-    {
-      "id": "multivitamin_repashy_calcium_plus_3oz",
-      "label": "Repashy Calcium Plus 3oz",
-      "price": 16.99,
-      "asin": "B0CP4FD8GX",
-      "amazonUrl": "https://www.amazon.com/dp/B0CP4FD8GX?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0CP4FD8GX?tag=habitatbuilde-20"
-    },
-    {
-      "id": "calcium-no-d3",
-      "label": "Zoo Med Repti Calcium Without D3",
-      "price": 8.99,
-      "asin": "B001OROQ8U",
-      "amazonUrl": "https://www.amazon.com/dp/B001OROQ8U?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B001OROQ8U?tag=habitatbuilde-20"
-    },
-    {
-      "id": "calcium-d3",
-      "label": "Zoo Med Repti Calcium With D3",
-      "price": 8.99,
-      "asin": "B0002DHPEO",
-      "amazonUrl": "https://www.amazon.com/dp/B0002DHPEO?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0002DHPEO?tag=habitatbuilde-20"
-    },
-    {
-      "id": "calcium-lod",
-      "label": "Repashy Calcium Plus LoD 3oz",
-      "price": 15.99,
-      "asin": "B0D6SP118Q",
-      "amazonUrl": "https://www.amazon.com/dp/B0D6SP118Q?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B0D6SP118Q?tag=habitatbuilde-20"
-    },
-    {
-      "id": "cgd-pangea",
-      "label": "Pangea Gecko Diet with Fig & Insects 2oz",
-      "price": 9.99,
-      "asin": "B07K1KH7J9",
-      "amazonUrl": "https://www.amazon.com/dp/B07K1KH7J9?tag=habitatbuilde-20",
-      "defaultProductUrl": "https://www.amazon.com/dp/B07K1KH7J9?tag=habitatbuilde-20"
     }
   ],
   "feeding": [
