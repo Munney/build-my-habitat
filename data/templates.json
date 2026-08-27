@@ -109,57 +109,72 @@
   "ball-python": {
     "budget": {
       "name": "Budget Setup",
-      "description": "Essential items for a safe juvenile ball python habitat (~$250–350)",
+      "description": "Essential items for a safe juvenile ball python habitat (~$250-350)",
       "experience": "beginner",
       "enclosureId": "40gal",
-      "substrateId": "paper-towels",
-      "heatingIds": ["halogen-flood", "thermostat"],
-      "uvbId": "no-uvb",
-      "humidityIds": ["sphagnum-moss", "hygrometer", "pressure-sprayer"],
+      "heatingIds": ["thermostat"],
+      "heatingVariants": {
+        "Halogen Flood Heat Bulb (100w PAR38)": {
+          "id": "halogen-flood"
+        }
+      },
+      "uvbIds": ["no-uvb"],
+      "substrateIds": ["paper-towels"],
+      "humidityIds": ["pressure-sprayer", "sphagnum-moss", "hygrometer"],
       "hideIds": ["warm-hide", "cool-hide", "humid-hide"],
       "waterIds": ["water-bowl"],
-      "monitoringIds": ["temp-gun"]
+      "monitoringIds": ["temp-gun"],
+      "feedingIds": ["small-rat", "feeding-tongs"]
     },
     "premium": {
       "name": "Premium Setup",
-      "description": "Complete adult setup with 4×2×2, DHP, UVB, and bioactive substrate (~$500–700)",
+      "description": "Complete adult setup with 4x2x2, DHP, UVB, and bioactive substrate (~$500-700)",
       "experience": "experienced",
       "enclosureId": "pvc4x2x2",
-      "substrateId": "diy-mix",
-      "heatingIds": ["deep-heat-projector", "thermostat"],
-      "uvbId": "uvb-t5-6pct",
-      "humidityIds": ["sphagnum-moss", "hygrometer", "auto-mister"],
-      "hideIds": ["warm-hide", "cool-hide", "humid-hide"],
+      "heatingIds": ["thermostat"],
+      "heatingVariants": {
+        "Arcadia Deep Heat Projector": {
+          "id": "deep-heat-projector"
+        },
+        "Arcadia Optimal Heating Pack (75W Halogen + 50W DHP)": {
+          "id": "dhp-pack"
+        }
+      },
+      "uvbIds": ["uvb-t5-6pct"],
+      "substrateIds": ["diy-mix"],
+      "humidityIds": ["pressure-sprayer", "sphagnum-moss", "hygrometer"],
+      "hideIds": ["warm-hide", "cool-hide", "humid-hide", "cork-log", "climbing-branch"],
       "waterIds": ["water-bowl"],
-      "monitoringIds": ["temp-gun"]
+      "monitoringIds": ["temp-gun"],
+      "feedingIds": ["medium-rat", "feeding-tongs"]
     }
   },
   "crested-gecko": {
     "budget": {
       "name": "Budget Setup",
-      "description": "Essential items for a safe crested gecko habitat (~$200–300)",
+      "description": "Essential items for a safe crested gecko habitat (~$200-300)",
       "experience": "beginner",
       "enclosureId": "18x18x24",
-      "substrateId": "eco-earth",
-      "heatingIds": ["dimmer"],
-      "uvbId": "no-uvb",
+      "heatingIds": ["thermostat"],
+      "uvbIds": ["shadedweller-kit"],
       "lightingIds": ["timer"],
+      "substrateIds": ["eco-earth"],
       "humidityIds": ["spray-bottle", "hygrometer"],
-      "decorIds": ["cork-tube", "coconut-hide", "climbing-vines", "branches"],
-      "supplementIds": ["cgd-repashy"]
+      "decorIds": ["cork-tube", "coconut-hide", "climbing-vines", "fake-plants"],
+      "supplementIds": ["cgd-repashy", "calcium-no-d3"]
     },
     "premium": {
       "name": "Premium Setup",
-      "description": "Complete setup with taller enclosure, UVB, bioactive substrate, and live plants (~$400–550)",
+      "description": "Complete setup with taller enclosure, UVB, bioactive substrate, and live plants (~$400-550)",
       "experience": "experienced",
       "enclosureId": "18x18x36",
-      "substrateId": "bioactive-mix",
-      "heatingIds": ["dimmer"],
-      "uvbId": "shadedweller-kit",
+      "heatingIds": ["thermostat", "dimmer"],
+      "uvbIds": ["shadedweller-kit"],
       "lightingIds": ["led-full-spectrum", "timer"],
-      "humidityIds": ["spray-bottle", "hygrometer"],
-      "decorIds": ["cork-tube", "coconut-hide", "climbing-vines", "branches", "live-plants"],
-      "supplementIds": ["cgd-repashy", "calcium-no-d3"]
+      "substrateIds": ["bioactive-mix"],
+      "humidityIds": ["spray-bottle", "hygrometer", "sphagnum-moss"],
+      "decorIds": ["cork-tube", "coconut-hide", "climbing-vines", "branches", "live-plants", "feeding-ledge", "feeding-cups"],
+      "supplementIds": ["cgd-repashy", "cgd-pangea", "calcium-lod"]
     }
   }
 }

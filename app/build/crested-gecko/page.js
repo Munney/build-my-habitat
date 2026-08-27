@@ -178,9 +178,11 @@ function CrestedGeckoBuilderContent() {
   const applyTemplate = (template, templateKey) => {
     if (template.experience) setExperience(template.experience);
     if (template.enclosureId) setEnclosureId(template.enclosureId);
-    if (template.substrateId) setSubstrateId(template.substrateId);
+    const substrateIdFromTemplate = template.substrateIds?.[0] ?? template.substrateId;
+    if (substrateIdFromTemplate) setSubstrateId(substrateIdFromTemplate);
     if (template.heatingIds) setHeatingIds(template.heatingIds);
-    if (template.uvbId) setUvbId(template.uvbId);
+    const uvbFromTemplate = template.uvbIds?.[0] ?? template.uvbId;
+    if (uvbFromTemplate) setUvbId(uvbFromTemplate);
     if (template.lightingIds) setLightingIds(template.lightingIds);
     if (template.humidityIds) setHumidityIds(template.humidityIds);
     if (template.decorIds) setDecorIds(template.decorIds);

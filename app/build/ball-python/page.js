@@ -180,9 +180,17 @@ function BallPythonBuilderContent() {
   const applyTemplate = (template, templateKey) => {
     if (template.experience) setExperience(template.experience);
     if (template.enclosureId) setEnclosureId(template.enclosureId);
-    if (template.substrateId) setSubstrateId(template.substrateId);
-    if (template.heatingIds) setHeatingIds(template.heatingIds);
-    if (template.uvbId) setUvbId(template.uvbId);
+    const substrateIdFromTemplate = template.substrateIds?.[0] ?? template.substrateId;
+    if (substrateIdFromTemplate) setSubstrateId(substrateIdFromTemplate);
+    const heatingFromTemplate = [...(template.heatingIds || [])];
+    if (template.heatingVariants) {
+      heatingFromTemplate.push(
+        ...Object.values(template.heatingVariants).map((v) => v.id).filter(Boolean)
+      );
+    }
+    if (heatingFromTemplate.length) setHeatingIds(heatingFromTemplate);
+    const uvbFromTemplate = template.uvbIds?.[0] ?? template.uvbId;
+    if (uvbFromTemplate) setUvbId(uvbFromTemplate);
     if (template.humidityIds) setHumidityIds(template.humidityIds);
     if (template.hideIds) setHideIds(template.hideIds);
     if (template.waterIds) setWaterIds(template.waterIds);
